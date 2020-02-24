@@ -1,0 +1,9 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+wp.acmeedesign.com	TRUE	/bookstore/	FALSE	1999999999	yith_woocompare_list	a%3A12%3A%7Bi%3A0%3Bi%3A75%3Bi%3A1%3Bi%3A76%3Bi%3A2%3Bi%3A86%3Bi%3A3%3Bi%3A78%3Bi%3A4%3Bi%3A91%3Bi%3A5%3Bi%3A74%3Bi%3A6%3Bi%3A87%3Bi%3A7%3Bi%3A92%3Bi%3A8%3Bi%3A88%3Bi%3A9%3Bi%3A73%3Bi%3A10%3Bi%3A8%3Bi%3A11%3Bi%3A90%3B%7D
+wp.acmeedesign.com	TRUE	/bookstore/	FALSE	1999999999	yith_wcwl_products	%5B%7B%22prod_id%22%3A%2275%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2276%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2286%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2278%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2291%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2274%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2287%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2292%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2288%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2273%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%228%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%2C%7B%22prod_id%22%3A%2290%22%2C%22quantity%22%3A1%2C%22wishlist_id%22%3Afalse%7D%5D
+wp.acmeedesign.com	TRUE	/bookstore/	FALSE	1999999999	woocommerce_items_in_cart	1
+wp.acmeedesign.com	TRUE	/bookstore/	FALSE	1999999999	woocommerce_cart_hash	096d8ed214e9fb30e213a224ed219456
+wp.acmeedesign.com	TRUE	/bookstore/	FALSE	1999999999	wp_woocommerce_session_ec3dec82240e73d6c0ca452b346968e6	74f5a4811a695a6e3cbc8c7f0a39938a%7C%7C1581694181%7C%7C1581690581%7C%7C2f5ae1cd2ef1ce2e87fd8fd04094335f
+wp.acmeedesign.com	TRUE	/	FALSE	1999999999	PHPSESSID	qq885nd6m3smgai52oe0l8qad7
+
