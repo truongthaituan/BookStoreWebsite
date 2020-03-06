@@ -1,0 +1,1566 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<style>
+    #yith-quick-view-modal .yith-wcqv-main {
+        background: #ffffff
+    }
+    
+    #yith-quick-view-close {
+        color: #cdcdcd
+    }
+    
+    #yith-quick-view-close:hover {
+        color: #ff0000
+    }
+</style>
+
+<style>
+    .wishlist_table .add_to_cart,
+    a.add_to_wishlist.button.alt {
+        border-radius: 16px;
+        -moz-border-radius: 16px;
+        -webkit-border-radius: 16px;
+    }
+</style>
+<style type="text/css">
+    img.wp-smiley,
+    img.emoji {
+        display: inline !important;
+        border: none !important;
+        box-shadow: none !important;
+        height: 1em !important;
+        width: 1em !important;
+        margin: 0 .07em !important;
+        vertical-align: -0.1em !important;
+        background: none !important;
+        padding: 0 !important;
+    }
+</style>
+
+<style id='bookstore-custom-styles-inline-css' type='text/css'>
+    body {
+        color: #666666;
+        font-family: Roboto Slab;
+        font-weight: 400;
+        line-height: 30px;
+    }
+    
+    .read-more {
+        color: #27ae61 !important;
+    }
+    
+    .read-more:hover {
+        color: #229955 !important;
+    }
+    
+    .btn-link:after {
+        background: #229955 !important;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #323232;
+        font-family: Roboto Slab;
+    }
+    
+    .topbar {
+        background-color: #F5F5F5;
+        color: #999999;
+    }
+    
+    .topbar .nav>li.current_page_item a,
+    .topbar .nav>li.current-menu-item a {
+        color: #27ae61;
+    }
+    
+    .topbar .nav>li a:hover {
+        color: #27ae61;
+    }
+    
+    .topbar .nav>li a {
+        color: #999999;
+        border-color: #27ae61;
+    }
+    
+    .topbar i {
+        color: #27ae61;
+    }
+    
+    .header {
+        background-color: #ffffff;
+    }
+    
+    .bks-cart-widget .currency-switcher .dd-select {
+        background: #ffffff !important;
+    }
+    
+    .bks-cart-widget .currency-switcher,
+    .bks-cart-widget .minicart-button {
+        border-color: #e4e4e4;
+    }
+    
+    .bks-cart-widget .currency-switcher a,
+    .bks-cart-widget .minicart-button .cart-item-info a {
+        color: #323232;
+    }
+    
+    .bks-cart-widget .dd-pointer-down {
+        border-top-color: #323232;
+    }
+    
+    .bks-cart-widget .currency-switcher .dd-options {
+        background: #ffffff;
+    }
+    
+    .bks-cart-widget .currency-switcher ul.dd-options li:hover {
+        background: #27ae61;
+    }
+    
+    .bks-cart-widget .currency-switcher ul.dd-options a {
+        color: #323232;
+    }
+    
+    .bks-cart-widget .currency-switcher ul.dd-options li:hover a {
+        color: #ffffff;
+    }
+    
+    .main-menu,
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a {
+        background: #27ae61;
+        color: #ffffff;
+        font-family: Roboto Slab;
+        font-size: 13px;
+    }
+    
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a:hover {
+        color: #ffffff;
+    }
+    
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-ancestor>a,
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-parent>a,
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-page-item>a {
+        color: #ffffff;
+    }
+    
+    .main-menu .vc-nav-on-desktop>li:hover>a.nav-link {
+        background: #229955;
+    }
+    
+    .main-menu .vc-nav-on-desktop>li.current-menu-item>a.nav-link,
+    .main-menu vc-nav-on-desktop>li.current_page_item>a.nav-link {
+        background: #229955;
+    }
+    
+    .main-menu .vc-mm-mega-cont,
+    .main-menu .sub-menu,
+    .main-menu .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont-inner {
+        background-color: #ffffff !important;
+    }
+    
+    .main-menu .vc-mm-mega-cont li a,
+    .sub-menu-inner li a.nav-link,
+    .vc-mm-menu a,
+    .vc-mm-menu li a {
+        color: #262626;
+    }
+    
+    .main-menu .vc-mm-mega-cont li a:hover,
+    .main-menu ul.sub-menu-inner li a:hover,
+    .main-menu .vc-mm-mega-cont li a:hover,
+    .main-menu .vc-mm-mega-cont-inner li.current-menu-parent a {
+        color: #27ae61 !important;
+    }
+    
+    .main-menu .vc-mm-mega-cont ul li {
+        border-color: #e5e5e5 !important;
+    }
+    
+    body.boxed-layout {
+        background-color: #e5e5e5;
+        background-image: url();
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-size: cover;
+    }
+    
+    .product-header {
+        background: url(../../assets/img/01/title.jpg);
+        background-color: #e5e5e5;
+    }
+    
+    .page-header {
+        background: url(../../assets/img/02/Bookshelf-1200.jpg);
+        background-color: #555555;
+    }
+    
+    .btn-primary,
+    #back-to-top .btn {
+        background-color: #27ae61 !important;
+        border-color: #27ae61 !important;
+        color: #ffffff !important;
+    }
+    
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active:focus,
+    .btn-primary:active:hover,
+    #back-to-top .btn:hover,
+    #back-to-top .btn:active,
+    #back-to-top .btn:focus {
+        background-color: #229955 !important;
+        border-color: #229955;
+        color: #ffffff !important;
+    }
+    
+    .product-wrap .add-to-cart-btn a,
+    .product-wrap .yith_compare_btn a,
+    .product-wrap .yith-wcwl-add-to-wishlist a,
+    .yith-wcwl-add-to-wishlist .woocommerce a.add_to_wishlist,
+    .product .single_add_to_cart_button,
+    div.product .summary .yith-wcwl-add-to-wishlist a,
+    .woocommerce div.product .summary .compare,
+    .woocommerce div.product .woocommerce-tabs ul.tabs li.active,
+    .gridlist-toggle a:hover,
+    .gridlist-toggle a.active,
+    .woocommerce #respond input#submit.alt,
+    .woocommerce a.button.alt,
+    .woocommerce button.button.alt,
+    .woocommerce input.button.alt,
+    .woocommerce #respond input#submit,
+    .woocommerce a.button,
+    .woocommerce button.button,
+    .woocommerce input.button,
+    .main-menu .vc-mm-h-sticky-wrapper.is-sticky .vc-transparent.vc-mm-menu-h,
+    .main-menu .vc-nav-on-mobile,
+    ul.post-categories li a,
+    .main-menu .vc-mm-mega-cont h3:hover,
+    .main-menu .vc-mm-mega-cont h4:hover,
+    .main-menu .vc-mm-mega-cont h5:hover,
+    #bks-products-slider .vc_tta.vc_general li.vc_active a {
+        background-color: #27ae61 !important;
+        color: #ffffff !important;
+    }
+    
+    .product-wrap .add-to-cart-btn a:hover,
+    .woocommerce button.single_add_to_cart_button:hover,
+    .product-wrap .add-to-cart-btn a.added,
+    .product-wrap .yith_compare_btn a:hover,
+    .product-wrap .yith-wcwl-add-to-wishlist a:hover,
+    .product-wrap .yith-wcwl-wishlistaddedbrowse.show a,
+    .product-wrap .yith-wcwl-wishlistexistsbrowse.show a,
+    .product .single_add_to_cart_button:hover,
+    div.product .summary .yith-wcwl-add-to-wishlist a:hover,
+    .woocommerce div.product .summary .compare:hover,
+    .yith-wcwl-wishlistaddedbrowse.show,
+    .yith-wcwl-wishlistexistsbrowse.show,
+    .catalog-image .yith-wcqv-button {
+        background-color: #229955 !important;
+        color: #ffffff !important;
+    }
+    
+    .woocommerce #content div.product div.thumbnails a:hover,
+    .woocommerce div.product div.thumbnails a:hover,
+    .woocommerce-page #content div.product div.thumbnails a:hover,
+    .woocommerce-page div.product div.thumbnails a:hover,
+    .woocommerce .woocommerce-info,
+    .product-wrap:hover,
+    .main-menu .vc-mm-mega-cont h3,
+    .main-menu .vc-mm-mega-cont h4,
+    .main-menu .vc-mm-mega-cont h5,
+    .woocommerce .woocommerce-message,
+    .bks-product-list-wrap .bks-products-list-container li:hover,
+    .main-menu .vc-mm-mega-cont .wpb_wrapper h3 {
+        border-color: #27ae61;
+    }
+    
+    .woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+        border: 2px solid #27ae61;
+    }
+    
+    #bks-products-slider .vc_tta-tabs-container ul li.vc_active:after {
+        border-color: #27ae61 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    }
+    
+    .woocommerce .widget_price_filter .ui-slider .ui-slider-range,
+    .bks-post-slider .post-grid .post-content .post-date {
+        background-color: #27ae61 !important;
+    }
+    
+    .woocommerce .widget_price_filter .ui-slider .ui-slider-handle {
+        border: 2px solid #27ae61;
+    }
+    
+    .gridlist-toggle a {
+        color: #27ae61;
+        border: 2px solid #27ae61;
+    }
+    
+    .bks-post-slider .post-grid .post-content .post-date:after {
+        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #27ae61 rgba(0, 0, 0, 0);
+    }
+    
+    .woocommerce .woocommerce-info:before,
+    .single .post-meta .author a,
+    .woocommerce .woocommerce-message:before,
+    .read-more,
+    .bks-product-list-wrap .bks-products-list-container li .product-content .amount,
+    .slick-dots li.slick-active button:before,
+    .product-wrap span.price {
+        color: #27ae61!important;
+    }
+    
+    ul.post-categories li a:after {
+        border-right-color: #27ae61;
+    }
+    
+    .pagination>.active>a,
+    .pagination>.active>span,
+    .pagination>.active>a,
+    .pagination>.active>a:focus,
+    .pagination>.active>a:hover,
+    .pagination>.active>span,
+    .pagination>.active>span:focus,
+    .pagination>.active>span:hover {
+        background-color: #27ae61 !important;
+        border: 2px solid #27ae61 !important;
+        color: #ffffff !important;
+    }
+    
+    @media only screen and (max-width:768px) {
+        .vc-mm-menu-h .vc-nav-on-desktop,
+        .vc-mm-menu-v .vc-nav-on-desktop,
+        .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont,
+        .vc-mm-menu-v .vc-nav-on-desktop .vc-mm-mega-cont {}
+    }
+    
+    @media only screen and (max-width:768px) {
+        .vc-mm-menu-h .vc-nav-on-desktop>li:hover>a,
+        .vc-mm-menu-v .vc-nav-on-desktop>li:hover>a {
+            background-color: #229955 !important;
+            color: #ffffff !important;
+        }
+        .vc-mm-menu-h .vc-nav-on-desktop .vc-d-0>.nav-link,
+        .vc-mm-menu-v .vc-nav-on-desktop .vc-d-0>.nav-link,
+        .vc-mm-menu-h .vc-mm-child-title,
+        .vc-mm-menu-v .vc-mm-child-title {
+            border-color: #229955 !important;
+        }
+    }
+    
+    .read-more:hover {
+        color: #229955;
+    }
+    
+    .woocommerce div.product .woocommerce-tabs ul.tabs li {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+    }
+    
+    .bks-cart-widget .minicart-button {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+        border-left: 0px;
+    }
+    
+    .bks-promo {
+        background-color: #B7A930;
+    }
+    
+    body .social-links li a .social-icon {
+        background: #24a9e2;
+        color: #ffffff;
+    }
+    
+    body .social-links li a .social-icon:hover,
+    body .social-links li a .social-icon:focus {
+        background: #1e73be;
+        color: #ffffff;
+    }
+    
+    body .social-links li .social-icon,
+    .social-icon:after {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }
+</style>
+
+<style type="text/css" data-type="vc_shortcodes-custom-css">
+    .vc_custom_1454662051521 {
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
+    }
+    
+    .vc_custom_1454597513538 {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+    
+    .vc_custom_1454683539961 {
+        margin-top: 0px !important;
+        margin-right: 0px !important;
+        margin-bottom: 3px !important;
+        margin-left: 0px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        background-color: #27ae61 !important;
+    }
+    
+    .vc_custom_1454754526304 {
+        padding-top: 60px !important;
+        padding-bottom: 30px !important;
+    }
+    
+    .vc_custom_1454685996679 {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+        background: #424242 url(../../assets/img/01/ada9a09acea936d776a6f55c82778c43_XLf41b.jpg?id=10) !important;
+    }
+    
+    .vc_custom_1454679052819 {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+    
+    .vc_custom_1454597724991 {
+        margin-top: 0px !important;
+        margin-right: 0px !important;
+        margin-bottom: 0px !important;
+        margin-left: 0px !important;
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+        background-color: #f5f5f5 !important;
+    }
+    
+    .vc_custom_1456470598040 {
+        margin-top: 0px !important;
+        margin-right: 0px !important;
+        margin-bottom: 0px !important;
+        margin-left: 0px !important;
+        padding-top: 30px !important;
+        padding-right: 30px !important;
+        padding-bottom: 30px !important;
+        padding-left: 30px !important;
+        background-color: #27ae61 !important;
+    }
+    
+    .vc_custom_1454686431101 {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    
+    .vc_custom_1454686645519 {
+        margin-top: 30px !important;
+        border-bottom-width: 30px !important;
+    }
+    
+    .vc_custom_1454829417282 {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        padding-top: 0px !important;
+    }
+    
+    .vc_custom_1454830425190 {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        padding-right: 150px !important;
+    }
+    
+    .vc_custom_1454830469549 {
+        padding-top: 30px !important;
+        padding-left: 90px !important;
+    }
+</style>
+
+<body class="home page page-id-31 page-template page-template-page-blank page-template-page-blank-php wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
+    <div class="wrapper">
+        <!-- TOPBAR -->
+        <div id="topbar" class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 text-left header-address">
+                        <i class="fa fa-map-marker"></i> Kha Vạn Cân, Thủ Đức, TP. Hồ Chí Minh <i class="fa fa-mobile"> 
+                        </i> 0773749328 </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 text-right header-quick-links">
+                        <ul id="menu" class="nav  nav-pills nav-stacked">
+                            <li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26">
+                                <button id="about" style="background-color: transparent;border-color: transparent;">Cửa Hàng</button>
+                            </li>
+                            <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
+                                <button id="login" (click)="moveToAccount();" style="background-color: transparent;border-color:
+                                 transparent;">Đăng Nhập / Đăng Ký</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //TOPBAR -->
+
+        <!-- HEADER -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-xs-12 col-sm-6 col-lg-8 col-md-6 logo">
+                        <div class="site-logo">
+                            <a href="/" title="Book Store">
+                                <img class="logo-img" src="../../assets/img/01/logo_green.png" alt="Book Store" />
+                            </a>
+                        </div>
+                    </div>
+                    <!-- //LOGO -->
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                        <!-- bks-cart-widget -->
+                        <div class="bks-cart-widget right">
+
+                            <div class="currency-switcher pull-left">
+
+
+                                <form method="post" action="#" class="woocommerce-currency-switcher-form " style="color: #000;">
+                                    <input type="hidden" name="woocommerce-currency-switcher" value="USD" />
+                                    <select name="woocommerce-currency-switcher" style="width: 100px;" data-width="100px"
+                                     data-flag-position="right" class="woocommerce-currency-switcher" onchange="woocs_redirect(this.value);
+                void(0);">
+                    
+                
+                <option  value="USD"  selected='selected' data-imagesrc="" data-icon="" data-description="USA dollar">USD, &#36;</option>
+            
+                
+                <option  value="EUR"  data-imagesrc="" data-icon="" data-description="Europian Euro">EUR, &euro;</option>
+                    </select>
+                                    <div style="display: none;">WOOCS 1.1.5.1</div>
+                                </form>
+
+                            </div>
+
+                            <div class="mini-cart pull-right">
+                                <div class="minicart-button">
+                                    <span class="cart-item-info jb-cart-section">                                        
+                                     <button (click)="moveToCartBook();" style="background-color: transparent;
+                                     border-color: transparent;color: #000;">Giỏ Hàng<i class="fa fa-shopping-bag"></i></button>
+                                 <a class='cart-content' href='cart/index.html' title='View your shopping cart'><span class='cart_items'>0</span></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //bks-cart-widget -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- //HEADER -->
+        <!-- MAIN NAVIGATION -->
+        <nav class="main-menu affix-top" data-spy="affix" data-offset-top="110">
+            <div class="container">
+                <div id="vc-nav-id-16-wrapper" class=" vc-mm-menu-h  vc-mm-h-layout-5 vc-mm-container  vc-transparent ">
+                    <ul id="vc-nav-id-16-mobile" class="vc-nav-on-mobile vc-mm-menu">
+                        <li class="vc-menu-item  mobile-btn"><a class="nav-link" href="index.html"><i class="fa fa-home"></i></a> </li>
+                        <li class="vc-menu-item vc-mm-mobile-toggle">
+                            <a href="#" class="nav-link vc-mm-mobile-toggle-btn"><i class="fa fa-bars"></i></a>
+                            <h3 class="vc-mm-child-title lv-0">
+                                <span>Main Menu</span>
+                                <a class="vc-close" href="#"></a>
+                            </h3>
+                        </li>
+                    </ul>
+                    <ul id="vc-nav-id-16" data-menu-type="h" class="vc-nav-on-desktop vc-mm-menu">
+                        <li class="vc-menu-item vc-mm-mobile-toggle">
+                            <a href="#" class="nav-link vc-mm-mobile-toggle-btn"><i class="fa fa-bars"></i></a>
+                            <h3 class="vc-mm-child-title lv-0">
+                                <span>Main Menu</span>
+                                <a class="vc-close" href="#"></a>
+                            </h3>
+                        </li>
+                        <li id="menu-item-30" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home current-menu-ancestor current-menu-parent menu-item-has-children menu-item-30 vc-menu-item vc-d-0 vc-mm-layout-full">
+                            <a href="http://wp.acmeedesign.com/bookstore" class="nav-link"><span class="vc-label">Trang Chủ</span></a>
+                            <div class='sub-menu'>
+                                <ul class="sub-menu-inner">
+                                    <li id="menu-item-376" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-376 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="http://wp.acmeedesign.com/bookstore" class="nav-link">
+                                        <span class="vc-label">Home Style 1</span></a></li>
+                                    <li id="menu-item-377" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-377 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="http://wp.acmeedesign.com/bookstore2" class="nav-link"><span class="vc-label">Home Style 2</span></a></li>
+                                    <li id="menu-item-378" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-378 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="http://wp.acmeedesign.com/bookstore3" class="nav-link"><span class="vc-label">Home Style 3</span></a></li>
+                                    <li id="menu-item-379" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-379 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="http://wp.acmeedesign.com/bookstore4" class="nav-link"><span class="vc-label">Home Style 4</span></a></li>
+                                    <li id="menu-item-380" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-380 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="http://wp.acmeedesign.com/bookstore5" class="nav-link"><span class="vc-label">Home Style 5</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="menu-item-118" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-118 vc-menu-item vc-d-0 vc-mm-mega vc-mm-align-default vc-mm-layout-full" data-mm-settings="{&quot;layout&quot;:&quot;full&quot;,&quot;width&quot;:&quot;&quot;}"><a href="#" class="nav-link"><span class="vc-label">Text Books</span></a>
+                            <div class="vc-mm-mega-cont">
+                                <div class="vc-mm-mega-cont-inner">
+                                    <div class="vc_row wpb_row vc_row-fluid">
+                                        <div class="page-container">
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner vc_custom_1454743982508">
+                                                    <div class="wpb_wrapper">
+                                                        <h3 style="text-align: left" class="vc_custom_heading">Novel</h3>
+                                                        <div class="vc_wp_custommenu wpb_content_element">
+                                                            <div class="widget widget_nav_menu">
+                                                                <div class="menu-novel-container">
+                                                                    <ul id="menu-novel" class="menu">
+                                                                        <li id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120"><a href="product-category/romance/index.html">Romance</a></li>
+                                                                        <li id="menu-item-121" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-121"><a href="product-category/fantasy/index.html">Fantasy</a></li>
+                                                                        <li id="menu-item-122" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-122"><a href="product-category/thrillers/index.html">Thrillers</a></li>
+                                                                        <li id="menu-item-123" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-123"><a href="product-category/science-fiction/index.html">Science Fiction</a></li>
+                                                                        <li id="menu-item-124" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-124"><a href="product-category/historical-fiction/index.html">Historical Fiction</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner vc_custom_1454743993099">
+                                                    <div class="wpb_wrapper">
+                                                        <h3 style="text-align: left" class="vc_custom_heading">Business</h3>
+                                                        <div class="vc_wp_custommenu wpb_content_element">
+                                                            <div class="widget widget_nav_menu">
+                                                                <div class="menu-business-container">
+                                                                    <ul id="menu-business" class="menu">
+                                                                        <li id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125"><a href="product-category/budgeting-and-finance/index.html">Budgeting and Finance</a></li>
+                                                                        <li id="menu-item-126" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-126"><a href="product-category/creative-thinking/index.html">Creative Thinking</a></li>
+                                                                        <li id="menu-item-127" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-127"><a href="product-category/personal-finance/index.html">Personal Finance</a></li>
+                                                                        <li id="menu-item-128" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-128"><a href="product-category/people-management/index.html">People Management</a></li>
+                                                                        <li id="menu-item-129" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-129"><a href="product-category/sales-and-marketting/index.html">Sales and Marketting</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner ">
+                                                    <div class="wpb_wrapper">
+                                                        <div class=''>
+                                                            <div class='dis-bottom-left'>
+                                                                <div class='dis-bottom-left-img'><img src='../../assets/img/01/home-1-text-book.jpg' alt='TEXT BOOKS'>
+                                                                    <div class='dis-bottom-left-content'>
+                                                                        <div class='dis-bottom-left-text'>
+                                                                            <h6 style='color:#323232'>SHOP CATEGORY</h6>
+                                                                            <h2 style='color:#27ae61'>TEXT BOOKS</h2><button (click)='moveToBookCategory();' style='color:#212121' class='btn-link'>Shop Now <em class='fa fa-long-arrow-right'></em></button></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="menu-item-136" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-136 vc-menu-item vc-d-0 vc-mm-mega vc-mm-align-default vc-mm-layout-full" data-mm-settings="{&quot;layout&quot;:&quot;full&quot;,&quot;width&quot;:&quot;&quot;}"><a href="#" class="nav-link"><span class="vc-label">E-Books</span></a>
+                            <div class="vc-mm-mega-cont">
+                                <div class="vc-mm-mega-cont-inner">
+                                    <div class="vc_row wpb_row vc_row-fluid">
+                                        <div class="page-container">
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner vc_custom_1454746439857">
+                                                    <div class="wpb_wrapper">
+                                                        <h3 style="text-align: left" class="vc_custom_heading">HEALTH AND BEAUTY</h3>
+                                                        <div class="vc_wp_custommenu wpb_content_element">
+                                                            <div class="widget widget_nav_menu">
+                                                                <div class="menu-health-and-beauty-container">
+                                                                    <ul id="menu-health-and-beauty" class="menu">
+                                                                        <li id="menu-item-143" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-143"><a href="product-category/budgeting-and-finance/index.html">Budgeting and Finance</a></li>
+                                                                        <li id="menu-item-144" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-144"><a href="product-category/creative-thinking/index.html">Creative Thinking</a></li>
+                                                                        <li id="menu-item-145" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-145"><a href="product-category/personal-finance/index.html">Personal Finance</a></li>
+                                                                        <li id="menu-item-146" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-146"><a href="product-category/people-management/index.html">People Management</a></li>
+                                                                        <li id="menu-item-147" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-147"><a href="product-category/sales-and-marketting/index.html">Sales and Marketting</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner vc_custom_1454746449744">
+                                                    <div class="wpb_wrapper">
+                                                        <h3 style="text-align: left" class="vc_custom_heading">HISTORY</h3>
+                                                        <div class="vc_wp_custommenu wpb_content_element">
+                                                            <div class="widget widget_nav_menu">
+                                                                <div class="menu-history-container">
+                                                                    <ul id="menu-history" class="menu">
+                                                                        <li id="menu-item-138" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-138"><a href="product-category/creative-thinking/index.html">Creative Thinking</a></li>
+                                                                        <li id="menu-item-139" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-139"><a href="product-category/personal-finance/index.html">Personal Finance</a></li>
+                                                                        <li id="menu-item-140" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-140"><a href="product-category/thrillers/index.html">Thrillers</a></li>
+                                                                        <li id="menu-item-141" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-141"><a href="product-category/science-fiction/index.html">Science Fiction</a></li>
+                                                                        <li id="menu-item-142" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-142"><a href="product-category/historical-fiction/index.html">Historical Fiction</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner ">
+                                                    <div class="wpb_wrapper">
+                                                        <div class=''>
+                                                            <div class='dis-bottom-left'>
+                                                                <div class='dis-bottom-left-img'><img src='../../assets/img/02/home-1-ebook.jpg' alt='E-BOOKS'>
+                                                                    <div class='dis-bottom-left-content'>
+                                                                        <div class='dis-bottom-left-text'>
+                                                                            <h6 style='color:#323232'>SHOP CATEGORY</h6>
+                                                                            <h2 style='color:#27ae61'>E-BOOKS</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Shop Now <em class='fa fa-long-arrow-right'></em></a></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="menu-item-29" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-29 vc-menu-item vc-d-0 vc-mm-layout-full"><a href="shop/index.html" class="nav-link"><span class="vc-label">Shop</span></a></li>
+                        <li id="menu-item-151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-151 vc-menu-item vc-d-0 vc-mm-layout-full"><a href="#" class="nav-link"><span class="vc-label">Features</span></a>
+                            <div class='sub-menu'>
+                                <ul class="sub-menu-inner">
+                                    <li id="menu-item-402" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-402 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="tabbed-products-slider/index.html" class="nav-link"><span class="vc-label">Tabbed products slider</span></a></li>
+                                    <li id="menu-item-405" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-405 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="featured-products/index.html" class="nav-link"><span class="vc-label">Featured Products</span></a></li>
+                                    <li id="menu-item-403" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-403 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="recent-products/index.html" class="nav-link"><span class="vc-label">Recent Products</span></a></li>
+                                    <li id="menu-item-401" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-401 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="typography/index.html" class="nav-link"><span class="vc-label">Typography</span></a></li>
+                                    <li id="menu-item-404" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-404 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="google-map/index.html" class="nav-link"><span class="vc-label">Google map</span></a></li>
+                                    <li id="menu-item-406" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-406 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="faq/index.html" class="nav-link"><span class="vc-label">FAQ</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="menu-item-150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-150 vc-menu-item vc-d-0 vc-mm-layout-full"><a href="#" class="nav-link"><span class="vc-label">Pages</span></a>
+                            <div class='sub-menu'>
+                                <ul class="sub-menu-inner">
+                                    <li id="menu-item-322" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-322 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="about-us/index.html" class="nav-link"><span class="vc-label">About Us</span></a></li>
+                                    <li id="menu-item-323" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-323 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="blog/index.html" class="nav-link"><span class="vc-label">Blog</span></a></li>
+                                    <li id="menu-item-321" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-321 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="sidebar-left/index.html" class="nav-link"><span class="vc-label">Sidebar Left</span></a></li>
+                                    <li id="menu-item-320" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-320 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="sidebar-right/index.html" class="nav-link"><span class="vc-label">Sidebar Right</span></a></li>
+                                    <li id="menu-item-319" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-319 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="faq/index.html" class="nav-link"><span class="vc-label">FAQ</span></a></li>
+                                    <li id="menu-item-318" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-318 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="contact-us/index.html" class="nav-link"><span class="vc-label">Contact Us</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <!-- //MAIN NAVIGATION -->
+
+        <!-- Slide show -->
+        <div class="product-header bks-breadcrumb">
+            <div class="container">
+                <h1>Trang Chủ</h1>
+                <ul class="breadcrumb clearfix">
+
+                </ul>
+            </div>
+        </div>
+
+        <div id="content" role="main" style="margin-top: 111px;">
+            <div class="vc_row wpb_row vc_row-fluid">
+                <div class="page-container" style="width: 100%;">
+                    <div class="wpb_column vc_column_container vc_col-sm-12">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div style='background-color:#27ae61;color:#f7f7f7;' class='jb-features t3-spotlight t3-spotlight-1 clearfix feature-box-style1'>
+                                    <div class='col-lg-4 col-md-12 col-sm-10 col-xs-12'>
+                                        <div class='t3-module module border-right col-sm-offset-2 col-lg-offset-0 '>
+                                            <div class='custom border-right col-sm-offset-2 col-lg-offset-0'>
+
+                                                <div class='jb-icon-with-description'>
+                                                    <em class='fa fa-phone'></em>
+                                                    <h4 style='color:#f7f7f7'>24/7 Hỗ Trợ Khách Hàng</h4>
+                                                    <p>Gọi Ngay: + 0773749328</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-lg-4 col-md-12 col-sm-10 col-xs-12'>
+                                        <div class='t3-module module border-right col-sm-offset-2 col-lg-offset-0 '>
+                                            <div class='custom border-right col-sm-offset-2 col-lg-offset-0'>
+
+                                                <div class='jb-icon-with-description'>
+                                                    <em class='fa fa-plane'></em>
+                                                    <h4 style='color:#f7f7f7'>Miễn Phí Giao Hàng</h4>
+                                                    <p>Với Hóa Đơn Trên 200000 đ</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-lg-4 col-md-12 col-sm-10 col-xs-12'>
+                                        <div class='t3-module module col-sm-offset-2 col-lg-offset-0 '>
+                                            <div class='custom col-sm-offset-2 col-lg-offset-0'>
+
+                                                <div class='jb-icon-with-description'>
+                                                    <em class='fa fa-usd'></em>
+                                                    <h4 style='color:#f7f7f7'>Chính Sách Hoàn Tiền</h4>
+                                                    <p>7 Ngày Từ Ngày Mua Hàng</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vc_row wpb_row vc_row-fluid vc_custom_1454662051521">
+                <div class="page-container">
+                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class=''>
+                                    <div class='dis-bottom-left'>
+                                        <div class='dis-bottom-left-img'><img src='../../assets/img/02/home-1-ebook.jpg' alt='E-BOOKS'>
+                                            <div class='dis-bottom-left-content'>
+                                                <div class='dis-bottom-left-text'>
+                                                    <h6 style='color:#323232'>LOẠI SÁCH</h6>
+                                                    <h2 style='color:#27ae61'>Văn học<br> nghệ thuật</h2>
+                                                    <a href='booksCategory' style='color:#323232' class='btn-link'>Mua Hàng Ngay
+                                                         <em class='fa fa-long-arrow-right'></em>
+                </a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class=''>
+                                    <div class='dis-bottom-left'>
+                                        <div class='dis-bottom-left-img'><img src='../../assets/img/02/home-1-text-book.jpg' alt='TEXT BOOKS'>
+                                            <div class='dis-bottom-left-content'>
+                                                <div class='dis-bottom-left-text'>
+                                                    <h6 style='color:#323232'>LOẠI SÁCH</h6>
+                                                    <h2 style='color:#27ae61'>Khoa học<br> công nghệ</h2>
+                                                    <a href='booksCategory' style='color:#323232' class='btn-link'>
+                                                       Mua Hàng Ngay <em class='fa fa-long-arrow-right'></em></a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class=''>
+                                    <div class='dis-bottom-left'>
+                                        <div class='dis-bottom-left-img'><img src='../../assets/img/02/home-1-offer.jpg' alt='OFFER ZONE'>
+                                            <div class='dis-bottom-left-content'>
+                                                <div class='dis-bottom-left-text'>
+                                                    <h6 style='color:#323232'>LOẠI SÁCH</h6>
+                                                    <h2 style='color:#27ae61'>Truyện, tiểu thuyết</h2><a href='booksCategory' 
+                                                    style='color:#323232' class='btn-link'>Mua Hàng Ngay 
+                                                    <em class='fa fa-long-arrow-right'></em></a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .carousel-inner .active.left {
+                    left: -33%;
+                }
+                
+                .carousel-inner .next {
+                    left: 33%;
+                }
+                
+                .carousel-inner .prev {
+                    left: -33%;
+                }
+                
+                .carousel-control.left,
+                .carousel-control.right {
+                    background-image: none;
+                }
+                
+                .carousel-multi .carousel-inner>.item {
+                    transition: 500ms ease-in-out left;
+                }
+                
+                .carousel-multi .carousel-inner>.item>.media-card {
+                    background: transparent;
+                    border-right: 10px solid #fff;
+                    display: table-cell;
+                    width: 1%;
+                }
+                
+                .carousel-multi .carousel-inner>.item>.media-card:last-of-type {
+                    border-right: none;
+                }
+                
+                .carousel-multi .carousel-inner .active {
+                    display: table;
+                }
+                
+                .carousel-multi .carousel-inner .active.left {
+                    left: -33%;
+                }
+                
+                .carousel-multi .carousel-inner .active.right {
+                    left: 33%;
+                }
+                
+                .carousel-multi .carousel-inner .next {
+                    left: 33%;
+                }
+                
+                .carousel-multi .carousel-inner .prev {
+                    left: -33%;
+                }
+                
+                @media all and (transform-3d),
+                (-webkit-transform-3d) {
+                    .carousel-multi .carousel-inner>.item {
+                        transition: 300ms ease-in-out all;
+                        backface-visibility: visible;
+                        transform: translate3d()!important;
+                    }
+                }
+            </style>
+            <div id="bks-products-slider" class="vc_row wpb_row vc_row-fluid vc_custom_1454597513538">
+                <div class="page-container">
+
+                    <div class="vc_general vc_tta vc_tta-tabs vc_tta-color-grey vc_tta-style-classic vc_tta-shape-rounded
+   vc_tta-spacing-1 vc_tta-tabs-position-top vc_tta-controls-align-left">
+                        <!-- <div class="vc_tta-tabs-container" style="text-align: center;margin-bottom: 20px;">
+        <ul class="vc_tta-tabs-list"><li class="vc_tta-tab vc_active" data-vc-tab><a href="#1454667686571-2f652472-e206" 
+           data-vc-tabs data-vc-container=".vc_tta" >
+                 </a></li>
+                 </ul></div> -->
+                        <div class='bks-heading '>
+                            <h3 class='bks-title'>
+                                <span style='font-size:18px;color:#333333;line-height:21px'>Một vài mẫu sách được người dùng ưa thích</span>
+                            </h3>
+                        </div>
+                        <div class="col-md-12 text-center">
+                        </div>
+                        <div style="text-align:center">
+
+                            <div>-------------------------------------------------------------------------------------------</div>
+                            <owl-carousel-o [options]="{items: 1, items: 2,items: 3,items: 4, navSpeed: 700}">
+                                <ng-template *ngFor="let books of  bookService.book" carouselSlide>
+                                    <div class="item">
+                                        <div class="media media-card">
+                                            <div class="item post-74 product type-product status-publish has-post-thumbnail product_cat-romance product_cat-thrillers 
+                                     instock featured shipping-taxable purchasable product-type-simple">
+                                                <div class="product-wrap">
+                                                    <!-- <span class="on-sale">Sale!</span> -->
+                                                    <div class="product-image">
+                                                        <div class="catalog-image">
+                                                            <button (click)="moveToBookDetail();" style="background-color: transparent;border-color: transparent;">
+                                                                <img src="{{books.imgBook}}"   />                  
+                                                                            <div class="button yith-wcqv-button" data-product_id="74">
+                                                                 <i class="fa fa-search"></i>
+                                                            </div>
+                                                       </button>
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- end product-image -->
+                                                    <div class="product-content">
+
+                                                        <h4 class="product_title">
+                                                            <button class="bks_product_title_link" (click)="moveToBookDetail();" style="border-color: transparent;background-color: transparent;">{{books.nameBook}}</button>
+                                                        </h4>
+                                                        <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ books.priceBook }} đ</span>
+                                                        </span>
+                                                    </div>
+                                                    <!-- end product-content -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </owl-carousel-o>
+                            <div>-------------------------------------------------------------------------------------------</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bks-guarantee-row" class="vc_row wpb_row vc_row-fluid vc_custom_1454685996679 vc_row-has-fill">
+                <div class="page-container">
+                    <div class="wpb_column vc_column_container vc_col-sm-12">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class="wpb_text_column wpb_content_element  vc_custom_1454686431101 col-md-8 col-md-offset-2">
+                                    <div class="wpb_wrapper">
+                                        <h3 style="text-align: center;"><span style="color: white;">Được hưởng nhiều</span>
+                                            <span style="color: #27ae61;"> chế độ </span><span style="color: white;">ưu đãi.</span> 
+                                        </h3>
+
+                                    </div>
+                                </div>
+
+                                <div class="wpb_text_column wpb_content_element  vc_custom_1454686645519 col-md-8 col-md-offset-2">
+                                    <div class="wpb_wrapper">
+                                        <p style="text-align: center; font-size: 18px;"><em>
+                                            <span style="color: #999999; border-top: 1px solid #999999; border-bottom: 
+                                            1px solid #999999; padding: 7px 0;">
+                                            Chúng tôi cam kết hoàn tiền trong vòng 7 ngày mua hàng nếu hàng <span style="color: #ff0000;">lỗi</span>!</span></em></p>
+                                    </div>
+                                </div>
+                                <div class="vc_btn3-container  clear bold vc_btn3-center"><a onmouseleave="this.style.borderColor='#ffffff';
+                     this.style.backgroundColor='transparent'; this.style.color='#ffffff'" onmouseenter="this.style.borderColor='#ffffff'; 
+                     this.style.backgroundColor='#ffffff'; this.style.color='#27ae61';" style="border-color:#ffffff; 
+                     color:#ffffff;" class="vc_general vc_btn3 vc_btn3-size-sm vc_btn3-shape-rounded vc_btn3-style-outline-custom vc_btn3-icon-right" 
+                     (click)="moveToAccount();" title="" target="_self">ĐĂNG KÝ NGAY <i class="vc_btn3-icon fa fa-long-arrow-right"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vc_row wpb_row vc_row-fluid vc_custom_1454679052819">
+                <div class="page-container">
+                    <div class="wpb_column vc_column_container vc_col-sm-12">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class="vc_row wpb_row vc_inner vc_row-fluid">
+                                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                                        <div class="vc_column-inner ">
+                                            <div class="wpb_wrapper">
+                                                <div class='bks-heading '>
+                                                    <h3 class='bks-title'><span style='font-size:18px;color:#333333;line-height:21px'>NEW ARRIVALS</span></h3>
+                                                </div>
+                                                <div class='bks-product-list-wrap '>
+                                                    <ul class='bks-products-list-container'>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book12-216x265.png" class="img-responsive wp-post-image" alt="book12" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/the-best-investment/index.html'>The Best Investment</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>360.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book17-216x265.png" class="img-responsive wp-post-image" alt="book17" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/nam-dolor-felis-6/index.html'>Nam Dolor Felis 6</a></h2><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>105.00</span></del>                                                                        <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>75.00</span></ins></div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/01/book23-216x265.png" class="img-responsive wp-post-image" alt="book23" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/thrillers-story-3/index.html'>Thrillers Story 3</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>100.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/01/book10-216x265.png" class="img-responsive wp-post-image" alt="book10" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/vacation/index.html'>Vacation</a></h2><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>600.00</span></del>                                                                        <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>259.00</span></ins></div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book14-216x265.png" class="img-responsive wp-post-image" alt="book14" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/the-book-of-love/index.html'>The Book Of Love</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>300.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                                        <div class="vc_column-inner ">
+                                            <div class="wpb_wrapper">
+                                                <div class='bks-heading '>
+                                                    <h3 class='bks-title'><span style='font-size:18px;color:#333333;line-height:21px'>FEATURED PRODUCTS</span></h3>
+                                                </div>
+                                                <div class='bks-product-list-wrap '>
+                                                    <ul class='bks-products-list-container'>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book17-216x265.png" class="img-responsive wp-post-image" alt="book17" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/nam-dolor-felis-6/index.html'>Nam Dolor Felis 6</a></h2><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>105.00</span></del>                                                                        <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>75.00</span></ins></div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book6-216x265.png" class="img-responsive wp-post-image" alt="book6" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/loving-kitchen-2/index.html'>Loving Kitchen 2</a></h2><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>40.00</span></del>                                                                        <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>20.00</span></ins></div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book7-216x265.png" class="img-responsive wp-post-image" alt="book7" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/colorless-tsukur/index.html'>Colorless Tsukur</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>200.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book3-216x265.png" class="img-responsive wp-post-image" alt="book3" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/the-third-planet/index.html'>The Third Planet</a></h2><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>100.00</span></del>                                                                        <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>50.00</span></ins></div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/01/book22-216x265.png" class="img-responsive wp-post-image" alt="book22" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/thrillers-story/index.html'>Thrillers Story</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>100.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                                        <div class="vc_column-inner ">
+                                            <div class="wpb_wrapper">
+                                                <div class='bks-heading '>
+                                                    <h3 class='bks-title'><span style='font-size:18px;color:#333333;line-height:21px'>STAFF PICKS</span></h3>
+                                                </div>
+                                                <div class='bks-product-list-wrap '>
+                                                    <ul class='bks-products-list-container'>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/01/book22-216x265.png" class="img-responsive wp-post-image" alt="book22" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/thrillers-story/index.html'>Thrillers Story</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>100.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book7-216x265.png" class="img-responsive wp-post-image" alt="book7" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/colorless-tsukur/index.html'>Colorless Tsukur</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>200.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book6-216x265.png" class="img-responsive wp-post-image" alt="book6" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/loving-kitchen-2/index.html'>Loving Kitchen 2</a></h2><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>40.00</span></del>                                                                        <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>20.00</span></ins></div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/02/book11-216x265.png" class="img-responsive wp-post-image" alt="book11" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/eos-lobortis/index.html'>Eos Lobortis</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>200.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class='clearfix'>
+                                                            <div class='product-list-wrap'>
+
+                                                                <div class='col-sm-4 col-xs-4'>
+                                                                    <div class='product-image'><img width="216" height="265" src="../../assets/img/01/book23-216x265.png" class="img-responsive wp-post-image" alt="book23" /></div>
+                                                                </div>
+                                                                <div class='col-sm-8'>
+                                                                    <div class='product-content'>
+                                                                        <h2 class='product_title'><a class='bks_product_title_link' href='product/thrillers-story-3/index.html'>Thrillers Story 3</a></h2><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>100.00</span>
+                                                                    </div>
+                                                                    <!--  .product-content -->
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vc_row wpb_row vc_row-fluid vc_custom_1454597724991 vc_row-has-fill">
+                <div class="page-container">
+                    <div class="wpb_column vc_column_container vc_col-sm-12">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class='bks-heading '>
+                                    <h3 class='bks-title'>
+                                        <span style='font-size:18px;color:#333333;line-height:21px'>Latest from our blog</span></h3>
+                                    <div class='bks_descrition'>We love to share our thoughts</div>
+                                </div>
+                                <div class="bks-post-slider">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="post-grid">
+
+                                                    <div class="post-thumb">
+                                                        <a class="post-image" href="an-audio-post/index.html">
+                                                            <img width="350" height="140" src="../../assets/img/02/497109-1280x720-350x140.jpg" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="497109-1280x720" />                                                            </a>
+                                                    </div>
+                                                    <div class="post-content">
+                                                        <div class="post-date">
+                                                            Feb, 23 2016 </div>
+                                                        <div class="post-title">
+                                                            <a href="an-audio-post/index.html">
+                                                         An Audio post            </a>
+                                                        </div>
+                                                        <p>Dynamically target high-payoff intellectual capital for customized technologies. Objectively &#8230;</p>
+                                                        <a class="read-more btn-link" href="an-audio-post/index.html">Read more <em class="fa fa-long-arrow-right"></em></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="post-grid">
+
+                                                    <div class="post-thumb">
+                                                        <a class="post-image" href="a-brief-lesson-on-color-theory/index.html">
+                                                            <img width="350" height="140" src="../../assets/img/01/94d43e327d9303539cb1e2aac7032668_XL-350x140.jpg" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="94d43e327d9303539cb1e2aac7032668_XL" sizes="(max-width: 350px) 100vw, 350px"
+                                                            />
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="post-content">
+                                                        <div class="post-date">
+                                                            Feb, 23 2016 </div>
+                                                        <div class="post-title">
+                                                            <a href="a-brief-lesson-on-color-theory/index.html">
+                                                         A Brief Lesson on Color Theory            </a>
+                                                        </div>
+                                                        <p>Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize &#8230;</p>
+                                                        <a class="read-more btn-link" href="a-brief-lesson-on-color-theory/index.html">Read more <em class="fa fa-long-arrow-right"></em></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="post-grid">
+                                                    <div class="post-thumb">
+                                                        <a class="post-image" href="offer-of-the-month/index.html">
+                                                            <img width="350" height="140" src="../../assets/img/02/184b7cb84d7b456c96a0bdfbbeaa5f14_L-350x140.jpg" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="184b7cb84d7b456c96a0bdfbbeaa5f14_L" sizes="(max-width: 350px) 100vw, 350px"
+                                                            /> </a>
+                                                    </div>
+
+                                                    <div class="post-content">
+                                                        <div class="post-date">
+                                                            Feb, 06 2016 </div>
+                                                        <div class="post-title">
+                                                            <a href="offer-of-the-month/index.html">
+                                                            Offer of the month            </a>
+                                                        </div>
+                                                        <p>Interactively procrastinate high-payoff content without backward-compatible data. Quickly cultivate &#8230;</p>
+                                                        <a class="read-more btn-link" href="offer-of-the-month/index.html">Read more <em class="fa fa-long-arrow-right"></em></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='text-center'><a href='blog/index.html' class='btn-primary view-all-posts-btn'>View all post </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vc_row wpb_row vc_row-fluid newsletter_subscription vc_custom_1456470598040 vc_row-has-fill">
+                <div class="page-container">
+                    <div class="wpb_column vc_column_container vc_col-sm-6">
+                        <div class="vc_column-inner vc_custom_1454829417282">
+                            <div class="wpb_wrapper">
+                                <h3 style="font-size: 18px;color: #ffffff;text-align: left" class="vc_custom_heading newsletter-heading">SUBSCRIBE TO OUR NEWS LETTER</h3>
+                                <div class="wpb_text_column wpb_content_element  vc_custom_1454830425190">
+                                    <div class="wpb_wrapper">
+                                        <p><span style="color: #ffffff;">Enter your e-mail address to receive regular updates, as well as news on upcoming events and special offers.</span></p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wpb_column vc_column_container vc_col-sm-6">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class="wpb_raw_code wpb_content_element wpb_raw_html vc_custom_1454830469549">
+                                    <div class="wpb_wrapper">
+                                        <form class="newsletter_subscription">
+                                            <input id="user_email" onfocus="if(this.value == 'Email address') this.value = '';" onblur="if(this.value=='') this.value='Email address';" class="inputbox invalid" type="text" name="user[email]" style="width:100%" value="Email address" title="Email address">
+                                            <span class="email-icon"></span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Back to Top -->
+        <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix">
+            <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
+        </div>
+        <!-- Back to Top -->
+
+
+        <!-- FOOTER -->
+        <footer id="bks-footer" class="wrap bks-footer">
+            <!-- FOOT NAVIGATION -->
+            <div class="footer-nav">
+                <div class="container">
+                    <!-- SPOTLIGHT -->
+                    <div class="bks-spotlight bks-footnav row">
+
+                        <div class=" col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="widget bks-module">
+                                <a href="index.html" title="Book Store">
+                                    <img class="logo-img" src="../../assets/img/01/logo_green.png" alt="Book Store" />
+                                </a>
+                            </div>
+                            <div id="text-2" class="widget t3-module module widget_text">
+                                <div class="textwidget">
+                                    <ul class='bks_icon_list '>
+                                        <li><em style='color:#27ae61;' class='fa fa-paper-plane'></em>
+                                            <div class='list_content' style=''>868 Bechole Road, Victory Lorem Ispuse, New York</div>
+                                        </li>
+                                    </ul>
+                                    <ul class='bks_icon_list '>
+                                        <li><em style='color:#27ae61;' class='fa fa-phone'></em>
+                                            <div class='list_content' style=''>Phone: (+80) 123 456 Fax: (+80) 123 456 789</div>
+                                        </li>
+                                    </ul>
+                                    <ul class='bks_icon_list '>
+                                        <li><em style='color:#27ae61;' class='fa fa-envelope'></em>
+                                            <div class='list_content' style=''>Email: Contact@example.com Website: www.example.com</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div id="nav_menu-2" class="widget t3-module module widget_nav_menu">
+                                <h2 class="widget-title">SHOPPING GUIDE</h2>
+                                <div class="menu-footer-menu-1-container">
+                                    <ul id="menu-footer-menu-1" class="menu">
+                                        <li id="menu-item-156" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-156"><a href="#">How to buy</a></li>
+                                        <li id="menu-item-157" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-157"><a href="#">Faq</a></li>
+                                        <li id="menu-item-158" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-158"><a href="#">Store Locations</a></li>
+                                        <li id="menu-item-159" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-159"><a href="#">Return Policy</a></li>
+                                        <li id="menu-item-160" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-160"><a href="#">Payment</a></li>
+                                        <li id="menu-item-161" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-161"><a href="#">Shipment</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div id="nav_menu-3" class="widget t3-module module widget_nav_menu">
+                                <h2 class="widget-title">INFORMATION</h2>
+                                <div class="menu-footer-menu-2-container">
+                                    <ul id="menu-footer-menu-2" class="menu">
+                                        <li id="menu-item-162" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-162"><a href="#">About Us</a></li>
+                                        <li id="menu-item-163" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-163"><a href="#">Delivery information</a></li>
+                                        <li id="menu-item-164" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-164"><a href="#">Privacy policy</a></li>
+                                        <li id="menu-item-165" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-165"><a href="#">Discount</a></li>
+                                        <li id="menu-item-166" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-166"><a href="#">Customer service</a></li>
+                                        <li id="menu-item-167" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-167"><a href="#">Terms &#038; condition</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div id="text-5" class="widget t3-module module widget_text">
+                                <h2 class="widget-title">Store Locations</h2>
+                                <div class="textwidget"><img src="../../assets/img/02/worldmap.png" alt="Locations" /></div>
+                            </div>
+                            <div id="wp-social-widget-2" class="widget t3-module module widget_wp-social-widget">
+                                <ul class='social-links'>
+                                    <li><a href="#"><span class="social-icon sicon-behance"></span></a></li>
+                                    <li><a href="#"><span class="social-icon sicon-facebook"></span></a></li>
+                                    <li><a href="#"><span class="social-icon sicon-google"></span></a></li>
+                                    <li><a href="#"><span class="social-icon sicon-instagram"></span></a></li>
+                                    <li><a href="#"><span class="social-icon sicon-linkedin"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SPOTLIGHT -->
+                </div>
+            </div>
+            <!-- //FOOT NAVIGATION -->
+
+
+            <div class="bks-copyright">
+                <div class="container">
+                    <div class="row">
+                        <!-- //COPYRIGHTS -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-12 copyright">
+                                <small>Copyright © 2015 Book StoreAll Rights Reserved.</small>
+                            </div>
+                        </div>
+                        <!-- Footer Right Content -->
+                        <div class="col-md-6 col-sm-6 col-xs-11">
+                            <div class="right">
+                                <img class="alignnone size-full wp-image-327" src="../../assets/img/02/payments_logos.png" alt="payments_logos" width="222" height="18" /> </div>
+                            <!-- Footer Right Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- //FOOTER -->
+
+    </div>
+
+
+    <div id="yith-quick-view-modal">
+
+        <div class="yith-quick-view-overlay"></div>
+
+        <div class="yith-wcqv-wrapper">
+
+            <div class="yith-wcqv-main">
+
+                <div class="yith-wcqv-head">
+                    <a href="#" id="yith-quick-view-close" class="yith-wcqv-close">X</a>
+                </div>
+
+                <div id="yith-quick-view-content" class="woocommerce single-product"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
