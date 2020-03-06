@@ -33,13 +33,7 @@ export class BookDetailComponent implements OnInit {
         return window.alert(wc_single_product_params.i18n_required_rating_text),!1}),
         void a(".wc-tabs-wrapper, .woocommerce-tabs, #rating").trigger("init"))
       });
-      $("#zoom_03").ezPlus({
-        gallery: 'gallery_01',
-        cursor: 'pointer',
-        galleryActiveClass: "active",
-        imageCrossfade: true,
-        loadingIcon: "http://www.elevateweb.co.uk/spinner.gif"
-    });
+
       $(function() {
         $('.pop').click(function (e) {
           $('.imagepreview').attr('src', $(this).find('img').attr('src'));

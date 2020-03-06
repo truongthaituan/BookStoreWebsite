@@ -52,11 +52,19 @@ export class HomeComponent implements OnInit {
 	moveToBookCategory(){
 		return this._router.navigate(['/booksCategory']);
 	}
-	moveToBookDetail(){
-		return this._router.navigate(['/bookDetail']);
-	}
+	// moveToBookDetail(){
+	// 	return this._router.navigate(['/bookDetail']);
+	// }
 	moveToCartBook(){
 		return this._router.navigate(['/cartBook']);
+	}
+	
+	selectedBook = [];
+	detailBook(book: Book) {
+	  this.selectedBook.push(book);
+	  console.log(this.selectedBook);
+	  sessionStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
+	  return this._router.navigate(["/bookDetail"]);
 	}
 	refreshBookList() {
 		this.bookService.getBookList().subscribe((res) => {
