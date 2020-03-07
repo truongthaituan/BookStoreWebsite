@@ -45,8 +45,6 @@ export class BookDetailComponent implements OnInit {
 
   ngOnInit() {
     this.refreshSelectedBook();
-    this.getAuthorById(sessionStorage.getItem('authorID'));
-    this.authorName = JSON.parse(sessionStorage.getItem('author')).nameAuthor;
   }
   getAuthorById(id:string) {
     this.authorService.getAuthorById(id).subscribe((res) => {
@@ -63,6 +61,6 @@ export class BookDetailComponent implements OnInit {
       console.log(this.selectedBook[i].nameBook);
       authorID = this.selectedBook[i].authorID;
     }
-    sessionStorage.setItem("authorID",authorID);
+    this.getAuthorById(authorID);
   }
 }
