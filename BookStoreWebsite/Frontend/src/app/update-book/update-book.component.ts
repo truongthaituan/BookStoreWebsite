@@ -33,7 +33,9 @@ export class UpdateBookComponent implements OnInit {
           var selectedVal = $("#selectAuthor option:selected").val();
           alert(selectedVal);
         });
-      
+        $("#scrollToTopButton").click(function () {
+          $("html, body").animate({scrollTop: 0}, 1000);
+         });
       });
 
      }

@@ -18,6 +18,8 @@ import { UpdateBookComponent } from './update-book/update-book.component';
 import { InsertBookComponent } from './insert-book/insert-book.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { JwPaginationComponent } from 'jw-angular-pagination';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AboutUsComponent } from './about-us/about-us.component';
     AdminPageComponent,
     UpdateBookComponent,
     InsertBookComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    JwPaginationComponent
+ 
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
      CarouselModule,
      BrowserAnimationsModule,
       FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

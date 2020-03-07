@@ -15,7 +15,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path: 'booksCategory',component: BookCategoryComponent},
-  {path: 'bookDetail',component: BookDetailComponent},
+  {path: 'bookDetail/:id',component: BookDetailComponent},
   {path: 'account',component: MyAccountComponent},
   {path: 'lostPassword',component: LostPasswordComponent},
   {path: 'cartBook',component: BookCartComponent},

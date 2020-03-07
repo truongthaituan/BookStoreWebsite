@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthorService } from '../author-service/author.service';
 import { Author } from '../author-service/author.model';
+import { BookService } from '../book-service/book.service';
+import { Book } from '../book-service/book.model';
 declare var $:any
 @Component({
   selector: 'app-book-detail',
@@ -9,9 +11,9 @@ declare var $:any
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  selectedBook = [];
-  authorName = "";
-  constructor(private _router: Router, private authorService:AuthorService) {
+
+  constructor(private _router: Router,  private route: ActivatedRoute, 
+    private authorService:AuthorService,private bookService: BookService) {
 
     var wc_single_product_params = {"i18n_required_rating_text":"Please select a rating","review_rating_required":"yes"};
     $(function(a){return"undefined"!=typeof wc_single_product_params&&(a("body")
@@ -33,8 +35,11 @@ export class BookDetailComponent implements OnInit {
         return window.alert(wc_single_product_params.i18n_required_rating_text),!1}),
         void a(".wc-tabs-wrapper, .woocommerce-tabs, #rating").trigger("init"))
       });
-
+     
       $(function() {
+        $("#scrollToTopButton").click(function () {
+          $("html, body").animate({scrollTop: 0}, 1000);
+         });
         $('.pop').click(function (e) {
           $('.imagepreview').attr('src', $(this).find('img').attr('src'));
           $('#imagemodal').modal('show');   
@@ -44,23 +49,33 @@ export class BookDetailComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.refreshSelectedBook();
+    let id = this.route.snapshot.paramMap.get('id');
+    console.log(id);
+   this.getBookById(id);
+
   }
   getAuthorById(id:string) {
     this.authorService.getAuthorById(id).subscribe((res) => {
       this.authorService.author = res as Author[];
       console.log(res);
-      sessionStorage.setItem('author',JSON.stringify(res));
     });
   }
-  refreshSelectedBook() {
-    var authorID = "";
-    this.selectedBook = JSON.parse(sessionStorage.getItem('selectedBook'));
-    console.log(this.selectedBook);
-    for(var i = 0;i < this.selectedBook.length;i++){
-      console.log(this.selectedBook[i].nameBook);
-      authorID = this.selectedBook[i].authorID;
-    }
-    this.getAuthorById(authorID);
+  getBookById(id:string) {
+    var books:any
+    this.bookService.getBookById(id).subscribe((res) => {
+      this.bookService.book = res as Book[];
+      books = res;
+     this.getAuthorById(books.authorID);
+    });
   }
+  // refreshSelectedBook() {
+  //   var authorID = "";
+  //   this.selectedBook = JSON.parse(sessionStorage.getItem('selectedBook'));
+  //   console.log(this.selectedBook);
+  //   for(var i = 0;i < this.selectedBook.length;i++){
+  //     console.log(this.selectedBook[i].nameBook);
+  //     authorID = this.selectedBook[i].authorID;
+  //   }
+  //   this.getAuthorById(authorID);
+  // }
 }

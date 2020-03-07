@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   });
   $("#scrollToTopButton").click(function () {
 	$("html, body").animate({scrollTop: 0}, 1000);
- });
+ 	});
    });
 }
   ngOnInit() {
@@ -52,19 +52,15 @@ export class HomeComponent implements OnInit {
 	moveToBookCategory(){
 		return this._router.navigate(['/booksCategory']);
 	}
-	// moveToBookDetail(){
-	// 	return this._router.navigate(['/bookDetail']);
-	// }
-	moveToCartBook(){
-		return this._router.navigate(['/cartBook']);
+	moveToBookDetail(){
+		return this._router.navigate(['/bookDetail']);
 	}
-	
 	selectedBook = [];
 	detailBook(book: Book) {
-	  this.selectedBook.push(book);
-	  console.log(this.selectedBook);
-	  sessionStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
-	  return this._router.navigate(["/bookDetail"]);
+	//   this.selectedBook.push(book);
+	//   console.log(this.selectedBook);
+	//   sessionStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
+	  return this._router.navigate(["/bookDetail" + `/${book._id}`]);
 	}
 	refreshBookList() {
 		this.bookService.getBookList().subscribe((res) => {

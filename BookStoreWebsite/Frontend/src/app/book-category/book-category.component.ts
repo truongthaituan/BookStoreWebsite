@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from '../book-service/book.service';
 import { Book } from '../book-service/book.model';
+import { CategoryService } from '../category-service/category.service';
+import { Category } from '../category-service/category.model';
 
 declare var $:any
 @Component({
@@ -11,8 +13,10 @@ declare var $:any
 })
 
 export class BookCategoryComponent implements OnInit {
-
-  constructor(private _router:Router,  private bookService:BookService) { 
+  pageOfItems: Array<any>;
+      items: any;
+      collection = [];
+  constructor(private _router:Router,private bookService:BookService,  private bookCategoryService:CategoryService) { 
 
     $(function() {
       $( "#slider-range" ).slider({
@@ -35,21 +39,26 @@ export class BookCategoryComponent implements OnInit {
       //  alert($('#item1 span').text());
     });
 
+   
   }
 
   ngOnInit() {
     this.refreshBookList();
+    this.refreshCategoryList();
   }
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
+}
   selectedBook = [];
-  detailBook(book: Book) {
-    this.selectedBook.push(book);
-    console.log(this.selectedBook);
-    sessionStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
-    return this._router.navigate(["/bookDetail"]);
+	detailBook(book: Book) {
+      return this._router.navigate(["/bookDetail" + `/${book._id}`]);
+    }
+  refreshCategoryList(){
+    this.bookCategoryService.getCategoryList().subscribe((res) =>{
+      this.bookCategoryService.category = res as Category[];
+    });
   }
-  // moveToBookDetail(){
-  //   return this._router.navigate(["/bookDetail"]);
-  // }
   refreshBookList() {
 		this.bookService.getBookList().subscribe((res) => {
 		  this.bookService.book = res as Book[];
