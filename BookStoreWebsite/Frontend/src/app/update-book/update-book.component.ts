@@ -62,7 +62,8 @@ export class UpdateBookComponent implements OnInit {
       detailBook: "",
       imgBook: "",
       seriID: "",
-      sale: null
+      sale: null,
+      count: null,
     }
   }
   getBookCategoryById(id:string) {

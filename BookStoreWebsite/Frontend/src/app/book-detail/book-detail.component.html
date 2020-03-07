@@ -1,4 +1,3 @@
-
 <style>
     #yith-quick-view-modal .yith-wcqv-main {
         background: #ffffff
@@ -185,8 +184,6 @@
         background-position: 0 0;
         background-size: cover;
     }
-    
-  
     
     .btn-primary,
     #back-to-top .btn {
@@ -877,11 +874,11 @@
                     <div itemscope itemtype="http://schema.org/Product" id="product-76" class="post-76 product type-product status-publish has-post-thumbnail product_cat-budgeting-and-finance
  product_cat-creative-thinking product_cat-fantasy product_cat-historical-fiction product_cat-people-management 
  product_cat-personal-finance product_cat-romance product_cat-science-fiction product_tag-historical product_tag-romance-storie
-  first instock featured shipping-taxable purchasable product-type-simple" >
+  first instock featured shipping-taxable purchasable product-type-simple">
 
                         <div class="images col-sm-6">
                             <a itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto">
-                                <img width="350" id = "zoom_03" height="450" src="{{bookService.book?.imgBook}}" class="attachment-shop_single size-shop_single wp-post-image" alt="book7" title="book7" /></a>
+                                <img width="350" id="zoom_03" height="450" src="{{bookService.book?.imgBook}}" class="attachment-shop_single size-shop_single wp-post-image" alt="book7" title="book7" /></a>
                         </div>
                         <div class="summary entry-summary col-sm-6">
 
@@ -898,14 +895,13 @@
 
                             </div>
                             <div class="book-by-author">
-                                <a class="book-author" 
-                                href="#" >By {{authorService.author?.nameAuthor}}</a>
+                                <a class="book-author" href="#">By {{authorService.author?.nameAuthor}}</a>
                             </div>
                             <div itemprop="description" class="description">
                                 <p></p>
                             </div>
 
-                            <form class="cart" method="post" enctype='multipart/form-data'>
+                            <form class="cart" method="post" enctype='multipart/form-data' #form="ngForm" (ngSubmit)="addToCart(bookService.book)">
                                 <div class="quantity">
                                     <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" />
                                 </div>
@@ -936,7 +932,7 @@
          <a href="../../product-category/fantasy/index.html" rel="tag">Fantasy</a>,
           <a href="../../product-category/historical-fiction/index.html" rel="tag">Historical Fiction</a>,
            <a href="../../product-category/people-management/index.html" rel="tag">People Management</a>, <a href="../../product-category/personal-finance/index.html" rel="tag">Personal Finance</a>, <a href="../../product-category/romance/index.html" rel="tag">Romance</a>, <a href="../../product-category/science-fiction/index.html" rel="tag">Science Fiction</a></span>
-                              
+
 
                             </div>
 
@@ -975,7 +971,8 @@
                                         <div id="review_form">
                                             <div id="respond" class="comment-respond">
                                                 <h3 id="reply-title" class="comment-reply-title">Be the first to review &ldquo;Colorless Tsukur&rdquo; <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3>
-                                                <form action="http://wp.acmeedesign.com/bookstore/wp-comments-post.php"><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span></p>
+                                                <form action="http://wp.acmeedesign.com/bookstore/wp-comments-post.php">
+                                                    <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span></p>
                                                     <label for="rating">Your Rating</label>
                                                     <br>
                                                     <fieldset class="rating">
@@ -1024,8 +1021,7 @@
                                         <div class="product-image">
                                             <div class="catalog-image">
                                                 <a href="#">
-                                                    <img width="207" 
-                                                    height="265" src="../../wp-content/uploads/2016/01/book10.png" class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image" alt="book10" srcset="http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book10-100x128.png 100w, http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book10.png 555w"
+                                                    <img width="207" height="265" src="../../wp-content/uploads/2016/01/book10.png" class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image" alt="book10" srcset="http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book10-100x128.png 100w, http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book10.png 555w"
                                                         sizes="(max-width: 207px) 100vw, 207px" />
                                                     <div class="button yith-wcqv-button" data-product_id="88">
                                                         <i class="fa fa-search"></i>
@@ -1467,5 +1463,3 @@
             <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
         </div>
         <!-- Back to Top -->
-
-

@@ -67,4 +67,8 @@ export class HomeComponent implements OnInit {
 		  this.bookService.book = res as Book[];
 		});
 	  }
+	// change page to bookCart 
+    goToBookCart(){
+		this._router.navigate(['/cartBook']);
+	  }
 }
