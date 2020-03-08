@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -32,4 +33,10 @@ export class AppComponent {
     },
     nav: true
   }
+  constructor(private _router: Router){
+
+  }
+  goToBookCart(){
+		this._router.navigate(['/cartBook']);
+	  }
 }

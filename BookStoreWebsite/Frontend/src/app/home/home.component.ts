@@ -68,7 +68,5 @@ export class HomeComponent implements OnInit {
 		});
 	  }
 	// change page to bookCart 
-    goToBookCart(){
-		this._router.navigate(['/cartBook']);
-	  }
+
 }
