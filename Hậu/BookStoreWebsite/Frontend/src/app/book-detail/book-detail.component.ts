@@ -52,7 +52,7 @@ export class BookDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
    this.getBookById(id);
-
+    // sessionStorage.removeItem("CartBook");
   }
   getAuthorById(id:string) {
     this.authorService.getAuthorById(id).subscribe((res) => {
@@ -107,9 +107,9 @@ export class BookDetailComponent implements OnInit {
     }
     // đổ mảng vào sessionStorage "CartBook"
     sessionStorage.setItem("CartBook",JSON.stringify(CartBook));
-    CartBook=JSON.parse(sessionStorage.getItem("CartBook"));
-    // sessionStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
-    console.log(CartBook);
+
+    // console.log((sessionStorage.getItem("CartBook")));
+    this._router.navigate(['/cartBook']);
     }
   }
   
