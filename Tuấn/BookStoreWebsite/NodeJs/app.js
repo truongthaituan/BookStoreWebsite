@@ -48,6 +48,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+var passport = require('passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./passport/passport-config');
 //app
 //A_store
 app.use('/', book);

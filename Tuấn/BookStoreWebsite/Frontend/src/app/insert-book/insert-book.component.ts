@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { BookService } from '../book-service/book.service';
+import { CategoryService } from '../category-service/category.service';
+import { AuthorService } from '../author-service/author.service';
+import { Category } from '../category-service/category.model';
+import { Author } from '../author-service/author.model';
 declare var $:any;
 @Component({
   selector: 'app-insert-book',
@@ -7,17 +13,70 @@ declare var $:any;
   styleUrls: ['./insert-book.component.css']
 })
 export class InsertBookComponent implements OnInit {
+  statusInsert:Boolean = false;
 
   countryForm: FormGroup;
-  countries = ['USA', 'Canada', 'Uk']
-  constructor(private fb: FormBuilder) {
-    $("#scrollToTopButton").click(function () {
-      $("html, body").animate({scrollTop: 0}, 1000);
-     });
+  // countries = ['USA', 'Canada', 'Uk']
+  constructor(private _router:Router,  private bookService:BookService, 
+    private fb: FormBuilder,private categoryService: CategoryService, 
+    private authorService: AuthorService) {
+    $(function() {
+      $(document).ready(function() {
+        $("#selectCategory").change(function() {
+          var selectedVal = $("#selectCategory option:selected").val();
+          alert(selectedVal);
+        });
+        $("#selectAuthor").change(function() {
+          var selectedVal = $("#selectAuthor option:selected").val();
+          alert(selectedVal);
+        });
+    
+      });
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({scrollTop: 0}, 1000);
+       });
+    });
   }
   ngOnInit() {
-   this.countryForm = this.fb.group({
-     countryControl: ['Canada']
-   });
+    this.resetForm();
+    this.getCategoryList();
+    this.getAuthorList();
   }
+  resetForm(form?: NgForm) {
+    if (form)
+      form.reset();
+    this.bookService.selectedBook = {
+      _id: null,
+      nameBook:"",
+      categoryID: "",
+      authorID: "",
+      priceBook: null,
+      detailBook: "",
+      imgBook: "",
+      seriID: "",
+      sale: null
+    };
+  }
+  getCategoryList() {
+    this.categoryService.getCategoryList().subscribe((res) => {
+		  this.categoryService.category = res as Category[];
+		});
+    }
+    getAuthorList() {
+      this.authorService.getAuthorList().subscribe((res) => {
+        this.authorService.author = res as Author[];
+        console.log(res);
+      });
+    }
+    cancel(){
+      this._router.navigate(['/adminPage']);
+    }
+    onSubmit(form: NgForm) {
+      console.log(form.value)
+          this.bookService.postBook(form.value).subscribe(
+            data => {console.log(data);this._router.navigate(['/adminPage']);
+          this.statusInsert = true;sessionStorage.setItem('statusInsert',String(this.statusInsert))},
+            error => console.log(error)
+           );
+    }
 }

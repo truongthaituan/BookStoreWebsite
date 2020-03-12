@@ -20,7 +20,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { JwPaginationComponent } from 'jw-angular-pagination';
+import { NpnSliderModule } from "npn-slider";
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'ng4-social-login';
+import { UserService } from './user-service/user.service';
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('408043043727-jbb5t5muunapccidtp3vpbnrtq3b7sio.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('498895894399247')
+  }
+],false);
 
+export function provideConfig() {
+  return config;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,9 +66,16 @@ import { JwPaginationComponent } from 'jw-angular-pagination';
      BrowserAnimationsModule,
       FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NpnSliderModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [UserService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

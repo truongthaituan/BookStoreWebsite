@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { Router } from '@angular/router';
-
+declare var $:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,10 +34,10 @@ export class AppComponent {
     },
     nav: true
   }
-  constructor(private _router: Router){
-
+  constructor(private _router:Router){
+    
   }
-  goToBookCart(){
-		this._router.navigate(['/cartBook']);
-	  }
+  moveToAccount(){
+    return this._router.navigate(['/account']);
+  }
 }

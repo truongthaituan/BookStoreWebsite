@@ -47,18 +47,21 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
                  
                     <div class="col-md-12 appointment ftco-animate" >
                         <h3 class="mb-3" style="text-align: center;"></h3>
-                        <form  #monanForm="ngForm" (ngSubmit)="onSubmit(monanForm)" class="appointment-form" style="color: #555555;">
+                        <form  #bookForm="ngForm" (ngSubmit)="onSubmit(bookForm)" class="appointment-form" style="color: #555555;">
                           <input type="hidden" name="_id"  #_id="ngModel" [(ngModel)]="bookService.book._id">
                           <div class="row" style="text-align: center;">
                               <div class="input-field col s12">
                                   
                                 <img alt=""  src="{{bookService.book.imgBook}}" style="width: 200px;height: 180px;">
-                                <div class="form-group">
-                               
-                                  <input type="file"
-                                         id="file"
-                                        name = "imgBook" [(ngModel)]="bookService.book.imgBook">
+                              
                               </div>
+                            </div>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                  <label>Hình Ảnh Sách</label>
+                                <input class="form-control" type="text" name="imgBook" #name="ngModel"
+                                 [(ngModel)]="bookService.book.imgBook" required>
+                               
                               </div>
                             </div>
                           <div class="row">
@@ -101,7 +104,7 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
                           <div class="row">
                             <div class="input-field col s12">
                                 <label>Đơn Giá</label>
-                              <input class="form-control" type="text" id = "donGia" name="donGia" #name="ngModel" 
+                              <input class="form-control" type="text" id = "donGia" name="priceBook" #name="ngModel" 
                               [(ngModel)] = "bookService.book.priceBook"
                                placeholder="Nhập Đơn Giá">
                              
@@ -116,7 +119,28 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
                             
                             </div>
                           </div>
-                         
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <label>Seri</label>&nbsp;
+                            <input  class="form-control" type="text" name="seriID"  #name="ngModel" 
+                            [(ngModel)]="bookService.book.seriID"  placeholder="Nhập Seri">
+                            <!-- <div class="id_100">
+                            <select style="width: 250px;" name = "authorID" id = "selectAuthor"
+                             [(ngModel)]="bookService.book.authorID"> -->
+                              <!-- <option ></option> -->
+                              <!-- <option *ngFor ="let author of authorService.author"
+                              value="{{author._id}}">{{author.nameAuthor}}</option>
+                            </select> -->
+                            <!-- </div> -->
+                          </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                                <label>Giảm Giá</label>
+                              <input class="form-control" type="text" name="sale" #name="ngModel" [(ngModel)]="bookService.book.sale" required>
+                             
+                            </div>
+                          </div>
                           <div class="row" style="float: right;">
                             &nbsp;
                             <div class="input-field col s12">

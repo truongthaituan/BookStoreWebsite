@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BookService } from '../book-service/book.service';
 import { NgForm } from '@angular/forms';
 import { Book } from '../book-service/book.model';
@@ -16,6 +16,7 @@ declare var $:any;
 })
 export class UpdateBookComponent implements OnInit {
   id_book: string;
+  showMsg: boolean = false;
   selectedValue = '';
   countryForm: FormGroup;
   categories = [];
@@ -23,7 +24,7 @@ export class UpdateBookComponent implements OnInit {
   // countries = ['USA', 'Canada', 'Uk']
   constructor(private _router:Router,  private bookService:BookService, 
     private fb: FormBuilder,private categoryService: CategoryService, 
-    private authorService: AuthorService) {
+    private authorService: AuthorService, private route: ActivatedRoute) {
       $(document).ready(function() {
         $("#selectCategory").change(function() {
           var selectedVal = $("#selectCategory option:selected").val();
@@ -33,17 +34,18 @@ export class UpdateBookComponent implements OnInit {
           var selectedVal = $("#selectAuthor option:selected").val();
           alert(selectedVal);
         });
-        $("#scrollToTopButton").click(function () {
-          $("html, body").animate({scrollTop: 0}, 1000);
-         });
+    
       });
 
      }
 
   ngOnInit() {
-    var id = sessionStorage.getItem('idCategory');
+    let id = this.route.snapshot.paramMap.get('id');
+    console.log(id);
+   this.getBookById(id);
+    // var id = sessionStorage.getItem('idCategory');
     this.resetForm();
-    this.getBookListById('5e5b3e2d7c63981214d8fc90');
+    // this.getBookListById('5e5b3e2d7c63981214d8fc90');
     this.getCategoryList();
     this.getAuthorList();
     // this.getBookCategoryById(id);
@@ -62,8 +64,7 @@ export class UpdateBookComponent implements OnInit {
       detailBook: "",
       imgBook: "",
       seriID: "",
-      sale: null,
-      count: null,
+      sale: null
     }
   }
   getBookCategoryById(id:string) {
@@ -72,7 +73,7 @@ export class UpdateBookComponent implements OnInit {
       console.log(res);
     });
   }
-  getBookListById(id:string) {
+  getBookById(id:string) {
     this.bookService.getBookById(id).subscribe((res) => {
       this.bookService.book = res as Book[];
       console.log(res)
@@ -88,5 +89,21 @@ export class UpdateBookComponent implements OnInit {
         this.authorService.author = res as Author[];
         console.log(res);
       });
+    }
+    cancel(){
+      this._router.navigate(['/adminPage']);
+    }
+    onSubmit(form: NgForm) {
+        if (confirm('Bạn có muốn cập nhật cuốn sách này không ?') == true) {
+          // form.value.imgMonAn =  $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
+        this.bookService.putBook(form.value).subscribe(
+         data => {console.log(data);this._router.navigate(['/adminPage']);
+          this.showMsg = true;
+          sessionStorage.setItem('showMsg',String(this.showMsg))
+        },
+         error => console.log(error)
+        );
+      console.log('Your form data: '+  form.value._id)
+    }
     }
 }

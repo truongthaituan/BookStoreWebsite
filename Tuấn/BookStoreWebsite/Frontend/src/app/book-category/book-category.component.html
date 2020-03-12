@@ -1,22 +1,4 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-<style>
-    .ngx-pagination {
-  padding-left: 0px !important;
-}
-
-.ngx-pagination .current,
-.btn-info {
-  background: #17a2b8 !important;
-  border: transparent !important;
-  border-radius: 20px !important;
-}
-
-.ngx-pagination .current:hover {
-  background: #17a2b8 !important;
-  border-radius: 20px !important; 
-  border: transparent !important;
-}
-</style>
 <body class="archive tax-product_cat term-personal-finance term-13 woocommerce woocommerce-page wpb-js-composer 
 js-comp-ver-4.9.2 vc_responsive ">
     <div class="wrapper">
@@ -63,10 +45,10 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple" 
-                                     *ngFor="let item of bookService.book | paginate: { id: 'listing_pagination',
+                                     *ngFor="let item of bookService.book| paginate: { id: 'listing_pagination',
                                                       itemsPerPage: 6,
                                                       currentPage: page,
-                                                      totalItems: totalRec }">
+                                                      totalItems: totalRec }" >
                                        <div class="product-wrap">
                                            <div class="product-image">
                                                <div class="catalog-image">
@@ -114,6 +96,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                            </div>
                                            <!-- end product-content -->
                                        </div>
+                                       
                                    </div>
                            
                         </div>
@@ -144,14 +127,18 @@ js-comp-ver-4.9.2 vc_responsive ">
 			</div>
         </form> -->
 
+                  
                     <div id="price-slider">
                         <p>
                             <label for="amount">Price range :</label>
                             <input type="text" id="amount-min" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11.5px;">
                             <input type="text" id="amount-max" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11.5px;">
                         </p>
-                        <div id="slider-range"></div>
-                    </div>
+                        <npn-slider [min]="1000" [max]="5000" [minSelected]="2000" [maxSelected]="4000" [step]="500"
+                        [showStepIndicator]="true" (onChange)="onSliderChange($event)">
+                      </npn-slider>
+                      <!-- <p>Selected Values: {{currentValues | json}}</p> -->
+                    </div>      
                 </div>
                 <style>
                     #price-slider {
@@ -191,18 +178,26 @@ js-comp-ver-4.9.2 vc_responsive ">
                         border-radius: 0px;
                     }
                 </style>
+
                 <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
                     <h3 class="widget-title">Browse Books</h3>
                     <ul class="product-categories" *ngFor = "let category of bookCategoryService.category">
-                        <li class="cat-item cat-item-11"><a href="#">{{category.nameCategory}}</a></li>
+                        <li class="cat-item cat-item-11">
+                            <a (click) = "showCategory(category._id);">{{category.nameCategory}}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
+
         <!-- Back to Top -->
         <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix">
             <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
         </div>
         <!-- Back to Top -->
+
     </div>
+
+
+  
 </body>

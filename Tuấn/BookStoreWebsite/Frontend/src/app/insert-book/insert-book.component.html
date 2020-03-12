@@ -45,79 +45,119 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
         <div class="container">
             <section class="ftco-appointment" >
                 <div class="overlay"></div>
-            <div class="container-wrap" >
-                <div class="row no-gutters d-md-flex align-items-center">
-                 
-                    <div class="col-md-12 appointment ftco-animate" >
-                        <h3 class="mb-3" style="text-align: center;"></h3>
-                        <form  class="appointment-form" style="color: #555555;">
-                          <input type="hidden" name="_id" >
-                          <div class="row" style="text-align: center;">
+                <div class="container-wrap" >
+                  <div class="row no-gutters d-md-flex align-items-center">
+                   
+                      <div class="col-md-12 appointment ftco-animate" >
+                          <h3 class="mb-3" style="text-align: center;"></h3>
+                          <form  #bookForm="ngForm" (ngSubmit)="onSubmit(bookForm)" class="appointment-form" style="color: #555555;">
+                            <!-- <input type="hidden" name="_id"  #_id="ngModel" [(ngModel)]="bookService.book._id"> -->
+                            <!-- <div class="row" style="text-align: center;">
+                                <div class="input-field col s12">
+                                    
+                                  <img alt=""  src="{{bookService.book.imgBook}}" style="width: 200px;height: 180px;">
+                                
+                                </div>
+                              </div> -->
+                              <div class="row">
+                                <div class="input-field col s12">
+                                    <label>Hình Ảnh Sách</label>
+                                  <input class="form-control" type="text" name="imgBook" #name="ngModel"
+                                   [(ngModel)]="bookService.book.imgBook" required>
+                                 
+                                </div>
+                              </div>
+                            <div class="row">
                               <div class="input-field col s12">
-                                  
-                                <img alt="" src="" style="width: 200px;height: 180px;">
-                                <div class="form-group">
+                                  <label>Tên Sách</label>
+                                <input class="form-control" type="text" name="nameBook" #name="ngModel" [(ngModel)]="bookService.book.nameBook"
+                                 placeholder="Nhập Tên Sách" required>
                                
-                                  <input type="file"
-                                         id="file"
-                                        name = "imgMonAn" >
-                              </div>
                               </div>
                             </div>
-                          <div class="row">
-                            <div class="input-field col s12">
-                                <label>Tên Sách</label>
-                              <input class="form-control" type="text" name="tenMon" placeholder="Nhập Tên Sách" required>
+                            <div class="row">
                              
+                              <div class="input-field col s12">
+                                  <label>Loại Sách</label>&nbsp;
+                                <!-- <input  class="form-control" type="text" name="donGiaMon"  placeholder="Nhập Tên Loại Sách"> -->
+                                <div class="id_100">
+                                <select style="width: 250px;" name = "categoryID" id = "selectCategory"
+                                 [(ngModel)]="bookService.book.categoryID">
+                                  <!-- <option ></option> -->
+                                  <option *ngFor ="let category of categoryService.category"
+                                  value="{{category._id}}">{{category.nameCategory}}</option>
+                                </select>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                          <div class="row">
-                           
-                            <div class="input-field col s12">
-                                <label>Loại Sách</label>&nbsp;
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <label>Tác Giả</label>&nbsp;
                               <!-- <input  class="form-control" type="text" name="donGiaMon"  placeholder="Nhập Tên Loại Sách"> -->
-                              <select [formGroup]="countryForm" style="width: 250px;">
-                                <option [value]="country" *ngFor="let country of countries">{{country}}</option>
+                              <div class="id_100">
+                              <select style="width: 250px;" name = "authorID" id = "selectAuthor"
+                               [(ngModel)]="bookService.book.authorID">
+                                <!-- <option ></option> -->
+                                <option *ngFor ="let author of authorService.author"
+                                value="{{author._id}}">{{author.nameAuthor}}</option>
                               </select>
-                           
+                              </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s12">
-                                <label>Tác Giả</label>
-                              <input  class="form-control" type="text" name="moTaMon" placeholder="Nhập Tên Tác Giả">
-                             
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s12">
-                                <label>Đơn Giá</label>
-                              <input  class="form-control" type="text" name="moTaMon" placeholder="Nhập Đơn Giá">
-                             
+                            <div class="row">
+                              <div class="input-field col s12">
+                                  <label>Đơn Giá</label>
+                                <input class="form-control" type="text" id = "donGia" name="priceBook" #name="ngModel" 
+                                [(ngModel)] = "bookService.book.priceBook"
+                                 placeholder="Nhập Đơn Giá">
+                               
+                              </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s12">
-                                <label>Chi Tiết Sách</label>
-                              <textarea  class="form-control" type="text" name="moTaMon" placeholder="Nhập Mô Tả Sách"></textarea>
-                            
+                            <div class="row">
+                              <div class="input-field col s12">
+                                  <label>Chi Tiết Sách</label>
+                                <textarea  class="form-control" type="text" name="detailBook" #name="ngModel" 
+                                [(ngModel)]="bookService.book.detailBook"
+                                  placeholder="Nhập Mô Tả Sách"></textarea>
+                              
+                              </div>
                             </div>
-                          </div>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <label>Seri</label>&nbsp;
+                              <input  class="form-control" type="text" name="seriID"  #name="ngModel" 
+                              [(ngModel)]="bookService.book.seriID"  placeholder="Nhập Seri">
+                              <!-- <div class="id_100">
+                              <select style="width: 250px;" name = "authorID" id = "selectAuthor"
+                               [(ngModel)]="bookService.book.authorID"> -->
+                                <!-- <option ></option> -->
+                                <!-- <option *ngFor ="let author of authorService.author"
+                                value="{{author._id}}">{{author.nameAuthor}}</option>
+                              </select> -->
+                              <!-- </div> -->
+                            </div>
+                            </div>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                  <label>Giảm Giá</label>
+                                <input class="form-control" type="text" name="sale" #name="ngModel" [(ngModel)]="bookService.book.sale" required>
+                               
+                              </div>
+                            </div>
+                            <div class="row" style="float: right;">
+                              &nbsp;
+                              <div class="input-field col s12">
+                                <button class="btn btn-primary" type="button" (click)="cancel()" style="border-radius: 30px; width: 180px;height: 50px;">Cancel</button>
+                                <button  class="btn btn-primary" type="submit" style="border-radius: 30px ; width: 180px;height: 50px;">Submit</button>
+                              </div>
+                            </div>
+                          </form>
                          
-                          <div class="row" style="float: right;">
-                            &nbsp;
-                            <div class="input-field col s12">
-                              <button class="btn btn-primary" type="button" (click)="cancel()" style="border-radius: 30px; width: 180px;height: 50px;">Cancel</button>
-                              <button  class="btn btn-primary" type="submit" style="border-radius: 30px ; width: 180px;height: 50px;">Submit</button>
-                            </div>
-                          </div>
-                        </form>
-                       
-                    </div>    
-
-                </div>
-              
-            </div>
+                      </div>    
+  
+                  </div>
+                
+              </div>
         </section>
         </div><!-- .container -->
 

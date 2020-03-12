@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare var $:any;
+
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
@@ -7,13 +7,7 @@ declare var $:any;
 })
 export class AboutUsComponent implements OnInit {
 
-  constructor() {
-    $(function() {
-      $("#scrollToTopButton").click(function () {
-        $("html, body").animate({scrollTop: 0}, 1000);
-       });
-      });
-   }
+  constructor() { }
 
   ngOnInit() {
   }

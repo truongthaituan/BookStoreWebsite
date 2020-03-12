@@ -46,9 +46,7 @@ export class HomeComponent implements OnInit {
   moveToShop(){
 	  return this._router.navigate(['/booksCategory']);
   }
-  moveToAccount(){
-	return this._router.navigate(['/account']);
-}
+
 	moveToBookCategory(){
 		return this._router.navigate(['/booksCategory']);
 	}
@@ -67,6 +65,4 @@ export class HomeComponent implements OnInit {
 		  this.bookService.book = res as Book[];
 		});
 	  }
-	// change page to bookCart 
-
 }

@@ -15,7 +15,41 @@
 @import '../../assets/themes/bookstore/assets/css/common676a.css';
 @import '../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
-
+a.white-btn {
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid #fff;
+    margin-top:10px;
+  }
+  a.white-btn:hover {
+    text-decoration: none;
+  }
+  /* span.github-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../assets/images/github-icon.svg');
+    margin-right: 4px;
+    position: relative;
+    top: 3px;
+  } */
+  @media(min-width:576px) {
+    span.github-icon {
+      width: 18px;
+      height: 18px;
+    }
+    a.white-btn {
+      font-size: 16px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      float:right;
+      margin-top: 0;
+    }
+  }
+  
 .orderby{
     font-size:15px ;
 }
@@ -135,3 +169,19 @@
                                     color: #ff0000				}
                                     .wishlist_table .add_to_cart, a.add_to_wishlist.button.alt { border-radius: 16px; -moz-border-radius: 16px; -webkit-border-radius: 16px; 
                                     }	
+                                    .ngx-pagination {
+                                        padding-left: 0px !important;
+                                      }
+                                      
+                                      .ngx-pagination .current,
+                                      .btn-info {
+                                        background: #17a2b8 !important;
+                                        border: transparent !important;
+                                        border-radius: 20px !important;
+                                      }
+                                      
+                                      .ngx-pagination .current:hover {
+                                        background: #17a2b8 !important;
+                                        border-radius: 20px !important; 
+                                        border: transparent !important;
+                                      }
