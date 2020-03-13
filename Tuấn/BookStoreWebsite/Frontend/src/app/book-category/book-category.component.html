@@ -22,15 +22,19 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <p class="woocommerce-result-count">
                                 Showing all 5 results</p>
                             <form class="woocommerce-ordering" method="get">
-                                <select name="orderby" class="orderby">
-					<option value="menu_order"  selected='selected'>Default sorting</option>
-					<option value="popularity" >Sort by popularity</option>
+                                <select name="orderby" class="orderby" >
+					<option value="menu_order" selected='selected'>Default sorting</option>
+					<option value="SortByPrice" >Sắp xếp theo giá tiền</option>
 					<option value="rating" >Sort by average rating</option>
 					<option value="date" >Sort by newness</option>
 					<option value="price" >Sort by price: low to high</option>
 					<option value="price-desc" >Sort by price: high to low</option>
-			</select>
-                            </form>
+                    </select>
+                    <nav class="gridlist-toggle">
+                        <a (click)="sort();"><span class="fa fa-search"></span> <em>Grid view</em></a>
+                    </nav>                           
+                 </form>
+
                             <nav class="gridlist-toggle">
                                 <input placeholder="Search sách theo tên sách" type="text" name="search"
                                  [(ngModel)]="searchText" autocomplete="off" style="border-color: lightslategrey;height: 30px;
@@ -43,13 +47,13 @@ js-comp-ver-4.9.2 vc_responsive ">
                             </nav>
                         </div>
 
-                        <div class="products clearfix">
+                        <div class="products clearfix" id = "categorySach">
                                     <div class="item col-xs-12 col-sm-4 post-78 product type-product
                                     status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple" 
-                                     *ngFor="let item of bookService.book | filter: searchText |
-                                      paginate: { itemsPerPage: 6,currentPage: p } | filterBy: 'categoryID':'5e5b3f3b7c63981214d8fc91'" >
+                                     *ngFor="let item of books | filter: searchText |
+                                      paginate: { itemsPerPage: 6,currentPage: p }">
                                        <div class="product-wrap">
                                            <div class="product-image">
                                                <div class="catalog-image">
@@ -97,11 +101,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                </div>
                                            </div>
                                            <!-- end product-content -->
-                                       </div>
-                                       
-                                   </div>
-                           
-                        </div>
+                                       </div></div></div>
                         <div>
                             <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </div>
@@ -112,23 +112,6 @@ js-comp-ver-4.9.2 vc_responsive ">
             <div id="shop-sidebar" class="sidebar col-xs-12 col-sm-3 left">
                 <div id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
                     <h3 class="widget-title">Filter by price</h3>
-                    <!-- <form method="get" action="http://wp.acmeedesign.com/bookstore/product-category/personal-finance/">
-			<div class="price_slider_wrapper">
-				<div class="price_slider" style="display:none;"></div>
-				<div class="price_slider_amount">
-					<input type="text" id="min_price" name="min_price" value="" data-min="20" placeholder="Min price" />
-					<input type="text" id="max_price" name="max_price" value="" data-max="360" placeholder="Max price" />
-					<button type="submit" class="button">Filter</button>
-					<div class="price_label" style="display:none;">
-						Price: <span class="from"></span> &mdash; <span class="to"></span>
-					</div>
-					
-					<div class="clear"></div>
-				</div>
-			</div>
-        </form> -->
-
-                  
                     <div id="price-slider">
                         <p>
                             <label for="amount">Price range :</label>
@@ -182,9 +165,14 @@ js-comp-ver-4.9.2 vc_responsive ">
 
                 <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
                     <h3 class="widget-title">Browse Books</h3>
-                    <ul class="product-categories" *ngFor = "let category of bookCategoryService.category">
+                    <ul class="product-categories">
                         <li class="cat-item cat-item-11">
-                            <a (click) = "showCategory(category._id);">{{category.nameCategory}}</a>
+                            <a (click) = "refreshBookList();">Tất Cả Sách</a>
+                        </li>
+                    </ul>
+                    <ul class="product-categories" *ngFor = "let category of bookCategoryService.category">
+                        <li class="cat-item cat-item-11" >
+                            <a (click) = "gettypeCategory(category._id);" >{{category.nameCategory}}</a>
                         </li>
                     </ul>
                 </div>

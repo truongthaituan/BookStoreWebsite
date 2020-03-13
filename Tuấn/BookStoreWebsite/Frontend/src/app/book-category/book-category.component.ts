@@ -16,7 +16,7 @@ export class BookCategoryComponent implements OnInit {
   searchText;
   searchCategory;
   pageOfItems: Array<any>;
-  books: any;
+  books: Array<Book>;
       items: any;
       collection = [];
       selectedCategory: String = "";
@@ -26,6 +26,7 @@ export class BookCategoryComponent implements OnInit {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({scrollTop: 0}, 1000);
        });
+   
     });
     this.selectedCategory = sessionStorage.getItem('selectedCategory');
   }
@@ -50,6 +51,7 @@ export class BookCategoryComponent implements OnInit {
     this.category_id = sessionStorage.getItem('category_id');
     // this.booksCategory = JSON.parse(sessionStorage.getItem('booksFilter'));
     // console.log(this.booksCategory)
+    
   }
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
@@ -64,11 +66,13 @@ export class BookCategoryComponent implements OnInit {
       this.bookCategoryService.category = res as Category[];
     }); 
   }
+ sortPrice(){
  
+ }
   refreshBookList() {
 		this.bookService.getBookList().subscribe((res) => {
-      this.bookService.book = res as Book[];
-     sessionStorage.setItem('listBook',JSON.stringify(res));
+      this.books = res as Book[];
+          console.log(this.books);
 		});
     }
     booksFilter = []
@@ -82,9 +86,22 @@ export class BookCategoryComponent implements OnInit {
       getid_book(id){
         localStorage.setItem('book_detail',id);
       }
+      
       gettypeCategory(id){
         this.bookService.getBookByCategoryId(id)
-        .subscribe(resCategoryData => {console.log(resCategoryData);
-          this.books = resCategoryData;});
+        .subscribe(resCategoryData => {
+          // console.log(resCategoryData);
+          this.books = resCategoryData as Book[];
+          console.log(this.books);
+        });
       }
+      
+      sort() {
+        if($('.orderby option:selected').val() == 'SortByPrice'){
+          this.books.sort(function(a, b) {
+                return (a.priceBook) - (b.priceBook);
+            });
+            console.log(this.books);
+        }
+    }
 }
