@@ -32,10 +32,13 @@ js-comp-ver-4.9.2 vc_responsive ">
 			</select>
                             </form>
                             <nav class="gridlist-toggle">
-                                <input type="text" id = "ipSearch" placeholder="Search sách theo tên sách" 
-                                style="border-color: lightslategrey;height: 30px;"/>
-                                <a href="#" id="searchBook" title="Tra Cứu Sách">
-                                    <span class="fa fa-search"></span></a>
+                                <input placeholder="Search sách theo tên sách" type="text" name="search"
+                                 [(ngModel)]="searchText" autocomplete="off" style="border-color: lightslategrey;height: 30px;
+                                 font-style: italic; width: 350px;" id = "category_id">
+                                  <!-- <input type="text" 
+                                  [(ngModel)]="searchText" autocomplete="off" id = "category_id"> -->
+                                <!-- <a href="#" id="searchBook" title="Tra Cứu Sách">
+                                    <span class="fa fa-search"></span></a> -->
                                 <a href="#" id="grid" title="Grid view"><span class="fa fa-th-large"></span> <em>Grid view</em></a>
                             </nav>
                         </div>
@@ -45,10 +48,8 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple" 
-                                     *ngFor="let item of bookService.book| paginate: { id: 'listing_pagination',
-                                                      itemsPerPage: 6,
-                                                      currentPage: page,
-                                                      totalItems: totalRec }" >
+                                     *ngFor="let item of bookService.book | filter: searchText |
+                                      paginate: { itemsPerPage: 6,currentPage: p } | filterBy: 'categoryID':'5e5b3f3b7c63981214d8fc91'" >
                                        <div class="product-wrap">
                                            <div class="product-image">
                                                <div class="catalog-image">
@@ -89,7 +90,8 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                    <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
                                                    
                                                <span class="price">
-                                   <span class="woocommerce-Price-amount amount" id="priceBook" >{{item.priceBook}} đ</span></span>
+                                   <span class="woocommerce-Price-amount amount" id="priceBook" >
+                                       {{item.priceBook | currency:"VND"}}</span></span>
                                                <div class="product-desc">
                                                    <p>{{item.detailBook}}</p>
                                                </div>
@@ -101,8 +103,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                            
                         </div>
                         <div>
-                            <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true"
-                             (pageChange)="page = $event" style="font-size: 20px;"></pagination-controls>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </div>
                     </div>
                 </div>

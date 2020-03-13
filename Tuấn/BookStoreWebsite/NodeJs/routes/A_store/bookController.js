@@ -83,4 +83,15 @@ router.delete('/books/:id', function(req, res) {
         }
     });
 });
+//get book by category
+router.get('/books/findbycategory/:category_id',function(req,res){
+    book.find({
+        categoryID: req.params.category_id
+    })
+    .exec(function(err,books){
+        if(err) console.log("Error retrieving books");
+        else {res.json(books);}
+    });
+})
+
 module.exports = router;

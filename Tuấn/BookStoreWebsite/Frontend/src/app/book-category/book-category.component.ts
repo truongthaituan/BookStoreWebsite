@@ -13,7 +13,10 @@ declare var $:any
 })
 
 export class BookCategoryComponent implements OnInit {
+  searchText;
+  searchCategory;
   pageOfItems: Array<any>;
+  books: any;
       items: any;
       collection = [];
       selectedCategory: String = "";
@@ -40,11 +43,13 @@ export class BookCategoryComponent implements OnInit {
     });
   }
   booksCategory: []
+  category_id: string;
   ngOnInit() {
     this.refreshBookList();
     this.refreshCategoryList();
-    this.booksCategory = JSON.parse(sessionStorage.getItem('booksFilter'));
-    console.log(this.booksCategory)
+    this.category_id = sessionStorage.getItem('category_id');
+    // this.booksCategory = JSON.parse(sessionStorage.getItem('booksFilter'));
+    // console.log(this.booksCategory)
   }
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
@@ -72,14 +77,14 @@ export class BookCategoryComponent implements OnInit {
       this.bookCategoryService.getCategoryById(id).subscribe((res) => {
         this.bookCategoryService.category = res as Category[];
         category = res;
-        console.log(category._id)
-        for(var i = 0; i <  JSON.parse(sessionStorage.getItem('listBook')).length;i++){
-         if(category._id == JSON.parse(sessionStorage.getItem('listBook'))[i].categoryID){
-           this.booksFilter.push(JSON.parse(sessionStorage.getItem('listBook'))[i]);
-         }
-        }
-        console.log(this.booksFilter);
-        sessionStorage.setItem('booksFilter',JSON.stringify(this.booksFilter));
-      });
+        });
       } 
+      getid_book(id){
+        localStorage.setItem('book_detail',id);
+      }
+      gettypeCategory(id){
+        this.bookService.getBookByCategoryId(id)
+        .subscribe(resCategoryData => {console.log(resCategoryData);
+          this.books = resCategoryData;});
+      }
 }

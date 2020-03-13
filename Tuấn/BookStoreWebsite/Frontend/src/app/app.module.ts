@@ -28,6 +28,9 @@ import {
   FacebookLoginProvider
 } from 'ng4-social-login';
 import { UserService } from './user-service/user.service';
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FilterByPipe } from './filter-by.pipe';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -55,7 +58,8 @@ export function provideConfig() {
     UpdateBookComponent,
     InsertBookComponent,
     AboutUsComponent,
-    JwPaginationComponent
+    JwPaginationComponent,
+    FilterByPipe
  
   ],
   imports: [
@@ -68,7 +72,8 @@ export function provideConfig() {
     ReactiveFormsModule,
     NgxPaginationModule,
     NpnSliderModule,
-    SocialLoginModule
+    SocialLoginModule,
+    Ng2SearchPipeModule 
   ],
   providers: [UserService,
     {
