@@ -51,32 +51,35 @@ export class BookCartComponent implements OnInit {
     window.location.reload();
   }
   deleteCartBook(id) {
-
-    var temp = 0;   // =1 if find id need delete
-    if (JSON.parse(sessionStorage.getItem("CartBook")).length != 1) {
-      for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
-        if (temp == 0) {
-         
-          if (this.CartBook[i]._id == id) {
-            temp = 1;
-            i--;
+    var setconfirm =confirm('Bạn có muốn xóa cuốn sách này không ?')
+    if (setconfirm == true) {
+      var temp = 0;   // =1 if find id need delete
+      if (JSON.parse(sessionStorage.getItem("CartBook")).length != 1) {
+        for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
+          if (temp == 0) {
+           
+            if (this.CartBook[i]._id == id) {
+              temp = 1;
+              i--;
+            }
+          }
+          else {
+            if (JSON.parse(sessionStorage.getItem("CartBook")).length - 2 == i) {
+              break;
+            } else
+              this.CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i + 1];
           }
         }
-        else {
-          if (JSON.parse(sessionStorage.getItem("CartBook")).length - 2 == i) {
-            break;
-          } else
-            this.CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i + 1];
-        }
       }
-    }
-    else{
-      this.CartBook =[];
-    }
-    
-    sessionStorage.setItem("CartBook", JSON.stringify(this.CartBook));
-    // console.log(JSON.parse(sessionStorage.getItem("CartBook")));
-   window.location.reload();
+      else{
+        this.CartBook =[];
+      }
+      
+      sessionStorage.setItem("CartBook", JSON.stringify(this.CartBook));
+      // console.log(JSON.parse(sessionStorage.getItem("CartBook")));
+     window.location.reload();
+      }
+ 
   }
 
 }
