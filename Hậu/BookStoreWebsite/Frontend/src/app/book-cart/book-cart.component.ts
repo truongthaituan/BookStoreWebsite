@@ -20,30 +20,36 @@ export class BookCartComponent implements OnInit {
       });
     });
   }
-  CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
-  CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
+  CartBook = []
+  CartUpdate = []
+  TongTien = 0;
   ngOnInit() {
+    //get tong tien
+    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.TongTien = 0;
+    if (this.CartBook != null) {
 
-  }
-
-  getCountUpdate(event: any,id){
-      for(var i=0;i<this.CartUpdate.length;i++)
-      {
-        if(this.CartUpdate[i]._id==id)
-        {
-          this.CartUpdate[i].count=event.target.value;
-          break;
-        }
+      for (var i = 0; i < this.CartBook.length; i++) {
+        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
       }
+    }
+  }
+
+  getCountUpdate(event: any, id) {
+    for (var i = 0; i < this.CartUpdate.length; i++) {
+      if (this.CartUpdate[i]._id == id) {
+        this.CartUpdate[i].count = event.target.value;
+        break;
+      }
+    }
 
   }
 
-  updateCartBook(id){
-    for(var i=0;i<this.CartUpdate.length;i++)
-    {
-      if(this.CartUpdate[i]._id!=id)
-      {
-        this.CartUpdate[i].count=this.CartBook[i].count;
+  updateCartBook(id) {
+    for (var i = 0; i < this.CartUpdate.length; i++) {
+      if (this.CartUpdate[i]._id != id) {
+        this.CartUpdate[i].count = this.CartBook[i].count;
       }
     }
     sessionStorage.setItem("CartBook", JSON.stringify(this.CartUpdate));
@@ -51,13 +57,13 @@ export class BookCartComponent implements OnInit {
     window.location.reload();
   }
   deleteCartBook(id) {
-    var setconfirm =confirm('Bạn có muốn xóa cuốn sách này không ?')
+    var setconfirm = confirm('Bạn có muốn xóa cuốn sách này không ?')
     if (setconfirm == true) {
       var temp = 0;   // =1 if find id need delete
       if (JSON.parse(sessionStorage.getItem("CartBook")).length != 1) {
         for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
           if (temp == 0) {
-           
+
             if (this.CartBook[i]._id == id) {
               temp = 1;
               i--;
@@ -71,15 +77,15 @@ export class BookCartComponent implements OnInit {
           }
         }
       }
-      else{
-        this.CartBook =[];
+      else {
+        this.CartBook = [];
       }
-      
+
       sessionStorage.setItem("CartBook", JSON.stringify(this.CartBook));
       // console.log(JSON.parse(sessionStorage.getItem("CartBook")));
-     window.location.reload();
-      }
- 
+      window.location.reload();
+    }
+
   }
 
 }
