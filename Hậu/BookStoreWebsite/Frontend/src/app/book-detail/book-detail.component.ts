@@ -4,6 +4,7 @@ import { AuthorService } from '../author-service/author.service';
 import { Author } from '../author-service/author.model';
 import { BookService } from '../book-service/book.service';
 import { Book } from '../book-service/book.model';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 declare var $:any
 @Component({
   selector: 'app-book-detail',
@@ -79,9 +80,9 @@ export class BookDetailComponent implements OnInit {
   //   this.getAuthorById(authorID);
   // }
   
-  //add to cart 
-  addToCart(selectedBook:Book){
-  
+  //add to cart (BookDetail,CountSelect)
+  addToCart(selectedBook:Book,form:Book){
+
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
     var dem=0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
     var temp=0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
@@ -95,20 +96,20 @@ export class BookDetailComponent implements OnInit {
           if(CartBook[i]._id==selectedBook._id)
           {
             temp=1;  //đặt biến temp
-            CartBook[i].count++;  //tăng giá trị count
+            CartBook[i].count = CartBook[i].count + form.count;  //tăng giá trị count
           }
           dem++;  // đẩy vị trí gán tiếp theo
         }
     }
   
     if(temp!=1){      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
-      selectedBook.count=1  // set count cho sách
+      selectedBook.count=form.count;  // set count cho sách
       CartBook[dem]=selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
     }
     // đổ mảng vào sessionStorage "CartBook"
     sessionStorage.setItem("CartBook",JSON.stringify(CartBook));
 
-    // console.log((sessionStorage.getItem("CartBook")));
+    console.log((sessionStorage.getItem("CartBook")));
     this._router.navigate(['/cartBook']);
     }
   }
