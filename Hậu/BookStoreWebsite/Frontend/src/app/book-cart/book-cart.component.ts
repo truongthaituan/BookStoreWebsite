@@ -4,6 +4,10 @@ import { Author } from '../author-service/author.model';
 import { BookService } from '../book-service/book.service';
 import { Book } from '../book-service/book.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Order} from '../../app-service/order-service/order.model';
+import { OrderService} from '../../app-service/order-service/order.service';
+import { OrderDetail} from '../../app-service/orderDetail-service/orderDetail.model';
+import { OrderDetailService} from '../../app-service/orderDetail-service/orderDetail.service';
 declare var $: any;
 @Component({
   selector: 'app-book-cart',
@@ -13,15 +17,17 @@ declare var $: any;
 })
 export class BookCartComponent implements OnInit {
 
-  constructor(private _router: Router, ) {
+  constructor(private _router: Router,private _orderService :OrderService ,private _orderDetailService: OrderDetailService) {
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
     });
   }
-  CartBook = []
-  CartUpdate = []
+  CartBook = [];
+  CartUpdate = [];
+  orders : Order= new Order;
+  orderDetails : OrderDetail= new OrderDetail;
   TongTien = 0;
   ngOnInit() {
     //get tong tien
@@ -85,7 +91,41 @@ export class BookCartComponent implements OnInit {
       // console.log(JSON.parse(sessionStorage.getItem("CartBook")));
       window.location.reload();
     }
+  }
+  //Lưu order và orderDetail
+  public now: Date = new Date();
+  checkout() {
+    //lưu order
 
+    //set time
+    this.now = new Date();
+    this.orders.orderDate = this.now.toString().substring(0,24);
+    //set user
+    this.orders.customerID="hau";
+    //set bill
+    this.orders.totalPrice=this.TongTien;
+    this._orderService.postOrder(this.orders).subscribe(
+      orderdata => {
+        //lưu order detail
+        for(var i=0;i<this.CartBook.length;i++)
+        {
+      
+          this.orderDetails = new OrderDetail;
+          this.orderDetails.bookID=this.CartBook[i]._id;
+          this.orderDetails.count=this.CartBook[i].count;
+          this.orderDetails.orderID=orderdata['_id'];
+          this.orderDetails.price=parseInt(this.CartBook[i].count)* parseInt(this.CartBook[i].priceBook);
+          this._orderDetailService.postOrderDetail(this.orderDetails).subscribe(
+            orderDetaildata => {
+            },
+            error => console.log(error)
+          );
+        }
+        
+      },
+      error => console.log(error)
+    );
+    
   }
 
 }
