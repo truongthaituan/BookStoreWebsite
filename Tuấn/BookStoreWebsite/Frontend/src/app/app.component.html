@@ -484,10 +484,14 @@
                             </li>
                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
                                 <button id="login" (click)="moveToAccount();" style="background-color: transparent;border-color:
-                                 transparent;">Đăng Nhập / Đăng Ký</button></li>
+                                 transparent;"  *ngIf = "statusLogin == null">Đăng Nhập / Đăng Ký</button></li>
                                    <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
                                     <button id="login" style="background-color: transparent;border-color:
-                                     transparent;color: green;" disabled>Chào mừng Trương Thái Tuấn</button></li>
+                                     transparent;color: green;" *ngIf = "statusLogin == 'true'" >
+                                     Chào mừng {{userGoogle.username}}</button>
+                                     <button id="login" (click) = "logout();" style="background-color: transparent;border-color:
+                                     transparent;" *ngIf = "statusLogin == 'true'">
+                                     Đăng Xuất</button></li>
                         </ul>
                     </div>
                 </div>

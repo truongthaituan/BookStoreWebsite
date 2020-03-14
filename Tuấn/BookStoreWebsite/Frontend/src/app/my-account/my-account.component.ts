@@ -25,10 +25,12 @@ declare var $:any;
 })
 export class MyAccountComponent implements OnInit {
   public user:any = SocialUser;
-  errString: String = ''
+  errString: String = ""
+  errRegister: String = ""
   statusRegister: Boolean
   showErrorMessage:Boolean = false;
   errorStr: string = ''
+  statusLogin:Boolean = false
 registerForm: FormGroup = new FormGroup({
   email:new FormControl(null,[Validators.email,Validators.required]),
   fullName:new FormControl(null,Validators.required),
@@ -42,7 +44,6 @@ loginForm : FormGroup=new FormGroup({
 });
   constructor(private _router:Router,  private _userService:UserService, 
     private socialAuthService: AuthService, private socialAccountService: SocialaccountService) {
-
       $(function(){
         $("#scrollToTopButton").click(function () {
           $("html, body").animate({scrollTop: 0}, 1000);
@@ -85,11 +86,14 @@ loginForm : FormGroup=new FormGroup({
     // console.log(JSON.stringify(this.registerForm.value));
     this._userService.register(JSON.stringify(this.registerForm.value))
     .subscribe(
-      data=> {console.log(data); this._router.navigate(['/account']);
+      data=> {console.log(data); 
+        this._router.navigate(['/account']);
       this.registerForm.reset();
-      this.statusRegister = true;},
-      error=>console.error(error)
-    )
+      this.statusRegister = true;
+    },
+      error=> {console.log(error);
+        this.errRegister = "Tài khoản có thể đã tồn tại!";
+    })
     }
   }
   login(){
@@ -106,8 +110,8 @@ loginForm : FormGroup=new FormGroup({
           this.errString = "Email hoặc password không đúng!";
         }
         else{
-          console.log(response.obj as User);
-          console.log(response.token);
+          // console.log(response.obj as User);
+          // console.log(response.token);
           sessionStorage.setItem("token",response.token)
           if((response.obj as User).roleID == "1"){
             this._router.navigate(['/adminPage'])
@@ -115,7 +119,6 @@ loginForm : FormGroup=new FormGroup({
             sessionStorage.setItem('loginBy',"loginbt");
           }
           else{
-            console.log((response.obj as User).fullName);
             this._router.navigate(['/booksCategory'])
             sessionStorage.setItem('fullName',(response.obj as User).fullName);
             sessionStorage.setItem('loginBy',"loginbt");
@@ -147,24 +150,29 @@ loginForm : FormGroup=new FormGroup({
           this.errorStr = response.message;
         }
         else {
-          console.log((response.obj as Socialaccount).google_id);
-          console.log((response.obj as Socialaccount).email);
-          sessionStorage.setItem('account', (response.obj as Socialaccount)._id);
+          // console.log((response.obj as Socialaccount).google_id);
+          // console.log((response.obj as Socialaccount).email);
+          sessionStorage.setItem('userGoogle', JSON.stringify((response.obj as Socialaccount)));
           console.log("created");
           this._router.navigate(['/booksCategory']);
+          this.statusLogin = true;
+          sessionStorage.setItem('statusLogin',String(this.statusLogin));
           }
         });
     }
         else {
           //if google account already exist, it's will router to booksCategory
-          console.log(response.obj as Socialaccount);
-          console.log( (response.obj as Socialaccount).email);
+          // console.log(response.obj as Socialaccount);
+          // console.log( (response.obj as Socialaccount).email);
           sessionStorage.setItem('loginBy',"loginGoogle");
           if((response.obj as Socialaccount).typeAccount == 1){
             this._router.navigate(['/adminPage']);
           }
          else {
           this._router.navigate(['/booksCategory']);
+          sessionStorage.setItem('userGoogle', JSON.stringify((response.obj as Socialaccount)));
+          this.statusLogin = true;
+          sessionStorage.setItem('statusLogin',String(this.statusLogin));
           }
         }
       });

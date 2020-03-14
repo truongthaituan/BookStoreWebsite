@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
 //    $('#myCarousel').carousel({
 // 	interval: 4000
 //   })
-  
+	$("#scrollToTopButton").click(function () {
+	  $("html, body").animate({scrollTop: 0}, 1000);
+	});
   $('.carousel .item').each(function(){
 	var next = $(this).next();
 	if (!next.length) {

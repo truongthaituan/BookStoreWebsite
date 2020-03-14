@@ -37,7 +37,7 @@ router.post('/signup', function(req, res) {
     newuser.roleID = 2;
     newuser.save(function(err, inserteduser) {
         if (err) {
-            console.log('Err Saving user');
+            res.send('Err Saving user');
         } else {
             res.json(inserteduser);
         }

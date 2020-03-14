@@ -59,30 +59,30 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
                <div class="u-column1 col-1">
    
    
-                  <h2>Login</h2>
+                  <h2>Đăng Nhập</h2>
             
                   <form method="post" class="login" style="border: 4px solid #27ae61;border-radius: 20px;width: 500px;" [formGroup]="loginForm">           
                      <div *ngIf="errString != null">
                         <p style="color: #27ae61;text-align: center;">{{ errString }}</p>
                        </div>
                      <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
-                        <label for="username">Username or email address <span class="required">*</span></label>
+                        <label for="username">Email <span class="required">*</span></label>
                         <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" formControlName="email"  value="" />
                      </p>
                      <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
-                        <label for="password">Password <span class="required">*</span></label>
+                        <label for="password">Mật Khẩu <span class="required">*</span></label>
                         <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" formControlName="password" />
                      </p>
 
                      <p class="form-row">
                         <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="ad4028f7e0" />
                         <input type="hidden" name="_wp_http_referer" value="/bookstore/my-account/" />	
-                     	<input type="submit" class="woocommerce-Button button" name="login" value="Login" (click) = "login()"/>
+                     	<input type="submit" class="woocommerce-Button button" name="login" value="Đăng Nhập" (click) = "login()"/>
                         <label for="rememberme" class="inline">
                            <input class="woocommerce-Input woocommerce-Input--checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember me				</label>
                      </p>
                      <p class="woocommerce-LostPassword lost_password">
-                        <a href="#">Lost your password?</a>
+                        <a href="#">Quên mật khẩu ?</a>
                      </p>
                      <div class="text-center p-t-46 p-b-20">
                         <span class="txt2">
@@ -90,11 +90,11 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
                         </span>
                      </div>
                      <button class="loginBtn loginBtn--facebook" (click) = "facebookLogin();">
-                        Login with Facebook
+                        Facebook
                       </button>
                       
                       <button class="loginBtn loginBtn--google" (click) = "googleLogin();">
-                        Login with Google
+                         Google
                       </button>
                      
                   </form>
@@ -109,10 +109,11 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
             <div class="col-sm-6">
                <div class="u-column2 col-2">
             
-                  <h2>Register</h2>
+                  <h2>Đăng Ký</h2>
             
                   <form method="post" class="register"  style="border: 4px solid #27ae61;border-radius: 20px;"  [formGroup]="registerForm">
                      <h4 style="text-align: center;color: #27AE61;" *ngIf = "statusRegister == true">Đăng Ký Thành Công!</h4>
+                     <h4 style="text-align: center;color: red;" *ngIf = "errRegister != null">{{errRegister}}</h4>
                      <p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
                         <label for="reg_email">Nhập Địa Chỉ Email <span class="required">*</span></label>
                         <input type="email" class="woocommerce-Input woocommerce-Input--text input-text"
@@ -139,7 +140,7 @@ body { color:#666666;font-family:Roboto Slab;font-weight:400;line-height:30px; }
                      <p class="woocomerce-FormRow form-row">
                         <input type="hidden" id="woocommerce-register-nonce" name="woocommerce-register-nonce" value="5ac2b980f1" />
                         <input type="hidden" name="_wp_http_referer" value="/bookstore/my-account/" />		
-                        		<input type="submit" class="woocommerce-Button button" name="register" value="Register" (click) = "register();"/>
+                        		<input type="submit" class="woocommerce-Button button" name="register" value="Đăng Ký" (click) = "register();"/>
                      </p>
             
                      

@@ -4,6 +4,7 @@ import { BookService } from '../book-service/book.service';
 import { Book } from '../book-service/book.model';
 import { CategoryService } from '../category-service/category.service';
 import { Category } from '../category-service/category.model';
+import { Socialaccount } from '../socialAccount-service/socialaccount.model';
 
 declare var $:any
 @Component({
@@ -45,14 +46,20 @@ export class BookCategoryComponent implements OnInit {
   }
   booksCategory: []
   category_id: string;
+  // userGoogle: Array<Socialaccount>;
+  // statusLogin: string = ""
   ngOnInit() {
     this.refreshBookList();
     this.refreshCategoryList();
     this.category_id = sessionStorage.getItem('category_id');
     // this.booksCategory = JSON.parse(sessionStorage.getItem('booksFilter'));
     // console.log(this.booksCategory)
-    
+    // this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
+    // console.log(this.userGoogle)
+    // this.statusLogin = sessionStorage.getItem('statusLogin');
+    // console.log(this.statusLogin)
   }
+
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
     this.pageOfItems = pageOfItems;

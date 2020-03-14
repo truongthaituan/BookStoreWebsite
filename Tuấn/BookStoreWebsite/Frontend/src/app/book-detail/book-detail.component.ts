@@ -4,6 +4,9 @@ import { AuthorService } from '../author-service/author.service';
 import { Author } from '../author-service/author.model';
 import { BookService } from '../book-service/book.service';
 import { Book } from '../book-service/book.model';
+import { RatingService } from '../rating-service/rating.service';
+import { Rating } from '../rating-service/rating.model';
+import { NgForm } from '@angular/forms';
 declare var $:any
 @Component({
   selector: 'app-book-detail',
@@ -13,7 +16,7 @@ declare var $:any
 export class BookDetailComponent implements OnInit {
 
   constructor(private _router: Router,  private route: ActivatedRoute, 
-    private authorService:AuthorService,private bookService: BookService) {
+    private authorService:AuthorService,private bookService: BookService, private ratingService: RatingService) {
 
     var wc_single_product_params = {"i18n_required_rating_text":"Please select a rating","review_rating_required":"yes"};
     $(function(a){return"undefined"!=typeof wc_single_product_params&&(a("body")
@@ -41,15 +44,30 @@ export class BookDetailComponent implements OnInit {
           $('.imagepreview').attr('src', $(this).find('img').attr('src'));
           $('#imagemodal').modal('show');   
         });		
+          $("#scrollToTopButton").click(function () {
+            $("html, body").animate({scrollTop: 0}, 1000);
+           });
        
     });
    }
 
   ngOnInit() {
+    this.resetForm();
+    this.refreshRatingList();
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
-   this.getBookById(id);
-
+    this.getBookById(id);
+  }
+  resetForm(form?: NgForm) {
+    if (form)
+      form.reset();
+    this.ratingService.selectedRating = {
+      _id: "",
+      bookID: "",
+      userID: "",
+      star: "",
+      review: ""
+    };
   }
   getAuthorById(id:string) {
     this.authorService.getAuthorById(id).subscribe((res) => {
@@ -65,6 +83,23 @@ export class BookDetailComponent implements OnInit {
      this.getAuthorById(books.authorID);
     });
   }
+  refreshRatingList() {
+		this.ratingService.getRatingList().subscribe((res) => {
+		  this.ratingService.rating = res as Rating[];
+		});
+    }
+    onSubmit(form: NgForm) {
+      console.log(form.value)
+      let id = this.route.snapshot.paramMap.get('id');
+      form.value.bookID = id;
+          this.ratingService.postRating(form.value).subscribe(
+            data => {
+              console.log(data);
+              form.resetForm();
+            },
+            error => console.log(error)
+           );
+    }
   // refreshSelectedBook() {
   //   var authorID = "";
   //   this.selectedBook = JSON.parse(sessionStorage.getItem('selectedBook'));

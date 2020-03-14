@@ -30,7 +30,7 @@ router.post('/ratings', function(req, res) {
     newrating.bookID = req.body.bookID;
     newrating.userID = req.body.userID;
     newrating.star = req.body.star;
-
+    newrating.review = req.body.review;
     newrating.save(function(err, insertedrating) {
         if (err) {
             console.log('Err Saving rating');
@@ -48,7 +48,7 @@ router.put('/ratings/:id', function(req, res) {
                     bookID: req.body.bookID,
                     userID: req.body.userID,
                     star: req.body.star,
-
+                    review: req.body.review
                 }
             }, {
                 new: true
