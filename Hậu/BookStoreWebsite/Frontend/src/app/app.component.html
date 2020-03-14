@@ -484,7 +484,14 @@
                             </li>
                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
                                 <button id="login" (click)="moveToAccount();" style="background-color: transparent;border-color:
-                                 transparent;">Đăng Nhập / Đăng Ký</button></li>
+                                 transparent;"  *ngIf = "statusLogin == null">Đăng Nhập / Đăng Ký</button></li>
+                                   <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
+                                    <button id="login" style="background-color: transparent;border-color:
+                                     transparent;color: green;" *ngIf = "statusLogin == 'true'" >
+                                     Chào mừng {{userGoogle.username}}</button>
+                                     <button id="login" (click) = "logout();" style="background-color: transparent;border-color:
+                                     transparent;" *ngIf = "statusLogin == 'true'">
+                                     Đăng Xuất</button></li>
                         </ul>
                     </div>
                 </div>
@@ -523,8 +530,8 @@
                             <div class="mini-cart pull-right">
                                 <div class="minicart-button">
                                     <span class="cart-item-info jb-cart-section">                                        
-                                     <a (click)="goToBookCart();">Cart<i class="fa fa-shopping-bag"></i></a>
-                                 <a class='cart-content' (click)="goToBookCart();" title='View your shopping cart'>
+                                     <a href="../../cart/index.html">Cart<i class="fa fa-shopping-bag"></i></a>
+                                 <a class='cart-content' href='../../cart/index.html' title='View your shopping cart'>
                                     <span class='cart_items'>0</span></a>
                                     </span>
                                 </div>
@@ -718,7 +725,7 @@
                                 </ul>
                             </div>
                         </li>
-                     
+
                     </ul>
                 </div>
             </div>

@@ -970,29 +970,40 @@
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
                                             <div id="respond" class="comment-respond">
-                                                <h3 id="reply-title" class="comment-reply-title">Be the first to review &ldquo;Colorless Tsukur&rdquo; <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3>
-                                                <form action="http://wp.acmeedesign.com/bookstore/wp-comments-post.php">
-                                                    <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span></p>
+                                                <form #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)" style="color: #555555;">
                                                     <label for="rating">Your Rating</label>
                                                     <br>
                                                     <fieldset class="rating">
-                                                        <input type="radio" id="star5" name="rating" value="5" />
+                                                        <input type="radio" id="star5" name="star" value="5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="full" for="star5" title="Awesome - 5 stars"></label>
-                                                        <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                                        <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                                        <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                                        <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
-                                                        <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                                        <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-                                                        <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                                        <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
-                                                        <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                                        <input type="radio" id="star4half" name="star" value="4.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                                        <input type="radio" id="star4" name="star" value="4" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                                        <input type="radio" id="star3half" name="star" value="3.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                                        <input type="radio" id="star3" name="star" value="3" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="full" for="star3" title="Meh - 3 stars"></label>
+                                                        <input type="radio" id="star2half" name="star" value="2.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                                        <input type="radio" id="star2" name="star" value="2" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                                                        <input type="radio" id="star1half" name="star" value="1.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                                        <input type="radio" id="star1" name="star" value="1" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                                                        <input type="radio" id="starhalf" name="star" value="0.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                        <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                                                     </fieldset>
 
-                                                    <p class="comment-form-comment"><br><label for="comment" style="margin-left: -138px;">Your Review <span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" required></textarea></p>
-                                                    <p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true" required /></p>
-                                                    <p lass="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit" /> <input type='hidden' name='comment_post_ID' value='76' id='comment_post_ID' />
-                                                        <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+                                                    <p class="comment-form-comment"><br>
+                                                        <label for="comment" style="margin-left: -138px;">Your Review <span class="required">*</span>
+                                                        </label>
+                                                        <textarea #name="ngModel" [(ngModel)]="ratingService.rating.review" name="review" cols="45" rows="8" aria-required="true" required>
+                                                        </textarea></p>
+                                                    <input type="hidden" name="bookID" #name="ngModel" [(ngModel)]="bookService.book.userID" required/>
+                                                    <input type='hidden' name='userID' id='comment_parent' value='025' />
+                                                    <p lass="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit" />
                                                     </p>
                                                 </form>
                                             </div>
@@ -1006,7 +1017,58 @@
                             </div>
                         </div>
 
+                        <div class="container">
+                            <h2 class="text-center">KHÁCH HÀNG NHẬN XÉT</h2>
 
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                                            <p class="text-secondary text-center">15 Minutes Ago</p>
+                                        </div>
+                                        <div class="col-md-10" *ngFor="let rating of ratingService.rating">
+                                            <p>
+                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                                                    <strong>{{rating.userID}}</strong></a>
+                                                &nbsp;
+
+                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+
+                                            </p>
+                                            <div class="clearfix"></div>
+                                            <p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                                                Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                            <p>
+                                                <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                                                <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="card card-inner">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                                        <p class="text-secondary text-center">15 Minutes Ago</p>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
+                                                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                                        <p>
+                                                            <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
+                                                            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                                       </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                </div>
+                            </div>
+                        </div>
                         <div class="related products">
 
                             <h2>Related Products</h2>

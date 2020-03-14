@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'cartBook',component: BookCartComponent},
   {path: 'adminPage',component: AdminPageComponent},
   {path: 'insertPage',component: InsertBookComponent},
-  {path: 'updatePage',component: UpdateBookComponent},
+  {path: 'updatePage/:id',component: UpdateBookComponent},
   {path: 'aboutUs',component: AboutUsComponent}
 ];
 

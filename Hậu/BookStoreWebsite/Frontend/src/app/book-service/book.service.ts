@@ -25,4 +25,7 @@ export class BookService {
   deleteBook(_id: string) {
     return this._http.delete(this.baseURL + `/${_id}`);
   }
+  getBookByCategoryId(category_id: string) {
+    return this._http.get(this.baseURL +"/findbycategory"+ `/${category_id}`);
+  }
 }

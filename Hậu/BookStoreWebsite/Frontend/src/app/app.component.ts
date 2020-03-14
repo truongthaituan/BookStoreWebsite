@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { Router } from '@angular/router';
-
+import { Socialaccount } from './socialAccount-service/socialaccount.model';
+declare var $:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent  {
   // title = 'Angular';
   // title = 'angularowlslider';
   customOptions: any = {
@@ -33,10 +35,18 @@ export class AppComponent {
     },
     nav: true
   }
-  constructor(private _router: Router){
-
+  userGoogle: Array<Socialaccount>;
+  statusLogin: string = ''
+  ngOnInit() {
+    this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
+    console.log(this.userGoogle)
+    this.statusLogin = sessionStorage.getItem('statusLogin');
+    console.log(this.statusLogin)
   }
-  goToBookCart(){
-		this._router.navigate(['/cartBook']);
-	  }
+  constructor(private _router:Router){
+  
+  }
+  moveToAccount(){
+    return this._router.navigate(['/account']);
+  }
 }

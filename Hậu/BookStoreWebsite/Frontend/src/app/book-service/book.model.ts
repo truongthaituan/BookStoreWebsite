@@ -1,12 +1,12 @@
 export class Book {
-     _id: String;
-     nameBook: String;
-     categoryID: String;     
-     authorID: String;
-     priceBook: Number;
-     detailBook: String;
-     imgBook: String;
-     seriID: String;
-     sale: Number;
-     count: Number;
+     _id: string;
+     nameBook: string;
+     categoryID: string;     
+     authorID: string;
+     priceBook: number;
+     detailBook: string;
+     imgBook: string;
+     seriID: string;
+     sale: number;
+     count: number;
 }

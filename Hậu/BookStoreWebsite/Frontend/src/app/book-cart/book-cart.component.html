@@ -398,6 +398,8 @@
 <body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
     <div class="wrapper">
 
+
+
         <!-- //MAIN NAVIGATION -->
         <div class="page-header bks-breadcrumb">
             <div class="container">
@@ -422,7 +424,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <form class="cart" method="post" enctype='multipart/form-data'> -->
                                     <tr *ngFor="let cartbook of CartBook">
 
                                         <td><img src={{cartbook.imgBook}} /> </td>
@@ -431,12 +432,11 @@
                                         <td><input class="form-control" type="text" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" style="text-align: center;" /></td>
                                         <td class="text-right">{{cartbook.priceBook*cartbook.count}}</td>
                                         <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
-                                    </button> </td>
+                                </button> </td>
                                         <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
-                                    </button> </td>
+                                </button> </td>
 
                                     </tr>
-                                    <!-- </form> -->
 
                                     <tr>
                                         <td></td>

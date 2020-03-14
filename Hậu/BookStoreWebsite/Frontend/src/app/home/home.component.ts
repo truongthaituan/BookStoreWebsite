@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
 //    $('#myCarousel').carousel({
 // 	interval: 4000
 //   })
-  
+	$("#scrollToTopButton").click(function () {
+	  $("html, body").animate({scrollTop: 0}, 1000);
+	});
   $('.carousel .item').each(function(){
 	var next = $(this).next();
 	if (!next.length) {
@@ -46,9 +48,7 @@ export class HomeComponent implements OnInit {
   moveToShop(){
 	  return this._router.navigate(['/booksCategory']);
   }
-  moveToAccount(){
-	return this._router.navigate(['/account']);
-}
+
 	moveToBookCategory(){
 		return this._router.navigate(['/booksCategory']);
 	}
@@ -67,6 +67,4 @@ export class HomeComponent implements OnInit {
 		  this.bookService.book = res as Book[];
 		});
 	  }
-	// change page to bookCart 
-
 }
