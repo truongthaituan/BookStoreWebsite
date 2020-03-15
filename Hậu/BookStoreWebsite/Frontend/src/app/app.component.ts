@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Router } from '@angular/router';
-import { Socialaccount } from './socialAccount-service/socialaccount.model';
+import { Socialaccount } from '../app-service/socialAccount-service/socialaccount.model';
 declare var $:any;
 @Component({
   selector: 'app-root',

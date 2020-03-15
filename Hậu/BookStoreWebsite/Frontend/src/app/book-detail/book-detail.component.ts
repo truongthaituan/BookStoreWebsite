@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthorService } from '../author-service/author.service';
-import { Author } from '../author-service/author.model';
-import { BookService } from '../book-service/book.service';
-import { Book } from '../book-service/book.model';
-import { RatingService } from '../rating-service/rating.service';
-import { Rating } from '../rating-service/rating.model';
+import { AuthorService } from '../../app-service/author-service/author.service';
+import { Author } from '../../app-service/author-service/author.model';
+import { BookService } from '../../app-service/book-service/book.service';
+import { Book } from '../../app-service/book-service/book.model';
+import { RatingService } from '../../app-service/rating-service/rating.service';
+import { Rating } from '../../app-service/rating-service/rating.model';
 import { NgForm } from '@angular/forms';
 declare var $:any
 @Component({

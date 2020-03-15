@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookService } from '../book-service/book.service';
-import { CategoryService } from '../category-service/category.service';
-import { Book } from '../book-service/book.model';
-import { Category } from '../category-service/category.model';
+import { BookService } from '../../app-service/book-service/book.service';
+import { CategoryService } from '../../app-service/category-service/category.service';
+import { Book } from '../../app-service/book-service/book.model';
+import { Category } from '../../app-service/category-service/category.model';
 declare var $:any;
 @Component({
   selector: 'app-admin-page',

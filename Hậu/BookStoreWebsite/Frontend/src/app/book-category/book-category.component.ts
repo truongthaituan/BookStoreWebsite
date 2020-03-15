@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookService } from '../book-service/book.service';
-import { Book } from '../book-service/book.model';
-import { CategoryService } from '../category-service/category.service';
-import { Category } from '../category-service/category.model';
-import { Socialaccount } from '../socialAccount-service/socialaccount.model';
+import { BookService } from '../../app-service/book-service/book.service';
+import { Book } from '../../app-service/book-service/book.model';
+import { CategoryService } from '../../app-service/category-service/category.service';
+import { Category } from '../../app-service/category-service/category.model';
+import { Socialaccount } from '../../app-service/socialAccount-service/socialaccount.model';
 
 declare var $:any
 @Component({

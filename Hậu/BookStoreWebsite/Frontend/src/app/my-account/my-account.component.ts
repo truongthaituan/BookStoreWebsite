@@ -12,8 +12,8 @@ import {
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Response } from '../response/response.model';
 import { User } from '../user-service/user.model';
-import { SocialaccountService } from '../socialAccount-service/socialaccount.service';
-import { Socialaccount } from '../socialAccount-service/socialaccount.model';
+import { SocialaccountService } from '../../app-service/socialAccount-service/socialaccount.service';
+import { Socialaccount } from '../../app-service/socialAccount-service/socialaccount.model';
 
 
 declare var $:any;
