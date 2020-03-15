@@ -33,6 +33,13 @@ export class UserService {
     });
   }
 
+  getUserByID(id_user:String){
+    return this._http.get(this.baseURL + `/${id_user}`,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type','application/json')
+    });
+  }
   logout(){
     return this._http.get('http://localhost:3000/logout',{
       observe:'body',

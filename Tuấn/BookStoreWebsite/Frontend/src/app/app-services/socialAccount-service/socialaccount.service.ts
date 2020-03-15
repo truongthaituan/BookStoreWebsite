@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SocialaccountService {
-
+  accountSocials: Socialaccount[];
   socialAccount: Socialaccount;
   readonly baseURL = 'http://localhost:3000';
   constructor(private _http: HttpClient) { }
@@ -22,5 +22,11 @@ export class SocialaccountService {
   }
   signUp(socialAccount: Socialaccount){
     return this._http.post(this.baseURL + "/addAccount",socialAccount);
+  }
+  getAllAccountSocial(){
+    return this._http.get(this.baseURL+"/socials");
+  }
+  getUserByID(id_user:String){
+    return this._http.get(this.baseURL+"/socials" + `/${id_user}`);
   }
 }

@@ -25,4 +25,7 @@ export class RatingService {
   deleteRating(_id: string) {
     return this._http.delete(this.baseURL + `/${_id}`);
   }
+  getRatingsByBook(_id: string) {
+    return this._http.get(this.baseURL + "/findbooks" + `/${_id}`);
+  }
 }
