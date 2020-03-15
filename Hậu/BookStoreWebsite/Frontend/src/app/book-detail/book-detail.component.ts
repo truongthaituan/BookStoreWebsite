@@ -57,6 +57,7 @@ export class BookDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
     this.getBookById(id);
+    
   }
   resetForm(form?: NgForm) {
     if (form)
@@ -127,7 +128,8 @@ export class BookDetailComponent implements OnInit {
           if(CartBook[i]._id==selectedBook._id)
           {
             temp=1;  //đặt biến temp
-            CartBook[i].count = CartBook[i].count + form.count;  //tăng giá trị count
+            if(CartBook[i].count==null)CartBook[i].count=0;
+            CartBook[i].count =parseInt(CartBook[i].count) + form.count;  //tăng giá trị count
           }
           dem++;  // đẩy vị trí gán tiếp theo
         }

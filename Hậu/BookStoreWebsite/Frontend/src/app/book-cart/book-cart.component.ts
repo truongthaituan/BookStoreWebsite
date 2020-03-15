@@ -117,6 +117,8 @@ export class BookCartComponent implements OnInit {
           this.orderDetails.price=parseInt(this.CartBook[i].count)* parseInt(this.CartBook[i].priceBook);
           this._orderDetailService.postOrderDetail(this.orderDetails).subscribe(
             orderDetaildata => {
+              sessionStorage.removeItem('CartBook');
+              this._router.navigate(['/']);
             },
             error => console.log(error)
           );
