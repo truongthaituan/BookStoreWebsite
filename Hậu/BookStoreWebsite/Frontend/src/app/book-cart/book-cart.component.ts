@@ -29,17 +29,18 @@ export class BookCartComponent implements OnInit {
   orders : Order= new Order;
   orderDetails : OrderDetail= new OrderDetail;
   TongTien = 0;
+  
   ngOnInit() {
     //get tong tien
     this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
     this.CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
     this.TongTien = 0;
     if (this.CartBook != null) {
-
       for (var i = 0; i < this.CartBook.length; i++) {
         this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
       }
     }
+   
   }
 
   getCountUpdate(event: any, id) {
@@ -49,9 +50,7 @@ export class BookCartComponent implements OnInit {
         break;
       }
     }
-
   }
-
   updateCartBook(id) {
     for (var i = 0; i < this.CartUpdate.length; i++) {
       if (this.CartUpdate[i]._id != id) {
@@ -60,36 +59,20 @@ export class BookCartComponent implements OnInit {
     }
     sessionStorage.setItem("CartBook", JSON.stringify(this.CartUpdate));
     // console.log(JSON.parse(sessionStorage.getItem("CartBook")));
-    window.location.reload();
+    this.ngOnInit();
   }
   deleteCartBook(id) {
     var setconfirm = confirm('Bạn có muốn xóa cuốn sách này không ?')
     if (setconfirm == true) {
-      var temp = 0;   // =1 if find id need delete
-      if (JSON.parse(sessionStorage.getItem("CartBook")).length != 1) {
-        for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
-          if (temp == 0) {
-
-            if (this.CartBook[i]._id == id) {
-              temp = 1;
-              i--;
-            }
-          }
-          else {
-            if (JSON.parse(sessionStorage.getItem("CartBook")).length - 2 == i) {
-              break;
-            } else
-              this.CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i + 1];
-          }
-        }
-      }
-      else {
-        this.CartBook = [];
-      }
-
-      sessionStorage.setItem("CartBook", JSON.stringify(this.CartBook));
-      // console.log(JSON.parse(sessionStorage.getItem("CartBook")));
-      window.location.reload();
+      
+		  for (var i = 0; i < this.CartBook.length; i++) {
+			if (this.CartBook[i]._id== id) {
+				this.CartBook.splice(i, 1);
+				break;
+			}
+		}
+		sessionStorage.setItem("CartBook",JSON.stringify(this.CartBook));
+    this.ngOnInit();
     }
   }
   //Lưu order và orderDetail
