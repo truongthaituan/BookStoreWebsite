@@ -35,18 +35,20 @@ export class AppComponent  {
     },
     nav: true
   }
-  userGoogle: Array<Socialaccount>;
-  statusLogin: string = ''
-  ngOnInit() {
-    this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
-    console.log(this.userGoogle)
-    this.statusLogin = sessionStorage.getItem('statusLogin');
-    console.log(this.statusLogin)
-  }
+
   constructor(private _router:Router){
-  
+      
   }
   moveToAccount(){
     return this._router.navigate(['/account']);
+  }
+  moveToHome(){
+    return this._router.navigate(['/']);
+  }
+  logout(){
+    // this.statusLogin == null;
+    sessionStorage.removeItem('userGoogle');
+    sessionStorage.removeItem('statusLogin');
+    window.location.href = "/";
   }
 }
