@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BookService } from '../book-service/book.service';
+import { BookService } from '../app-services/book-service/book.service';
 import { NgForm } from '@angular/forms';
-import { Book } from '../book-service/book.model';
+import { Book } from '../app-services/book-service/book.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CategoryService } from '../category-service/category.service';
-import { Category } from '../category-service/category.model';
-import { AuthorService } from '../author-service/author.service';
-import { Author } from '../author-service/author.model';
+import { CategoryService } from '../app-services/category-service/category.service';
+import { Category } from '../app-services/category-service/category.model';
+import { AuthorService } from '../app-services/author-service/author.service';
+import { Author } from '../app-services/author-service/author.model';
 declare var $:any;
 @Component({
   selector: 'app-update-book',
@@ -64,7 +64,8 @@ export class UpdateBookComponent implements OnInit {
       detailBook: "",
       imgBook: "",
       seriID: "",
-      sale: null
+      sale: null,
+      count: null
     }
   }
   getBookCategoryById(id:string) {

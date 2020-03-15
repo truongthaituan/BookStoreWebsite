@@ -483,13 +483,13 @@
                                 <button id="about" style="background-color: transparent;border-color: transparent;">Cửa Hàng</button>
                             </li>
                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
-                                <button id="login" (click)="moveToAccount();" style="background-color: transparent;border-color:
+                                <button id="login" *ngIf = "statusLogin == null" (click)="moveToAccount();" style="background-color: transparent;border-color:
                                  transparent;">Đăng Nhập / Đăng Ký</button></li>
                                    <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
-                                    <button id="username" style="background-color: transparent;border-color:
-                                     transparent;color: green;"></button>
-                                     <button id="logout" (click) = "logout();" style="background-color: transparent;border-color:
-                                     transparent;">
+                                    <button id="username" *ngIf = "statusLogin == 'true'" style="background-color: transparent;border-color:
+                                     transparent;color: green;">Chào Mừng {{userGoogle.username}}</button>
+                                     <button id="logout" *ngIf = "statusLogin == 'true'" (click) = "logout();" style="background-color: transparent;border-color:
+                                     transparent;">Đăng Xuất
                                      </button></li>
                         </ul>
                     </div>
@@ -529,8 +529,8 @@
                             <div class="mini-cart pull-right">
                                 <div class="minicart-button">
                                     <span class="cart-item-info jb-cart-section">                                        
-                                     <a href="../../cart/index.html">Cart<i class="fa fa-shopping-bag"></i></a>
-                                 <a class='cart-content' href='../../cart/index.html' title='View your shopping cart'>
+                                     <a (click) = "moveToCart();">Cart<i class="fa fa-shopping-bag"></i></a>
+                                 <a class='cart-content' (click) = "moveToCart();" title='View your shopping cart'>
                                     <span class='cart_items'>0</span></a>
                                     </span>
                                 </div>

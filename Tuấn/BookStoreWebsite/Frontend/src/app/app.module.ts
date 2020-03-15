@@ -27,7 +27,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from 'ng4-social-login';
-import { UserService } from './user-service/user.service';
+import { UserService } from './app-services/user-service/user.service';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FilterByPipe } from './filter-by.pipe';

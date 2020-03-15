@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthorService } from '../author-service/author.service';
-import { Author } from '../author-service/author.model';
-import { BookService } from '../book-service/book.service';
-import { Book } from '../book-service/book.model';
-import { RatingService } from '../rating-service/rating.service';
-import { Rating } from '../rating-service/rating.model';
+import { AuthorService } from '../app-services/author-service/author.service';
+import { Author } from '../app-services/author-service/author.model';
+import { BookService } from '../app-services/book-service/book.service';
+import { Book } from '../app-services/book-service/book.model';
+import { RatingService } from '../app-services/rating-service/rating.service';
+import { Rating } from '../app-services/rating-service/rating.model';
 import { NgForm } from '@angular/forms';
 declare var $:any
 @Component({
@@ -100,14 +100,37 @@ export class BookDetailComponent implements OnInit {
             error => console.log(error)
            );
     }
-  // refreshSelectedBook() {
-  //   var authorID = "";
-  //   this.selectedBook = JSON.parse(sessionStorage.getItem('selectedBook'));
-  //   console.log(this.selectedBook);
-  //   for(var i = 0;i < this.selectedBook.length;i++){
-  //     console.log(this.selectedBook[i].nameBook);
-  //     authorID = this.selectedBook[i].authorID;
-  //   }
-  //   this.getAuthorById(authorID);
-  // }
+ 
+  //add to cart (BookDetail,CountSelect)
+  addToCart(selectedBook: Book, form: Book) {
+
+    var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
+    var dem = 0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
+    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
+    // nếu sessionStorage "CartBook" không rỗng
+    if (sessionStorage.getItem('CartBook') != null) {
+      //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
+      if (!form.count) form.count = 1;
+      for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
+        CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i];
+        // nếu id book đã tồn tại trong  sessionStorage "CartBook" 
+        if (CartBook[i]._id == selectedBook._id) {
+          temp = 1;  //đặt biến temp
+
+          CartBook[i].count = CartBook[i].count + form.count;  //tăng giá trị count
+        }
+        dem++;  // đẩy vị trí gán tiếp theo
+      }
+    }
+
+    if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
+      selectedBook.count = form.count;  // set count cho sách
+      CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
+    }
+    // đổ mảng vào sessionStorage "CartBook"
+    sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
+
+
+    this._router.navigate(['/cartBook']);
+  }
 }

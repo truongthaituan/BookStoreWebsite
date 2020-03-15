@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookService } from '../book-service/book.service';
-import { Book } from '../book-service/book.model';
+import { BookService } from '../app-services/book-service/book.service';
+import { Book } from '../app-services/book-service/book.model';
 declare var $:any;
 @Component({
   selector: 'app-home',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Router } from '@angular/router';
-import { Socialaccount } from './socialAccount-service/socialaccount.model';
+import { Socialaccount } from './app-services/socialAccount-service/socialaccount.model';
 declare var $:any;
 @Component({
   selector: 'app-root',
@@ -9,8 +9,9 @@ declare var $:any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
-  // title = 'Angular';
-  // title = 'angularowlslider';
+  title = 'Angular';
+    userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
+    statusLogin = sessionStorage.getItem('statusLogin');
   customOptions: any = {
     loop: true,
     mouseDrag: false,
@@ -44,6 +45,9 @@ export class AppComponent  {
   }
   moveToHome(){
     return this._router.navigate(['/']);
+  }
+  moveToCart(){
+    return this._router.navigate(['/cartBook']);
   }
   logout(){
     // this.statusLogin == null;

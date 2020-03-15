@@ -8,4 +8,5 @@ export class Book {
      imgBook: string;
      seriID: string;
      sale: number;
+     count: number;
 }
