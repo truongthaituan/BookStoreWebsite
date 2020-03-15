@@ -46,12 +46,19 @@ export class BookCategoryComponent implements OnInit {
   }
   booksCategory: []
   category_id: string;
-  // userGoogle: Array<Socialaccount>;
-  // statusLogin: string = ""
+  userGoogle: Array<Socialaccount>;
+  statusLogin: string = ""
   ngOnInit() {
     this.refreshBookList();
     this.refreshCategoryList();
     this.category_id = sessionStorage.getItem('category_id');
+    this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
+    this.statusLogin = sessionStorage.getItem('statusLogin');
+    if(this.statusLogin == 'true'){
+      $("#username").html("Chào mừng " + JSON.parse(sessionStorage.getItem('userGoogle')).username);
+      $("#logout").html("Đăng Xuất");
+      $("#login").html("");
+    }
     // this.booksCategory = JSON.parse(sessionStorage.getItem('booksFilter'));
     // console.log(this.booksCategory)
     // this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
@@ -73,9 +80,7 @@ export class BookCategoryComponent implements OnInit {
       this.bookCategoryService.category = res as Category[];
     }); 
   }
- sortPrice(){
  
- }
   refreshBookList() {
 		this.bookService.getBookList().subscribe((res) => {
       this.books = res as Book[];

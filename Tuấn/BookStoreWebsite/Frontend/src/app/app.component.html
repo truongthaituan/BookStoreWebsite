@@ -484,14 +484,13 @@
                             </li>
                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
                                 <button id="login" (click)="moveToAccount();" style="background-color: transparent;border-color:
-                                 transparent;"  *ngIf = "statusLogin == null">Đăng Nhập / Đăng Ký</button></li>
+                                 transparent;">Đăng Nhập / Đăng Ký</button></li>
                                    <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
-                                    <button id="login" style="background-color: transparent;border-color:
-                                     transparent;color: green;" *ngIf = "statusLogin == 'true'" >
-                                     Chào mừng {{userGoogle.username}}</button>
-                                     <button id="login" (click) = "logout();" style="background-color: transparent;border-color:
-                                     transparent;" *ngIf = "statusLogin == 'true'">
-                                     Đăng Xuất</button></li>
+                                    <button id="username" style="background-color: transparent;border-color:
+                                     transparent;color: green;"></button>
+                                     <button id="logout" (click) = "logout();" style="background-color: transparent;border-color:
+                                     transparent;">
+                                     </button></li>
                         </ul>
                     </div>
                 </div>
@@ -505,7 +504,7 @@
                     <!-- LOGO -->
                     <div class="col-xs-12 col-sm-6 col-lg-8 col-md-6 logo">
                         <div class="site-logo">
-                            <a href="/" title="Book Store">
+                            <a (click)="moveToHome();" title="Book Store">
                                 <img class="logo-img" src="../../assets/img/01/logo_green.png" alt="Book Store" />
                             </a>
                         </div>
