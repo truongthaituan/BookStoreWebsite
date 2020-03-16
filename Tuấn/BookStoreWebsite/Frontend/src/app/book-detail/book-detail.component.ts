@@ -7,6 +7,11 @@ import { Book } from '../app-services/book-service/book.model';
 import { RatingService } from '../app-services/rating-service/rating.service';
 import { Rating } from '../app-services/rating-service/rating.model';
 import { NgForm } from '@angular/forms';
+import { SocialaccountService } from '../app-services/socialAccount-service/socialaccount.service';
+import { Socialaccount } from '../app-services/socialAccount-service/socialaccount.model';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 declare var $:any
 @Component({
   selector: 'app-book-detail',
@@ -14,10 +19,15 @@ declare var $:any
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-
+  private subscription: Subscription;
+  private timer: Observable<any>;
+  books: Array<Book>;
+  id_category:String = ""
+  user_social: Array<Socialaccount>;
   constructor(private _router: Router,  private route: ActivatedRoute, 
-    private authorService:AuthorService,private bookService: BookService, private ratingService: RatingService) {
-
+    private authorService:AuthorService,private bookService: BookService, 
+    private ratingService: RatingService, private accountSocialService: SocialaccountService) {
+//#region js for star
     var wc_single_product_params = {"i18n_required_rating_text":"Please select a rating","review_rating_required":"yes"};
     $(function(a){return"undefined"!=typeof wc_single_product_params&&(a("body")
     .on("init",".wc-tabs-wrapper, .woocommerce-tabs",function(){
@@ -38,7 +48,7 @@ export class BookDetailComponent implements OnInit {
         return window.alert(wc_single_product_params.i18n_required_rating_text),!1}),
         void a(".wc-tabs-wrapper, .woocommerce-tabs, #rating").trigger("init"))
       });
-
+//#endregion
       $(function() {
         $('.pop').click(function (e) {
           $('.imagepreview').attr('src', $(this).find('img').attr('src'));
@@ -47,16 +57,18 @@ export class BookDetailComponent implements OnInit {
           $("#scrollToTopButton").click(function () {
             $("html, body").animate({scrollTop: 0}, 1000);
            });
-       
+        
     });
    }
 
   ngOnInit() {
     this.resetForm();
-    this.refreshRatingList();
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
     this.getBookById(id);
+    this.getAllAccount();
+    this.getRatingsByBookID(id);
+
   }
   resetForm(form?: NgForm) {
     if (form)
@@ -75,35 +87,71 @@ export class BookDetailComponent implements OnInit {
       console.log(res);
     });
   }
+  detailBook(book: Book) {
+    return this._router.navigate(["/bookDetail" + `/${book._id}`]);
+  }
   getBookById(id:string) {
     var books:any
     this.bookService.getBookById(id).subscribe((res) => {
       this.bookService.book = res as Book[];
       books = res;
      this.getAuthorById(books.authorID);
+      this.gettypeCategory(books.categoryID);
+       this.getRatingsByBookID(id);
+      window.scrollTo(0, 0)
     });
   }
-  refreshRatingList() {
-		this.ratingService.getRatingList().subscribe((res) => {
-		  this.ratingService.rating = res as Rating[];
-		});
-    }
+  gettypeCategory(id){
+    this.bookService.getBookByCategoryId(id)
+    .subscribe(resCategoryData => {
+      // console.log(resCategoryData);
+      this.books = resCategoryData as Book[];
+      console.log(this.books);
+    });
+  }
+  account_social = [];
+  getRatingsByBookID(id: string) {
+		this.ratingService.getRatingsByBook(id).subscribe((res) => {
+      this.ratingService.rating = res as Rating[];
+		  });
+  }
+  getAllAccount(){
+    this.accountSocialService.getAllAccountSocial().subscribe(res =>{
+      this.accountSocialService.accountSocials = res as Socialaccount[];
+      console.log(this.accountSocialService.accountSocials);
+    })
+  }
+  statusRating: boolean = false;
+
     onSubmit(form: NgForm) {
+      if(sessionStorage.getItem('userGoogle') == null){
+        alert("Vui lòng đăng nhập để đánh giá!");
+        this._router.navigate(['/account']);
+      }else{
       console.log(form.value)
-      let id = this.route.snapshot.paramMap.get('id');
+      let id = this.route.snapshot.paramMap.get('id'); 
       form.value.bookID = id;
-          this.ratingService.postRating(form.value).subscribe(
-            data => {
-              console.log(data);
-              form.resetForm();
-            },
-            error => console.log(error)
-           );
+      let id_user =  JSON.parse(sessionStorage.getItem('userGoogle'))._id;
+      form.value.userID = id_user;
+        this.ratingService.postRating(form.value).subscribe(
+          data => {
+            console.log(data);
+            this.statusRating = true;
+            form.resetForm();
+            this.ngOnInit();
+            this.timer        = Observable.timer(5000); // 5000 millisecond means 5 seconds
+            this.subscription = this.timer.subscribe(() => {
+                // set showloader to false to hide loading div from view after 5 seconds
+                this.statusRating = false;
+            });
+          },
+          error => console.log(error)
+         );
+      }
     }
- 
+
   //add to cart (BookDetail,CountSelect)
   addToCart(selectedBook: Book, form: Book) {
-
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
     var dem = 0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
     var temp = 0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
@@ -133,4 +181,12 @@ export class BookDetailComponent implements OnInit {
 
     this._router.navigate(['/cartBook']);
   }
+  // getRatingByID(id){
+  //   this.ratingService.getRatingById(id)
+  //   .subscribe(resCategoryData => {
+  //     // console.log(resCategoryData);
+  //     this.books = resCategoryData as Book[];
+  //     console.log(this.books);
+  //   });
+  // }
 }

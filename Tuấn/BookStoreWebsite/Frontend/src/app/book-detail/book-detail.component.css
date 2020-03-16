@@ -10,7 +10,12 @@
 @import '../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
+div#successReview{
+  color: green;
+  background-color: rgb(50,200,50, .5);
+  padding: 10px;
+  text-align: center;
+  }
 fieldset, label { margin: 0; padding: 0; }
 .card-inner{
   margin-left: 4rem;

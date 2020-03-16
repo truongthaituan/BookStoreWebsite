@@ -964,13 +964,9 @@
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title">Reviews</h2>
-
-
-                                        <p class="woocommerce-noreviews">There are no reviews yet.</p>
-
+                                        <div id = "successReview" *ngIf = "statusRating == true" 
+                                        style="color: green;text-align: center;">Đánh giá thành công!</div>
                                     </div>
-
-
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
                                             <div id="respond" class="comment-respond">                      
@@ -1038,500 +1034,171 @@
                             <h2 class="text-center" >KHÁCH HÀNG NHẬN XÉT</h2>
                             
                             <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
+                                <div class="card-body"  *ngFor = "let rating of ratingService.rating">
+                                    <div *ngFor = "let account of accountSocialService.accountSocials" >
+                                    <div class="row" *ngIf ="rating.userID == account._id">
                                         <div class="col-md-2">
-                                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                            <p class="text-secondary text-center">15 Minutes Ago</p>
+                                            <img src="{{account.imageUrl}}" class="img img-rounded img-fluid"/>
                                         </div>
-                                        <div class="col-md-10" *ngFor = "let rating of ratingService.rating">
-                                            <p>
-                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
-                                                    <strong>{{rating.userID}}</strong></a>
+                                        <div class="col-md-10">
+                                           
+                                        
+                                             
+                                                <a   class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                                                    <strong >{{account.username}}</strong></a>
                                                     &nbsp;
-
-                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        
-                                           </p>
+                                                <div *ngIf = "rating.star == 0">            
+                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf = "rating.star == 0.5">            
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </div>
+                                                    <div *ngIf = "rating.star == 1">            
+                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                        </div>
+                                                        <div *ngIf = "rating.star == 1.5">            
+                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                            <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                            </div>
+                                                            <div *ngIf = "rating.star == 2">            
+                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                </div>
+                                                                <div *ngIf = "rating.star == 2.5">            
+                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                    </div>
+                                                                    <div *ngIf = "rating.star == 3">            
+                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                        </div>
+                                                                        <div *ngIf = "rating.star == 3.5">            
+                                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                            <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                            </div>
+                                                                            <div *ngIf = "rating.star == 4">            
+                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                                                </div>
+                                                                                <div *ngIf = "rating.star == 4.5">            
+                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                                                    </div>
+                                                                                    <div *ngIf = "rating.star == 5">            
+                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                                                        </div>
                                            <div class="clearfix"></div>
-                                            <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                            <p>{{rating.review}}</p>
                                             <p>
                                                 <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
                                                 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
                                            </p>
                                         </div>
                                     </div>
-                                        <!-- <div class="card card-inner">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                                        <p class="text-secondary text-center">15 Minutes Ago</p>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
-                                                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                                        <p>
-                                                            <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
-                                                            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-                                                       </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="related products">
 
-                            <h2>Related Products</h2>
+                            <h2>Các sách liên quan</h2>
 
                             <div class="products clearfix">
-
-
-                                <div class="item col-xs-12 col-sm-4 post-88 product type-product status-publish has-post-thumbnail product_cat-budgeting-and-finance product_cat-personal-finance product_cat-romance  instock sale shipping-taxable purchasable product-type-simple">
-                                    <div class="product-wrap">
-
-                                        <span class="on-sale">Sale!</span>
-                                        <div class="product-image">
-                                            <div class="catalog-image">
-                                                <a href="#">
-                                                    <img width="207" 
-                                                    height="265" src="../../wp-content/uploads/2016/01/book10.png" class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image" alt="book10" srcset="http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book10-100x128.png 100w, http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book10.png 555w"
-                                                        sizes="(max-width: 207px) 100vw, 207px" />
-                                                    <div class="button yith-wcqv-button" data-product_id="88">
-                                                        <i class="fa fa-search"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index4ea3.html?add-to-cart=88" rel="nofollow" data-product_id="88" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="indexa79f.html?action=yith-woocompare-add-product&amp;id=88&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="88" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-88">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-
-
-                                                        <a href="index4189.html?add_to_wishlist=88" rel="nofollow" data-product-id="88" data-product-type="simple" class="add_to_wishlist">
-                                                     Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-image -->
-                                        <div class="product-content">
-
-                                            <h4 class="product_title"><a class="bks_product_title_link" href="../vacation/index.html">Vacation</a></h4>
-
-
-                                            <span class="price"><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>600.00</span>
-                                            </del> <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>259.00</span></ins></span>
-                                            <div class="product-desc">
-                                                <p>Completely iterate covalent strategic theme areas via accurate e-markets.</p>
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index4ea3.html?add-to-cart=88" rel="nofollow" data-product_id="88" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="indexa79f.html?action=yith-woocompare-add-product&amp;id=88&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="88" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-88">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-
-
-                                                        <a href="index4189.html?add_to_wishlist=88" rel="nofollow" data-product-id="88" data-product-type="simple" class="add_to_wishlist">
-        Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-content -->
-
-
-                                    </div>
-                                </div>
-
-
-                                <div class="item col-xs-12 col-sm-4 post-75 product type-product status-publish has-post-thumbnail product_cat-creative-thinking product_cat-romance product_cat-science-fiction last instock sale featured shipping-taxable purchasable product-type-simple">
-                                    <div class="product-wrap">
-
-                                        <span class="on-sale">Sale!</span>
-                                        <div class="product-image">
-                                            <div class="catalog-image">
-                                                <a href="../the-third-planet/index.html">
-                                                    <img width="207" height="265" src="../../wp-content/uploads/2016/02/book3.png" class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image" alt="book3" srcset="http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/book3-100x128.png 100w, http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/book3.png 555w"
-                                                        sizes="(max-width: 207px) 100vw, 207px" />
-                                                    <div class="button yith-wcqv-button" data-product_id="75">
-                                                        <i class="fa fa-search"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index0ff8.html?add-to-cart=75" rel="nofollow" data-product_id="75" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="index0719.html?action=yith-woocompare-add-product&amp;id=75&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="75" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-75">
-                                                    <div class="yith-wcwl-add-button hide" style="display:none">
-
-
-                                                        <a href="indexe6f6.html?add_to_wishlist=75" rel="nofollow" data-product-id="75" data-product-type="simple" class="add_to_wishlist">
-        Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse show" style="display:block">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-image -->
-                                        <div class="product-content">
-
-                                            <h4 class="product_title"><a class="bks_product_title_link" href="../the-third-planet/index.html">The Third Planet</a></h4>
-
-
-                                            <span class="price"><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>100.00</span>
-                                            </del> <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>50.00</span></ins></span>
-                                            <div class="product-desc">
-                                                <p>Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index0ff8.html?add-to-cart=75" rel="nofollow" data-product_id="75" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="index0719.html?action=yith-woocompare-add-product&amp;id=75&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="75" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-75">
-                                                    <div class="yith-wcwl-add-button hide" style="display:none">
-
-
-                                                        <a href="indexe6f6.html?add_to_wishlist=75" rel="nofollow" data-product-id="75" data-product-type="simple" class="add_to_wishlist">
-        Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse show" style="display:block">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-content -->
-
-
-                                    </div>
-                                </div>
-
-
-                                <div class="item col-xs-12 col-sm-4 post-74 product type-product status-publish has-post-thumbnail product_cat-romance product_cat-thrillers  instock featured shipping-taxable purchasable product-type-simple">
-                                    <div class="product-wrap">
-                                        <div class="product-image">
-                                            <div class="catalog-image">
-                                                <a href="../thrillers-story/index.html">
-                                                    <img width="207" height="265" src="../../wp-content/uploads/2016/01/book22.png" class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image" alt="book22" srcset="http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book22-100x128.png 100w, http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/01/book22.png 555w"
-                                                        sizes="(max-width: 207px) 100vw, 207px" />
-                                                    <div class="button yith-wcqv-button" data-product_id="74">
-                                                        <i class="fa fa-search"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index66bc.html?add-to-cart=74" rel="nofollow" data-product_id="74" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="index3c10.html?action=yith-woocompare-add-product&amp;id=74&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="74" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-74">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-
-
-                                                        <a href="index6f7e.html?add_to_wishlist=74" rel="nofollow" data-product-id="74" data-product-type="simple" class="add_to_wishlist">
-        Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-image -->
-                                        <div class="product-content">
-
-                                            <h4 class="product_title"><a class="bks_product_title_link" href="../thrillers-story/index.html">Thrillers Story</a></h4>
-
-
-                                            <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>100.00</span>
-                                            </span>
-                                            <div class="product-desc">
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index66bc.html?add-to-cart=74" rel="nofollow" data-product_id="74" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="index3c10.html?action=yith-woocompare-add-product&amp;id=74&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="74" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-74">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-
-
-                                                        <a href="index6f7e.html?add_to_wishlist=74" rel="nofollow" data-product-id="74" data-product-type="simple" class="add_to_wishlist">
-        Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-content -->
-
-
-                                    </div>
-                                </div>
-
-
-                                <div class="item col-xs-12 col-sm-4 post-92 product type-product status-publish has-post-thumbnail product_cat-budgeting-and-finance product_cat-fantasy product_cat-people-management product_cat-personal-finance product_cat-sales-and-marketting last instock shipping-taxable purchasable product-type-simple">
-                                    <div class="product-wrap">
-                                        <div class="product-image">
-                                            <div class="catalog-image">
-                                                <a href="../the-best-investment/index.html">
-                                                    <img width="207" height="265" src="../../wp-content/uploads/2016/02/book12.png" class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image" alt="book12" srcset="http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/book12-100x128.png 100w, http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/book12.png 555w"
-                                                        sizes="(max-width: 207px) 100vw, 207px" />
-                                                    <div class="button yith-wcqv-button" data-product_id="92">
-                                                        <i class="fa fa-search"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index9817.html?add-to-cart=92" rel="nofollow" data-product_id="92" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="indexf444.html?action=yith-woocompare-add-product&amp;id=92&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="92" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-92">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-
-
-                                                        <a href="indexc8e4.html?add_to_wishlist=92" rel="nofollow" data-product-id="92" data-product-type="simple" class="add_to_wishlist">
-        Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-image -->
-                                        <div class="product-content">
-
-                                            <h4 class="product_title"><a class="bks_product_title_link" href="../the-best-investment/index.html">The Best Investment</a></h4>
-
-
-                                            <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#036;</span>360.00</span>
-                                            </span>
-                                            <div class="product-desc">
-                                                <p>Seamlessly underwhelm optimal testing procedures whereas bricks-and-clicks processes.</p>
-                                            </div>
-
-                                            <div class="product-buttons">
-                                                <div class="add-to-cart-btn"><a href="index9817.html?add-to-cart=92" rel="nofollow" data-product_id="92" data-product_sku="" data-quantity="1" class="button">Add to cart</a></div>
-                                                <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button"><a href="indexf444.html?action=yith-woocompare-add-product&amp;id=92&amp;_wpnonce=7156f5a924" class="compare button" data-product_id="92" rel="nofollow">Compare</a></div>
-                                                </div>
-
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-92">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-
-
-                                                        <a href="indexc8e4.html?add_to_wishlist=92" rel="nofollow" data-product-id="92" data-product-type="simple" class="add_to_wishlist">
-        Add to Wishlist</a>
-                                                        <img src="../../wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="../../wishlist/view/index.html" rel="nofollow">
-	            Browse Wishlist	        </a>
-                                                    </div>
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-
-                                                </div>
-
-                                                <div class="clear"></div>
-
-                                            </div>
-
-                                        </div>
-                                        <!-- end product-content -->
-
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-
-                        <meta itemprop="url" content="index.html" />
-
-                    </div>
+                                <div class="item col-xs-12 col-sm-4 post-78 product type-product
+                                status-publish has-post-thumbnail product_cat-budgeting-and-finance 
+                                product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
+                                 instock sale featured shipping-taxable purchasable product-type-simple" 
+                                 *ngFor="let item of books | filter: searchText |
+                                  paginate: { itemsPerPage: 6,currentPage: p }">
+                                   <div class="product-wrap">
+                                       <div class="product-image">
+                                           <div class="catalog-image">
+                                               <button (click)="getBookById(item._id);" 
+                                               style="background-color: transparent;border-color: transparent;">
+                                           <img width="207" height="265" src="{{item.imgBook}}"
+                                            class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
+                                             alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
+                                                <div class="button yith-wcqv-button" data-product_id="78">
+                                                <i class="fa fa-search"></i>
+                                           </div>
+                                                   </button>
+                                           </div>
+   
+                                           <div class="product-buttons">
+                                               <div class="add-to-cart-btn"><a href="#" rel="nofollow" 
+                                                   data-product_id="78" data-product_sku="" data-quantity="1" class="button">Add to cart</a>
+                                               </div>
+                                               <div class="yith_compare_btn">
+                                                   <div class="woocommerce product compare-button">
+                                                       <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                               </div>
+                                               <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                                   <div class="yith-wcwl-add-button show" style="display:block">
+                                                       <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+                           Add to Wishlist</a>
+                                                   </div>
+                                                   <div style="clear:both"></div>
+                                                   <div class="yith-wcwl-wishlistaddresponse"></div>
+                                               </div>
+                                               <div class="clear"></div>
+                                           </div>
+                                       </div>
+                                       <!-- end product-image -->
+                                       <div class="product-content">
+   
+                                           <h4 class="product_title">
+                                               <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
+                                               
+                                           <span class="price">
+                               <span class="woocommerce-Price-amount amount" id="priceBook" >
+                                   {{item.priceBook | currency:"VND"}}</span></span>
+                                           <div class="product-desc">
+                                               <p>{{item.detailBook}}</p>
+                                           </div>
+                                       </div>
+                                       <!-- end product-content -->
+                                   </div></div></div>
                     <!-- #product-76 -->
 
 
-
+</div></div></div>
                 </div>
             </div>
 

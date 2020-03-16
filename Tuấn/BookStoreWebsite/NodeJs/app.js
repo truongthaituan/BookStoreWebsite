@@ -20,6 +20,8 @@ const employee = require('./routes/B_profile/employeeController');
 //C_permission
 const role = require('./routes/C_permission/roleController');
 const user = require('./routes/C_permission/userController');
+const accountSocial = require('./routes/C_permission/accountSocialsController');
+
 //D_action
 const comment = require('./routes/D_action/commentController');
 const rating = require('./routes/D_action/ratingController');
@@ -67,6 +69,7 @@ app.use('/', employee);
 //C_permission
 app.use('/', role);
 app.use('/', user);
+app.use('/', accountSocial);
 //D_action
 app.use('/', comment);
 app.use('/', favorite);

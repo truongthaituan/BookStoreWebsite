@@ -37,9 +37,7 @@ export class HomeComponent implements OnInit {
 	  next.children(':first-child').clone().appendTo($(this));
 	}
   });
-  $("#scrollToTopButton").click(function () {
-	$("html, body").animate({scrollTop: 0}, 1000);
- 	});
+
    });
 }
   ngOnInit() {
