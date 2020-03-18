@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BookService } from '../../app-service/book-service/book.service';
-import { CategoryService } from '../../app-service/category-service/category.service';
-import { AuthorService } from '../../app-service/author-service/author.service';
-import { Category } from '../../app-service/category-service/category.model';
-import { Author } from '../../app-service/author-service/author.model';
+import { BookService } from '../app-services/book-service/book.service';
+import { CategoryService } from '../app-services/category-service/category.service';
+import { AuthorService } from '../app-services/author-service/author.service';
+import { Category } from '../app-services/category-service/category.model';
+import { Author } from '../app-services/author-service/author.model';
 declare var $:any;
 @Component({
   selector: 'app-insert-book',
@@ -55,7 +55,7 @@ export class InsertBookComponent implements OnInit {
       imgBook: "",
       seriID: "",
       sale: null,
-      count:null,
+      count: null
     };
   }
   getCategoryList() {

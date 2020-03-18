@@ -475,8 +475,9 @@
                                 <button id="continue" class="btn btn-block btn-light">Continue Shopping</button>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkout()">Checkout</button>
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#cartModal" type="button" (click)="checkout()">Checkout</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -491,5 +492,91 @@
             <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
         </div>
         <!-- Back to Top -->
+    </div>
+
+
+
+
+
+    <!--model checkout-->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered " role="document ">
+            <div class="modal-content ">
+                <div class="modal-header border-bottom-0 ">
+                    <h5 class="modal-title " id="exampleModalLabel " style="font-size: 2rem; ">
+                        Your Shopping Cart
+                    </h5>
+                    <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                <span aria-hidden="true ">&times;</span>
+              </button>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8" id="scroll">
+                        <div class="modal-body ">
+                            <table class="table table-image ">
+                                <thead>
+                                    <tr style="font-size: 2rem;">
+                                        <th scope="col "></th>
+                                        <th scope="col ">Book Name</th>
+                                        <th scope="col ">Price</th>
+                                        <th scope="col ">Count</th>
+                                        <th scope="col ">Total</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let cartbook of CartBook">
+                                    <tr>
+                                        <td class="w-25 ">
+                                            <img src={{cartbook.imgBook}} alt="Sheep ">
+                                        </td>
+                                        <td>{{cartbook.nameBook}}</td>
+                                        <td>{{cartbook.priceBook |currency:"VND"}}</td>
+                                        <td>{{cartbook.count}}</td>
+                                        <td>{{cartbook.priceBook*cartbook.count |currency:"VND"}}</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end ">
+                                <h5 style="float:right;font-size: 4rem;margin-top: -1rem; ">Total: <span class="price text-success ">{{TongTien |currency:"VND"}}</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-left :68%;position: absolute;height:400px;width:1px;background-color:#EEE5E5;"></div>
+                    <div class="col-sm-4">
+                        <div class="modal-footer border-top-0 d-flex justify-content-between">
+
+                            <div style="padding-bottom: 30px;">
+                                <h3 style="font-weight:bold;margin-top: 15px; ">Your profile</h3>
+                                <table id="profile">
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{userGoogle.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <td>{{userGoogle.username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td><input type="text" name="Address" (change)="editAddress($event)"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td><input type="text" name="Phone" (change)="editPhone($event)"></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <button type="button " class="btn btn-secondary " data-dismiss="modal">Close</button>
+                            <button type="button " class="btn btn-success " (click)=payCheckOut() data-dismiss="modal">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
     </div>
 </body>

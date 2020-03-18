@@ -73,8 +73,18 @@ router.delete('/customers/:id', function(req, res) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });
+//get customer by userid
+router.get('/customers/UserID/:user_id', function(req, res) {
+    customer.find({
+            userID: req.params.user_id
+        })
+        .exec(function(err, customers) {
+            if (err) console.log("Error retrieving customer");
+            else res.json(customers);
+        });
+})
 module.exports = router;

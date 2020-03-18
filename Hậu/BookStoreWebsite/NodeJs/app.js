@@ -28,6 +28,7 @@ const favorite = require('./routes/D_action/favoriteController');
 //E_payment
 const order = require('./routes/E_payment/orderController');
 const orderDetail = require('./routes/E_payment/orderDetailController');
+const sendmail = require('./routes/E_payment/sendmail');
 //F_event
 const discountCode = require('./routes/F_event/discountCodeController');
 const promotion = require('./routes/F_event/promotionController');
@@ -35,8 +36,8 @@ const promotion = require('./routes/F_event/promotionController');
 //H_tracking
 //end controller
 app.use(cors({
-  origin:['http://localhost:4200', 'http://127.0.0.1:4200'],
-  credentials: true
+    origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
+    credentials: true
 }));
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -74,6 +75,7 @@ app.use('/', rating);
 //E_payment
 app.use('/', order);
 app.use('/', orderDetail);
+app.use('/', sendmail);
 //F_event
 app.use('/', discountCode);
 app.use('/', promotion);
@@ -82,18 +84,21 @@ app.use('/', promotion);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.json({
+        message: err.message,
+        error: err
+    });
 });
 
 module.exports = app;

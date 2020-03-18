@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../user-service/user.service';
+import { UserService } from '../app-services/user-service/user.service';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -10,10 +10,10 @@ import {
   AuthService
 } from 'ng4-social-login';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Response } from '../response/response.model';
-import { User } from '../user-service/user.model';
-import { SocialaccountService } from '../../app-service/socialAccount-service/socialaccount.service';
-import { Socialaccount } from '../../app-service/socialAccount-service/socialaccount.model';
+import { Response } from '../app-services/response/response.model';
+import { User } from '../app-services/user-service/user.model';
+import { SocialaccountService } from '../app-services/socialAccount-service/socialaccount.service';
+import { Socialaccount } from '../app-services/socialAccount-service/socialaccount.model';
 
 
 declare var $:any;
@@ -54,7 +54,7 @@ loginForm : FormGroup=new FormGroup({
 
      socialUser: SocialUser;
 
-
+     templogin=0;
   ngOnInit() {
     this.initialAccount();
    
@@ -110,16 +110,19 @@ loginForm : FormGroup=new FormGroup({
           this.errString = "Email hoặc password không đúng!";
         }
         else{
-          // console.log(response.obj as User);
-          // console.log(response.token);
+      
           sessionStorage.setItem("token",response.token)
+          //admin
           if((response.obj as User).roleID == "1"){
             this._router.navigate(['/adminPage'])
             sessionStorage.setItem('fullName',(response.obj as User).fullName);
             sessionStorage.setItem('loginBy',"loginbt");
+            sessionStorage.setItem('idLogin',(response.obj as User)._id);
           }
+          //member
           else{
             this._router.navigate(['/booksCategory'])
+            
             sessionStorage.setItem('fullName',(response.obj as User).fullName);
             sessionStorage.setItem('loginBy',"loginbt");
           }
@@ -169,10 +172,14 @@ loginForm : FormGroup=new FormGroup({
             this._router.navigate(['/adminPage']);
           }
          else {
-          this._router.navigate(['/booksCategory']);
+          // this.templogin=1;
+          // this.ngOnInit()
+          window.location.href = "/" 
           sessionStorage.setItem('userGoogle', JSON.stringify((response.obj as Socialaccount)));
+          console.log(response.obj as Socialaccount);
           this.statusLogin = true;
           sessionStorage.setItem('statusLogin',String(this.statusLogin));
+          // this._router.navigate(['/booksCategory']);
           }
         }
       });

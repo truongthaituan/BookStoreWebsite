@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookService } from '../../app-service/book-service/book.service';
-import { Book } from '../../app-service/book-service/book.model';
-import { CategoryService } from '../../app-service/category-service/category.service';
-import { Category } from '../../app-service/category-service/category.model';
-import { Socialaccount } from '../../app-service/socialAccount-service/socialaccount.model';
+import { BookService } from '../app-services/book-service/book.service';
+import { Book } from '../app-services/book-service/book.model';
+import { CategoryService } from '../app-services/category-service/category.service';
+import { Category } from '../app-services/category-service/category.model';
+import { Socialaccount } from '../app-services/socialAccount-service/socialaccount.model';
 
 declare var $:any
 @Component({
@@ -46,18 +46,20 @@ export class BookCategoryComponent implements OnInit {
   }
   booksCategory: []
   category_id: string;
-  // userGoogle: Array<Socialaccount>;
-  // statusLogin: string = ""
+  userGoogle: Array<Socialaccount>;
+  statusLogin: string = ""
   ngOnInit() {
     this.refreshBookList();
     this.refreshCategoryList();
     this.category_id = sessionStorage.getItem('category_id');
-    // this.booksCategory = JSON.parse(sessionStorage.getItem('booksFilter'));
-    // console.log(this.booksCategory)
-    // this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
-    // console.log(this.userGoogle)
-    // this.statusLogin = sessionStorage.getItem('statusLogin');
-    // console.log(this.statusLogin)
+    this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
+    this.statusLogin = sessionStorage.getItem('statusLogin');
+    // if(this.statusLogin == 'true'){
+    //   $("#username").html("Chào mừng " + JSON.parse(sessionStorage.getItem('userGoogle')).username);
+    //   $("#logout").html("Đăng Xuất");
+    //   $("#login").html("");
+    // }
+
   }
 
   onChangePage(pageOfItems: Array<any>) {
@@ -73,9 +75,7 @@ export class BookCategoryComponent implements OnInit {
       this.bookCategoryService.category = res as Category[];
     }); 
   }
- sortPrice(){
  
- }
   refreshBookList() {
 		this.bookService.getBookList().subscribe((res) => {
       this.books = res as Book[];
