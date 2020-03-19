@@ -7,6 +7,9 @@ import { Order } from '../app-services/order-service/order.model';
 import { OrderDetail } from '../app-services/orderDetail-service/orderDetail.model';
 import { CustomerService } from '../app-services/customer-service/customer.service';
 import { Customer } from '../app-services/customer-service/Customer.model';
+import { SendMailService } from '../app-services/sendMail-service/sendMail.service';
+import { SendMail } from '../app-services/sendMail-service/sendMail.model';
+import { BookService} from '../app-services/book-service/book.service';
 declare var $: any;
 @Component({
   selector: 'app-book-cart',
@@ -16,7 +19,8 @@ declare var $: any;
 })
 export class BookCartComponent implements OnInit {
 
-  constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService, private _customerService: CustomerService) {
+  constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService, 
+    private _customerService: CustomerService, private _sendMail : SendMailService,private _bookService :BookService) {
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
@@ -25,6 +29,7 @@ export class BookCartComponent implements OnInit {
   }
   CartBook = [];
   CartUpdate = [];
+  sendMail: SendMail= new SendMail;
   orders: Order = new Order;
   orderDetails: OrderDetail = new OrderDetail;
   customer: Customer = new Customer;
@@ -34,17 +39,23 @@ export class BookCartComponent implements OnInit {
   //change info payment
   address = "";
   phone="";
+  checkViewCart=false;
   ngOnInit() {
     //get tong tien
     this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
     this.CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
+    console.log(this.CartBook);
+    if(this.CartBook==null|| this.CartBook.length==0)
+    {
+      this.checkViewCart= true;
+    }else{this.checkViewCart=false;}
     this.TongTien = 0;
     if (this.CartBook != null) {
       for (var i = 0; i < this.CartBook.length; i++) {
         this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
       }
     }
-    console.log(this.userGoogle);
+  
   }
 
   getCountUpdate(event: any, id) {
@@ -107,12 +118,50 @@ export class BookCartComponent implements OnInit {
     //set bill
     this.orders.totalPrice = this.TongTien;
     if (this.CartBook) {
+      //SendMail
+     
+      this.sendMail.name=this.userGoogle.username;
+      this.sendMail.address=this.address;
+      this.sendMail.email=this.userGoogle.email;
+      this.sendMail.phone=this.phone;
+      this.sendMail.orderDate= this.orders.orderDate;
+      this.sendMail.totalPrice= this.orders.totalPrice.toString();
+      this.sendMail.imgBook="";
+      this.sendMail.nameBook="";
+      this.sendMail.count="";
+      this.sendMail.price="";
+      for (var i = 0; i < this.CartBook.length; i++) {
+      this.sendMail.count+=this.CartBook[i].count+"next";
+      this.sendMail.price+=(parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook)).toString()+"next";
+      this._bookService.getBookById(   this.CartBook[i]._id).subscribe(
+        getBook =>{
+         
+          this.sendMail.imgBook+= getBook['imgBook']+"next";
+          this.sendMail.nameBook+=getBook['nameBook']+"next";
+       
+          console.log(i);
+          console.log(this.CartBook.length);
+          if(i==this.CartBook.length)
+          {
+            this._sendMail.postsendMail(this.sendMail).subscribe(
+              postSendMail=>{
+                console.log("SendMail Success");
+              },
+              error => console.log(error)
+            );
+          }
+        },
+        error => console.log(error)
+        );
+      }
+    
+      //thực hiện lưu db (order - orderDetail - customer )
       this._orderService.postOrder(this.orders).subscribe(
         orderdata => {
           //Kiểm tra userInfo customer ( nếu chưa có thì tạo , có rồi thì cập nhật)
           this._customerService.getCustomerByUserID(this.orders.customerID).subscribe(
             getcustomer => {
-              console.log(Object.values(getcustomer).length);
+          
               this.customer.userID=this.userGoogle._id;
               this.customer.email=this.userGoogle.email;
               this.customer.address=this.address;
@@ -122,7 +171,7 @@ export class BookCartComponent implements OnInit {
               
               //tạo mới 
              if(Object.values(getcustomer).length==0){
-              console.log("heelloo");
+             
               this._customerService.postCustomer(this.customer).subscribe(
                 customerpost => {
             
@@ -149,7 +198,7 @@ export class BookCartComponent implements OnInit {
           );
           //lưu order detail
           for (var i = 0; i < this.CartBook.length; i++) {
-
+            
             this.orderDetails = new OrderDetail;
             this.orderDetails.bookID = this.CartBook[i]._id;
             this.orderDetails.count = this.CartBook[i].count;

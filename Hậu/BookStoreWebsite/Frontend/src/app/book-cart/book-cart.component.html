@@ -406,9 +406,15 @@
                 <h1>Giỏ Hàng</h1>
             </div>
         </div>
+
         <br>
+
         <div id="page-content" role="main">
+
             <div class="container mb-4">
+                <div *ngIf="checkViewCart">
+                    <div style="background-color: #EEE;height:60px;width: 100%;text-align: center;"><b style="top:15px;position: relative;">Giỏ hàng của bạn đang trống </b></div>
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
