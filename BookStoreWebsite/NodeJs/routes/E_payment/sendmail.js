@@ -7,9 +7,12 @@ router.post('/send', function(req, res) {
       <p>You was buy book </p>
       <h3>Your Info</h3>
       <ul>  
-        <li>Name: ${req.body.email}</li>
-     
-         </ul>  
+        <li>Name : ${req.body.name}</li>
+        <li>Email : ${req.body.email}</li>
+        <li>Address : ${req.body.address}</li>
+        <li>Phone : ${req.body.phone}</li>
+
+        </ul>  
          <h3>List Book You Was Buy</h3>
       
    
@@ -18,9 +21,9 @@ router.post('/send', function(req, res) {
     var dem_j = 0;
     var dem_k = 0;
     var dem_l = 0;
-    for (let i of(req.body.name).split("next")) {
+    for (let i of(req.body.nameBook).split("next")) {
         var dem_j = 0;
-        for (let j of(req.body.url).split("next")) {
+        for (let j of(req.body.imgBook).split("next")) {
             var dem_k = 0;
             for (let k of(req.body.count).split("next")) {
                 var dem_l = 0;
@@ -52,8 +55,8 @@ router.post('/send', function(req, res) {
 
     const output2 = `
 
-   <h1>Total : ${req.body.total}</h1>
-  
+   <h1>Total : ${req.body.totalPrice}</h1>
+   <h1>Order date : ${req.body.orderDate}</h1>
   `;
 
     // create reusable transporter object using the default SMTP transport
@@ -92,4 +95,10 @@ router.post('/send', function(req, res) {
         }
     });
 });
+router.post('/check', function(req, res) {
+    emailExistence.check(req.body.email, function(error, response) {
+        console.log('res: ' + response);
+    });
+});
+
 module.exports = router;

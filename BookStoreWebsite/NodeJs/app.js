@@ -19,6 +19,7 @@ const employee = require('./routes/B_profile/employeeController');
 
 //C_permission
 const role = require('./routes/C_permission/roleController');
+const accountSocial = require('./routes/C_permission/accountSocialController');
 const user = require('./routes/C_permission/userController');
 //D_action
 const comment = require('./routes/D_action/commentController');
@@ -68,6 +69,7 @@ app.use('/', employee);
 //C_permission
 app.use('/', role);
 app.use('/', user);
+app.use('/', accountSocial);
 //D_action
 app.use('/', comment);
 app.use('/', favorite);
@@ -100,5 +102,6 @@ app.use(function(err, req, res, next) {
         error: err
     });
 });
+
 
 module.exports = app;

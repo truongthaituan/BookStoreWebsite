@@ -80,4 +80,10 @@ export class InsertBookComponent implements OnInit {
             error => console.log(error)
            );
     }
+    getLinkImgBook="";
+    getLinkImg(event : any)
+    { 
+      this.getLinkImgBook=event.target.value;
+
+    }
 }

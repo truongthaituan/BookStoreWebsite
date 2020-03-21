@@ -9,10 +9,14 @@ declare var $:any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
-  title = 'Angular';
+    title = 'Angular';
     userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
     statusLogin = sessionStorage.getItem('statusLogin');
-  customOptions: any = {
+    //set giỏ hàng
+    TongTien= sessionStorage.getItem("TongTien");
+    TongCount=sessionStorage.getItem("TongCount");
+    //
+    customOptions: any = {
     loop: true,
     mouseDrag: false,
     touchDrag: false,

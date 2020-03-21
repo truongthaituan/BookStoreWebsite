@@ -71,4 +71,13 @@ router.delete('/ratings/:id', function(req, res) {
         }
     });
 });
+router.get('/ratings/findbooks/:book_id',function(req,res){
+    rating.find({
+        bookID: req.params.book_id
+    })
+    .exec(function(err,ratings){
+        if(err) console.log("Error retrieving books");
+        else {res.json(ratings);}
+    });
+})
 module.exports = router;

@@ -34,6 +34,7 @@ export class BookCartComponent implements OnInit {
   orderDetails: OrderDetail = new OrderDetail;
   customer: Customer = new Customer;
   TongTien = 0;
+  TongCount=0;
   userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
   statusLogin = sessionStorage.getItem('statusLogin');
   //change info payment
@@ -50,12 +51,21 @@ export class BookCartComponent implements OnInit {
       this.checkViewCart= true;
     }else{this.checkViewCart=false;}
     this.TongTien = 0;
+    this.TongCount= 0;
+    this.getTotalCountAndPrice();
+  }
+  //get total count and price 
+  getTotalCountAndPrice()
+  {
     if (this.CartBook != null) {
       for (var i = 0; i < this.CartBook.length; i++) {
         this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+        this.TongCount+=parseInt(this.CartBook[i].count);
+        sessionStorage.setItem("TongTien",this.TongTien.toString());
+        sessionStorage.setItem("TongCount",this.TongCount.toString());
+        
       }
     }
-  
   }
 
   getCountUpdate(event: any, id) {
@@ -103,9 +113,13 @@ export class BookCartComponent implements OnInit {
   //Lưu order và orderDetail
   public now: Date = new Date();
   checkout() {
+    // console.log(this.statusLogin==null);
+    if(this.statusLogin==null){this._router.navigate(['/account']);}
+    else{
     $(document).ready(function () {
       $('#cartModal').modal('show');
     });
+  }
   }
   payCheckOut() {
     //lưu order
