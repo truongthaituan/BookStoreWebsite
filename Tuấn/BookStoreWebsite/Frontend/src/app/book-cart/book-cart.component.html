@@ -1,0 +1,589 @@
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+
+<meta charset="UTF-8" />
+<style>
+    #yith-quick-view-modal .yith-wcqv-main {
+        background: #ffffff
+    }
+    
+    #yith-quick-view-close {
+        color: #cdcdcd
+    }
+    
+    #yith-quick-view-close:hover {
+        color: #ff0000
+    }
+</style>
+
+<style>
+    .wishlist_table .add_to_cart,
+    a.add_to_wishlist.button.alt {
+        border-radius: 16px;
+        -moz-border-radius: 16px;
+        -webkit-border-radius: 16px;
+    }
+</style>
+
+
+<style type="text/css">
+    img.wp-smiley,
+    img.emoji {
+        display: inline !important;
+        border: none !important;
+        box-shadow: none !important;
+        height: 1em !important;
+        width: 1em !important;
+        margin: 0 .07em !important;
+        vertical-align: -0.1em !important;
+        background: none !important;
+        padding: 0 !important;
+    }
+</style>
+
+<style id='bookstore-custom-styles-inline-css' type='text/css'>
+    body {
+        color: #666666;
+        font-family: Roboto Slab;
+        font-weight: 400;
+        line-height: 30px;
+    }
+    
+    .read-more {
+        color: #27ae61 !important;
+    }
+    
+    .read-more:hover {
+        color: #229955 !important;
+    }
+    
+    .btn-link:after {
+        background: #229955 !important;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #323232;
+        font-family: Roboto Slab;
+    }
+    
+    .topbar {
+        background-color: #F5F5F5;
+        color: #999999;
+    }
+    
+    .topbar .nav>li.current_page_item a,
+    .topbar .nav>li.current-menu-item a {
+        color: #27ae61;
+    }
+    
+    .topbar .nav>li a:hover {
+        color: #27ae61;
+    }
+    
+    .topbar .nav>li a {
+        color: #999999;
+        border-color: #27ae61;
+    }
+    
+    .topbar i {
+        color: #27ae61;
+    }
+    
+    .header {
+        background-color: #ffffff;
+    }
+    
+    .bks-cart-widget .currency-switcher .dd-select {
+        background: #ffffff !important;
+    }
+    
+    .bks-cart-widget .currency-switcher,
+    .bks-cart-widget .minicart-button {
+        border-color: #e4e4e4;
+    }
+    
+    .bks-cart-widget .currency-switcher a,
+    .bks-cart-widget .minicart-button .cart-item-info a {
+        color: #323232;
+    }
+    
+    .bks-cart-widget .dd-pointer-down {
+        border-top-color: #323232;
+    }
+    
+    .bks-cart-widget .currency-switcher .dd-options {
+        background: #ffffff;
+    }
+    
+    .bks-cart-widget .currency-switcher ul.dd-options li:hover {
+        background: #27ae61;
+    }
+    
+    .bks-cart-widget .currency-switcher ul.dd-options a {
+        color: #323232;
+    }
+    
+    .bks-cart-widget .currency-switcher ul.dd-options li:hover a {
+        color: #ffffff;
+    }
+    
+    .main-menu,
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a {
+        background: #27ae61;
+        color: #ffffff;
+        font-family: Roboto Slab;
+        font-size: 13px;
+    }
+    
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a:hover {
+        color: #ffffff;
+    }
+    
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-ancestor>a,
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-parent>a,
+    .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-page-item>a {
+        color: #ffffff;
+    }
+    
+    .main-menu .vc-nav-on-desktop>li:hover>a.nav-link {
+        background: #229955;
+    }
+    
+    .main-menu .vc-nav-on-desktop>li.current-menu-item>a.nav-link,
+    .main-menu vc-nav-on-desktop>li.current_page_item>a.nav-link {
+        background: #229955;
+    }
+    
+    .main-menu .vc-mm-mega-cont,
+    .main-menu .sub-menu,
+    .main-menu .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont-inner {
+        background-color: #ffffff !important;
+    }
+    
+    .main-menu .vc-mm-mega-cont li a,
+    .sub-menu-inner li a.nav-link,
+    .vc-mm-menu a,
+    .vc-mm-menu li a {
+        color: #262626;
+    }
+    
+    .main-menu .vc-mm-mega-cont li a:hover,
+    .main-menu ul.sub-menu-inner li a:hover,
+    .main-menu .vc-mm-mega-cont li a:hover,
+    .main-menu .vc-mm-mega-cont-inner li.current-menu-parent a {
+        color: #27ae61 !important;
+    }
+    
+    .main-menu .vc-mm-mega-cont ul li {
+        border-color: #e5e5e5 !important;
+    }
+    
+    body.boxed-layout {
+        background-color: #e5e5e5;
+        background-image: url();
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-size: cover;
+    }
+    
+    .product-header {
+        background: url(../wp-content/uploads/2016/01/title.jpg);
+        background-color: #e5e5e5;
+    }
+    
+    .page-header {
+        background: url(http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/Bookshelf-1200.jpg);
+        background-color: #555555;
+    }
+    
+    .btn-primary,
+    #back-to-top .btn {
+        background-color: #27ae61 !important;
+        border-color: #27ae61 !important;
+        color: #ffffff !important;
+    }
+    
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active:focus,
+    .btn-primary:active:hover,
+    #back-to-top .btn:hover,
+    #back-to-top .btn:active,
+    #back-to-top .btn:focus {
+        background-color: #229955 !important;
+        border-color: #229955;
+        color: #ffffff !important;
+    }
+    
+    .product-wrap .add-to-cart-btn a,
+    .product-wrap .yith_compare_btn a,
+    .product-wrap .yith-wcwl-add-to-wishlist a,
+    .yith-wcwl-add-to-wishlist .woocommerce a.add_to_wishlist,
+    .product .single_add_to_cart_button,
+    div.product .summary .yith-wcwl-add-to-wishlist a,
+    .woocommerce div.product .summary .compare,
+    .woocommerce div.product .woocommerce-tabs ul.tabs li.active,
+    .gridlist-toggle a:hover,
+    .gridlist-toggle a.active,
+    .woocommerce #respond input#submit.alt,
+    .woocommerce a.button.alt,
+    .woocommerce button.button.alt,
+    .woocommerce input.button.alt,
+    .woocommerce #respond input#submit,
+    .woocommerce a.button,
+    .woocommerce button.button,
+    .woocommerce input.button,
+    .main-menu .vc-mm-h-sticky-wrapper.is-sticky .vc-transparent.vc-mm-menu-h,
+    .main-menu .vc-nav-on-mobile,
+    ul.post-categories li a,
+    .main-menu .vc-mm-mega-cont h3:hover,
+    .main-menu .vc-mm-mega-cont h4:hover,
+    .main-menu .vc-mm-mega-cont h5:hover,
+    #bks-products-slider .vc_tta.vc_general li.vc_active a {
+        background-color: #27ae61 !important;
+        color: #ffffff !important;
+    }
+    
+    .product-wrap .add-to-cart-btn a:hover,
+    .woocommerce button.single_add_to_cart_button:hover,
+    .product-wrap .add-to-cart-btn a.added,
+    .product-wrap .yith_compare_btn a:hover,
+    .product-wrap .yith-wcwl-add-to-wishlist a:hover,
+    .product-wrap .yith-wcwl-wishlistaddedbrowse.show a,
+    .product-wrap .yith-wcwl-wishlistexistsbrowse.show a,
+    .product .single_add_to_cart_button:hover,
+    div.product .summary .yith-wcwl-add-to-wishlist a:hover,
+    .woocommerce div.product .summary .compare:hover,
+    .yith-wcwl-wishlistaddedbrowse.show,
+    .yith-wcwl-wishlistexistsbrowse.show,
+    .catalog-image .yith-wcqv-button {
+        background-color: #229955 !important;
+        color: #ffffff !important;
+    }
+    
+    .woocommerce #content div.product div.thumbnails a:hover,
+    .woocommerce div.product div.thumbnails a:hover,
+    .woocommerce-page #content div.product div.thumbnails a:hover,
+    .woocommerce-page div.product div.thumbnails a:hover,
+    .woocommerce .woocommerce-info,
+    .product-wrap:hover,
+    .main-menu .vc-mm-mega-cont h3,
+    .main-menu .vc-mm-mega-cont h4,
+    .main-menu .vc-mm-mega-cont h5,
+    .woocommerce .woocommerce-message,
+    .bks-product-list-wrap .bks-products-list-container li:hover,
+    .main-menu .vc-mm-mega-cont .wpb_wrapper h3 {
+        border-color: #27ae61;
+    }
+    
+    .woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+        border: 2px solid #27ae61;
+    }
+    
+    #bks-products-slider .vc_tta-tabs-container ul li.vc_active:after {
+        border-color: #27ae61 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    }
+    
+    .woocommerce .widget_price_filter .ui-slider .ui-slider-range,
+    .bks-post-slider .post-grid .post-content .post-date {
+        background-color: #27ae61 !important;
+    }
+    
+    .woocommerce .widget_price_filter .ui-slider .ui-slider-handle {
+        border: 2px solid #27ae61;
+    }
+    
+    .gridlist-toggle a {
+        color: #27ae61;
+        border: 2px solid #27ae61;
+    }
+    
+    .bks-post-slider .post-grid .post-content .post-date:after {
+        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #27ae61 rgba(0, 0, 0, 0);
+    }
+    
+    .woocommerce .woocommerce-info:before,
+    .single .post-meta .author a,
+    .woocommerce .woocommerce-message:before,
+    .read-more,
+    .bks-product-list-wrap .bks-products-list-container li .product-content .amount,
+    .slick-dots li.slick-active button:before,
+    .product-wrap span.price {
+        color: #27ae61!important;
+    }
+    
+    ul.post-categories li a:after {
+        border-right-color: #27ae61;
+    }
+    
+    .pagination>.active>a,
+    .pagination>.active>span,
+    .pagination>.active>a,
+    .pagination>.active>a:focus,
+    .pagination>.active>a:hover,
+    .pagination>.active>span,
+    .pagination>.active>span:focus,
+    .pagination>.active>span:hover {
+        background-color: #27ae61 !important;
+        border: 2px solid #27ae61 !important;
+        color: #ffffff !important;
+    }
+    
+    @media only screen and (max-width:768px) {
+        .vc-mm-menu-h .vc-nav-on-desktop,
+        .vc-mm-menu-v .vc-nav-on-desktop,
+        .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont,
+        .vc-mm-menu-v .vc-nav-on-desktop .vc-mm-mega-cont {}
+    }
+    
+    @media only screen and (max-width:768px) {
+        .vc-mm-menu-h .vc-nav-on-desktop>li:hover>a,
+        .vc-mm-menu-v .vc-nav-on-desktop>li:hover>a {
+            background-color: #229955 !important;
+            color: #ffffff !important;
+        }
+        .vc-mm-menu-h .vc-nav-on-desktop .vc-d-0>.nav-link,
+        .vc-mm-menu-v .vc-nav-on-desktop .vc-d-0>.nav-link,
+        .vc-mm-menu-h .vc-mm-child-title,
+        .vc-mm-menu-v .vc-mm-child-title {
+            border-color: #229955 !important;
+        }
+    }
+    
+    .read-more:hover {
+        color: #229955;
+    }
+    
+    .woocommerce div.product .woocommerce-tabs ul.tabs li {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+    }
+    
+    .bks-cart-widget .minicart-button {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+        border-left: 0px;
+    }
+    
+    .bks-promo {
+        background-color: #B7A930;
+    }
+    
+    body .social-links li a .social-icon {
+        background: #24a9e2;
+        color: #ffffff;
+    }
+    
+    body .social-links li a .social-icon:hover,
+    body .social-links li a .social-icon:focus {
+        background: #1e73be;
+        color: #ffffff;
+    }
+    
+    body .social-links li .social-icon,
+    .social-icon:after {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }
+</style>
+
+<body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
+    <div class="wrapper">
+
+
+
+        <!-- //MAIN NAVIGATION -->
+        <div class="page-header bks-breadcrumb">
+            <div class="container">
+                <h1>Giỏ Hàng</h1>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="page-content" role="main">
+
+            <div class="container mb-4">
+                <div *ngIf="checkViewCart">
+                    <div style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
+                        <b style="top:15px;position: relative;">Giỏ hàng của bạn đang trống </b></div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped" style="color: black;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"> </th>
+                                        <th scope="col">Tên Sách</th>
+                                        <th scope="col">Đơn Giá</th>
+                                        <th scope="col" class="text-center">Số Lượng</th>
+                                        <th scope="col" class="text-right">Tổng Tiền</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cartbook of CartBook">
+
+                                        <td><img src={{cartbook.imgBook}} /> </td>
+                                        <td>{{cartbook.nameBook}}</td>
+                                        <td>{{cartbook.priceBook|currency:"VND"}}</td>
+                                        <td><input class="form-control" type="text" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" style="text-align: center;" /></td>
+                                        <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
+                                        <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
+                                </button> </td>
+                                        <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
+                                </button> </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Tổng Tiền</td>
+                                        <td class="text-right">{{TongTien|currency:"VND"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Giao Hàng</td>
+                                        <td class="text-right">6,90 đ</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><strong>Xác Nhận Tổng Tiền</strong></td>
+                                        <td class="text-right"><strong>346,90 đ</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col mb-2">
+                        <div class="row">
+                            <div class="col-sm-12  col-md-6">
+                                <button id="continue" class="btn btn-block btn-light">Continue Shopping</button>
+                            </div>
+                            <div class="col-sm-12 col-md-6 text-right">
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#cartModal" type="button" (click)="checkout()">Checkout</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- #content -->
+
+
+        <!-- Back to Top -->
+        <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix">
+            <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
+        </div>
+        <!-- Back to Top -->
+    </div>
+
+
+
+
+
+    <!--model checkout-->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered " role="document ">
+            <div class="modal-content ">
+                <div class="modal-header border-bottom-0 ">
+                    <h5 class="modal-title " id="exampleModalLabel " style="font-size: 2rem; ">
+                        Your Shopping Cart
+                    </h5>
+                    <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                <span aria-hidden="true ">&times;</span>
+              </button>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8" id="scroll">
+                        <div class="modal-body ">
+                            <table class="table table-image ">
+                                <thead>
+                                    <tr style="font-size: 2rem;">
+                                        <th scope="col "></th>
+                                        <th scope="col ">Book Name</th>
+                                        <th scope="col ">Price</th>
+                                        <th scope="col ">Count</th>
+                                        <th scope="col ">Total</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let cartbook of CartBook">
+                                    <tr>
+                                        <td class="w-25 ">
+                                            <img src={{cartbook.imgBook}} alt="Sheep ">
+                                        </td>
+                                        <td>{{cartbook.nameBook}}</td>
+                                        <td>{{cartbook.priceBook |currency:"VND"}}</td>
+                                        <td>{{cartbook.count}}</td>
+                                        <td>{{cartbook.priceBook*cartbook.count |currency:"VND"}}</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end ">
+                                <h5 style="float:right;font-size: 4rem;margin-top: -1rem; ">Total: <span class="price text-success ">{{TongTien |currency:"VND"}}</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-left :68%;position: absolute;height:400px;width:1px;background-color:#EEE5E5;"></div>
+                    <div class="col-sm-4">
+                        <div class="modal-footer border-top-0 d-flex justify-content-between">
+
+                            <div style="padding-bottom: 30px;">
+                                <h3 style="font-weight:bold;margin-top: 15px; ">Your profile</h3>
+                                <table id="profile">
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{accountSocial.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <td>{{accountSocial.username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td><input type="text" name="Address" (change)="editAddress($event)"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td><input type="text" name="Phone" (change)="editPhone($event)"></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <button type="button " class="btn btn-secondary " data-dismiss="modal">Close</button>
+                            <button type="button " class="btn btn-success " (click)=payCheckOut() data-dismiss="modal">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</body>
