@@ -44,6 +44,10 @@ export class HomeComponent implements OnInit {
 }
   ngOnInit() {
 	  this.refreshBookList();
+	  //set Tổng tiền và số lượng trên header
+	  $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+	  $('.cart_items').html(sessionStorage.getItem('TongCount'));
+	  //
   }
   moveToShop(){
 	  return this._router.navigate(['/booksCategory']);

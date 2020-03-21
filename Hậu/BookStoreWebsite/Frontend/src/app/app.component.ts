@@ -13,8 +13,8 @@ export class AppComponent  {
     accountSocial = JSON.parse(sessionStorage.getItem('accountSocial'));
     statusLogin = sessionStorage.getItem('statusLogin');
     //set giỏ hàng
-    TongTien= sessionStorage.getItem("TongTien");
-    TongCount=sessionStorage.getItem("TongCount");
+    
+   
     //
     customOptions: any = {
     loop: true,

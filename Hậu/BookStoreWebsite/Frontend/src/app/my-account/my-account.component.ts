@@ -57,7 +57,10 @@ export class MyAccountComponent implements OnInit {
   templogin = 0;
   ngOnInit() {
     this.initialAccount();
-
+//set Tổng tiền và số lượng trên header
+$('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+$('.cart_items').html(sessionStorage.getItem('TongCount'));
+//
   }
   initialAccount() {
     this.socialAccountService.socialAccount = ({

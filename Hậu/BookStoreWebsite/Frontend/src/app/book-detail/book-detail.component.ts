@@ -69,6 +69,10 @@ export class BookDetailComponent implements OnInit {
     this.getAllAccount();
     this.getRatingsByBookID(id);
 
+    //set Tổng tiền và số lượng trên header
+    $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+    $('.cart_items').html(sessionStorage.getItem('TongCount'));
+    //
   }
   resetForm(form?: NgForm) {
     if (form)
