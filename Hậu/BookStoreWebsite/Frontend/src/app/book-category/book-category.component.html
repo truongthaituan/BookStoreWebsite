@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+
 <body class="archive tax-product_cat term-personal-finance term-13 woocommerce woocommerce-page wpb-js-composer 
 js-comp-ver-4.9.2 vc_responsive ">
     <div class="wrapper">
@@ -22,7 +23,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <p class="woocommerce-result-count">
                                 Showing all 5 results</p>
                             <form class="woocommerce-ordering" method="get">
-                                <select name="orderby" class="orderby" >
+                                <select name="orderby" class="orderby">
 					<option value="menu_order" selected='selected'>Default sorting</option>
 					<option value="SortByPrice" >Sắp xếp theo giá tiền</option>
 					<option value="rating" >Sort by average rating</option>
@@ -30,16 +31,15 @@ js-comp-ver-4.9.2 vc_responsive ">
 					<option value="price" >Sort by price: low to high</option>
 					<option value="price-desc" >Sort by price: high to low</option>
                     </select>
-                    <nav class="gridlist-toggle">
-                        <a (click)="sort();"><span class="fa fa-search"></span> <em>Grid view</em></a>
-                    </nav>                           
-                 </form>
+                                <nav class="gridlist-toggle">
+                                    <a (click)="sort();"><span class="fa fa-search"></span> <em>Grid view</em></a>
+                                </nav>
+                            </form>
 
                             <nav class="gridlist-toggle">
-                                <input placeholder="Search sách theo tên sách" type="text" name="search"
-                                 [(ngModel)]="searchText" autocomplete="off" style="border-color: lightslategrey;height: 30px;
-                                 font-style: italic; width: 350px;" id = "category_id">
-                                  <!-- <input type="text" 
+                                <input placeholder="Search sách theo tên sách" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" style="border-color: lightslategrey;height: 30px;
+                                 font-style: italic; width: 350px;" id="category_id">
+                                <!-- <input type="text" 
                                   [(ngModel)]="searchText" autocomplete="off" id = "category_id"> -->
                                 <!-- <a href="#" id="searchBook" title="Tra Cứu Sách">
                                     <span class="fa fa-search"></span></a> -->
@@ -47,18 +47,16 @@ js-comp-ver-4.9.2 vc_responsive ">
                             </nav>
                         </div>
 
-                        <div class="products clearfix" id = "categorySach">
-                                    <div class="item col-xs-12 col-sm-4 post-78 product type-product
+                        <div class="products clearfix" id="categorySach">
+                            <div class="item col-xs-12 col-sm-4 post-78 product type-product
                                     status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
-                                     instock sale featured shipping-taxable purchasable product-type-simple" 
-                                     *ngFor="let item of books | filter: searchText |
+                                     instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books | filter: searchText |
                                       paginate: { itemsPerPage: 6,currentPage: p }">
-                                       <div class="product-wrap">
-                                           <div class="product-image">
-                                               <div class="catalog-image">
-                                                   <button (click)="detailBook(item);" 
-                                                   style="background-color: transparent;border-color: transparent;">
+                                <div class="product-wrap">
+                                    <div class="product-image">
+                                        <div class="catalog-image">
+                                            <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
                                                <img width="207" height="265" src="{{item.imgBook}}"
                                                 class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
                                                  alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
@@ -66,49 +64,50 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                     <i class="fa fa-search"></i>
                                                </div>
                                                        </button>
-                                               </div>
-       
-                                               <div class="product-buttons">
-                                                   <div class="add-to-cart-btn"><a href="#" rel="nofollow" 
-                                                       data-product_id="78" data-product_sku="" data-quantity="1" class="button">Add to cart</a>
-                                                   </div>
-                                                   <div class="yith_compare_btn">
-                                                       <div class="woocommerce product compare-button">
-                                                           <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
-                                                   </div>
-                                                   <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
-                                                       <div class="yith-wcwl-add-button show" style="display:block">
-                                                           <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+                                        </div>
+
+                                        <div class="product-buttons">
+                                            <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (click)="addToCart(item)">Add to cart</a>
+                                            </div>
+                                            <div class="yith_compare_btn">
+                                                <div class="woocommerce product compare-button">
+                                                    <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                            </div>
+                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                                <div class="yith-wcwl-add-button show" style="display:block">
+                                                    <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
                                Add to Wishlist</a>
-                                                       </div>
-                                                       <div style="clear:both"></div>
-                                                       <div class="yith-wcwl-wishlistaddresponse"></div>
-                                                   </div>
-                                                   <div class="clear"></div>
-                                               </div>
-                                           </div>
-                                           <!-- end product-image -->
-                                           <div class="product-content">
-       
-                                               <h4 class="product_title">
-                                                   <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
-                                                   
-                                               <span class="price">
+                                                </div>
+                                                <div style="clear:both"></div>
+                                                <div class="yith-wcwl-wishlistaddresponse"></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                    <!-- end product-image -->
+                                    <div class="product-content">
+
+                                        <h4 class="product_title">
+                                            <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
+
+                                        <span class="price">
                                    <span class="woocommerce-Price-amount amount" id="priceBook" >
                                        {{item.priceBook | currency:"VND"}}</span></span>
-                                               <div class="product-desc">
-                                                   <p>{{item.detailBook}}</p>
-                                               </div>
-                                           </div>
-                                           <!-- end product-content -->
-                                       </div></div></div>
+                                        <div class="product-desc">
+                                            <p>{{item.detailBook}}</p>
+                                        </div>
+                                    </div>
+                                    <!-- end product-content -->
+                                </div>
+                            </div>
+                        </div>
                         <div>
                             <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </div>
                     </div>
                 </div>
             </div>
-        <!-- main app container -->
+            <!-- main app container -->
             <div id="shop-sidebar" class="sidebar col-xs-12 col-sm-3 left">
                 <div id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
                     <h3 class="widget-title">Filter by price</h3>
@@ -118,11 +117,10 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <input type="text" id="amount-min" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11.5px;">
                             <input type="text" id="amount-max" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11.5px;">
                         </p>
-                        <npn-slider [min]="1000" [max]="5000" [minSelected]="2000" [maxSelected]="4000" [step]="500"
-                        [showStepIndicator]="true" (onChange)="onSliderChange($event)">
-                      </npn-slider>
-                      <!-- <p>Selected Values: {{currentValues | json}}</p> -->
-                    </div>      
+                        <npn-slider [min]="1000" [max]="5000" [minSelected]="2000" [maxSelected]="4000" [step]="500" [showStepIndicator]="true" (onChange)="onSliderChange($event)">
+                        </npn-slider>
+                        <!-- <p>Selected Values: {{currentValues | json}}</p> -->
+                    </div>
                 </div>
                 <style>
                     #price-slider {
@@ -167,12 +165,12 @@ js-comp-ver-4.9.2 vc_responsive ">
                     <h3 class="widget-title">Browse Books</h3>
                     <ul class="product-categories">
                         <li class="cat-item cat-item-11">
-                            <a (click) = "refreshBookList();">Tất Cả Sách</a>
+                            <a (click)="refreshBookList();">Tất Cả Sách</a>
                         </li>
                     </ul>
-                    <ul class="product-categories" *ngFor = "let category of bookCategoryService.category">
-                        <li class="cat-item cat-item-11" >
-                            <a (click) = "gettypeCategory(category._id);" >{{category.nameCategory}}</a>
+                    <ul class="product-categories" *ngFor="let category of bookCategoryService.category">
+                        <li class="cat-item cat-item-11">
+                            <a (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
                         </li>
                     </ul>
                 </div>
@@ -188,5 +186,5 @@ js-comp-ver-4.9.2 vc_responsive ">
     </div>
 
 
-  
+
 </body>

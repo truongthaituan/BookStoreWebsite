@@ -560,11 +560,14 @@
                                 <table id="profile">
                                     <tr>
                                         <th>Email</th>
-                                        <td>{{accountSocial.email}}</td>
+                                        <!-- <td>{{accountSocial.email}}</td>
+                                         -->
+                                        <td><input type="text" name="Email" (change)="editEmail($event)" placeholder={{email}}></td>
                                     </tr>
                                     <tr>
                                         <th>Name</th>
-                                        <td>{{accountSocial.username}}</td>
+                                        <!-- <td>{{accountSocial.username}}</td> -->
+                                        <td><input type="text" name="Name" (change)="editUserName($event)" placeholder={{username}}></td>
                                     </tr>
                                     <tr>
                                         <th>Address</th>
