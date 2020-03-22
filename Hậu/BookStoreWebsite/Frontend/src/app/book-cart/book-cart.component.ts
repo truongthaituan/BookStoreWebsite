@@ -44,12 +44,14 @@ export class BookCartComponent implements OnInit {
   address = "";
   phone = "";
   checkViewCart = false;
+  lengthCartBook=0;
   ngOnInit() {
     //get giỏ hàng
     this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
     this.CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.lengthCartBook =this.CartBook.length;
     // Hiện ra label khi giỏ hàng rỗng
-    if (this.CartBook == null || this.CartBook.length == 0) {
+    if (this.CartBook == null || this.lengthCartBook == 0) {
       this.checkViewCart = true;
     }
     else {
@@ -57,13 +59,14 @@ export class BookCartComponent implements OnInit {
     }
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
+   
   }
   //get total count and price 
   getTotalCountAndPrice() {
   this.TongTien = 0;
     this.TongCount = 0;
     if (this.CartBook != null) {
-      for (var i = 0; i < this.CartBook.length; i++) {
+      for (var i = 0; i < this.lengthCartBook; i++) {
         this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
         this.TongCount += parseInt(this.CartBook[i].count);
 
@@ -110,7 +113,7 @@ export class BookCartComponent implements OnInit {
     var setconfirm = confirm('Bạn có muốn xóa cuốn sách này không ?')
     if (setconfirm == true) {
 
-      for (var i = 0; i < this.CartBook.length; i++) {
+      for (var i = 0; i < this.lengthCartBook; i++) {
         if (this.CartBook[i]._id == id) {
           this.CartBook.splice(i, 1);
           break;
@@ -176,16 +179,20 @@ export class BookCartComponent implements OnInit {
       this.sendMail.nameBook = "";
       this.sendMail.count = "";
       this.sendMail.price = "";
-      for (var i = 0; i < this.CartBook.length; i++) {
+
+      //khai báo độ dài cartBook
+      
+      for (var i = 0; i < this.lengthCartBook; i++) {
+      
         this.sendMail.count += this.CartBook[i].count + "next";
         this.sendMail.price += (parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook)).toString() + "next";
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
             this.sendMail.imgBook += getBook['imgBook'] + "next";
             this.sendMail.nameBook += getBook['nameBook'] + "next";
-            console.log(i);
-            console.log(this.CartBook.length);
-            if (i == this.CartBook.length) {
+           //nếu chạy tới cuốn sách cuối 
+            if (this.CartBook[this.lengthCartBook-1]._id == getBook['_id']) {
+              //sendmail
               this._sendMail.postsendMail(this.sendMail).subscribe(
                 postSendMail => {
                   console.log("SendMail Success");
@@ -237,7 +244,7 @@ export class BookCartComponent implements OnInit {
             error => console.log(error)
           );
           //lưu order detail
-          for (var i = 0; i < this.CartBook.length; i++) {
+          for (var i = 0; i < this.lengthCartBook; i++) {
 
             this.orderDetails = new OrderDetail;
             this.orderDetails.bookID = this.CartBook[i]._id;
@@ -247,6 +254,7 @@ export class BookCartComponent implements OnInit {
             this._orderDetailService.postOrderDetail(this.orderDetails).subscribe(
               orderDetaildata => {
                 sessionStorage.removeItem('CartBook');
+                this.getTotalCountAndPrice();
                 this._router.navigate(['/']);
               },
               error => console.log(error)
