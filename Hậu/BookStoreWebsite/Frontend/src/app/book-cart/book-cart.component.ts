@@ -127,6 +127,11 @@ export class BookCartComponent implements OnInit {
   editPhone(event: any) {
     this.phone = event.target.value;
   }
+
+  //click vào hình chuyển về detail
+  ViewBookDetail(idBook){
+    return this._router.navigate(["/bookDetail" + `/${idBook}`]);
+  }
   //Lưu order và orderDetail
   public now: Date = new Date();
   checkoutWhenNull(){
@@ -135,9 +140,16 @@ export class BookCartComponent implements OnInit {
       this._router.navigate(['/bookCategory']);
     }
   }
+
   checkout() {
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
     else {
+      this._customerService.getCustomerByUserID( this.accountSocial._id).subscribe(
+        getcustomer => {
+      
+        this.phone=Object.values(getcustomer)[0].phone;
+         this.address=Object.values(getcustomer)[0].address;
+        });
       $(document).ready(function () {
         $('#cartModal').modal('show');
       });

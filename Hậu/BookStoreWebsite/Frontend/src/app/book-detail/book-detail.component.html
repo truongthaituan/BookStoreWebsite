@@ -1,4 +1,3 @@
-
 <style>
     #yith-quick-view-modal .yith-wcqv-main {
         background: #ffffff
@@ -185,8 +184,6 @@
         background-position: 0 0;
         background-size: cover;
     }
-    
-  
     
     .btn-primary,
     #back-to-top .btn {
@@ -877,11 +874,11 @@
                     <div itemscope itemtype="http://schema.org/Product" id="product-76" class="post-76 product type-product status-publish has-post-thumbnail product_cat-budgeting-and-finance
  product_cat-creative-thinking product_cat-fantasy product_cat-historical-fiction product_cat-people-management 
  product_cat-personal-finance product_cat-romance product_cat-science-fiction product_tag-historical product_tag-romance-storie
-  first instock featured shipping-taxable purchasable product-type-simple" >
+  first instock featured shipping-taxable purchasable product-type-simple">
 
                         <div class="images col-sm-6">
                             <a itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto">
-                                <img width="350" id = "zoom_03" height="450" src="{{bookService.book?.imgBook}}" class="attachment-shop_single size-shop_single wp-post-image" alt="book7" title="book7" /></a>
+                                <img width="350" id="zoom_03" height="450" src="{{bookService.book?.imgBook}}" class="attachment-shop_single size-shop_single wp-post-image" alt="book7" title="book7" /></a>
                         </div>
                         <div class="summary entry-summary col-sm-6">
 
@@ -898,8 +895,7 @@
 
                             </div>
                             <div class="book-by-author">
-                                <a class="book-author" 
-                                href="#" >By {{authorService.author?.nameAuthor}}</a>
+                                <a class="book-author" href="#">By {{authorService.author?.nameAuthor}}</a>
                             </div>
                             <div itemprop="description" class="description">
                                 <p></p>
@@ -936,7 +932,7 @@
          <a href="../../product-category/fantasy/index.html" rel="tag">Fantasy</a>,
           <a href="../../product-category/historical-fiction/index.html" rel="tag">Historical Fiction</a>,
            <a href="../../product-category/people-management/index.html" rel="tag">People Management</a>, <a href="../../product-category/personal-finance/index.html" rel="tag">Personal Finance</a>, <a href="../../product-category/romance/index.html" rel="tag">Romance</a>, <a href="../../product-category/science-fiction/index.html" rel="tag">Science Fiction</a></span>
-                              
+
 
                             </div>
 
@@ -964,59 +960,45 @@
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title">Reviews</h2>
-                                        <div id = "successReview" *ngIf = "statusRating == true" 
-                                        style="color: green;text-align: center;">Đánh giá thành công!</div>
+                                        <div id="successReview" *ngIf="statusRating == true" style="color: green;text-align: center;">Đánh giá thành công!</div>
                                     </div>
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
-                                            <div id="respond" class="comment-respond">                      
-                                                <form  #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)"  style="color: #555555;">
+                                            <div id="respond" class="comment-respond">
+                                                <form #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)" style="color: #555555;">
                                                     <label for="rating">Your Rating</label>
                                                     <br>
-                                                    <fieldset class="rating" >
-                                                        <input type="radio" id="star5" name="star" value="5"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star"  />
+                                                    <fieldset class="rating">
+                                                        <input type="radio" id="star5" name="star" value="5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="full" for="star5" title="Awesome - 5 stars"></label>
-                                                        <input type="radio" id="star4half" name="star" value="4.5"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star4half" name="star" value="4.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                                        <input type="radio" id="star4" name="star" value="4"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star4" name="star" value="4" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                                        <input type="radio" id="star3half" name="star" value="3.5"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star3half" name="star" value="3.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                                        <input type="radio" id="star3" name="star" value="3"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star3" name="star" value="3" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="full" for="star3" title="Meh - 3 stars"></label>
-                                                        <input type="radio" id="star2half" name="star" value="2.5"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star2half" name="star" value="2.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                                        <input type="radio" id="star2" name="star" value="2"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star2" name="star" value="2" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-                                                        <input type="radio" id="star1half" name="star" value="1.5"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star1half" name="star" value="1.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                                        <input type="radio" id="star1" name="star" value="1"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="star1" name="star" value="1" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="full" for="star1" title="Sucks big time - 1 star"></label>
-                                                        <input type="radio" id="starhalf" name="star" value="0.5"  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.star" />
+                                                        <input type="radio" id="starhalf" name="star" value="0.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
                                                         <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                                                     </fieldset>
-                                                
+
                                                     <p class="comment-form-comment"><br>
                                                         <label for="comment" style="margin-left: -138px;">Your Review <span class="required">*</span>
                                                         </label>
-                                                        <textarea  #name="ngModel"
-                                                        [(ngModel)]="ratingService.rating.review" name="review" 
-                                                        cols="45" rows="8" aria-required="true" required>
+                                                        <textarea #name="ngModel" [(ngModel)]="ratingService.rating.review" name="review" cols="45" rows="8" aria-required="true" required>
                                                         </textarea></p>
-                                                        <input type="hidden" name="bookID" #name="ngModel"
-                                                        [(ngModel)]="bookService.book.userID" required/>
-                                                        <input type='hidden' name='userID' id='comment_parent' value='025' />
-                                                    <p lass="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit" />     
+                                                    <input type="hidden" name="bookID" #name="ngModel" [(ngModel)]="bookService.book.userID" required/>
+                                                    <input type='hidden' name='userID' id='comment_parent' value='025' />
+                                                    <p lass="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit" />
                                                     </p>
                                                 </form>
                                             </div>
@@ -1031,107 +1013,107 @@
                         </div>
 
                         <div class="container">
-                            <h2 class="text-center" >KHÁCH HÀNG NHẬN XÉT</h2>
-                            
+                            <h2 class="text-center">KHÁCH HÀNG NHẬN XÉT</h2>
+
                             <div class="card">
-                                <div class="card-body"  *ngFor = "let rating of ratingService.rating">
-                                    <div *ngFor = "let account of accountSocialService.accountSocials" >
-                                    <div class="row" *ngIf ="rating.userID == account._id">
-                                        <div class="col-md-2">
-                                            <img src="{{account.imageUrl}}" class="img img-rounded img-fluid"/>
-                                        </div>
-                                        <div class="col-md-10">
-                                           
-                                        
-                                             
-                                                <a   class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
-                                                    <strong >{{account.username}}</strong></a>
-                                                    &nbsp;
-                                                <div *ngIf = "rating.star == 0">            
-                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                <div class="card-body" *ngFor="let rating of ratingService.rating">
+                                    <div *ngFor="let account of accountSocialService.accountSocials">
+                                        <div class="row" *ngIf="rating.userID == account._id">
+                                            <div class="col-md-2">
+                                                <img src="{{account.imageUrl}}" class="img img-rounded img-fluid" />
+                                            </div>
+                                            <div class="col-md-10">
+
+
+
+                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                                                    <strong>{{account.username}}</strong></a>
+                                                &nbsp;
+                                                <div *ngIf="rating.star == 0">
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                 </div>
-                                                <div *ngIf = "rating.star == 0.5">            
+                                                <div *ngIf="rating.star == 0.5">
                                                     <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                    </div>
-                                                    <div *ngIf = "rating.star == 1">            
-                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                        </div>
-                                                        <div *ngIf = "rating.star == 1.5">            
-                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                            <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
-                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                            </div>
-                                                            <div *ngIf = "rating.star == 2">            
-                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                </div>
-                                                                <div *ngIf = "rating.star == 2.5">            
-                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
-                                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                    </div>
-                                                                    <div *ngIf = "rating.star == 3">            
-                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                        </div>
-                                                                        <div *ngIf = "rating.star == 3.5">            
-                                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                            <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
-                                                                            <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                            </div>
-                                                                            <div *ngIf = "rating.star == 4">            
-                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                                                                </div>
-                                                                                <div *ngIf = "rating.star == 4.5">            
-                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
-                                                                                    </div>
-                                                                                    <div *ngIf = "rating.star == 5">            
-                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                                                        </div>
-                                           <div class="clearfix"></div>
-                                            <p>{{rating.review}}</p>
-                                            <p>
-                                                <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-                                                <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-                                           </p>
+                                                </div>
+                                                <div *ngIf="rating.star == 1">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 1.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 2">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 2.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 3">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 3.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 4">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 4.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <p>{{rating.review}}</p>
+                                                <p>
+                                                    <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                                                    <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -1144,14 +1126,12 @@
                                 <div class="item col-xs-12 col-sm-4 post-78 product type-product
                                 status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                 product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
-                                 instock sale featured shipping-taxable purchasable product-type-simple" 
-                                 *ngFor="let item of books | filter: searchText |
+                                 instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books | filter: searchText |
                                   paginate: { itemsPerPage: 6,currentPage: p }">
-                                   <div class="product-wrap">
-                                       <div class="product-image">
-                                           <div class="catalog-image">
-                                               <button (click)="getBookById(item._id);" 
-                                               style="background-color: transparent;border-color: transparent;">
+                                    <div class="product-wrap">
+                                        <div class="product-image">
+                                            <div class="catalog-image">
+                                                <button (click)="getBookById(item._id);" style="background-color: transparent;border-color: transparent;">
                                            <img width="207" height="265" src="{{item.imgBook}}"
                                             class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
                                              alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
@@ -1159,55 +1139,56 @@
                                                 <i class="fa fa-search"></i>
                                            </div>
                                                    </button>
-                                           </div>
-   
-                                           <div class="product-buttons">
-                                               <div class="add-to-cart-btn"><a href="#" rel="nofollow" 
-                                                   data-product_id="78" data-product_sku="" data-quantity="1" class="button">Add to cart</a>
-                                               </div>
-                                               <div class="yith_compare_btn">
-                                                   <div class="woocommerce product compare-button">
-                                                       <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
-                                               </div>
-                                               <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
-                                                   <div class="yith-wcwl-add-button show" style="display:block">
-                                                       <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+                                            </div>
+
+                                            <div class="product-buttons">
+                                                <div class="add-to-cart-btn"><a href="#" rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button">Add to cart</a>
+                                                </div>
+                                                <div class="yith_compare_btn">
+                                                    <div class="woocommerce product compare-button">
+                                                        <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                                </div>
+                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                                    <div class="yith-wcwl-add-button show" style="display:block">
+                                                        <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
                            Add to Wishlist</a>
-                                                   </div>
-                                                   <div style="clear:both"></div>
-                                                   <div class="yith-wcwl-wishlistaddresponse"></div>
-                                               </div>
-                                               <div class="clear"></div>
-                                           </div>
-                                       </div>
-                                       <!-- end product-image -->
-                                       <div class="product-content">
-   
-                                           <h4 class="product_title">
-                                               <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
-                                               
-                                           <span class="price">
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <!-- end product-image -->
+                                        <div class="product-content">
+
+                                            <h4 class="product_title">
+                                                <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
+
+                                            <span class="price">
                                <span class="woocommerce-Price-amount amount" id="priceBook" >
                                    {{item.priceBook | currency:"VND"}}</span></span>
-                                           <div class="product-desc">
-                                               <p>{{item.detailBook}}</p>
-                                           </div>
-                                       </div>
-                                       <!-- end product-content -->
-                                   </div></div></div>
-                    <!-- #product-76 -->
+                                            <div class="product-desc">
+                                                <p>{{item.detailBook}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- end product-content -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #product-76 -->
 
 
-</div></div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Back to Top -->
-        <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix">
-            <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
-        </div>
-        <!-- Back to Top -->
+    </div>
 
-
+    <!-- Back to Top -->
+    <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix">
+        <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
+    </div>
+    <!-- Back to Top -->

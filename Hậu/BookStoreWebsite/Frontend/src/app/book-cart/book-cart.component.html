@@ -433,7 +433,7 @@
                                 <tbody>
                                     <tr *ngFor="let cartbook of CartBook">
 
-                                        <td><img src={{cartbook.imgBook}} /> </td>
+                                        <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
                                         <td>{{cartbook.nameBook}}</td>
                                         <td>{{cartbook.priceBook|currency:"VND"}}</td>
                                         <td><input class="form-control" type="text" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" style="text-align: center;" /></td>
@@ -568,11 +568,11 @@
                                     </tr>
                                     <tr>
                                         <th>Address</th>
-                                        <td><input type="text" name="Address" (change)="editAddress($event)"></td>
+                                        <td><input type="text" name="Address" (change)="editAddress($event)" placeholder={{address}}></td>
                                     </tr>
                                     <tr>
                                         <th>Phone</th>
-                                        <td><input type="text" name="Phone" (change)="editPhone($event)"></td>
+                                        <td><input type="text" name="Phone" (change)="editPhone($event)" placeholder={{phone}}></td>
                                     </tr>
                                 </table>
 
