@@ -6,10 +6,13 @@
     #yith-quick-view-close {
         color: #cdcdcd
     }
-    #imageAccountSocial{
-                 border-radius:30px;
-              width: 45px;height: 45px;
+    
+    #imageAccountSocial {
+        border-radius: 30px;
+        width: 45px;
+        height: 45px;
     }
+    
     #yith-quick-view-close:hover {
         color: #ff0000
     }
@@ -480,8 +483,8 @@
                         </i> 0773749328 </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 text-right header-quick-links">
                         <ul id="menu" class="nav  nav-pills nav-stacked">
-                           <a *ngIf="statusLogin == 'true'"><img src="{{accountSocial.imageUrl}}"  id="imageAccountSocial"/></a>    
-                            
+
+
                             <li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26">
                                 <button id="about" style="background-color: transparent;border-color: transparent;">Cửa Hàng</button>
                             </li>
@@ -489,9 +492,9 @@
                                 <button id="login" *ngIf="statusLogin == null" (click)="moveToAccount();" style="background-color: transparent;border-color:
                                  transparent;">Đăng Nhập / Đăng Ký</button></li>
                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
-                              
+
                                 <button id="username" *ngIf="statusLogin == 'true'" style="background-color: transparent;border-color:
-                                     transparent;color: green;">Chào Mừng {{accountSocial.username}}</button>
+                                     transparent;color: green;">Chào Mừng {{accountSocial.username}}<img style="margin-left:10px;width: 30px;height: 30px;" src="{{accountSocial.imageUrl}}" id="imageAccountSocial" /></button>
                                 <button id="logout" *ngIf="statusLogin == 'true'" (click)="logout();" style="background-color: transparent;border-color:
                                      transparent;">Đăng Xuất
                                      </button></li>
@@ -520,8 +523,8 @@
                         <!-- bks-cart-widget -->
                         <div class="bks-cart-widget right">
                             <div class="currency-switcher pull-left">
-                                <form method="post" action="#" class="woocommerce-currency-switcher-form " >
-                                    <label>Tổng Tiền : </label>   <label id = "tongtien">&nbsp; alo</label>
+                                <form method="post" action="#" class="woocommerce-currency-switcher-form ">
+                                    <label>Tổng Tiền : </label> <label id="tongtien">&nbsp; {{0|currency:"VND"}}</label>
                                 </form>
                             </div>
                             <div class="mini-cart pull-right">

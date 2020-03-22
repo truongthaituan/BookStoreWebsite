@@ -64,11 +64,15 @@ export class BookDetailComponent implements OnInit {
   ngOnInit() {
     this.resetForm();
     let id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
+  
     this.getBookById(id);
     this.getAllAccount();
     this.getRatingsByBookID(id);
 
+    //set Tổng tiền và số lượng trên header
+    $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+    $('.cart_items').html(sessionStorage.getItem('TongCount'));
+    //
   }
   resetForm(form?: NgForm) {
     if (form)

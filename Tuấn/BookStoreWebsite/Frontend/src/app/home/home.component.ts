@@ -44,6 +44,17 @@ export class HomeComponent implements OnInit {
 }
   ngOnInit() {
 	  this.refreshBookList();
+	  //set Tổng tiền và số lượng trên header
+	  if(sessionStorage.getItem('TongTien')==null){
+		  sessionStorage.setItem("TongTien","0");
+		  sessionStorage.setItem("TongCount","0");
+		  $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+		  $('.cart_items').html(sessionStorage.getItem('TongCount'));
+	  }else{
+	  $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+	  $('.cart_items').html(sessionStorage.getItem('TongCount'));
+	}
+	  //
   }
   moveToShop(){
 	  return this._router.navigate(['/booksCategory']);

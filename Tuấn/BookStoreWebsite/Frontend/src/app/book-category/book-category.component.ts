@@ -5,6 +5,7 @@ import { Book } from '../app-services/book-service/book.model';
 import { CategoryService } from '../app-services/category-service/category.service';
 import { Category } from '../app-services/category-service/category.model';
 import { Socialaccount } from '../app-services/socialAccount-service/socialaccount.model';
+import { Session } from 'protractor';
 
 declare var $:any
 @Component({
@@ -49,6 +50,10 @@ export class BookCategoryComponent implements OnInit {
   userGoogle: Array<Socialaccount>;
   statusLogin: string = ""
   ngOnInit() {
+    //set Tổng tiền và số lượng trên header
+    $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+    $('.cart_items').html(sessionStorage.getItem('TongCount'));
+    //
     this.refreshBookList();
     this.refreshCategoryList();
     this.category_id = sessionStorage.getItem('category_id');
