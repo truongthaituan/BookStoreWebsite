@@ -10,6 +10,7 @@ declare var $:any;
 })
 export class AppComponent  {
     title = 'Angular';
+  
     accountSocial = JSON.parse(sessionStorage.getItem('accountSocial'));
     statusLogin = sessionStorage.getItem('statusLogin');
     //set giỏ hàng
