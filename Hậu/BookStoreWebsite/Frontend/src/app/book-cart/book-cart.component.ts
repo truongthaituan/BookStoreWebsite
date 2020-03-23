@@ -186,7 +186,7 @@ export class BookCartComponent implements OnInit {
           this.phone = Object.values(getcustomer)[0].phone;
           this.address = Object.values(getcustomer)[0].address;
         });
-     
+     console.log(123);
       $(document).ready(function () {
         $('#cartModal').modal('show');
       });

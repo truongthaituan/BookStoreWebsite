@@ -150,7 +150,38 @@ export class BookCategoryComponent implements OnInit {
     // đổ mảng vào sessionStorage "CartBook"
     sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
 
+    this.getTotalCountAndPrice();
+    // this._router.navigate(['/cartBook']);
+  }
 
-    this._router.navigate(['/cartBook']);
+   //get total count and price 
+  TongTien = 0;
+  TongCount = 0;
+  CartBook = [];
+  lengthCartBook = 0;
+   getTotalCountAndPrice() {
+    this.TongTien = 0;
+    this.TongCount = 0;
+    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.cartBookLength(this.CartBook);
+    if (this.CartBook != null) {
+      for (var i = 0; i < this.lengthCartBook; i++) {
+        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+        this.TongCount += parseInt(this.CartBook[i].count);
+
+      }
+    }
+    $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
+    $('.cart_items').html(this.TongCount.toString());
+    sessionStorage.setItem("TongTien", this.TongTien.toString());
+    sessionStorage.setItem("TongCount", this.TongCount.toString());
+  }
+  // set độ dài của giỏ hàng
+  cartBookLength(CartBook){
+    if (CartBook == null) {
+      this.lengthCartBook = 0;
+    } else {
+      this.lengthCartBook = CartBook.length;
+    }
   }
 }
