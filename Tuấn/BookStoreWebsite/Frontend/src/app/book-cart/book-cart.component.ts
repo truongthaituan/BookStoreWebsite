@@ -43,28 +43,50 @@ export class BookCartComponent implements OnInit {
   //change info payment
   address = "";
   phone = "";
+  email="";
+  username="";
   checkViewCart = false;
-  lengthCartBook=0;
+  lengthCartBook = 0;
+  EmailCheck=true;
   ngOnInit() {
-    //get giỏ hàng
+    if(this.accountSocial){
+    this.email = this.accountSocial.email;
+    this.username = this.accountSocial.username;
+    }//get giỏ hàng
     this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
     this.CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
-    this.lengthCartBook =this.CartBook.length;
+    console.log(this.CartBook + "----->" + this.lengthCartBook);
+    //set độ dài cartBook
+    this.cartBookLength(this.CartBook);
     // Hiện ra label khi giỏ hàng rỗng
+    this.CheckViewCart();
+    //set value giỏ hàng trên thanh head 
+    this.getTotalCountAndPrice();
+
+  }
+  // set độ dài của giỏ hàng
+  cartBookLength(CartBook){
+    if (CartBook == null) {
+      this.lengthCartBook = 0;
+    } else {
+      this.lengthCartBook = CartBook.length;
+    }
+  }
+  //check header giỏ hàng
+  CheckViewCart(){
     if (this.CartBook == null || this.lengthCartBook == 0) {
       this.checkViewCart = true;
     }
     else {
       this.checkViewCart = false;
     }
-    //set value giỏ hàng trên thanh head 
-    this.getTotalCountAndPrice();
-   
   }
   //get total count and price 
   getTotalCountAndPrice() {
-  this.TongTien = 0;
+    this.TongTien = 0;
     this.TongCount = 0;
+    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
       for (var i = 0; i < this.lengthCartBook; i++) {
         this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
@@ -74,8 +96,8 @@ export class BookCartComponent implements OnInit {
     }
     $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
     $('.cart_items').html(this.TongCount.toString());
-    sessionStorage.setItem("TongTien",this.TongTien.toString());
-    sessionStorage.setItem("TongCount",this.TongCount.toString());
+    sessionStorage.setItem("TongTien", this.TongTien.toString());
+    sessionStorage.setItem("TongCount", this.TongCount.toString());
   }
   getCountUpdate(event: any, id) {
     for (var i = 0; i < this.CartUpdate.length; i++) {
@@ -92,8 +114,7 @@ export class BookCartComponent implements OnInit {
       //tìm id được chọn để edit 
       //nếu không phải thì backup 
       if (this.CartUpdate[i]._id == id) {
-        if(this.CartUpdate[i].count==0)
-        {
+        if (this.CartUpdate[i].count == 0) {
           this.deleteCartBook(id);
         }
       }
@@ -106,7 +127,7 @@ export class BookCartComponent implements OnInit {
       }
     }
     sessionStorage.setItem("CartBook", JSON.stringify(this.CartUpdate));
-   
+
     this.ngOnInit();
   }
   deleteCartBook(id) {
@@ -123,6 +144,14 @@ export class BookCartComponent implements OnInit {
       this.ngOnInit();
     }
   }
+  //eidt customer info
+  editEmail(event: any) {
+    this.email = event.target.value;
+    console.log(this.email);
+  }
+  editUserName(event: any) {
+    this.username = event.target.value;
+  }
   editAddress(event: any) {
     this.address = event.target.value;
     console.log(this.address);
@@ -132,32 +161,138 @@ export class BookCartComponent implements OnInit {
   }
 
   //click vào hình chuyển về detail
-  ViewBookDetail(idBook){
+  ViewBookDetail(idBook) {
     return this._router.navigate(["/bookDetail" + `/${idBook}`]);
   }
   //Lưu order và orderDetail
   public now: Date = new Date();
-  checkoutWhenNull(){
-    var setconfirm=confirm('Giỏ hàng của bạn đang trống , bạn có muốn dạo mua một vòng không ?')
+  checkoutWhenNull() {
+    var setconfirm = confirm('Giỏ hàng của bạn đang trống , bạn có muốn dạo mua một vòng không ?')
     if (setconfirm == true) {
-      this._router.navigate(['/bookCategory']);
+     this.goToBookCategory();
     }
+  }
+  goToBookCategory(){
+    this._router.navigate(['/booksCategory']);
   }
 
   checkout() {
+    
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
     else {
-      this._customerService.getCustomerByUserID( this.accountSocial._id).subscribe(
+      this._customerService.getCustomerByUserID(this.accountSocial._id).subscribe(
         getcustomer => {
-      
-        this.phone=Object.values(getcustomer)[0].phone;
-         this.address=Object.values(getcustomer)[0].address;
+
+          this.phone = Object.values(getcustomer)[0].phone;
+          this.address = Object.values(getcustomer)[0].address;
         });
+     console.log(123);
       $(document).ready(function () {
         $('#cartModal').modal('show');
       });
     }
   }
+  // sendmail
+  sendMailCartBook(sendMail: SendMail) {
+    this._sendMail.postsendMail(sendMail).subscribe(
+      postSendMail => {
+        if(postSendMail=="Please check your email"){
+            this.EmailCheck=false;
+            console.log("SendMail False");
+        }else{
+          console.log("SendMail Success");
+          //thực hiện lưu db (order - orderDetail - customer )
+          this.postOrder(this.orders);
+        }
+       
+      },
+      error =>console.log(error)
+    );
+  }
+  //Get-Post-Put  ( kiểm tra customer có tồn tại userID không , nếu không thì tạo , nếu có thì update)
+  //get customer by userID
+  getPostPutCustomerByUserID(Userid) {
+    this._customerService.getCustomerByUserID(Userid).subscribe(
+      getcustomer => {
+        this.customer.userID = this.accountSocial._id;
+        this.customer.email = this.accountSocial.email;
+        this.customer.address = this.address;
+        this.customer.name = this.accountSocial.username;
+        this.customer.nickName = this.accountSocial.username;
+        this.customer.phone = this.phone;
+        //tạo mới 
+        if (Object.values(getcustomer).length == 0) {
+
+          //post
+          this.postCustomer(this.customer);
+        }
+        //cập nhật
+        else {
+          //get id user để update
+          this.customer._id = Object.values(getcustomer)[0]._id;
+          //put
+          this.putCustomer(this.customer);
+
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
+  //post customer
+  postCustomer(customer: Customer) {
+    this._customerService.postCustomer(customer).subscribe(
+      customerpost => {
+
+       
+      },
+      error => console.log(error)
+    );
+  }
+  //put customer
+  putCustomer(customer: Customer) {
+    this._customerService.putCustomer(customer).subscribe(
+      customerput => {
+
+      
+      },
+      error => console.log(error)
+    );
+  }
+  //post order
+  postOrder(orders: Order) {
+    this._orderService.postOrder(orders).subscribe(
+      orderdata => {
+        //Kiểm tra userInfo customer ( nếu chưa có thì tạo , có rồi thì cập nhật)
+        this.getPostPutCustomerByUserID(orders.customerID);
+        //lưu order detail
+        for (var i = 0; i < this.lengthCartBook; i++) {
+
+          this.orderDetails = new OrderDetail;
+          this.orderDetails.bookID = this.CartBook[i]._id;
+          this.orderDetails.count = this.CartBook[i].count;
+          this.orderDetails.orderID = orderdata['_id'];
+          this.orderDetails.price = parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook);
+          //post order Detail
+          this.postOrderDetail(this.orderDetails);
+        }
+
+      },
+      error => console.log(error)
+    );
+  }
+  //post order Detail
+  postOrderDetail(orderDetails: OrderDetail) {
+    this._orderDetailService.postOrderDetail(orderDetails).subscribe(
+      orderDetaildata => {
+        sessionStorage.removeItem('CartBook');
+        this.getTotalCountAndPrice();
+        this._router.navigate(['/']);
+      },
+      error => console.log(error)
+    );
+  }
+
   payCheckOut() {
     //lưu order
     //set time
@@ -169,9 +304,9 @@ export class BookCartComponent implements OnInit {
     this.orders.totalPrice = this.TongTien;
     if (this.CartBook) {
       //SendMail
-      this.sendMail.name = this.accountSocial.username;
+      this.sendMail.name = this.username;
       this.sendMail.address = this.address;
-      this.sendMail.email = this.accountSocial.email;
+      this.sendMail.email = this.email;
       this.sendMail.phone = this.phone;
       this.sendMail.orderDate = this.orders.orderDate;
       this.sendMail.totalPrice = this.orders.totalPrice.toString();
@@ -181,89 +316,26 @@ export class BookCartComponent implements OnInit {
       this.sendMail.price = "";
 
       //khai báo độ dài cartBook
-      
+
       for (var i = 0; i < this.lengthCartBook; i++) {
-      
+
         this.sendMail.count += this.CartBook[i].count + "next";
         this.sendMail.price += (parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook)).toString() + "next";
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
             this.sendMail.imgBook += getBook['imgBook'] + "next";
             this.sendMail.nameBook += getBook['nameBook'] + "next";
-           //nếu chạy tới cuốn sách cuối 
-            if (this.CartBook[this.lengthCartBook-1]._id == getBook['_id']) {
-              //sendmail
-              this._sendMail.postsendMail(this.sendMail).subscribe(
-                postSendMail => {
-                  console.log("SendMail Success");
-                },
-                error => console.log(error)
-              );
+            //nếu chạy tới cuốn sách cuối 
+            if (this.CartBook[this.lengthCartBook - 1]._id == getBook['_id']) {
+              //sendmail -->thực hiện lưu db (order - orderDetail - customer )
+              console.log(this.sendMail);
+              this.sendMailCartBook(this.sendMail);
             }
           },
           error => console.log(error)
         );
       }
-      //thực hiện lưu db (order - orderDetail - customer )
-      this._orderService.postOrder(this.orders).subscribe(
-        orderdata => {
-          //Kiểm tra userInfo customer ( nếu chưa có thì tạo , có rồi thì cập nhật)
-          this._customerService.getCustomerByUserID(this.orders.customerID).subscribe(
-            getcustomer => {
-              this.customer.userID = this.accountSocial._id;
-              this.customer.email = this.accountSocial.email;
-              this.customer.address = this.address;
-              this.customer.name = this.accountSocial.username;
-              this.customer.nickName = this.accountSocial.username;
-              this.customer.phone = this.phone;
-              //tạo mới 
-              if (Object.values(getcustomer).length == 0) {
 
-                this._customerService.postCustomer(this.customer).subscribe(
-                  customerpost => {
-
-                    console.log(customerpost);
-                  },
-                  error => console.log(error)
-                );
-              }
-              //cập nhật
-              else {
-                //get id user để update
-                this.customer._id = Object.values(getcustomer)[0]._id;
-
-                this._customerService.putCustomer(this.customer).subscribe(
-                  customerput => {
-
-                    console.log(customerput);
-                  },
-                  error => console.log(error)
-                );
-              }
-            },
-            error => console.log(error)
-          );
-          //lưu order detail
-          for (var i = 0; i < this.lengthCartBook; i++) {
-
-            this.orderDetails = new OrderDetail;
-            this.orderDetails.bookID = this.CartBook[i]._id;
-            this.orderDetails.count = this.CartBook[i].count;
-            this.orderDetails.orderID = orderdata['_id'];
-            this.orderDetails.price = parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook);
-            this._orderDetailService.postOrderDetail(this.orderDetails).subscribe(
-              orderDetaildata => {
-                sessionStorage.removeItem('CartBook');
-                this.getTotalCountAndPrice();
-                this._router.navigate(['/']);
-              },
-              error => console.log(error)
-            );
-          }
-
-        },
-        error => console.log(error)
-      );
     }
   }
 }

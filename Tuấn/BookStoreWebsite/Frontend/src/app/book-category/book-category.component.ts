@@ -116,4 +116,72 @@ export class BookCategoryComponent implements OnInit {
             console.log(this.books);
         }
     }
+
+
+
+
+    //add to cart (BookDetail,CountSelect)
+  addToCart(selectedBook: Book) {
+
+    var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
+    var dem = 0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
+    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
+    // nếu sessionStorage "CartBook" không rỗng
+
+    if (sessionStorage.getItem('CartBook') != null) {
+      //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
+      
+      for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
+        CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i];
+        // nếu id book đã tồn tại trong  sessionStorage "CartBook" 
+        if (CartBook[i]._id == selectedBook._id) {
+          temp = 1;  //đặt biến temp
+
+          CartBook[i].count =parseInt(CartBook[i].count) +1;  //tăng giá trị count
+        }
+        dem++;  // đẩy vị trí gán tiếp theo
+      }
+    }
+
+    if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
+      selectedBook.count = 1;  // set count cho sách
+      CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
+    }
+    // đổ mảng vào sessionStorage "CartBook"
+    sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
+
+    this.getTotalCountAndPrice();
+    // this._router.navigate(['/cartBook']);
+  }
+
+   //get total count and price 
+  TongTien = 0;
+  TongCount = 0;
+  CartBook = [];
+  lengthCartBook = 0;
+   getTotalCountAndPrice() {
+    this.TongTien = 0;
+    this.TongCount = 0;
+    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.cartBookLength(this.CartBook);
+    if (this.CartBook != null) {
+      for (var i = 0; i < this.lengthCartBook; i++) {
+        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+        this.TongCount += parseInt(this.CartBook[i].count);
+
+      }
+    }
+    $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
+    $('.cart_items').html(this.TongCount.toString());
+    sessionStorage.setItem("TongTien", this.TongTien.toString());
+    sessionStorage.setItem("TongCount", this.TongCount.toString());
+  }
+  // set độ dài của giỏ hàng
+  cartBookLength(CartBook){
+    if (CartBook == null) {
+      this.lengthCartBook = 0;
+    } else {
+      this.lengthCartBook = CartBook.length;
+    }
+  }
 }
