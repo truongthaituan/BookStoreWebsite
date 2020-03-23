@@ -43,13 +43,16 @@ export class BookCartComponent implements OnInit {
   //change info payment
   address = "";
   phone = "";
-  email = this.accountSocial.email;
-  username = this.accountSocial.username;
+  email="";
+  username="";
   checkViewCart = false;
   lengthCartBook = 0;
   EmailCheck=true;
   ngOnInit() {
-    //get giỏ hàng
+    if(this.accountSocial){
+    this.email = this.accountSocial.email;
+    this.username = this.accountSocial.username;
+    }//get giỏ hàng
     this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
     this.CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
     console.log(this.CartBook + "----->" + this.lengthCartBook);
@@ -166,11 +169,15 @@ export class BookCartComponent implements OnInit {
   checkoutWhenNull() {
     var setconfirm = confirm('Giỏ hàng của bạn đang trống , bạn có muốn dạo mua một vòng không ?')
     if (setconfirm == true) {
-      this._router.navigate(['/booksCategory']);
+     this.goToBookCategory();
     }
+  }
+  goToBookCategory(){
+    this._router.navigate(['/booksCategory']);
   }
 
   checkout() {
+    
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
     else {
       this._customerService.getCustomerByUserID(this.accountSocial._id).subscribe(
@@ -179,6 +186,7 @@ export class BookCartComponent implements OnInit {
           this.phone = Object.values(getcustomer)[0].phone;
           this.address = Object.values(getcustomer)[0].address;
         });
+     
       $(document).ready(function () {
         $('#cartModal').modal('show');
       });
