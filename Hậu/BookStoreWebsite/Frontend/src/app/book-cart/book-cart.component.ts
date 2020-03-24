@@ -34,7 +34,7 @@ export class BookCartComponent implements OnInit {
   orders: Order = new Order;
   orderDetails: OrderDetail = new OrderDetail;
   customer: Customer = new Customer;
-
+  
   TongTien = 0;
   TongCount = 0;
   //thông tin login
@@ -48,6 +48,10 @@ export class BookCartComponent implements OnInit {
   checkViewCart = false;
   lengthCartBook = 0;
   EmailCheck=true;
+  //alert
+  alertMessage="";
+  alertSucess=false;
+  alertFalse=false;
   ngOnInit() {
     if(this.accountSocial){
     this.email = this.accountSocial.email;
@@ -199,8 +203,17 @@ export class BookCartComponent implements OnInit {
         if(postSendMail=="Please check your email"){
             this.EmailCheck=false;
             console.log("SendMail False");
+            //show alert
+            this.alertMessage="Thanh toán thất bại , vui lòng kiểm tra lại thông tin cá nhân trước khi thanh toán"
+            this.alertFalse=true;
+            setTimeout(() => {this.alertMessage="";this.alertFalse=false}, 6000); 
+            
         }else{
           console.log("SendMail Success");
+          //show alert
+          this.alertMessage="Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email "+sendMail.email;
+          this.alertSucess=true;
+          setTimeout(() => {this.alertMessage="";this.alertSucess=false}, 6000); 
           //thực hiện lưu db (order - orderDetail - customer )
           this.postOrder(this.orders);
         }
@@ -287,7 +300,8 @@ export class BookCartComponent implements OnInit {
       orderDetaildata => {
         sessionStorage.removeItem('CartBook');
         this.getTotalCountAndPrice();
-        this._router.navigate(['/']);
+        setTimeout(() => {this._router.navigate(['/']);}, 8000); 
+        
       },
       error => console.log(error)
     );
