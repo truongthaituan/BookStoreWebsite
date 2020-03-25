@@ -30,14 +30,16 @@ export class InsertBookComponent implements OnInit {
           var selectedVal = $("#selectAuthor option:selected").val();
           alert(selectedVal);
         });
-    
       });
-      $("#scrollToTopButton").click(function () {
-        $("html, body").animate({scrollTop: 0}, 1000);
-       });
     });
   }
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
+    });
     this.resetForm();
     this.getCategoryList();
     this.getAuthorList();

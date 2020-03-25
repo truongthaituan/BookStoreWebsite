@@ -14,13 +14,17 @@ export class AdminPageComponent implements OnInit {
 
   constructor(private _router:Router,private bookService:BookService,  private bookCategoryService:CategoryService) { 
     $(function() {
-    $("#scrollToTopButton").click(function () {
-      $("html, body").animate({scrollTop: 0}, 1000);
-     });
+  
     });
   }
 
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
+    });
     this.refreshBookList();
     this.refreshCategoryList();
   }

@@ -20,12 +20,7 @@ declare var $: any;
 export class BookCartComponent implements OnInit {
   constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService) {
-      $(function () {
-        $("#scrollToTopButton").click(function () {
-          $("html, body").animate({ scrollTop: 0 }, 1000);
-        });
-  
-      });
+    
   }
   //chứa thông tin giỏ hàng
   CartBook = [];
@@ -54,6 +49,12 @@ export class BookCartComponent implements OnInit {
   alertSucess=false;
   alertFalse=false;
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
+    });
     if(this.accountSocial){
     this.email = this.accountSocial.email;
     this.username = this.accountSocial.username;

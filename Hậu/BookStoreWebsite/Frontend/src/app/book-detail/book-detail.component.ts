@@ -54,14 +54,17 @@ export class BookDetailComponent implements OnInit {
           $('.imagepreview').attr('src', $(this).find('img').attr('src'));
           $('#imagemodal').modal('show');   
         });		
-          $("#scrollToTopButton").click(function () {
-            $("html, body").animate({scrollTop: 0}, 1000);
-           });
         
     });
    }
 
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
+    });
     this.resetForm();
     let id = this.route.snapshot.paramMap.get('id');
   

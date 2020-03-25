@@ -29,10 +29,7 @@ export class BookCategoryComponent implements OnInit {
   constructor(private _router: Router, private bookService: BookService, private bookCategoryService: CategoryService) {
 
     $(function () {
-      $("#scrollToTopButton").click(function () {
-        $("html, body").animate({ scrollTop: 0 }, 1000);
-      });
-
+    
     });
     this.selectedCategory = sessionStorage.getItem('selectedCategory');
   }
@@ -54,6 +51,12 @@ export class BookCategoryComponent implements OnInit {
   userGoogle: Array<Socialaccount>;
   statusLogin: string = ""
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
+    });
     //set Tổng tiền và số lượng trên header
     $('#tongtien').html("&nbsp;" + sessionStorage.getItem('TongTien') + " đ");
     $('.cart_items').html(sessionStorage.getItem('TongCount'));

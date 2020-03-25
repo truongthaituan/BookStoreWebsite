@@ -15,9 +15,6 @@ export class HomeComponent implements OnInit {
 	  
  
     $(function () {
-		$("#scrollToTopButton").click(function () {
-		  $("html, body").animate({ scrollTop: 0 }, 1000);
-		});
   $('.carousel .item').each(function(){
 	var next = $(this).next();
 	if (!next.length) {
@@ -37,6 +34,12 @@ export class HomeComponent implements OnInit {
    });
 }
   ngOnInit() {
+	$(function () {
+		$("#scrollToTopButton").click(function () {
+		  $("html, body").animate({ scrollTop: 0 }, 1000);
+		});
+  
+	  });
 	  this.refreshBookList();
 	  //set Tổng tiền và số lượng trên header
 	  if(sessionStorage.getItem('TongTien')==null){
