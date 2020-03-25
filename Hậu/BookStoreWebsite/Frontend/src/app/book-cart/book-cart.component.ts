@@ -20,11 +20,12 @@ declare var $: any;
 export class BookCartComponent implements OnInit {
   constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService) {
-    $(function () {
-      $("#scrollToTopButton").click(function () {
-        $("html, body").animate({ scrollTop: 0 }, 1000);
+      $(function () {
+        $("#scrollToTopButton").click(function () {
+          $("html, body").animate({ scrollTop: 0 }, 1000);
+        });
+  
       });
-    });
   }
   //chứa thông tin giỏ hàng
   CartBook = [];

@@ -13,14 +13,11 @@ export class HomeComponent implements OnInit {
   
   constructor(private _router:Router,  private bookService:BookService) {
 	  
-    $(function() {
-   // optional
-//    $('#myCarousel').carousel({
-// 	interval: 4000
-//   })
-	$("#scrollToTopButton").click(function () {
-	  $("html, body").animate({scrollTop: 0}, 1000);
-	});
+ 
+    $(function () {
+		$("#scrollToTopButton").click(function () {
+		  $("html, body").animate({ scrollTop: 0 }, 1000);
+		});
   $('.carousel .item').each(function(){
 	var next = $(this).next();
 	if (!next.length) {
@@ -37,9 +34,6 @@ export class HomeComponent implements OnInit {
 	  next.children(':first-child').clone().appendTo($(this));
 	}
   });
-  $("#scrollToTopButton").click(function () {
-	$("html, body").animate({scrollTop: 0}, 1000);
- 	});
    });
 }
   ngOnInit() {

@@ -10,11 +10,10 @@ declare var $:any;
 })
 export class AppComponent  {
     title = 'Angular';
-  
+    accountUser = JSON.parse(sessionStorage.getItem('accountUser'));
     accountSocial = JSON.parse(sessionStorage.getItem('accountSocial'));
     statusLogin = sessionStorage.getItem('statusLogin');
-    //set giỏ hàng
-    
+    loginBy = sessionStorage.getItem('loginBy');
    
     //
     customOptions: any = {
@@ -58,6 +57,7 @@ export class AppComponent  {
     // this.statusLogin == null;
     sessionStorage.removeItem('userGoogle');
     sessionStorage.removeItem('statusLogin');
+    sessionStorage.removeItem('loginBy');
     window.location.href = "/";
   }
 }

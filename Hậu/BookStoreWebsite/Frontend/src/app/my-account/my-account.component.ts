@@ -119,14 +119,19 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
           sessionStorage.setItem("token", response.token)
           //admin
           if ((response.obj as User).roleID == "1") {
-            this._router.navigate(['/adminPage'])
+            window.location.href = "/adminPage"
             sessionStorage.setItem('userLogin', JSON.stringify((response.obj as User)));
+            this.statusLogin = true;
+            sessionStorage.setItem('statusLogin', String(this.statusLogin));
             sessionStorage.setItem('loginBy', "loginbt");
           }
           //member
           else {
-            this._router.navigate(['/booksCategory'])
-            sessionStorage.setItem('fullName', JSON.stringify((response.obj as User)));
+            window.location.href = "/"
+            console.log(response.obj as User)
+            sessionStorage.setItem('accountUser', JSON.stringify((response.obj as User)));
+            this.statusLogin = true;
+            sessionStorage.setItem('statusLogin', String(this.statusLogin));
             sessionStorage.setItem('loginBy', "loginbt");
           }
         }
@@ -156,7 +161,6 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
-          
               sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
               console.log("created");
               this._router.navigate(['/booksCategory']);
@@ -166,8 +170,7 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
           });
         }
         else {
-    
-          sessionStorage.setItem('loginBy', "loginGoogle");
+          sessionStorage.setItem('loginBy', "loginSocial");
           if ((response.obj as Socialaccount).typeAccount == 1) {
             this._router.navigate(['/adminPage']);
           }
@@ -215,7 +218,7 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
           console.log(response.obj as Socialaccount);
           this.statusLogin = true;
           sessionStorage.setItem('statusLogin', String(this.statusLogin));;
-          sessionStorage.setItem('loginBy', "loginFacebook");
+          sessionStorage.setItem('loginBy', "loginSocial");
         }
       });
     });
