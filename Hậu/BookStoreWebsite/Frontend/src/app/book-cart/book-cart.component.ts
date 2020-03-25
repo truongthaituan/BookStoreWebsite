@@ -186,7 +186,8 @@ export class BookCartComponent implements OnInit {
     else {
       this._customerService.getCustomerByUserID(this.accountSocial._id).subscribe(
         getcustomer => {
-
+          this.username = Object.values(getcustomer)[0].name;
+          this.email = Object.values(getcustomer)[0].email;
           this.phone = Object.values(getcustomer)[0].phone;
           this.address = Object.values(getcustomer)[0].address;
         });
@@ -228,10 +229,10 @@ export class BookCartComponent implements OnInit {
     this._customerService.getCustomerByUserID(Userid).subscribe(
       getcustomer => {
         this.customer.userID = this.accountSocial._id;
-        this.customer.email = this.accountSocial.email;
+        this.customer.email = this.email;
         this.customer.address = this.address;
-        this.customer.name = this.accountSocial.username;
-        this.customer.nickName = this.accountSocial.username;
+        this.customer.name = this.username;
+        this.customer.nickName = this.username;
         this.customer.phone = this.phone;
         //tạo mới 
         if (Object.values(getcustomer).length == 0) {

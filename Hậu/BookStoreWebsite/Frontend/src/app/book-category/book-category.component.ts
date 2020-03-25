@@ -7,7 +7,7 @@ import { Category } from '../app-services/category-service/category.model';
 import { Socialaccount } from '../app-services/socialAccount-service/socialaccount.model';
 import { Session } from 'protractor';
 
-declare var $:any
+declare var $: any
 @Component({
   selector: 'app-book-category',
   templateUrl: './book-category.component.html',
@@ -19,16 +19,20 @@ export class BookCategoryComponent implements OnInit {
   searchCategory;
   pageOfItems: Array<any>;
   books: Array<Book>;
-      items: any;
-      collection = [];
-      selectedCategory: String = "";
-  constructor(private _router:Router,private bookService:BookService,  private bookCategoryService:CategoryService) { 
+  items: any;
+  collection = [];
+  selectedCategory: String = "";
+  //alert
+  alertMessage = "";
+  alertSucess = false;
+  alertFalse = false;
+  constructor(private _router: Router, private bookService: BookService, private bookCategoryService: CategoryService) {
 
-    $(function() {
+    $(function () {
       $("#scrollToTopButton").click(function () {
-        $("html, body").animate({scrollTop: 0}, 1000);
-       });
-   
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
     });
     this.selectedCategory = sessionStorage.getItem('selectedCategory');
   }
@@ -40,9 +44,9 @@ export class BookCategoryComponent implements OnInit {
 
   onSliderChange(selectedValues: number[]) {
     this.currentValues = selectedValues;
-    $(function() {
-      $( "#amount-min" ).val("Min : " + selectedValues[0] + "đ");
-      $( "#amount-max" ).val("Max : " + selectedValues[1] + "đ");
+    $(function () {
+      $("#amount-min").val("Min : " + selectedValues[0] + "đ");
+      $("#amount-max").val("Max : " + selectedValues[1] + "đ");
     });
   }
   booksCategory: []
@@ -51,7 +55,7 @@ export class BookCategoryComponent implements OnInit {
   statusLogin: string = ""
   ngOnInit() {
     //set Tổng tiền và số lượng trên header
-    $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
+    $('#tongtien').html("&nbsp;" + sessionStorage.getItem('TongTien') + " đ");
     $('.cart_items').html(sessionStorage.getItem('TongCount'));
     //
     this.refreshBookList();
@@ -70,57 +74,57 @@ export class BookCategoryComponent implements OnInit {
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
     this.pageOfItems = pageOfItems;
-}
-  selectedBook = [];
-	detailBook(book: Book) {
-      return this._router.navigate(["/bookDetail" + `/${book._id}`]);
-    }
-  refreshCategoryList(){
-    this.bookCategoryService.getCategoryList().subscribe((res) =>{
-      this.bookCategoryService.category = res as Category[];
-    }); 
   }
- 
+  selectedBook = [];
+  detailBook(book: Book) {
+    return this._router.navigate(["/bookDetail" + `/${book._id}`]);
+  }
+  refreshCategoryList() {
+    this.bookCategoryService.getCategoryList().subscribe((res) => {
+      this.bookCategoryService.category = res as Category[];
+    });
+  }
+
   refreshBookList() {
-		this.bookService.getBookList().subscribe((res) => {
+    this.bookService.getBookList().subscribe((res) => {
       this.books = res as Book[];
-          console.log(this.books);
-		});
+      console.log(this.books);
+    });
+  }
+  booksFilter = []
+  showCategory(id: String) {
+    var category: any;
+    this.bookCategoryService.getCategoryById(id).subscribe((res) => {
+      this.bookCategoryService.category = res as Category[];
+      category = res;
+    });
+  }
+  getid_book(id) {
+    localStorage.setItem('book_detail', id);
+  }
+
+  gettypeCategory(id) {
+    this.bookService.getBookByCategoryId(id)
+      .subscribe(resCategoryData => {
+        // console.log(resCategoryData);
+        this.books = resCategoryData as Book[];
+        console.log(this.books);
+      });
+  }
+
+  sort() {
+    if ($('.orderby option:selected').val() == 'SortByPrice') {
+      this.books.sort(function (a, b) {
+        return (a.priceBook) - (b.priceBook);
+      });
+      console.log(this.books);
     }
-    booksFilter = []
-    showCategory(id: String) {
-      var category:any;
-      this.bookCategoryService.getCategoryById(id).subscribe((res) => {
-        this.bookCategoryService.category = res as Category[];
-        category = res;
-        });
-      } 
-      getid_book(id){
-        localStorage.setItem('book_detail',id);
-      }
-      
-      gettypeCategory(id){
-        this.bookService.getBookByCategoryId(id)
-        .subscribe(resCategoryData => {
-          // console.log(resCategoryData);
-          this.books = resCategoryData as Book[];
-          console.log(this.books);
-        });
-      }
-      
-      sort() {
-        if($('.orderby option:selected').val() == 'SortByPrice'){
-          this.books.sort(function(a, b) {
-                return (a.priceBook) - (b.priceBook);
-            });
-            console.log(this.books);
-        }
-    }
+  }
 
 
 
 
-    //add to cart (BookDetail,CountSelect)
+  //add to cart (BookDetail,CountSelect)
   addToCart(selectedBook: Book) {
 
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
@@ -130,14 +134,14 @@ export class BookCategoryComponent implements OnInit {
 
     if (sessionStorage.getItem('CartBook') != null) {
       //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
-      
+
       for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
         CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i];
         // nếu id book đã tồn tại trong  sessionStorage "CartBook" 
         if (CartBook[i]._id == selectedBook._id) {
           temp = 1;  //đặt biến temp
 
-          CartBook[i].count =parseInt(CartBook[i].count) +1;  //tăng giá trị count
+          CartBook[i].count = parseInt(CartBook[i].count) + 1;  //tăng giá trị count
         }
         dem++;  // đẩy vị trí gán tiếp theo
       }
@@ -151,15 +155,18 @@ export class BookCategoryComponent implements OnInit {
     sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
 
     this.getTotalCountAndPrice();
-    // this._router.navigate(['/cartBook']);
+     //show alert
+     this.alertMessage="Thêm thành công sách "+ selectedBook.nameBook +" vào giỏ hàng";
+     this.alertSucess=true;
+     setTimeout(() => {this.alertMessage="";this.alertSucess=false}, 6000); 
   }
 
-   //get total count and price 
+  //get total count and price 
   TongTien = 0;
   TongCount = 0;
   CartBook = [];
   lengthCartBook = 0;
-   getTotalCountAndPrice() {
+  getTotalCountAndPrice() {
     this.TongTien = 0;
     this.TongCount = 0;
     this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
@@ -177,11 +184,13 @@ export class BookCategoryComponent implements OnInit {
     sessionStorage.setItem("TongCount", this.TongCount.toString());
   }
   // set độ dài của giỏ hàng
-  cartBookLength(CartBook){
+  cartBookLength(CartBook) {
     if (CartBook == null) {
       this.lengthCartBook = 0;
     } else {
       this.lengthCartBook = CartBook.length;
     }
   }
+
+
 }
