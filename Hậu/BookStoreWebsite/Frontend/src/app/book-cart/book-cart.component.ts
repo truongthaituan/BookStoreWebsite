@@ -52,8 +52,7 @@ export class BookCartComponent implements OnInit {
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
-      });
-
+      }); 
     });
     if(this.accountSocial){
     this.email = this.accountSocial.email;

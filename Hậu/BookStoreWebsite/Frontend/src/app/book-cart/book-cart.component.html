@@ -436,7 +436,10 @@
                                         <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
                                         <td>{{cartbook.nameBook}}</td>
                                         <td>{{cartbook.priceBook|currency:"VND"}}</td>
-                                        <td><input class="form-control" type="text" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" style="text-align: center;" /></td>
+                                        <td><input class="form-control" type="number" min = "0" id = "number" 
+                                            value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" 
+                                            onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" 
+                                            style="text-align: center;" /></td>
                                         <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
                                         <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
                                 </button> </td>
