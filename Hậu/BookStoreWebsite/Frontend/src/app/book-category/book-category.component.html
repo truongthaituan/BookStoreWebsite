@@ -67,7 +67,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                         </div>
 
                                         <div class="product-buttons">
-                                            <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (click)="addToCart(item)">Add to cart</a>
+                                            <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" data-toggle="modal" data-target="#myModal" (click)="addToCart(item)">Add to cart</a>
                                             </div>
                                             <div class="yith_compare_btn">
                                                 <div class="woocommerce product compare-button">
@@ -177,11 +177,7 @@ js-comp-ver-4.9.2 vc_responsive ">
             </div>
         </div>
 
-        <!-- Back to Top -->
-        <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix">
-            <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
-        </div>
-        <!-- Back to Top -->
+
         <!--  message alert -->
         <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
             {{alertMessage}}
@@ -191,7 +187,51 @@ js-comp-ver-4.9.2 vc_responsive ">
         </div>
         <!--  message alert -->
     </div>
+    <!-- Back to Top -->
+    <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix" style="display: block;">
+        <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
+    </div>
+    <!-- Back to Top -->
+
+    <!-- modal add book -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #2EFE64;font-size: 15px;">
+                        <b>Sách <span style="color: #FA58F4;">{{addABook}}</span> đã được thêm vào giỏ hàng của bạn</b>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    </h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="d-flex justify-content-end" style="font-size: 15px;">
+                        <h5>Bạn có <b>{{TongCount}}</b> quốn sách trong giỏ hàng</h5>
+                        <h5 style="margin-top: -5px;">Tổng tiền : <b style="color :#FE2E9A;font-size: 21px;">{{TongTien|currency:"VND"}}</b></h5>
+                    </div>
+
+                    <div class="col mb-2">
+                        <div class="row">
+                            <div class="col-sm-12  col-md-6">
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal">Continue Shopping</button>
+                            </div>
+                            <div class="col-sm-12 col-md-6 text-right">
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Cart Book   </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <h4>Có thể bạn sẽ thích</h4>
+                    <div class="modal-footer border-top-0 d-flex justify-content-between">
 
 
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
 </body>

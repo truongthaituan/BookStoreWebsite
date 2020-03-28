@@ -57,10 +57,10 @@ export class BookCategoryComponent implements OnInit {
       });
 
     });
-    //set Tổng tiền và số lượng trên header
-    $('#tongtien').html("&nbsp;" + sessionStorage.getItem('TongTien') + " đ");
-    $('.cart_items').html(sessionStorage.getItem('TongCount'));
-    //
+    // //set Tổng tiền và số lượng trên header
+    // $('#tongtien').html("&nbsp;" + sessionStorage.getItem('TongTien') + " đ");
+    // $('.cart_items').html(sessionStorage.getItem('TongCount'));
+    // //
     this.refreshBookList();
     this.refreshCategoryList();
     this.category_id = sessionStorage.getItem('category_id');
@@ -71,8 +71,12 @@ export class BookCategoryComponent implements OnInit {
     //   $("#logout").html("Đăng Xuất");
     //   $("#login").html("");
     // }
-
+  //set độ dài cartBook
+  this.cartBookLength(this.CartBook);
+  //set value giỏ hàng trên thanh head 
+  this.getTotalCountAndPrice();
   }
+  
 
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
@@ -126,10 +130,13 @@ export class BookCategoryComponent implements OnInit {
 
 
 
-
+  addABook="";
   //add to cart (BookDetail,CountSelect)
-  addToCart(selectedBook: Book) {
+  // số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
 
+  checkedAddBook =true;
+  addToCart(selectedBook: Book) {
+    this.addABook=selectedBook.nameBook;
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
     var dem = 0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
     var temp = 0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
@@ -143,8 +150,20 @@ export class BookCategoryComponent implements OnInit {
         // nếu id book đã tồn tại trong  sessionStorage "CartBook" 
         if (CartBook[i]._id == selectedBook._id) {
           temp = 1;  //đặt biến temp
-
+           // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
+           if(parseInt(CartBook[i].count) + 1 <=10){
           CartBook[i].count = parseInt(CartBook[i].count) + 1;  //tăng giá trị count
+        }
+        else{
+              //show alert
+        this.checkedAddBook =false;
+        //update lại số lượng 
+
+
+        this.alertMessage="số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ hàng";
+        this.alertFalse=true;
+        setTimeout(() => {this.alertMessage="";this.alertFalse=false}, 4000); 
+        }
         }
         dem++;  // đẩy vị trí gán tiếp theo
       }
@@ -158,10 +177,11 @@ export class BookCategoryComponent implements OnInit {
     sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
 
     this.getTotalCountAndPrice();
-     //show alert
-     this.alertMessage="Thêm thành công sách "+ selectedBook.nameBook +" vào giỏ hàng";
-     this.alertSucess=true;
-     setTimeout(() => {this.alertMessage="";this.alertSucess=false}, 6000); 
+    //  //show alert
+    //  this.alertMessage="Thêm thành công sách "+ selectedBook.nameBook +" vào giỏ hàng";
+    //  this.alertSucess=true;
+    //  setTimeout(() => {this.alertMessage="";this.alertSucess=false}, 6000); 
+
   }
 
   //get total count and price 
@@ -195,5 +215,9 @@ export class BookCategoryComponent implements OnInit {
     }
   }
 
-
+  // go to cart book
+  goToCartBook()
+  {
+    this._router.navigate(['/cartBook']);
+  }
 }

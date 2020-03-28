@@ -903,10 +903,12 @@
 
                             <form class="cart" method="post" enctype='multipart/form-data' #form="ngForm" (ngSubmit)="addToCart(bookService.book,form.value)">
                                 <div class="quantity">
-                                    <input type="number" min="1" max="10" placeholder="1" required id="count" name="count" ngModel />
+                                    <input type="number" min="1" max="10" placeholder="1" required id="count" name="count" (change)="getcountDetail(bookService.book,$event)" ngModel onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    />
+
                                 </div>
                                 <input type="hidden" name="add-to-cart" value="76" />
-                                <button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
+                                <button type="submit" class="single_add_to_cart_button button alt" data-toggle="modal" data-target="#myModal">Add to cart</button>
                             </form>
 
 
@@ -1163,7 +1165,7 @@
                                         <div class="product-content">
 
                                             <h4 class="product_title">
-                                                <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
+                                                <a class="bks_product_t itle_link" href="bookDetail">{{item.nameBook}}</a></h4>
 
                                             <span class="price">
                                <span class="woocommerce-Price-amount amount" id="priceBook" >
@@ -1178,7 +1180,6 @@
                             </div>
                             <!-- #product-76 -->
 
-
                         </div>
                     </div>
                 </div>
@@ -1192,3 +1193,54 @@
         <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
     </div>
     <!-- Back to Top -->
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #2EFE64;font-size: 15px;">
+                        <b>Sách <span style="color: #FA58F4;">{{bookService.book?.nameBook}}</span> đã được thêm vào giỏ hàng của bạn</b>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    </h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="d-flex justify-content-end" style="font-size: 15px;">
+                        <h5>Bạn có <b>{{TongCount}}</b> quốn sách trong giỏ hàng</h5>
+                        <h5 style="margin-top: -5px;">Tổng tiền : <b style="color :#FE2E9A;font-size: 21px;">{{TongTien|currency:"VND"}}</b></h5>
+                    </div>
+
+                    <div class="col mb-2">
+                        <div class="row">
+                            <div class="col-sm-12  col-md-6">
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToBookCategory()">Continue Shopping</button>
+                            </div>
+                            <div class="col-sm-12 col-md-6 text-right">
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Cart Book</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <h4>Có thể bạn sẽ thích</h4>
+                    <div class="modal-footer border-top-0 d-flex justify-content-between">
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  message alert -->
+    <!-- <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+        {{alertMessage}}
+    </div> -->
+    <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+        {{alertMessage}}
+    </div>
+    <!--  message alert -->
+</body>
