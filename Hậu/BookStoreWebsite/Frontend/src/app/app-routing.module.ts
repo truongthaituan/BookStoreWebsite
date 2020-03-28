@@ -11,6 +11,7 @@ import { InsertBookComponent } from './insert-book/insert-book.component';
 import { UpdateBookComponent } from './update-book/update-book.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { AccountProfileComponent } from './account-profile/account-profile.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'insertPage',component: InsertBookComponent},
   {path: 'updatePage/:id',component: UpdateBookComponent},
   {path: 'aboutUs',component: AboutUsComponent},
-  {path: 'profile', component: AccountProfileComponent}
+  {path: 'profile', component: AccountProfileComponent},
+  {path: 'orderHistory',component: OrderHistoryComponent}
 ];
 
 @NgModule({

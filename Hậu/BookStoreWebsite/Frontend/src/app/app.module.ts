@@ -32,6 +32,7 @@ import { UserService } from './app-services/user-service/user.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FilterByPipe } from './filter-by.pipe';
 import { AccountProfileComponent } from './account-profile/account-profile.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -61,7 +62,8 @@ export function provideConfig() {
     AboutUsComponent,
     JwPaginationComponent,
     FilterByPipe,
-    AccountProfileComponent
+    AccountProfileComponent,
+    OrderHistoryComponent
  
   ],
   imports: [
