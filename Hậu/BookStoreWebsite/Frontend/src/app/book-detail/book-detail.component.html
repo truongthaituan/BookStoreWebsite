@@ -1236,7 +1236,7 @@
                             product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                              instock sale featured shipping-taxable purchasable product-type-simple"  *ngFor="let item of books  |
                             paginate: { itemsPerPage: 4,currentPage: p }">
-                            <div class="product-wrap">
+                            <div class="product-wrap"  style="height: 270px;">
                                 <div class="product-image">
                                     <div class="catalog-image">
                                         <button (click)="getBookById(item._id);" style="background-color: transparent;border-color: transparent;">
