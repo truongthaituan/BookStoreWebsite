@@ -67,7 +67,10 @@ js-comp-ver-4.9.2 vc_responsive ">
                                         </div>
 
                                         <div class="product-buttons">
-                                            <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" data-toggle="modal" data-target="#myModal" (click)="addToCart(item)">Add to cart</a>
+                                            <div class="add-to-cart-btn">
+                                                <a *ngIf="checkCountMax10" rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" data-toggle="modal" data-target="#myModal" (mouseenter)="checkCountCartBeforeAdd(item)" (click)="addToCart(item)">Add to cart</a>
+                                                <a *ngIf="!checkCountMax10" rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (mouseenter)="checkCountCartBeforeAdd(item)" (click)="addToCart(item)">Add to cart</a>
+
                                             </div>
                                             <div class="yith_compare_btn">
                                                 <div class="woocommerce product compare-button">
