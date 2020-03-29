@@ -50,12 +50,12 @@ export class BookDetailComponent implements OnInit {
             .click(), !0
         }).on("init", "#rating", function () {
           a("#rating").hide()
-          .before('<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>')
+            .before('<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>')
         })
         .on("click", "#respond p.stars a", function () {
           var b = a(this), c = a(this).closest("#respond").find("#rating"),
-          d = a(this).closest(".stars"); return c.val(b.text()), b.siblings("a").removeClass("active"), b.addClass("active"),
-            d.addClass("selected"), !1
+            d = a(this).closest(".stars"); return c.val(b.text()), b.siblings("a").removeClass("active"), b.addClass("active"),
+              d.addClass("selected"), !1
         }).on("click", "#respond #submit", function () {
           var b = a(this).closest("#respond")
             .find("#rating"), c = b.val(); if (b.length > 0 && !c && "yes" === wc_single_product_params.review_rating_required)
@@ -86,19 +86,17 @@ export class BookDetailComponent implements OnInit {
     });
     this.resetForm();
     let id = this.route.snapshot.paramMap.get('id');
+    //set độ dài cartBook
+    this.cartBookLength(this.CartBook);
+    //set value giỏ hàng trên thanh head 
+    this.getTotalCountAndPrice();
 
     this.getBookById(id);
     this.getAllAccount();
     this.getRatingsByBookID(id);
 
-    // //set Tổng tiền và số lượng trên header
-    // $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
-    // $('.cart_items').html(sessionStorage.getItem('TongCount'));
-    // //
-    //set độ dài cartBook
-    this.cartBookLength(this.CartBook);
-    //set value giỏ hàng trên thanh head 
-    this.getTotalCountAndPrice();
+
+
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -158,6 +156,7 @@ export class BookDetailComponent implements OnInit {
       this.gettypeCategory(books.categoryID);
       this.getRatingsByBookID(id);
       window.scrollTo(0, 0)
+      this.checkGetCountBookDetailEqual10(id);
     });
   }
   gettypeCategory(id) {
@@ -211,48 +210,80 @@ export class BookDetailComponent implements OnInit {
 
 
   // số lượng add tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
+  //##1 sự kiện change input
   alertFalse = false;
   alertMessage = "";
-  checkedAddBook =true;
-  getcountDetail(selectedBook: Book,event: any){
-    if(event.target.value >10)
-    {
-       //show alert
-     this.checkedAddBook =false;
-     //update lại số lượng 
-     this.ngOnInit();
-     this.alertMessage="Bạn chỉ được nhập tối đa 10 quốn sách";
-     this.alertFalse=true;
-     setTimeout(() => {this.alertMessage="";this.alertFalse=false}, 4000); 
-    }else{
-      for(var i = 0; i < this.lengthCartBook; i++)
-      {
-        if(this.CartBook[i]._id == selectedBook._id)
-        {
-          var CountMax10=  parseInt(event.target.value) + parseInt(this.CartBook[i].count)  ;
-          if(CountMax10>10)
+  checkedAddBook = true;
+  countBookDetailCur = 0;
+  getcountDetail(selectedBook: Book, event: any) {
+
+    this.checkedAddBook = true;
+    console.log(this.countBookDetailCur);
+    //nếu nhập 0
+    if (event.target.value == 0) {
+      //show alert
+      this.checkedAddBook = false;
+
+
+      this.alertMessage = "Bạn không thể mua sách với số lượng bằng 0";
+      this.alertFalse = true;
+      setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+    }
+    else
+      if (event.target.value > 10) {
         //show alert
-        this.checkedAddBook =false;
-        //update lại số lượng 
+        this.checkedAddBook = false;
 
 
-        this.alertMessage="số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ hàng";
-        this.alertFalse=true;
-        setTimeout(() => {this.alertMessage="";this.alertFalse=false}, 4000); 
-          
+        this.alertMessage = "Bạn chỉ được nhập tối đa 10 quốn sách";
+        this.alertFalse = true;
+        setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+      } else {
+        var CountMax10 = parseInt(event.target.value) + (this.countBookDetailCur);
+
+
+        if (CountMax10 > 10) {
+          //show alert
+          this.checkedAddBook = false;
+          //update lại số lượng 
+
+          this.alertMessage = "số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ hàng";
+          this.alertFalse = true;
+          setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+        }
+      }
+    if (!this.checkedAddBook) {
+      $("#count").val(1);
+     
+    }
+
+    console.log(this.checkedAddBook);
+  }
+  // số lượng add tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
+  //##2 khi số lượng đã 10 , ko nhấn change input , nhấn add to cart-->fail
+  checkGetCountBookDetailEqual10(id) {
+    this.checkedAddBook = true;
+    for (var i = 0; i < this.lengthCartBook; i++) {
+      if (this.CartBook[i]._id == id) {
+        this.countBookDetailCur = this.CartBook[i].count;
+        if (this.CartBook[i].count == 10) {
+          //show alert
+          this.checkedAddBook = false;
+          //update lại số lượng 
         }
       }
     }
   }
-  
-    //add to cart (BookDetail,CountSelect) 
+
+  //add to cart (BookDetail,CountSelect) 
   addToCart(selectedBook: Book, form: Book) {
-    this.checkedAddBook =true;
+   
+    this.checkedAddBook = true;
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
     var dem = 0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
     var temp = 0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
     // nếu sessionStorage "CartBook" không rỗng
-    if (!form.count) form.count = 1;
+    if (!form.count || form.count +this.countBookDetailCur >10) form.count = 1;
     // nếu số lượng nhập vào <=10 thì oke 
     if (form.count <= 10) {
       if (sessionStorage.getItem('CartBook') != null) {
@@ -264,18 +295,21 @@ export class BookDetailComponent implements OnInit {
           if (CartBook[i]._id == selectedBook._id) {
             temp = 1;  //đặt biến temp
             // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
-            if(parseInt(CartBook[i].count) + form.count <=10){
-            CartBook[i].count = parseInt(CartBook[i].count) + form.count;  //tăng giá trị count
+            if (parseInt(CartBook[i].count) + form.count <= 10) {
+              CartBook[i].count = parseInt(CartBook[i].count) + form.count;  //tăng giá trị count
             }
-            else{
-                  //show alert
-            this.checkedAddBook =false;
-            //update lại số lượng 
-  
+            else {
+              if (  this.countBookDetailCur==10) {
+                //show alert
+                this.checkedAddBook = false;
+                //update lại số lượng 
 
-            this.alertMessage="số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ hàng";
-            this.alertFalse=true;
-            setTimeout(() => {this.alertMessage="";this.alertFalse=false}, 4000); 
+
+                this.alertMessage = "Đã tồn tại 10 quốn sách "+ CartBook[i].nameBook +" trong giỏ hàng" ;
+                this.alertFalse = true;
+                setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+              }
+
             }
           }
           dem++;  // đẩy vị trí gán tiếp theo
@@ -286,25 +320,13 @@ export class BookDetailComponent implements OnInit {
         selectedBook.count = form.count;  // set count cho sách
         CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
       }
-    }else{
-     //show alert
-     this.checkedAddBook =false;
-     //update lại số lượng 
-  
-     this.alertMessage="Bạn chỉ được nhập tối đa 10 quốn sách";
-     this.alertFalse=true;
-     setTimeout(() => {this.alertMessage="";this.alertFalse=false}, 4000); 
-    }
-      // đổ mảng vào sessionStorage "CartBook"
       sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
-      this.ngOnInit();
+    } 
+   
+    this.ngOnInit();
   }
-  //modal
-  // modalAddBookCart(){
-  //   $(document).ready(function () {
-  //     $('#myModal').modal('show');
-  //   });
-  // }
+
+ 
 
   //continueShopping
   goToBookCategory() {
