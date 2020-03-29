@@ -15,10 +15,10 @@ div#successReview {
     padding: 10px;
     text-align: center;
 }
-#scroll {
+/* #scroll {
     overflow-y: auto;
     height: 400px;
-}
+} */
 .carousel-inner .active.left { left: -25%; }
 .carousel-inner .next        { left:  25%; }
 .carousel-inner .prev		 { left: -25%; }

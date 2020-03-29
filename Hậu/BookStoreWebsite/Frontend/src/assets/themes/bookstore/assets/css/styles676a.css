@@ -2011,13 +2011,7 @@ div.product .summary .yith-wcwl-add-to-wishlist, div.product .summary .compare {
 /*
 * Post Slider
 */
-.bks-post-slider {
-    margin-top: 20px;
-}
 
-.bks-post-slider .owl-item {
-    width: 350px !important;
-}
 
 .bks-post-slider .post-grid {
     position: relative;
