@@ -79,6 +79,7 @@ export class BookDetailComponent implements OnInit {
   TongCount = 0;
   lengthCartBook = 0;
   ngOnInit() {
+  
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
@@ -97,7 +98,7 @@ export class BookDetailComponent implements OnInit {
     this.getRatingsByBookID(id);
 
 
-
+    
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -258,9 +259,8 @@ export class BookDetailComponent implements OnInit {
       }
     if (!this.checkedAddBook) {
       $("#count").val(1);
-     
     }
-
+      this.ngOnInit();
     console.log(this.checkedAddBook);
   }
   // số lượng add tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
@@ -270,6 +270,7 @@ export class BookDetailComponent implements OnInit {
     for (var i = 0; i < this.lengthCartBook; i++) {
       if (this.CartBook[i]._id == id) {
         this.countBookDetailCur = this.CartBook[i].count;
+   
         if (this.CartBook[i].count == 10) {
           //show alert
           this.checkedAddBook = false;
@@ -277,6 +278,7 @@ export class BookDetailComponent implements OnInit {
         }
       }
     }
+  
   }
 
   //add to cart (BookDetail,CountSelect) 
