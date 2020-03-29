@@ -24,6 +24,7 @@ declare var $: any
 export class BookDetailComponent implements OnInit {
   private subscription: Subscription;
   private timer: Observable<any>;
+  pageOfItems: Array<any>;
   books: Array<Book>;
   id_category: String = ""
   user_social: Array<Socialaccount>;
@@ -106,7 +107,10 @@ export class BookDetailComponent implements OnInit {
       this.lengthCartBook = CartBook.length;
     }
   }
-
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
+  }
   //get total count and price 
   getTotalCountAndPrice() {
     this.TongTien = 0;

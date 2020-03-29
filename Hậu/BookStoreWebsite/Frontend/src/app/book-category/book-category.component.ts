@@ -57,20 +57,12 @@ export class BookCategoryComponent implements OnInit {
       });
 
     });
-    // //set Tổng tiền và số lượng trên header
-    // $('#tongtien').html("&nbsp;" + sessionStorage.getItem('TongTien') + " đ");
-    // $('.cart_items').html(sessionStorage.getItem('TongCount'));
-    // //
     this.refreshBookList();
     this.refreshCategoryList();
     this.category_id = sessionStorage.getItem('category_id');
     this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
     this.statusLogin = sessionStorage.getItem('statusLogin');
-    // if(this.statusLogin == 'true'){
-    //   $("#username").html("Chào mừng " + JSON.parse(sessionStorage.getItem('userGoogle')).username);
-    //   $("#logout").html("Đăng Xuất");
-    //   $("#login").html("");
-    // }
+
     //set độ dài cartBook
     this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 

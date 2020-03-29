@@ -15,7 +15,15 @@ div#successReview {
     padding: 10px;
     text-align: center;
 }
-
+#scroll {
+    overflow-y: auto;
+    height: 400px;
+}
+.carousel-inner .active.left { left: -25%; }
+.carousel-inner .next        { left:  25%; }
+.carousel-inner .prev		 { left: -25%; }
+.carousel-control 			 { width:  4%; }
+.carousel-control.left,.carousel-control.right {margin-left:15px;background-image:none;}
 fieldset,
 label {
     margin: 0;

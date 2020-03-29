@@ -1129,8 +1129,8 @@
                                 <div class="item col-xs-12 col-sm-4 post-78 product type-product
                                 status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                 product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
-                                 instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books | filter: searchText |
-                                  paginate: { itemsPerPage: 6,currentPage: p }">
+                                 instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
+                                  paginate: { itemsPerPage: 3,currentPage: p }">
                                     <div class="product-wrap">
                                         <div class="product-image">
                                             <div class="catalog-image">
@@ -1180,7 +1180,9 @@
                                 </div>
                             </div>
                             <!-- #product-76 -->
-
+                            <div>
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1227,9 +1229,68 @@
                         </div>
                     </div>
                     <h4>Có thể bạn sẽ thích</h4>
-                    <div class="modal-footer border-top-0 d-flex justify-content-between">
+                    <div class="modal-footer border-top-0 d-flex justify-content-between" id = "scroll">
+                        <div class="related products">
+                            <div class="products clearfix">
+                                <div class="item col-xs-12 col-sm-4 post-78 product type-product
+                                status-publish has-post-thumbnail product_cat-budgeting-and-finance 
+                                product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
+                                 instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
+                                  paginate: { itemsPerPage: 3,currentPage: p }">
+                                    <div class="product-wrap">
+                                        <div class="product-image">
+                                            <div class="catalog-image">
+                                                <button (click)="getBookById(item._id);" style="background-color: transparent;border-color: transparent;">
+                                           <img width="207" height="265" src="{{item.imgBook}}"
+                                            class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
+                                             alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
+                                                <div class="button yith-wcqv-button" data-product_id="78">
+                                                <i class="fa fa-search"></i>
+                                           </div>
+                                                   </button>
+                                            </div>
 
+                                            <div class="product-buttons">
+                                                <div class="add-to-cart-btn"><a href="#" rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button">Add to cart</a>
+                                                </div>
+                                                <div class="yith_compare_btn">
+                                                    <div class="woocommerce product compare-button">
+                                                        <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                                </div>
+                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                                    <div class="yith-wcwl-add-button show" style="display:block">
+                                                        <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+                           Add to Wishlist</a>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <!-- end product-image -->
+                                        <div class="product-content">
 
+                                            <h4 class="product_title">
+                                                <a class="bks_product_t itle_link" href="bookDetail">{{item.nameBook}}</a></h4>
+
+                                            <span class="price">
+                               <span class="woocommerce-Price-amount amount" id="priceBook" >
+                                   {{item.priceBook | currency:"VND"}}</span></span>
+                                            <div class="product-desc">
+                                                <p>{{item.detailBook}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- end product-content -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #product-76 -->
+                                <div>
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                </div>
+                            </div>
+               
                     </div>
 
                 </div>

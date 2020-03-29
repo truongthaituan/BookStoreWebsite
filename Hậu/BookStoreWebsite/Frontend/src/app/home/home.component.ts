@@ -12,26 +12,7 @@ export class HomeComponent implements OnInit {
 	success: Boolean = false;
   
   constructor(private _router:Router,  private bookService:BookService) {
-	  
- 
-    $(function () {
-  $('.carousel .item').each(function(){
-	var next = $(this).next();
-	if (!next.length) {
-	  next = $(this).siblings(':first');
-	}
-	next.children(':first-child').clone().appendTo($(this));
-	
-	for (var i=0;i<2;i++) {
-	  next=next.next();
-	  if (!next.length) {
-		  next = $(this).siblings(':first');
-		}
-	  
-	  next.children(':first-child').clone().appendTo($(this));
-	}
-  });
-   });
+
 }
   ngOnInit() {
 	$(function () {
