@@ -12,6 +12,8 @@ import { Socialaccount } from '../app-services/socialAccount-service/socialaccou
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
+import { UserService } from '../app-services/user-service/user.service';
+import { User } from '../app-services/user-service/user.model';
 
 declare var $: any
 @Component({
@@ -27,10 +29,12 @@ export class BookDetailComponent implements OnInit {
   pageOfItems: Array<any>;
   books: Array<Book>;
   id_category: String = ""
+  loginBy: String = ""
+  statusLogin: String = ""
   user_social: Array<Socialaccount>;
   constructor(private _router: Router, private route: ActivatedRoute,
     private authorService: AuthorService, private bookService: BookService,
-    private ratingService: RatingService, private accountSocialService: SocialaccountService) {
+    private ratingService: RatingService, private accountSocialService: SocialaccountService,private userService: UserService) {
     //#region js for star
     var wc_single_product_params = { "i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes" };
     $(function (a) {
@@ -96,8 +100,7 @@ export class BookDetailComponent implements OnInit {
     this.getBookById(id);
     this.getAllAccount();
     this.getRatingsByBookID(id);
-
-
+    this.getAllUsers();
     
   }
   // set độ dài của giỏ hàng
@@ -107,6 +110,12 @@ export class BookDetailComponent implements OnInit {
     } else {
       this.lengthCartBook = CartBook.length;
     }
+  }
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe(res => {
+      this.userService.users = res as User[];
+      console.log(this.userService.users);
+    })
   }
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
@@ -187,14 +196,16 @@ export class BookDetailComponent implements OnInit {
   statusRating: boolean = false;
 
   onSubmit(form: NgForm) {
-    if (localStorage.getItem('userGoogle') == null) {
+    this.statusLogin = localStorage.getItem('statusLogin');
+     this.loginBy = localStorage.getItem('loginBy')
+    if (this.statusLogin == null) {
       alert("Vui lòng đăng nhập để đánh giá!");
       this._router.navigate(['/account']);
-    } else {
+    } else if(this.loginBy == 'loginbt' && this.statusLogin == 'true'){
       console.log(form.value)
       let id = this.route.snapshot.paramMap.get('id');
       form.value.bookID = id;
-      let id_user = JSON.parse(localStorage.getItem('userGoogle'))._id;
+      let id_user = JSON.parse(localStorage.getItem('accountUser'))._id;
       form.value.userID = id_user;
       this.ratingService.postRating(form.value).subscribe(
         data => {
@@ -210,8 +221,30 @@ export class BookDetailComponent implements OnInit {
         },
         error => console.log(error)
       );
-    }
+     }
+   else if(this.loginBy == 'loginSocial' && this.statusLogin == 'true'){
+  console.log(form.value)
+  let id = this.route.snapshot.paramMap.get('id');
+  form.value.bookID = id;
+  let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
+  form.value.userID = id_user;
+  this.ratingService.postRating(form.value).subscribe(
+    data => {
+      console.log(data);
+      this.statusRating = true;
+      form.resetForm();
+      this.ngOnInit();
+      this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
+      this.subscription = this.timer.subscribe(() => {
+        // set showloader to false to hide loading div from view after 5 seconds
+        this.statusRating = false;
+      });
+    },
+    error => console.log(error)
+  );
   }
+  }
+
 
 
   // số lượng add tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
@@ -260,7 +293,6 @@ export class BookDetailComponent implements OnInit {
     if (!this.checkedAddBook) {
       $("#count").val(1);
     }
-      this.ngOnInit();
     console.log(this.checkedAddBook);
   }
   // số lượng add tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ

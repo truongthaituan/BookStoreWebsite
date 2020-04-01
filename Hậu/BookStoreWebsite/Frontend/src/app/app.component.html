@@ -491,7 +491,7 @@
                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
                                 <button id="login" *ngIf="statusLogin == null" (click)="moveToAccount();" style="background-color: transparent;border-color:
                                  transparent;">Đăng Nhập / Đăng Ký</button></li>
-                            <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
+                             <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
 
                                 <button id="username" *ngIf="statusLogin == 'true' && loginBy == 'loginSocial'" style="background-color: transparent;border-color:
                                      transparent;color: green;">Chào Mừng {{accountSocial.username}}<img style="margin-left:10px;width: 30px;height: 30px;" src="{{accountSocial.imageUrl}}" id="imageAccountSocial" /></button>
@@ -500,7 +500,7 @@
                                      </button>
 
                                      <button id="username" *ngIf="statusLogin == 'true' && loginBy == 'loginbt' " style="background-color: transparent;border-color:
-                                     transparent;color: green;">Chào Mừng {{accountUser.fullName}}<img style="margin-left:10px;width: 30px;height: 30px;"
+                                     transparent;color: green;">Chào Mừng {{accountUser.username}}<img style="margin-left:10px;width: 30px;height: 30px;"
                                       src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-vector-users-icon-png-image_4144740.jpg" id="imageAccountSocial" /></button>
                                 <button id="logout" *ngIf="statusLogin == 'true' && loginBy == 'loginbt'" (click)="logout();" style="background-color: transparent;border-color:
                                      transparent;">Đăng Xuất
