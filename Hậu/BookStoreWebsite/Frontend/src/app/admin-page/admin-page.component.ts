@@ -39,7 +39,7 @@ export class AdminPageComponent implements OnInit {
   refreshBookList() {
 		this.bookService.getBookList().subscribe((res) => {
       this.bookService.book = res as Book[];
-     sessionStorage.setItem('listBook',JSON.stringify(res));
+     localStorage.setItem('listBook',JSON.stringify(res));
 		});
     }
     moveToAddBook(){

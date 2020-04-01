@@ -23,14 +23,14 @@ export class HomeComponent implements OnInit {
 	  });
 	  this.refreshBookList();
 	  //set Tổng tiền và số lượng trên header
-	  if(sessionStorage.getItem('TongTien')==null){
-		  sessionStorage.setItem("TongTien","0");
-		  sessionStorage.setItem("TongCount","0");
-		  $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
-		  $('.cart_items').html(sessionStorage.getItem('TongCount'));
+	  if(localStorage.getItem('TongTien')==null){
+		  localStorage.setItem("TongTien","0");
+		  localStorage.setItem("TongCount","0");
+		  $('#tongtien').html("&nbsp;" +localStorage.getItem('TongTien') + " đ");
+		  $('.cart_items').html(localStorage.getItem('TongCount'));
 	  }else{
-	  $('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
-	  $('.cart_items').html(sessionStorage.getItem('TongCount'));
+	  $('#tongtien').html("&nbsp;" +localStorage.getItem('TongTien') + " đ");
+	  $('.cart_items').html(localStorage.getItem('TongCount'));
 	}
 	  //
   }
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 	detailBook(book: Book) {
 	//   this.selectedBook.push(book);
 	//   console.log(this.selectedBook);
-	//   sessionStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
+	//   localStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
 	  return this._router.navigate(["/bookDetail" + `/${book._id}`]);
 	}
 	refreshBookList() {

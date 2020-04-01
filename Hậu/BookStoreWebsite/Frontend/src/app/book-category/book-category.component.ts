@@ -31,7 +31,7 @@ export class BookCategoryComponent implements OnInit {
     $(function () {
 
     });
-    this.selectedCategory = sessionStorage.getItem('selectedCategory');
+    this.selectedCategory = localStorage.getItem('selectedCategory');
   }
   minValue2 = 1000;
   maxValue2 = 5000;
@@ -59,9 +59,9 @@ export class BookCategoryComponent implements OnInit {
     });
     this.refreshBookList();
     this.refreshCategoryList();
-    this.category_id = sessionStorage.getItem('category_id');
-    this.userGoogle = JSON.parse(sessionStorage.getItem('userGoogle'));
-    this.statusLogin = sessionStorage.getItem('statusLogin');
+    this.category_id = localStorage.getItem('category_id');
+    this.userGoogle = JSON.parse(localStorage.getItem('userGoogle'));
+    this.statusLogin = localStorage.getItem('statusLogin');
 
     //set độ dài cartBook
     this.cartBookLength(this.CartBook);
@@ -145,17 +145,17 @@ export class BookCategoryComponent implements OnInit {
   checkedAddBook = true;
   addToCart(selectedBook: Book) {
     this.addABook = selectedBook.nameBook;
-    var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
-    var dem = 0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
-    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
-    // nếu sessionStorage "CartBook" không rỗng
+    var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
+    var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
+    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
+    // nếu localStorage "CartBook" không rỗng
 
-    if (sessionStorage.getItem('CartBook') != null) {
+    if (localStorage.getItem('CartBook') != null) {
       //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
 
-      for (var i = 0; i < JSON.parse(sessionStorage.getItem("CartBook")).length; i++) {
-        CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i];
-        // nếu id book đã tồn tại trong  sessionStorage "CartBook" 
+      for (var i = 0; i < JSON.parse(localStorage.getItem("CartBook")).length; i++) {
+        CartBook[i] = JSON.parse(localStorage.getItem("CartBook"))[i];
+        // nếu id book đã tồn tại trong  localStorage "CartBook" 
         if (CartBook[i]._id == selectedBook._id) {
           temp = 1;  //đặt biến temp
           // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
@@ -181,8 +181,8 @@ export class BookCategoryComponent implements OnInit {
       selectedBook.count = 1;  // set count cho sách
       CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
     }
-    // đổ mảng vào sessionStorage "CartBook"
-    sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
+    // đổ mảng vào localStorage "CartBook"
+    localStorage.setItem("CartBook", JSON.stringify(CartBook));
 
     this.getTotalCountAndPrice();
     //  //show alert
@@ -200,7 +200,7 @@ export class BookCategoryComponent implements OnInit {
   getTotalCountAndPrice() {
     this.TongTien = 0;
     this.TongCount = 0;
-    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
       for (var i = 0; i < this.lengthCartBook; i++) {
@@ -211,8 +211,8 @@ export class BookCategoryComponent implements OnInit {
     }
     $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
     $('.cart_items').html(this.TongCount.toString());
-    sessionStorage.setItem("TongTien", this.TongTien.toString());
-    sessionStorage.setItem("TongCount", this.TongCount.toString());
+    localStorage.setItem("TongTien", this.TongTien.toString());
+    localStorage.setItem("TongCount", this.TongCount.toString());
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {

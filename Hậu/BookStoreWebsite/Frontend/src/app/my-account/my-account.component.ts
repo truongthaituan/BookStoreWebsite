@@ -63,8 +63,8 @@ export class MyAccountComponent implements OnInit {
     });
     this.initialAccount();
 //set Tổng tiền và số lượng trên header
-$('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
-$('.cart_items').html(sessionStorage.getItem('TongCount'));
+$('#tongtien').html("&nbsp;" +localStorage.getItem('TongTien') + " đ");
+$('.cart_items').html(localStorage.getItem('TongCount'));
 //
   }
   initialAccount() {
@@ -121,23 +121,23 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
           this.errString = "Email hoặc password không đúng!";
         }
         else {
-          sessionStorage.setItem("token", response.token)
+          localStorage.setItem("token", response.token)
           //admin
           if ((response.obj as User).roleID == "1") {
             window.location.href = "/adminPage"
-            sessionStorage.setItem('userLogin', JSON.stringify((response.obj as User)));
+            localStorage.setItem('userLogin', JSON.stringify((response.obj as User)));
             this.statusLogin = true;
-            sessionStorage.setItem('statusLogin', String(this.statusLogin));
-            sessionStorage.setItem('loginBy', "loginbt");
+            localStorage.setItem('statusLogin', String(this.statusLogin));
+            localStorage.setItem('loginBy', "loginbt");
           }
           //member
           else {
             window.location.href = "/"
             console.log(response.obj as User)
-            sessionStorage.setItem('accountUser', JSON.stringify((response.obj as User)));
+            localStorage.setItem('accountUser', JSON.stringify((response.obj as User)));
             this.statusLogin = true;
-            sessionStorage.setItem('statusLogin', String(this.statusLogin));
-            sessionStorage.setItem('loginBy', "loginbt");
+            localStorage.setItem('statusLogin', String(this.statusLogin));
+            localStorage.setItem('loginBy', "loginbt");
           }
         }
       })
@@ -166,26 +166,26 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
-              sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+              localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
               console.log("created");
               this._router.navigate(['/booksCategory']);
               this.statusLogin = true;
-              sessionStorage.setItem('statusLogin', String(this.statusLogin));
+              localStorage.setItem('statusLogin', String(this.statusLogin));
             }
           });
         }
         else {
-          sessionStorage.setItem('loginBy', "loginSocial");
+          localStorage.setItem('loginBy', "loginSocial");
           if ((response.obj as Socialaccount).typeAccount == 1) {
             this._router.navigate(['/adminPage']);
           }
           else {
 
             window.location.href = "/"
-            sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
             console.log(response.obj as Socialaccount);
             this.statusLogin = true;
-            sessionStorage.setItem('statusLogin', String(this.statusLogin));
+            localStorage.setItem('statusLogin', String(this.statusLogin));
      
           }
         }
@@ -212,18 +212,18 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
-              sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+              localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
               this._router.navigate(['/login']);
             }
           });
         }
         else {
           window.location.href = "/"
-          sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+          localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
           console.log(response.obj as Socialaccount);
           this.statusLogin = true;
-          sessionStorage.setItem('statusLogin', String(this.statusLogin));;
-          sessionStorage.setItem('loginBy', "loginSocial");
+          localStorage.setItem('statusLogin', String(this.statusLogin));;
+          localStorage.setItem('loginBy', "loginSocial");
         }
       });
     });

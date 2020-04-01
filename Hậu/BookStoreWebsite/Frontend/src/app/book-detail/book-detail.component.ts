@@ -116,7 +116,7 @@ export class BookDetailComponent implements OnInit {
   getTotalCountAndPrice() {
     this.TongTien = 0;
     this.TongCount = 0;
-    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
       for (var i = 0; i < this.lengthCartBook; i++) {
@@ -127,8 +127,8 @@ export class BookDetailComponent implements OnInit {
     }
     $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
     $('.cart_items').html(this.TongCount.toString());
-    sessionStorage.setItem("TongTien", this.TongTien.toString());
-    sessionStorage.setItem("TongCount", this.TongCount.toString());
+    localStorage.setItem("TongTien", this.TongTien.toString());
+    localStorage.setItem("TongCount", this.TongCount.toString());
   }
 
   resetForm(form?: NgForm) {
@@ -187,14 +187,14 @@ export class BookDetailComponent implements OnInit {
   statusRating: boolean = false;
 
   onSubmit(form: NgForm) {
-    if (sessionStorage.getItem('userGoogle') == null) {
+    if (localStorage.getItem('userGoogle') == null) {
       alert("Vui lòng đăng nhập để đánh giá!");
       this._router.navigate(['/account']);
     } else {
       console.log(form.value)
       let id = this.route.snapshot.paramMap.get('id');
       form.value.bookID = id;
-      let id_user = JSON.parse(sessionStorage.getItem('userGoogle'))._id;
+      let id_user = JSON.parse(localStorage.getItem('userGoogle'))._id;
       form.value.userID = id_user;
       this.ratingService.postRating(form.value).subscribe(
         data => {
@@ -285,19 +285,19 @@ export class BookDetailComponent implements OnInit {
   addToCart(selectedBook: Book, form: Book) {
    
     this.checkedAddBook = true;
-    var CartBook = [];    //lưu trữ bộ nhớ tạm cho sessionStorage "CartBook"
-    var dem = 0;            //Vị trí thêm sách mới vào sessionStorage "CartBook" (nếu sách chưa tồn tại)
-    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong sessionStorage "CartBook" --> count ++
-    // nếu sessionStorage "CartBook" không rỗng
+    var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
+    var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
+    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
+    // nếu localStorage "CartBook" không rỗng
     if (!form.count || form.count +this.countBookDetailCur >10) form.count = 1;
     // nếu số lượng nhập vào <=10 thì oke 
     if (form.count <= 10) {
-      if (sessionStorage.getItem('CartBook') != null) {
+      if (localStorage.getItem('CartBook') != null) {
         //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
         if (!form.count) form.count = 1;
         for (var i = 0; i < this.lengthCartBook; i++) {
-          CartBook[i] = JSON.parse(sessionStorage.getItem("CartBook"))[i];
-          // nếu id book đã tồn tại trong  sessionStorage "CartBook" 
+          CartBook[i] = JSON.parse(localStorage.getItem("CartBook"))[i];
+          // nếu id book đã tồn tại trong  localStorage "CartBook" 
           if (CartBook[i]._id == selectedBook._id) {
             temp = 1;  //đặt biến temp
             // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
@@ -326,7 +326,7 @@ export class BookDetailComponent implements OnInit {
         selectedBook.count = form.count;  // set count cho sách
         CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
       }
-      sessionStorage.setItem("CartBook", JSON.stringify(CartBook));
+      localStorage.setItem("CartBook", JSON.stringify(CartBook));
     } 
    
     this.ngOnInit();

@@ -10,10 +10,10 @@ declare var $:any;
 })
 export class AppComponent  {
     title = 'Angular';
-    accountUser = JSON.parse(sessionStorage.getItem('accountUser'));
-    accountSocial = JSON.parse(sessionStorage.getItem('accountSocial'));
-    statusLogin = sessionStorage.getItem('statusLogin');
-    loginBy = sessionStorage.getItem('loginBy');
+    accountUser = JSON.parse(localStorage.getItem('accountUser'));
+    accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
+    statusLogin = localStorage.getItem('statusLogin');
+    loginBy = localStorage.getItem('loginBy');
    
     //
     customOptions: any = {
@@ -55,9 +55,9 @@ export class AppComponent  {
   }
   logout(){
     // this.statusLogin == null;
-    sessionStorage.removeItem('userGoogle');
-    sessionStorage.removeItem('statusLogin');
-    sessionStorage.removeItem('loginBy');
+    localStorage.removeItem('userGoogle');
+    localStorage.removeItem('statusLogin');
+    localStorage.removeItem('loginBy');
     window.location.href = "/";
   }
 }

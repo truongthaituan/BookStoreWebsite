@@ -78,7 +78,7 @@ export class InsertBookComponent implements OnInit {
       console.log(form.value)
           this.bookService.postBook(form.value).subscribe(
             data => {console.log(data);this._router.navigate(['/adminPage']);
-          this.statusInsert = true;sessionStorage.setItem('statusInsert',String(this.statusInsert))},
+          this.statusInsert = true;localStorage.setItem('statusInsert',String(this.statusInsert))},
             error => console.log(error)
            );
     }

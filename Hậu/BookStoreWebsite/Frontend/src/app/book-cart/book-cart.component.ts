@@ -35,8 +35,8 @@ export class BookCartComponent implements OnInit {
   TongTien = 0;
   TongCount = 0;
   //thông tin login
-  accountSocial = JSON.parse(sessionStorage.getItem('accountSocial'));
-  statusLogin = sessionStorage.getItem('statusLogin');
+  accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
+  statusLogin = localStorage.getItem('statusLogin');
   //change info payment
   address = "";
   phone = "";
@@ -59,8 +59,8 @@ export class BookCartComponent implements OnInit {
       this.email = this.accountSocial.email;
       this.username = this.accountSocial.username;
     }//get giỏ hàng
-    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
-    this.CartUpdate = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
+    this.CartUpdate = JSON.parse(localStorage.getItem("CartBook"));
     console.log(this.CartBook + "----->" + this.lengthCartBook);
 
     //set độ dài cartBook
@@ -84,7 +84,7 @@ export class BookCartComponent implements OnInit {
   getTotalCountAndPrice() {
     this.TongTien = 0;
     this.TongCount = 0;
-    this.CartBook = JSON.parse(sessionStorage.getItem("CartBook"));
+    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
       for (var i = 0; i < this.lengthCartBook; i++) {
@@ -95,8 +95,8 @@ export class BookCartComponent implements OnInit {
     }
     $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
     $('.cart_items').html(this.TongCount.toString());
-    sessionStorage.setItem("TongTien", this.TongTien.toString());
-    sessionStorage.setItem("TongCount", this.TongCount.toString());
+    localStorage.setItem("TongTien", this.TongTien.toString());
+    localStorage.setItem("TongCount", this.TongCount.toString());
   }
 
   //check header giỏ hàng
@@ -122,7 +122,7 @@ export class BookCartComponent implements OnInit {
       //show alert
       this.checkedAddBook = false;
       //update lại số lượng 
-      sessionStorage.setItem("CartBook", JSON.stringify(this.CartBook));
+      localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
       this.ngOnInit();
       this.alertMessage = "Bạn chỉ được nhập tối đa 10 quốn sách";
       this.alertFalse = true;
@@ -151,7 +151,7 @@ export class BookCartComponent implements OnInit {
         }
       }
     }
-    sessionStorage.setItem("CartBook", JSON.stringify(this.CartBook));
+    localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
     this.ngOnInit();
   }
   deleteCartBook(id) {
@@ -164,7 +164,7 @@ export class BookCartComponent implements OnInit {
           break;
         }
       }
-      sessionStorage.setItem("CartBook", JSON.stringify(this.CartBook));
+      localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
       this.ngOnInit();
     }
   }
@@ -319,7 +319,7 @@ export class BookCartComponent implements OnInit {
   postOrderDetail(orderDetails: OrderDetail) {
     this._orderDetailService.postOrderDetail(orderDetails).subscribe(
       orderDetaildata => {
-        sessionStorage.removeItem('CartBook');
+        localStorage.removeItem('CartBook');
         this.getTotalCountAndPrice();
         setTimeout(() => { this._router.navigate(['/']); }, 8000);
 
