@@ -75,7 +75,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
       imageUrl: '',
       facebook_id: '',
       google_id: '',
-      typeAccount: 0
+      role: ""
     });
   }
 
@@ -123,7 +123,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         else {
           localStorage.setItem("token", response.token)
           //admin
-          if ((response.obj as User).roleID == "1") {
+          if ((response.obj as User).role == "ADMIN") {
             window.location.href = "/adminPage"
             localStorage.setItem('accountUser', JSON.stringify((response.obj as User)));
             this.statusLogin = true;
@@ -131,7 +131,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
             localStorage.setItem('loginBy', "loginbt");
           }
           //member
-          else {
+          else  if((response.obj as User).role == "CUSTOMER"){
             window.location.href = "/"
             console.log(response.obj as User)
             localStorage.setItem('accountUser', JSON.stringify((response.obj as User)));
@@ -168,7 +168,8 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
             else {
               localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
               console.log("created");
-              this._router.navigate(['/booksCategory']);
+              // this._router.navigate(['/booksCategory']);
+              window.location.href = "/booksCategory";
               this.statusLogin = true;
               localStorage.setItem('statusLogin', String(this.statusLogin));
             }
@@ -176,11 +177,13 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         }
         else {
           localStorage.setItem('loginBy', "loginSocial");
-          if ((response.obj as Socialaccount).typeAccount == 1) {
+          if ((response.obj as Socialaccount).role == "ADMIN") {
             this._router.navigate(['/adminPage']);
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+            this.statusLogin = true;
+            localStorage.setItem('statusLogin', String(this.statusLogin));
           }
-          else {
-
+          else  if ((response.obj as Socialaccount).role == "CUSTOMER") {
             window.location.href = "/"
             localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
             console.log(response.obj as Socialaccount);
@@ -218,12 +221,17 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
           });
         }
         else {
-          window.location.href = "/"
-          localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
-          console.log(response.obj as Socialaccount);
-          this.statusLogin = true;
-          localStorage.setItem('statusLogin', String(this.statusLogin));;
           localStorage.setItem('loginBy', "loginSocial");
+          if ((response.obj as Socialaccount).role == "ADMIN") {
+            this._router.navigate(['/adminPage']);
+          }
+          else  if ((response.obj as Socialaccount).role == "CUSTOMER") {
+            window.location.href = "/"
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+            console.log(response.obj as Socialaccount);
+            this.statusLogin = true;
+            localStorage.setItem('statusLogin', String(this.statusLogin));
+          }
         }
       });
     });

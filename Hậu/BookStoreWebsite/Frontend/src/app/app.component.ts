@@ -55,7 +55,8 @@ export class AppComponent  {
   }
   logout(){
     // this.statusLogin == null;
-    localStorage.removeItem('userGoogle');
+    localStorage.removeItem('accountUser');
+    localStorage.removeItem('accountSocial');
     localStorage.removeItem('statusLogin');
     localStorage.removeItem('loginBy');
     window.location.href = "/";

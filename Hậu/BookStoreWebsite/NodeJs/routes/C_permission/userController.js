@@ -33,8 +33,8 @@ router.post('/signup', function(req, res) {
     var newuser = new user();
     newuser.email = req.body.email;
     newuser.password = req.body.password;
-    newuser.fullName = req.body.fullName;
-    newuser.roleID = 2;
+    newuser.username = req.body.username;
+    newuser.role = "CUSTOMER";
     newuser.save(function(err, inserteduser) {
         if (err) {
             res.send('Err Saving user');
@@ -50,8 +50,8 @@ router.put('/users/:id', function(req, res) {
                 $set: {
                     email: req.body.email,
                     password: req.body.password,
-                    fullName: req.body.fullName,
-                    roleID: 2
+                    username: req.body.username,
+                    role: "CUSTOMER"
                 }
             }, {
                 new: true
@@ -94,7 +94,7 @@ router.post('/login',function(req,res,next){
         var account = user;
         var token = jwt.sign({
           email: account.email,
-          fullName: account.fullName
+          username: account.username
           }, superSecret, {
           expiresIn: '24h' // expires in 24 hours
           });   
@@ -218,7 +218,7 @@ router.post('/addAccount', (req, res) => {
         imageUrl: req.body.imageUrl,
         facebook_id: req.body.facebook_id,
         google_id: req.body.google_id,
-        typeAccount: 2
+        role: "CUSTOMER"
     });
     SocialAccount.collection.insertOne(socialAccount, (err, data) => {
         if(err){

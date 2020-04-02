@@ -6,8 +6,8 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
 email: { type: String, required: true, index: { unique: true } }, 
 password: { type: String, required: true},
-fullName:{type: String}, 
-roleID: {type: String}
+username:{type: String}, 
+role: {type: String}
 });
 // hash the password before the user is saved 
 UserSchema.pre('save', function (next) {
