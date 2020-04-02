@@ -128,7 +128,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
           //admin
           if ((response.obj as User).role == "ADMIN") {
             window.location.href = "/adminPage"
-            localStorage.setItem('accountUser', JSON.stringify((response.obj as User)));
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
             localStorage.setItem('loginBy', "loginbt");
@@ -137,7 +137,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
           else  if((response.obj as User).role == "CUSTOMER"){
             window.location.href = "/"
             console.log(response.obj as User)
-            localStorage.setItem('accountUser', JSON.stringify((response.obj as User)));
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
             localStorage.setItem('loginBy', "loginbt");
