@@ -5,5 +5,5 @@ export class Socialaccount {
     imageUrl: string;
     facebook_id: string;
     google_id: string;
-    typeAccount: number;
+    role: String;
 }

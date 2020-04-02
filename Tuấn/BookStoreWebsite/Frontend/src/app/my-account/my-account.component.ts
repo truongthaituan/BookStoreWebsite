@@ -33,9 +33,10 @@ export class MyAccountComponent implements OnInit {
   statusLogin: Boolean = false
   registerForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
-    fullName: new FormControl(null, Validators.required),
+    username: new FormControl(null, Validators.required),
     password: new FormControl(null, Validators.required),
-    cpass: new FormControl(null, Validators.required)
+    cpass: new FormControl(null, Validators.required),
+    imageUrl: new FormControl(null),
   })
 
   loginForm: FormGroup = new FormGroup({
@@ -56,10 +57,15 @@ export class MyAccountComponent implements OnInit {
 
   templogin = 0;
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+    });
     this.initialAccount();
 //set Tổng tiền và số lượng trên header
-$('#tongtien').html("&nbsp;" +sessionStorage.getItem('TongTien') + " đ");
-$('.cart_items').html(sessionStorage.getItem('TongCount'));
+$('#tongtien').html("&nbsp;" +localStorage.getItem('TongTien') + " đ");
+$('.cart_items').html(localStorage.getItem('TongCount'));
 //
   }
   initialAccount() {
@@ -70,7 +76,7 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
       imageUrl: '',
       facebook_id: '',
       google_id: '',
-      typeAccount: 0
+      role: ""
     });
   }
 
@@ -85,7 +91,9 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
         return;
       }
       else {
-        // console.log(JSON.stringify(this.registerForm.value));
+        this.registerForm.value.imageUrl="hello";
+        console.log(JSON.stringify(this.registerForm.value)); 
+
         this._userService.register(JSON.stringify(this.registerForm.value))
           .subscribe(
             data => {
@@ -116,18 +124,23 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
           this.errString = "Email hoặc password không đúng!";
         }
         else {
-          sessionStorage.setItem("token", response.token)
+          localStorage.setItem("token", response.token)
           //admin
-          if ((response.obj as User).roleID == "1") {
-            this._router.navigate(['/adminPage'])
-            sessionStorage.setItem('userLogin', JSON.stringify((response.obj as User)));
-            sessionStorage.setItem('loginBy', "loginbt");
+          if ((response.obj as User).role == "ADMIN") {
+            window.location.href = "/adminPage"
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
+            this.statusLogin = true;
+            localStorage.setItem('statusLogin', String(this.statusLogin));
+            localStorage.setItem('loginBy', "loginbt");
           }
           //member
-          else {
-            this._router.navigate(['/booksCategory'])
-            sessionStorage.setItem('fullName', JSON.stringify((response.obj as User)));
-            sessionStorage.setItem('loginBy', "loginbt");
+          else  if((response.obj as User).role == "CUSTOMER"){
+            window.location.href = "/"
+            console.log(response.obj as User)
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
+            this.statusLogin = true;
+            localStorage.setItem('statusLogin', String(this.statusLogin));
+            localStorage.setItem('loginBy', "loginbt");
           }
         }
       })
@@ -156,28 +169,30 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
-          
-              sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+              localStorage.setItem('loginBy', "loginSocial");
+              localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
               console.log("created");
-              this._router.navigate(['/booksCategory']);
+              // this._router.navigate(['/booksCategory']);
+              window.location.href = "/";
               this.statusLogin = true;
-              sessionStorage.setItem('statusLogin', String(this.statusLogin));
+              localStorage.setItem('statusLogin', String(this.statusLogin));
             }
           });
         }
         else {
-    
-          sessionStorage.setItem('loginBy', "loginGoogle");
-          if ((response.obj as Socialaccount).typeAccount == 1) {
+          localStorage.setItem('loginBy', "loginSocial");
+          if ((response.obj as Socialaccount).role == "ADMIN") {
             this._router.navigate(['/adminPage']);
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+            this.statusLogin = true;
+            localStorage.setItem('statusLogin', String(this.statusLogin));
           }
-          else {
-
+          else  if ((response.obj as Socialaccount).role == "CUSTOMER") {
             window.location.href = "/"
-            sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
             console.log(response.obj as Socialaccount);
             this.statusLogin = true;
-            sessionStorage.setItem('statusLogin', String(this.statusLogin));
+            localStorage.setItem('statusLogin', String(this.statusLogin));
      
           }
         }
@@ -204,18 +219,28 @@ $('.cart_items').html(sessionStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
-              sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
-              this._router.navigate(['/login']);
+              localStorage.setItem('loginBy', "loginSocial");
+              localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+              console.log("created");
+              // this._router.navigate(['/booksCategory']);
+              window.location.href = "/";
+              this.statusLogin = true;
+              localStorage.setItem('statusLogin', String(this.statusLogin));
             }
           });
         }
-        else {
-          window.location.href = "/"
-          sessionStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
-          console.log(response.obj as Socialaccount);
-          this.statusLogin = true;
-          sessionStorage.setItem('statusLogin', String(this.statusLogin));;
-          sessionStorage.setItem('loginBy', "loginFacebook");
+        else {    
+          localStorage.setItem('loginBy', "loginSocial");
+          if ((response.obj as Socialaccount).role == "ADMIN") {
+            this._router.navigate(['/adminPage']);
+          }
+          else  if ((response.obj as Socialaccount).role == "CUSTOMER") {
+            window.location.href = "/"
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+            console.log(response.obj as Socialaccount);
+            this.statusLogin = true;
+            localStorage.setItem('statusLogin', String(this.statusLogin));
+          }
         }
       });
     });

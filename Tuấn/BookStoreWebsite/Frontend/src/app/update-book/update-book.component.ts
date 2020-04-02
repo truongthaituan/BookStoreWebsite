@@ -40,10 +40,16 @@ export class UpdateBookComponent implements OnInit {
      }
 
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
+    });
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
    this.getBookById(id);
-    // var id = sessionStorage.getItem('idCategory');
+    // var id = localStorage.getItem('idCategory');
     this.resetForm();
     // this.getBookListById('5e5b3e2d7c63981214d8fc90');
     this.getCategoryList();
@@ -100,7 +106,7 @@ export class UpdateBookComponent implements OnInit {
         this.bookService.putBook(form.value).subscribe(
          data => {console.log(data);this._router.navigate(['/adminPage']);
           this.showMsg = true;
-          sessionStorage.setItem('showMsg',String(this.showMsg))
+          localStorage.setItem('showMsg',String(this.showMsg))
         },
          error => console.log(error)
         );

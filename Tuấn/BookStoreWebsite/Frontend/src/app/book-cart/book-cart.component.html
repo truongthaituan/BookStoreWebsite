@@ -436,7 +436,8 @@
                                         <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
                                         <td>{{cartbook.nameBook}}</td>
                                         <td>{{cartbook.priceBook|currency:"VND"}}</td>
-                                        <td><input class="form-control" type="text" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" style="text-align: center;" /></td>
+                                        <td><input class="form-control" type="number" min="0" max="10" id="number" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                                style="text-align: center;" /></td>
                                         <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
                                         <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
                                 </button> </td>
@@ -479,10 +480,10 @@
                     <div class="col mb-2">
                         <div class="row">
                             <div class="col-sm-12  col-md-6">
-                                <button id="continue" class="btn btn-block btn-light" (click)="goToBookCategory()">Continue Shopping</button>
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" (click)="goToBookCategory()">Continue Shopping</button>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#cartModal" type="button" (click)="checkoutWhenNull()">Checkout</button>
+                                <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkoutWhenNull()">Checkout</button>
                                 <button *ngIf="!checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#cartModal" type="button" (click)="checkout()">Checkout</button>
                             </div>
 
@@ -502,12 +503,17 @@
         <!-- Back to Top -->
     </div>
 
+    <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+        {{alertMessage}}
+    </div>
+    <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+        {{alertMessage}}
+    </div>
 
 
 
-
-    <!--model checkout-->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--modal checkout-->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
         <div class="modal-dialog modal-lg modal-dialog-centered " role="document ">
             <div class="modal-content ">
                 <div class="modal-header border-bottom-0 ">

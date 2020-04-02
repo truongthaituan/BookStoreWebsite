@@ -903,10 +903,13 @@
 
                             <form class="cart" method="post" enctype='multipart/form-data' #form="ngForm" (ngSubmit)="addToCart(bookService.book,form.value)">
                                 <div class="quantity">
-                                    <input type="number" min="1" max="10" placeholder="1" required id="count" name="count" ngModel />
+                                    <input type="number" min="1" max="10" placeholder="1" required id="count" name="count" (change)="getcountDetail(bookService.book,$event)" ngModel onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    />
+
                                 </div>
                                 <input type="hidden" name="add-to-cart" value="76" />
-                                <button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
+                                <button *ngIf="checkedAddBook" type="submit" class="single_add_to_cart_button button alt" data-toggle="modal" data-target="#myModal">Add to cart</button>
+                                <button *ngIf="!checkedAddBook" type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
                             </form>
 
 
@@ -1115,6 +1118,102 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div *ngFor = "let account of userService.users">
+                                        <div class="row" *ngIf="rating.userID == account._id">
+                                            <div class="col-md-2">
+                                                <img src="../../assets/img/img_book/user.jpg" class="img img-rounded img-fluid" 
+                                                style="width: 100px;height: 100px;border-radius: 30px;" />
+                                            </div>
+                                            <div class="col-md-10">
+                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                                                    <strong>{{account.username}}</strong></a>
+                                                &nbsp;
+                                                <div *ngIf="rating.star == 0">
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 0.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 1">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 1.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 2">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 2.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 3">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 3.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 4">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 4.5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                </div>
+                                                <div *ngIf="rating.star == 5">
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <p>{{rating.review}}</p>
+                                                <p>
+                                                    <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                                                    <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1126,8 +1225,8 @@
                                 <div class="item col-xs-12 col-sm-4 post-78 product type-product
                                 status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                 product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
-                                 instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books | filter: searchText |
-                                  paginate: { itemsPerPage: 6,currentPage: p }">
+                                 instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
+                                  paginate: { itemsPerPage: 3,currentPage: p }">
                                     <div class="product-wrap">
                                         <div class="product-image">
                                             <div class="catalog-image">
@@ -1163,7 +1262,7 @@
                                         <div class="product-content">
 
                                             <h4 class="product_title">
-                                                <a class="bks_product_title_link" href="bookDetail">{{item.nameBook}}</a></h4>
+                                                <a class="bks_product_t itle_link" href="bookDetail">{{item.nameBook}}</a></h4>
 
                                             <span class="price">
                                <span class="woocommerce-Price-amount amount" id="priceBook" >
@@ -1177,8 +1276,9 @@
                                 </div>
                             </div>
                             <!-- #product-76 -->
-
-
+                            <div>
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1192,3 +1292,108 @@
         <button id="scrollToTopButton" class="btn btn-primary" title="Back to Top"><i class="fa fa-arrow-up"></i></button>
     </div>
     <!-- Back to Top -->
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #2EFE64;font-size: 15px;">
+                        <b>Sách <span style="color: #FA58F4;">{{bookService.book?.nameBook}}</span> đã được thêm vào giỏ hàng của bạn</b>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    </h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="d-flex justify-content-end" style="font-size: 15px;">
+                        <h5>Bạn có <b>{{TongCount}}</b> quốn sách trong giỏ hàng</h5>
+                        <h5 style="margin-top: -5px;">Tổng tiền : <b style="color :#FE2E9A;font-size: 21px;">{{TongTien|currency:"VND"}}</b></h5>
+                    </div>
+
+                    <div class="col mb-2">
+                        <div class="row">
+                            <div class="col-sm-12  col-md-6">
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToBookCategory()">Continue Shopping</button>
+                            </div>
+                            <div class="col-sm-12 col-md-6 text-right">
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Cart Book</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <h4>Có thể bạn sẽ thích</h4>
+                    <div class="modal-footer border-top-0 d-flex justify-content-between" id = "scroll">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3 product type-product
+                            status-publish has-post-thumbnail product_cat-budgeting-and-finance 
+                            product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
+                             instock sale featured shipping-taxable purchasable product-type-simple"  *ngFor="let item of books  |
+                            paginate: { itemsPerPage: 4,currentPage: p }">
+                            <div class="product-wrap"  style="height: 270px;">
+                                <div class="product-image">
+                                    <div class="catalog-image">
+                                        <button (click)="getBookById(item._id);" style="background-color: transparent;border-color: transparent;">
+                                   <img width="207" height="265" src="{{item.imgBook}}"
+                                    class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
+                                     alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
+                                        <div class="button yith-wcqv-button" data-product_id="78">
+                                        <i class="fa fa-search"></i>
+                                   </div>
+                                           </button>
+                                    </div>
+
+                                    <div class="product-buttons">
+                                        <div class="add-to-cart-btn"><a href="#" rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button">Add to cart</a>
+                                        </div>
+                                        <div class="yith_compare_btn">
+                                            <div class="woocommerce product compare-button">
+                                                <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                        </div>
+                                        <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                            <div class="yith-wcwl-add-button show" style="display:block">
+                                                <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+                   Add to Wishlist</a>
+                                            </div>
+                                            <div style="clear:both"></div>
+                                            <div class="yith-wcwl-wishlistaddresponse"></div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <!-- end product-image -->
+                                <div class="product-content">
+
+                                    <h4 class="product_title">
+                                        <a class="bks_product_t itle_link" href="bookDetail" style="font-size: 15px;">{{item.nameBook}}</a></h4>
+
+                                    <span class="price">
+                       <span class="woocommerce-Price-amount amount" id="priceBook" >
+                           {{item.priceBook | currency:"VND"}}</span></span>
+                                </div>
+                                <!-- end product-content -->
+                            </div>
+                           
+                         </div>   
+                        
+                      </div>
+                      <div>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  message alert -->
+    <!-- <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+        {{alertMessage}}
+    </div> -->
+    <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 99999;">
+        {{alertMessage}}
+    </div>
+    <!--  message alert -->
+</body>

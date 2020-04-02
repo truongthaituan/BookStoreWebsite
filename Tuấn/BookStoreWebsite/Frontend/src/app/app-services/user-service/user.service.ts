@@ -40,4 +40,7 @@ export class UserService {
       headers:new HttpHeaders().append('Content-Type','application/json')
     });
   }
+  getAllUsers(){
+    return this._http.get(this.baseURL);
+  }
 }

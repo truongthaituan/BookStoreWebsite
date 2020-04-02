@@ -10,11 +10,11 @@ declare var $:any;
 })
 export class AppComponent  {
     title = 'Angular';
-  
-    accountSocial = JSON.parse(sessionStorage.getItem('accountSocial'));
-    statusLogin = sessionStorage.getItem('statusLogin');
-    //set giỏ hàng
-    
+    accountUser = JSON.parse(localStorage.getItem('accountUser'));
+   
+    accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
+    statusLogin = localStorage.getItem('statusLogin');
+    loginBy = localStorage.getItem('loginBy');
    
     //
     customOptions: any = {
@@ -49,6 +49,7 @@ export class AppComponent  {
     return this._router.navigate(['/account']);
   }
   moveToHome(){
+
     return this._router.navigate(['/']);
   }
   moveToCart(){
@@ -56,8 +57,10 @@ export class AppComponent  {
   }
   logout(){
     // this.statusLogin == null;
-    sessionStorage.removeItem('userGoogle');
-    sessionStorage.removeItem('statusLogin');
+    localStorage.removeItem('accountUser');
+    localStorage.removeItem('accountSocial');
+    localStorage.removeItem('statusLogin');
+    localStorage.removeItem('loginBy');
     window.location.href = "/";
   }
 }

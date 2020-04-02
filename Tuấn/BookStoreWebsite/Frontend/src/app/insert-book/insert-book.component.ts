@@ -30,14 +30,16 @@ export class InsertBookComponent implements OnInit {
           var selectedVal = $("#selectAuthor option:selected").val();
           alert(selectedVal);
         });
-    
       });
-      $("#scrollToTopButton").click(function () {
-        $("html, body").animate({scrollTop: 0}, 1000);
-       });
     });
   }
   ngOnInit() {
+    $(function () {
+      $("#scrollToTopButton").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+      });
+
+    });
     this.resetForm();
     this.getCategoryList();
     this.getAuthorList();
@@ -76,7 +78,7 @@ export class InsertBookComponent implements OnInit {
       console.log(form.value)
           this.bookService.postBook(form.value).subscribe(
             data => {console.log(data);this._router.navigate(['/adminPage']);
-          this.statusInsert = true;sessionStorage.setItem('statusInsert',String(this.statusInsert))},
+          this.statusInsert = true;localStorage.setItem('statusInsert',String(this.statusInsert))},
             error => console.log(error)
            );
     }

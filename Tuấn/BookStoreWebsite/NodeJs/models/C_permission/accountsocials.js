@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema({
-        email: String,
+        email: { type: String, required: true},
         username: String,
         imageUrl: String,
         facebook_id: String,
         google_id: String,
-        typeAccount: Number
+        role: String
 });
 
 module.exports = mongoose.model('accountsocials', Schema);
