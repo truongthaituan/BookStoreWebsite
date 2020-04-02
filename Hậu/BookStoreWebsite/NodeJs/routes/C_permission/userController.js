@@ -34,6 +34,7 @@ router.post('/signup', function(req, res) {
     newuser.email = req.body.email;
     newuser.password = req.body.password;
     newuser.username = req.body.username;
+    newuser.imageUrl = "https://png.pngtree.com/png-clipart/20190520/original/pngtree-vector-users-icon-png-image_4144740.jpg";
     newuser.role = "CUSTOMER";
     newuser.save(function(err, inserteduser) {
         if (err) {
@@ -42,7 +43,7 @@ router.post('/signup', function(req, res) {
             res.json(inserteduser);
         }
     });
-  });
+});
 
 //update
 router.put('/users/:id', function(req, res) {
@@ -51,6 +52,7 @@ router.put('/users/:id', function(req, res) {
                     email: req.body.email,
                     password: req.body.password,
                     username: req.body.username,
+                    imageUrl: req.body.imageUrl,
                     role: "CUSTOMER"
                 }
             }, {
@@ -70,43 +72,45 @@ router.delete('/users/:id', function(req, res) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });
-router.get('/users',isLoggedIn,function(req,res,next){
+router.get('/users', isLoggedIn, function(req, res, next) {
     return res.status(200).json(req.user);
-  });
-  
-  router.get('/profile', isLoggedIn, function(req, res){
+});
+
+router.get('/profile', isLoggedIn, function(req, res) {
     res.json({ user: req.user });
-  });
-  
-router.post('/login',function(req,res,next){
+});
+
+router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
-      if (err) { return res.status(501).send(err); }
-      if (!user) { return res.send({  
+        if (err) { return res.status(501).send(err); }
+        if (!user) {
+            return res.send({
                 status: false,
                 message: "fail"
-            }); }
-         req.logIn(user, function(err) {
-        if (err) { return res.status(501).send(err); }
-        var account = user;
-        var token = jwt.sign({
-          email: account.email,
-          username: account.username
-          }, superSecret, {
-          expiresIn: '24h' // expires in 24 hours
-          });   
+            });
+        }
+        req.logIn(user, function(err) {
+            if (err) { return res.status(501).send(err); }
+            var account = user;
+            var token = jwt.sign({
+                email: account.email,
+                username: account.username
+            }, superSecret, {
+                expiresIn: '24h' // expires in 24 hours
+            });
             res.send({
-            status: true,
-            message: "Success", 
-            obj: account,
-            token: token
-        }); 
-      });
+                status: true,
+                message: "Success",
+                obj: account,
+                token: token
+            });
+        });
     })(req, res, next);
-  });
+});
 
 // router.post('/authenticate', function(req, res) {
 //     // find the user 
@@ -148,52 +152,48 @@ router.post('/login',function(req,res,next){
 // });
 
 router.post('/social/facebook', (req, res) => {
-    SocialAccount.findOne({facebook_id: req.body.facebook_id}).exec((err, doc) => {
-        if(err){
+    SocialAccount.findOne({ facebook_id: req.body.facebook_id }).exec((err, doc) => {
+        if (err) {
             res.json({
                 status: false,
-                message: "Error in retriving Account: " + 
-                JSON.stringify(err, undefined, 2)
+                message: "Error in retriving Account: " +
+                    JSON.stringify(err, undefined, 2)
             });
-        }
-        else if(!doc){
+        } else if (!doc) {
             res.json({
                 status: false
             });
-        }
-        else{
+        } else {
             var SocialAccount = doc;
-            var token = jwt.sign({   
-            
-              username: SocialAccount.username 
-              }, superSecret, {
-              expiresIn: '1h' // expires in 24 hours
-              });   
+            var token = jwt.sign({
+
+                username: SocialAccount.username
+            }, superSecret, {
+                expiresIn: '1h' // expires in 24 hours
+            });
             res.json({
                 status: true,
-                message: "Success", 
+                message: "Success",
                 obj: SocialAccount,
                 token: token
             });
         }
     });
-  });
+});
 
 router.post('/social/google', (req, res) => {
-    SocialAccount.findOne({google_id: req.body.google_id}).exec((err, doc) => {
-        if(err){
+    SocialAccount.findOne({ google_id: req.body.google_id }).exec((err, doc) => {
+        if (err) {
             res.json({
                 status: false,
-                message: "Error in retriving Account: " + 
-                JSON.stringify(err, undefined, 2)
+                message: "Error in retriving Account: " +
+                    JSON.stringify(err, undefined, 2)
             });
-        }
-        else if(!doc){
+        } else if (!doc) {
             res.json({
                 status: false
             });
-        }
-        else{
+        } else {
             var socialAccount = doc;
             // var token = jwt.sign({
             //   email: socialAccount.email,
@@ -201,15 +201,15 @@ router.post('/social/google', (req, res) => {
             //   }, superSecret, {
             //   expiresIn: '1h' // expires in 24 hours
             //   });   
-                res.json({
+            res.json({
                 status: true,
-                message: "Success", 
+                message: "Success",
                 obj: socialAccount
-                // token: token
+                    // token: token
             });
         }
     });
-  });
+});
 
 router.post('/addAccount', (req, res) => {
     var socialAccount = new SocialAccount({
@@ -221,14 +221,13 @@ router.post('/addAccount', (req, res) => {
         role: "CUSTOMER"
     });
     SocialAccount.collection.insertOne(socialAccount, (err, data) => {
-        if(err){
+        if (err) {
             res.json({
                 status: false,
                 message: err,
                 obj: null
             });
-        }
-        else{
+        } else {
             res.json({
                 status: true,
                 message: "Insert Successfully!",
@@ -236,15 +235,16 @@ router.post('/addAccount', (req, res) => {
             });
         }
     })
-  });
-router.get('/logout', function(req,res,next){
+});
+router.get('/logout', function(req, res, next) {
     req.logout();
-  })
-  function isLoggedIn(req, res, next) {
+})
+
+function isLoggedIn(req, res, next) {
     console.log(req.isAuthenticated());
-    if(req.isAuthenticated()){
-      return next();
+    if (req.isAuthenticated()) {
+        return next();
     }
     res.redirect('/login');
-  }
+}
 module.exports = router;

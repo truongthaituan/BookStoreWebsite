@@ -33,9 +33,10 @@ export class MyAccountComponent implements OnInit {
   statusLogin: Boolean = false
   registerForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
-    fullName: new FormControl(null, Validators.required),
+    username: new FormControl(null, Validators.required),
     password: new FormControl(null, Validators.required),
-    cpass: new FormControl(null, Validators.required)
+    cpass: new FormControl(null, Validators.required),
+    imageUrl: new FormControl(null),
   })
 
   loginForm: FormGroup = new FormGroup({
@@ -90,7 +91,9 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         return;
       }
       else {
-        // console.log(JSON.stringify(this.registerForm.value));
+        this.registerForm.value.imageUrl="hello";
+        console.log(JSON.stringify(this.registerForm.value)); 
+
         this._userService.register(JSON.stringify(this.registerForm.value))
           .subscribe(
             data => {
@@ -166,10 +169,11 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
+              localStorage.setItem('loginBy', "loginSocial");
               localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
               console.log("created");
               // this._router.navigate(['/booksCategory']);
-              window.location.href = "/booksCategory";
+              window.location.href = "/";
               this.statusLogin = true;
               localStorage.setItem('statusLogin', String(this.statusLogin));
             }
@@ -215,12 +219,17 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
+              localStorage.setItem('loginBy', "loginSocial");
               localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
-              this._router.navigate(['/login']);
+              console.log("created");
+              // this._router.navigate(['/booksCategory']);
+              window.location.href = "/";
+              this.statusLogin = true;
+              localStorage.setItem('statusLogin', String(this.statusLogin));
             }
           });
         }
-        else {
+        else {    
           localStorage.setItem('loginBy', "loginSocial");
           if ((response.obj as Socialaccount).role == "ADMIN") {
             this._router.navigate(['/adminPage']);

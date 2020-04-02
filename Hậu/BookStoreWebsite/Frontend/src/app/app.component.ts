@@ -11,6 +11,7 @@ declare var $:any;
 export class AppComponent  {
     title = 'Angular';
     accountUser = JSON.parse(localStorage.getItem('accountUser'));
+   
     accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
     statusLogin = localStorage.getItem('statusLogin');
     loginBy = localStorage.getItem('loginBy');
@@ -48,6 +49,7 @@ export class AppComponent  {
     return this._router.navigate(['/account']);
   }
   moveToHome(){
+
     return this._router.navigate(['/']);
   }
   moveToCart(){
