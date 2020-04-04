@@ -417,70 +417,64 @@
                     <div class="col-sm-10" style="float: center;">
                         <div class="table-responsive">
                             <table class="table table-striped" style="color: black;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td><input type="text" id="" placeholder="" style="border-color: lightslategrey;height: 30px;" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Họ tên</td>
-                                        <td><input type="text" id="" placeholder="" style="border-color: lightslategrey;height: 30px;" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Điện thoại </td>
-                                        <td><input type="text" id="" placeholder="" style="border-color: lightslategrey;height: 30px;" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tỉnh/Thành phố</td>
-                                        <td> <select name="orderby" class="orderby">
+
+                                <tr>
+                                    <td>Email</td>
+                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}}></td>
+                                </tr>
+                                <tr>
+                                    <td>Họ tên</td>
+                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}}></td>
+                                </tr>
+                                <tr>
+                                    <td>Điện thoại </td>
+                                    <td><input type="text" name="Phone" (change)="editPhone($event)" value={{phone}}></td>
+                                </tr>
+                                <tr>
+                                    <td>Tỉnh/Thành phố</td>
+                                    <td> <select name="orderby" class="orderby">
                                             <option value="menu_order"  selected='selected'>Hồ Chí Minh</option>
                                             <option value="popularity" >Hà Nội</option>
-                                            <option value="rating" >Vũng Tàu</option>
+                                            <option value="popularit2y" >Hà Nội</option>
                                             
                                     </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Quận/Huyện</td>
-                                        <td> <select name="orderby" class="orderby">
+                                </tr>
+                                <tr>
+                                    <td>Quận/Huyện</td>
+                                    <td> <select name="orderby" class="orderby">
                                             <option value="menu_order"  selected='selected'>Bình Chánh</option>
                                             <option value="popularity" >Hóc Môn</option>
                                             <option value="rating" >Tân Hiệp</option>
                                           
                                     </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Phường/Xã</td>
-                                        <td> <select name="orderby" class="orderby">
+                                </tr>
+                                <tr>
+                                    <td>Phường/Xã</td>
+                                    <td> <select name="orderby" class="orderby">
                                             <option value="menu_order"  selected='selected'>Tam Bình</option>
                                             <option value="popularity" >Xuân Thới</option>
                                             <option value="rating" >Tân Xuân</option>
                                            
                                     </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Địa chỉ</td>
-                                        <td> <textarea class="form-control" style="height: 70px;" type="text" name="detailBook" #name="ngModel" [(ngModel)]="bookService.book.detailBook" placeholder="Nhập Mô Tả Sách"></textarea></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td> <i>Để nhận hàng thuận tiện hơn, bạn vui lòng cho biết loại địa chỉ.</i></td>
-                                    </tr>
+                                </tr>
+                                <tr>
+                                    <td>Địa chỉ</td>
+                                    <td> <textarea class="form-control" style="height: 70px;" type="text" name="detailBook" placeholder="Nhập Mô Tả Sách"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td> <i>Để nhận hàng thuận tiện hơn, bạn vui lòng cho biết loại địa chỉ.</i></td>
+                                </tr>
 
-                                    <tr>
-                                        <td>Loại địa chỉ</td>
-                                        <td>
-                                            <label class="radio-inline"><input type="radio" name="optradio" >Nhà riêng / Trung cư </label>
-                                            <label class="radio-inline"><input type="radio" name="optradio" >Cơ quan / Công ty</label>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>Loại địa chỉ</td>
+                                    <td>
+                                        <label class="radio-inline"><input type="radio" name="optradio" >Nhà riêng / Trung cư </label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" >Cơ quan / Công ty</label>
+                                    </td>
+                                </tr>
 
-                                </tbody>
+
                             </table>
                         </div>
                     </div>

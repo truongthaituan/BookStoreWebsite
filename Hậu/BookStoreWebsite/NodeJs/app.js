@@ -16,7 +16,7 @@ const seri = require('./routes/A_store/seriCategory');
 //B_profile
 const customer = require('./routes/B_profile/customerController');
 const employee = require('./routes/B_profile/employeeController');
-
+const location = require('./routes/B_profile/locationsVNController');
 //C_permission
 const role = require('./routes/C_permission/roleController');
 const accountSocial = require('./routes/C_permission/accountSocialController');
@@ -66,6 +66,7 @@ app.use('/', seri);
 //B_profile
 app.use('/', customer);
 app.use('/', employee);
+app.use('/', location);
 //C_permission
 app.use('/', role);
 app.use('/', user);
