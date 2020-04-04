@@ -29,11 +29,13 @@ router.post('/customers', function(req, res) {
     var newcustomer = new customer();
     newcustomer.userID = req.body.userID;
     newcustomer.name = req.body.name;
-    newcustomer.nickName = req.body.nickName;
     newcustomer.phone = req.body.phone;
     newcustomer.address = req.body.address;
     newcustomer.email = req.body.email;
-
+    newcustomer.city = req.body.city;
+    newcustomer.district = req.body.district;
+    newcustomer.wards = req.body.wards;
+    newcustomer.typeAddress = req.body.typeAddress;
     newcustomer.save(function(err, insertedcustomer) {
         if (err) {
             console.log('Err Saving customer');
@@ -54,6 +56,10 @@ router.put('/customers/:id', function(req, res) {
                     phone: req.body.phone,
                     address: req.body.address,
                     email: req.body.email,
+                    city: req.body.city,
+                    district: req.body.district,
+                    wards: req.body.wards,
+                    typeAddress: req.body.typeAddress,
 
                 }
             }, {

@@ -403,7 +403,7 @@
         <!-- //MAIN NAVIGATION -->
         <div class="page-header bks-breadcrumb">
             <div class="container">
-                <h1>Giỏ Hàng</h1>
+                <h1>Shipping</h1>
             </div>
         </div>
 
@@ -412,84 +412,80 @@
         <div id="page-content" role="main">
 
             <div class="container mb-4">
-                <div *ngIf="checkViewCart">
-                    <div style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
-                        <b style="top:15px;position: relative;">Giỏ hàng của bạn đang trống </b></div>
-                </div>
+
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-10" style="float: center;">
                         <div class="table-responsive">
                             <table class="table table-striped" style="color: black;">
                                 <thead>
                                     <tr>
-                                        <th scope="col"> </th>
-                                        <th scope="col">Tên Sách</th>
-                                        <th scope="col">Đơn Giá</th>
-                                        <th scope="col" class="text-center">Số Lượng</th>
-                                        <th scope="col" class="text-right">Tổng Tiền</th>
-                                        <th> </th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let cartbook of CartBook">
-
-                                        <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
-                                        <td>{{cartbook.nameBook}}</td>
-                                        <td>{{cartbook.priceBook|currency:"VND"}}</td>
-                                        <td><input class="form-control" type="number" min="0" max="10" id="number" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                                style="text-align: center;" /></td>
-                                        <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
-                                        <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
-                                </button> </td>
-                                        <!-- <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
-                                </button> </td> -->
-
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><input type="text" id="" placeholder="" style="border-color: lightslategrey;height: 30px;" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Họ tên</td>
+                                        <td><input type="text" id="" placeholder="" style="border-color: lightslategrey;height: 30px;" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Điện thoại </td>
+                                        <td><input type="text" id="" placeholder="" style="border-color: lightslategrey;height: 30px;" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tỉnh/Thành phố</td>
+                                        <td> <select name="orderby" class="orderby">
+                                            <option value="menu_order"  selected='selected'>Hồ Chí Minh</option>
+                                            <option value="popularity" >Hà Nội</option>
+                                            <option value="rating" >Vũng Tàu</option>
+                                            
+                                    </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quận/Huyện</td>
+                                        <td> <select name="orderby" class="orderby">
+                                            <option value="menu_order"  selected='selected'>Bình Chánh</option>
+                                            <option value="popularity" >Hóc Môn</option>
+                                            <option value="rating" >Tân Hiệp</option>
+                                          
+                                    </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phường/Xã</td>
+                                        <td> <select name="orderby" class="orderby">
+                                            <option value="menu_order"  selected='selected'>Tam Bình</option>
+                                            <option value="popularity" >Xuân Thới</option>
+                                            <option value="rating" >Tân Xuân</option>
+                                           
+                                    </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Địa chỉ</td>
+                                        <td> <textarea class="form-control" style="height: 70px;" type="text" name="detailBook" #name="ngModel" [(ngModel)]="bookService.book.detailBook" placeholder="Nhập Mô Tả Sách"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td> <i>Để nhận hàng thuận tiện hơn, bạn vui lòng cho biết loại địa chỉ.</i></td>
                                     </tr>
 
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Tổng Tiền</td>
-                                        <td class="text-right">{{TongTien|currency:"VND"}}</td>
+                                        <td>Loại địa chỉ</td>
+                                        <td>
+                                            <label class="radio-inline"><input type="radio" name="optradio" >Nhà riêng / Trung cư </label>
+                                            <label class="radio-inline"><input type="radio" name="optradio" >Cơ quan / Công ty</label>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Giao Hàng</td>
-                                        <td class="text-right">6,90 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><strong>Xác Nhận Tổng Tiền</strong></td>
-                                        <td class="text-right"><strong>346,90 đ</strong></td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
-                    <div class="col mb-2">
-                        <div class="row">
-                            <div class="col-sm-12  col-md-6">
-                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" (click)="goToBookCategory()">Tiếp tục mua hàng</button>
-                            </div>
-                            <div class="col-sm-12 col-md-6 text-right">
-                                <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkoutWhenNull()">Tiến hành đặt hàng</button>
-                                <button *ngIf="!checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="goToShipping()">Tiến hành đặt hàng</button>
-                            </div>
 
-                        </div>
-                    </div>
                 </div>
             </div>
 
