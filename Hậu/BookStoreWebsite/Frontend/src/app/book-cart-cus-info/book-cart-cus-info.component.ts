@@ -171,7 +171,7 @@ export class BookCartCusInfoComponent implements OnInit {
     this.LocationWards = null;
     this.LocationDistricts = null;
     this.getListDistricts(this.city);
- 
+    this.CheckCityInvalid();
   }
   //edit  districts --> update list wards
   editdistricts(event: any) {
@@ -379,10 +379,7 @@ export class BookCartCusInfoComponent implements OnInit {
       console.log(customer);
       this._customerService.putCustomer(customer).subscribe(
         customerput => {
-          this.IsUpdateCustomer=false;
           this.CloseForm();
-          this.ngOnInit();
-
         },
         error => console.log(error)
       );
@@ -403,7 +400,10 @@ export class BookCartCusInfoComponent implements OnInit {
       error => console.log(error)
     );
   }
-
+  ClickAddCustomer()
+  {
+    this.ShowFormEdit=true;
+  }
   //#region Event Click Customer 
   ClickEditCustomer(customer: Customer) {
     this.ShowFormEdit = true;
@@ -434,7 +434,18 @@ export class BookCartCusInfoComponent implements OnInit {
     }
   }
   CloseForm() {
+    this.customer_id = "";
+    this.email = "";
+    this.username = "";
+    this.phone = "";
+    this.city = "";
+    this.districts = "";
+    this.wards = "";
+    this.address = "";
+    this.typeAddress = "";
+    this.IsUpdateCustomer=false;
     this.ShowFormEdit = false;
+    this.ngOnInit();
   }
 
 
