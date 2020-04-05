@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Book } from './book.model';
 import { HttpClient } from '@angular/common/http';
-
+import{HostService} from '../aHost/Host.service';
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
   selectedBook: Book;
   book: Book[];
-  readonly baseURL = 'http://localhost:3000/books';
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/books';
   getBookList() {
     return this._http.get(this.baseURL);
   }

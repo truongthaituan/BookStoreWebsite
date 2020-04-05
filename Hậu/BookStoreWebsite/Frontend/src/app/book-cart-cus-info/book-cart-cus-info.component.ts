@@ -55,9 +55,9 @@ export class BookCartCusInfoComponent implements OnInit {
   LocationDistricts: any;
   LocationWards: any;
   // check validate Input Form
-  CheckEmail = false; // @gmail.com
+  CheckEmail = false;// @gmail.com
   CheckUserName = false;
-  CheckPhone = false; // length = 10 
+  CheckPhone =false; // length = 10 
   CheckCity = false;
   CheckDistrict = false;
   CheckWards = false;
@@ -194,7 +194,8 @@ export class BookCartCusInfoComponent implements OnInit {
     this.email = event.target.value;
     if(this.CheckEmailInvalid() == true){
       this.CheckEmail = true;
-    }else{
+    }
+    else{
       this.CheckEmail = false;
     }
   }

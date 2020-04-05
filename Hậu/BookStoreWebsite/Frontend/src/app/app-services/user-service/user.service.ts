@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from './user.model';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   selectedUser: User;
-  readonly baseURL = 'http://localhost:3000/users';
-  constructor(private _http:HttpClient) { }
+
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/users';
   users: User[]
   register(body:any){
     return this._http.post('http://localhost:3000/signup',body,{

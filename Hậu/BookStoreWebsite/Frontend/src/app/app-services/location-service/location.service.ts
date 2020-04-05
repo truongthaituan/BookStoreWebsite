@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from './location.model';
 import { HttpClient } from '@angular/common/http';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,10 @@ import { HttpClient } from '@angular/common/http';
 export class LocationService {
   selectedLocation: Location;
   location: Location[];
-  readonly baseURL = 'http://localhost:3000/locations';
-  constructor(private _http: HttpClient) { }
+
+
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/locations';
   getLocationList() {
     return this._http.get(this.baseURL);
   }

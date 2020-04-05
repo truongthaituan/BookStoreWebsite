@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from './category.model';
 import { HttpClient } from '@angular/common/http';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class CategoryService {
   selectedCateggory: Category;
   category: Category[];
-  readonly baseURL = 'http://localhost:3000/categories';
-  constructor(private _http: HttpClient) { }
+
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/categories';
   getCategoryList() {
     return this._http.get(this.baseURL);
   }

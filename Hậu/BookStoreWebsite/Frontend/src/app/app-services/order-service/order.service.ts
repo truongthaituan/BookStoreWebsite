@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Order } from './order.model';
 import { HttpClient } from '@angular/common/http';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class OrderService {
   selectedOrder: Order;
   order: Order[];
-  readonly baseURL = 'http://localhost:3000/orders';
-  constructor(private _http: HttpClient) { }
+
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/orders';
   getOrderList() {
     return this._http.get(this.baseURL);
   }
