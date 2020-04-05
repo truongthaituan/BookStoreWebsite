@@ -408,58 +408,101 @@
         </div>
 
         <br>
-
         <div id="page-content" role="main">
 
             <div class="container mb-4">
 
+                <h5><b>2. Địa chỉ giao hàng</b></h5>
+                <p>Chọn địa chỉ giao hàng có sẵn bên dưới:</p>
                 <div class="row">
+
+                    <div class="col-sm-6" *ngFor="let customer of allCustomer" style="padding: 10px;">
+                        <div style="border-style: dotted ;border-width:2px; padding :10px;">
+                            <b style="margin:0px;">{{customer.name}}</b>
+                            <p style="margin:0px;">Địa chỉ: {{customer.address}}, {{customer.wards}}, {{customer.districts}}, {{customer.city}}, Việt Nam</p>
+                            <p style="margin:0px;">Điện thoại: {{customer.phone}}</p>
+                            <p style="margin:0px;">Email: {{customer.email}}</p>
+
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-6 text-right">
+                                    <button class="btn btn-lg btn-block btn-success text-uppercase" type="button">Giao đến địa chỉ này</button>
+                                </div>
+                                <div class="col-sm-12  col-md-3">
+                                    <button class="btn btn-block" style="padding: 10px 16px;" (click)="ClickEditCustomer(customer)">Sửa</button>
+                                </div>
+                                <div class="col-sm-12  col-md-3">
+                                    <button class="btn btn-block" style="padding: 10px 16px;" (click)="ClickDeleteCustomer(customer._id)">Xóa</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <p>Bạn muốn giao hàng đến địa chỉ khác?<a style="color: cornflowerblue;">Thêm địa chỉ giao hàng mới</a></p>
+                <br>
+
+                <div class="row" *ngIf="ShowFormEdit">
                     <div class="col-sm-10" style="float: center;">
                         <div class="table-responsive">
                             <table class="table table-striped" style="color: black;">
 
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}}></td>
+                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}}>
+                                        <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Họ tên</td>
-                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}}></td>
+                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}}>
+                                        <span *ngIf="CheckUserName" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Điện thoại </td>
-                                    <td><input type="text" name="Phone" (change)="editPhone($event)" value={{phone}}></td>
+                                    <td><input type="text" name="Phone" (change)="editPhone($event)" value={{phone}}>
+                                        <span *ngIf="CheckPhone" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Tỉnh/Thành phố</td>
-                                    <td> <select name="orderby" class="orderby">
-                                            <option value="menu_order"  selected='selected'>Hồ Chí Minh</option>
-                                            <option value="popularity" >Hà Nội</option>
-                                            <option value="popularit2y" >Hà Nội</option>
-                                            
-                                    </select></td>
+                                    <td> <select name="orderby" (change)="editCity($event)" class="orderby">
+                                     
+                                        <option  *ngIf="city!=''" value="" selected >{{city}}</option>
+                                            <option *ngIf="city==''"  value="" selected >--Vui lòng chọn Tỉnh/Thành phố--</option>
+                                            <option *ngFor="let city of LocationCity" value={{city}}  >{{city}}</option>
+                                    </select>
+                                        <span *ngIf="CheckCity" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Quận/Huyện</td>
-                                    <td> <select name="orderby" class="orderby">
-                                            <option value="menu_order"  selected='selected'>Bình Chánh</option>
-                                            <option value="popularity" >Hóc Môn</option>
-                                            <option value="rating" >Tân Hiệp</option>
-                                          
-                                    </select></td>
+                                    <td> <select name="orderby" (change)="editdistricts($event)" class="orderby">
+
+                                        <option  *ngIf="districts!=''"value="" selected >{{districts}}</option>
+                                        <option  *ngIf="districts==''"value="" selected >--Vui lòng chọn Quận/Huyện--</option>    
+                                        <option *ngFor="let districts of LocationDistricts" value={{districts}}  >{{districts}}</option>
+                                    </select>
+                                        <span *ngIf="CheckDistrict" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Phường/Xã</td>
-                                    <td> <select name="orderby" class="orderby">
-                                            <option value="menu_order"  selected='selected'>Tam Bình</option>
-                                            <option value="popularity" >Xuân Thới</option>
-                                            <option value="rating" >Tân Xuân</option>
-                                           
-                                    </select></td>
+                                    <td> <select name="orderby" (change)="editWards($event)" class="orderby">
+                                        <option  *ngIf="wards!=''"value="" selected >{{wards}}</option>
+                                        <option *ngIf="wards==''" value="" selected >--Vui lòng chọn Phường/Xã--</option>    
+                                            <option  *ngFor="let wards of LocationWards" value={{wards}}  >{{wards}}</option>
+                                    </select>
+                                        <span *ngIf="CheckWards" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Địa chỉ</td>
-                                    <td> <textarea class="form-control" style="height: 70px;" type="text" name="detailBook" placeholder="Nhập Mô Tả Sách"></textarea></td>
+                                    <td> <textarea class="form-control" style="height: 70px;" type="text" name="detailBook" (change)="editAddress($event)" placeholder="Vui lòng nhập địa chỉ">{{address}}</textarea>
+                                        <span *ngIf="CheckAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -469,8 +512,34 @@
                                 <tr>
                                     <td>Loại địa chỉ</td>
                                     <td>
-                                        <label class="radio-inline"><input type="radio" name="optradio" >Nhà riêng / Trung cư </label>
-                                        <label class="radio-inline"><input type="radio" name="optradio" >Cơ quan / Công ty</label>
+                                        <label *ngIf="typeAddress=='Nhà riêng'" class="radio-inline"><input type="radio" name="optradio" (change)="editTypeAddress()" checked>Nhà riêng / Trung cư </label>
+                                        <label *ngIf="typeAddress=='Nhà riêng'" class="radio-inline"><input type="radio" name="optradio" (change)="editTypeAddress2()">Cơ quan / Công ty</label>
+                                        <label *ngIf="typeAddress=='Cơ quan'" class="radio-inline"><input type="radio" name="optradio" (change)="editTypeAddress()">Nhà riêng / Trung cư </label>
+                                        <label *ngIf="typeAddress=='Cơ quan'" class="radio-inline"><input type="radio" name="optradio" (change)="editTypeAddress2()" checked>Cơ quan / Công ty</label>
+                                        <label *ngIf="typeAddress==''" class="radio-inline"><input type="radio" name="optradio" (change)="editTypeAddress()">Nhà riêng / Trung cư </label>
+                                        <label *ngIf="typeAddress==''" class="radio-inline"><input type="radio" name="optradio" (change)="editTypeAddress2()">Cơ quan / Công ty</label>
+                                        <span *ngIf="CheckTypeAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><input type="checkbox">Sử dụng địa chỉ này làm mặc định</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <div class="col mb-2">
+                                            <div class="row">
+                                                <div class="col-sm-12  col-md-6">
+                                                    <button class="btn btn-block" style="padding: 10px 16px;" (click)="CloseForm()">Hủy bỏ</button>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 text-right">
+                                                    <button *ngIf="!IsUpdateCustomer" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="postCustomer()">Giao đến địa chỉ này</button>
+                                                    <button *ngIf="IsUpdateCustomer" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="putCustomer(customer_id)">Cập nhật</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
 
