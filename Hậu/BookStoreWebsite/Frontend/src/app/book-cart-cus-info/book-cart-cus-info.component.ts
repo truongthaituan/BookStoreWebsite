@@ -98,6 +98,9 @@ export class BookCartCusInfoComponent implements OnInit {
     this.RunCheckAllInValid();
   
   }
+  moveToPayment(customer: Customer) {
+    return this._router.navigate(["/payment" + `/${customer._id}`]);
+  }
 
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -189,7 +192,11 @@ export class BookCartCusInfoComponent implements OnInit {
 
   editEmail(event: any) {
     this.email = event.target.value;
-    this.CheckEmailInvalid();
+    if(this.CheckEmailInvalid() == true){
+      this.CheckEmail = true;
+    }else{
+      this.CheckEmail = false;
+    }
   }
 
   editUserName(event: any) {
@@ -203,7 +210,11 @@ export class BookCartCusInfoComponent implements OnInit {
   }
   editPhone(event: any) {
     this.phone = event.target.value;
-    this.CheckPhoneInvalid();
+    if(this.CheckPhoneInvalid() == true){
+      this.CheckPhone = true;
+    }else{
+      this.CheckPhone = false;
+    }
   }
   editTypeAddress() {
     this.typeAddress = "Nhà riêng";
@@ -220,11 +231,13 @@ export class BookCartCusInfoComponent implements OnInit {
   //#region Check Validate
   //check Input Form 
   CheckEmailInvalid() {
-    this.CheckEmail = false;
-    var temp = this.email.trim();
-    if (temp.endsWith("@gmail.com") && temp.length > 10) {
-      this.CheckEmail = true;
-    }
+    // this.CheckEmail = false;
+    // var temp = this.email.trim();
+    // if (temp.startsWith("@gmail.com") && temp.length > 10) {
+    //   this.CheckEmail = true;
+    // }
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(this.email).toLowerCase());
   }
   CheckUserNameInvalid() {
     var check = this.username.trim();
@@ -232,14 +245,16 @@ export class BookCartCusInfoComponent implements OnInit {
     if (check.length > 2) {
       this.CheckUserName = true;
     }
-
   }
   CheckPhoneInvalid() {
-    var check = this.phone.trim();
-    this.CheckPhone = false;
-    if (check.length > 9 && check.length < 11) {
-      this.CheckPhone = true;
-    }
+    // var check = this.phone.trim();
+    // this.CheckPhone = false;
+    // if (check.length > 9 && check.length < 11) {
+    //   this.CheckPhone = true;
+    // }
+    var re = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+    return re.test(String(this.phone).toLowerCase());
+    
   }
   CheckCityInvalid() {
     this.CheckCity = false;

@@ -19,7 +19,7 @@ declare var $: any;
   styleUrls: ['./book-cart-payment.component.css']
 })
 export class BookCartPaymentComponent implements OnInit {
-  constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
+  constructor(private _router: Router,private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService) {
 
   }
@@ -49,27 +49,30 @@ export class BookCartPaymentComponent implements OnInit {
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
+  
   ngOnInit() {
-    $(function () {
-      $("#scrollToTopButton").click(function () {
-        $("html, body").animate({ scrollTop: 0 }, 1000);
-      });
-    });
-    if (this.accountSocial) {
-      this.email = this.accountSocial.email;
-      this.username = this.accountSocial.username;
-    }//get giỏ hàng
-    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
-    this.CartUpdate = JSON.parse(localStorage.getItem("CartBook"));
-    console.log(this.CartBook + "----->" + this.lengthCartBook);
+    // $(function () {
+    //   $("#scrollToTopButton").click(function () {
+    //     $("html, body").animate({ scrollTop: 0 }, 1000);
+    //   });
+    // });
+    // if (this.accountSocial) {
+    //   this.email = this.accountSocial.email;
+    //   this.username = this.accountSocial.username;
+    // }//get giỏ hàng
+    // this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
+    // this.CartUpdate = JSON.parse(localStorage.getItem("CartBook"));
+    // console.log(this.CartBook + "----->" + this.lengthCartBook);
 
-    //set độ dài cartBook
-    this.cartBookLength(this.CartBook);
-    //set value giỏ hàng trên thanh head 
-    this.getTotalCountAndPrice();
+    // //set độ dài cartBook
+    // this.cartBookLength(this.CartBook);
+    // //set value giỏ hàng trên thanh head 
+    // this.getTotalCountAndPrice();
 
-    // Hiện ra label khi giỏ hàng rỗng
-    this.CheckViewCart();
+    // // Hiện ra label khi giỏ hàng rỗng
+    // this.CheckViewCart();
+  let customer = this.route.snapshot.paramMap.get("customer_id");
+console.log(customer);
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {

@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: 'profile', component: AccountProfileComponent},
   {path: 'orderHistory',component: OrderHistoryComponent},
   {path: 'shipping',component:BookCartCusInfoComponent},
-  {path:'payment',component:BookCartPaymentComponent}
+  {path:'payment/:customer_id',component:BookCartPaymentComponent}
 ];
 
 @NgModule({
