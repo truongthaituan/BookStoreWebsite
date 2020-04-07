@@ -175,6 +175,8 @@ export class BookCartCusInfoComponent implements OnInit {
     this.LocationDistricts = null;
     this.getListDistricts(this.city);
     this.CheckCityInvalid();
+    this.CheckDistricInvalid();
+    this.CheckWardInvalid();
   }
   //edit  districts --> update list wards
   editdistricts(event: any) {
@@ -369,7 +371,9 @@ export class BookCartCusInfoComponent implements OnInit {
       customer.typeAddress = this.typeAddress;
       this._customerService.postCustomer(customer).subscribe(
         customerpost => {
-          this._router.navigate(['/payment']);
+          // console.log(Object.values(customerpost)[0]);
+        //  console.log(Object.values(customerpost)[0]._id);
+          this._router.navigate(['/payment/' +  Object.values(customerpost)[0]]);
         },
         error => console.log(error)
       );

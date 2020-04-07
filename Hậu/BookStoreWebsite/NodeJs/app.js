@@ -6,6 +6,11 @@ var logger = require('morgan');
 
 var app = express();
 var cors = require('cors');
+
+app.use(cors({
+    origin: ['http://localhost:4200', 'http://192.168.1.16:4200'],
+    credentials: true
+}));
 //A_store
 const book = require('./routes/A_store/bookController');
 const category = require('./routes/A_store/categoryController');
@@ -36,10 +41,6 @@ const promotion = require('./routes/F_event/promotionController');
 //G_recommentSys
 //H_tracking
 //end controller
-app.use(cors({
-    origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
-    credentials: true
-}));
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
