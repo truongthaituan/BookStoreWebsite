@@ -437,6 +437,9 @@ export class BookCartCusInfoComponent implements OnInit {
   }
   ClickAddCustomer()
   {
+    this.CheckEmail=null;
+    this.CheckPhone=false;
+    
     this.ShowFormEdit=true;
   }
   //#region Event Click Customer 
