@@ -48,6 +48,11 @@ export class BookCartPaymentComponent implements OnInit {
   //paypal
   public loading: boolean = true;
   ngOnInit() {
+    if(localStorage.getItem('statusLogin') == 'true'){
+      $("#checkLogin").addClass("active");
+      $("#customer").addClass("active");
+      $("#payment").addClass("active");
+    }
     //paypal
     if(!this.didPaypalScriptLoad) {
       this.loadPaypalScript().then(() => {
