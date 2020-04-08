@@ -13,6 +13,8 @@ import { SendMail } from '../app-services/sendMail-service/sendMail.model';
 import { BookService } from '../app-services/book-service/book.service';
 import { Book } from '../app-services/book-service/book.model';
 declare var $: any;
+declare let paypal: any;
+
 @Component({
   selector: 'app-book-cart-payment',
   templateUrl: './book-cart-payment.component.html',
@@ -49,28 +51,14 @@ export class BookCartPaymentComponent implements OnInit {
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
-  
+  public loading: boolean = true;
   ngOnInit() {
-    // $(function () {
-    //   $("#scrollToTopButton").click(function () {
-    //     $("html, body").animate({ scrollTop: 0 }, 1000);
-    //   });
-    // });
-    // if (this.accountSocial) {
-    //   this.email = this.accountSocial.email;
-    //   this.username = this.accountSocial.username;
-    // }//get giỏ hàng
-    // this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
-    // this.CartUpdate = JSON.parse(localStorage.getItem("CartBook"));
-    // console.log(this.CartBook + "----->" + this.lengthCartBook);
-
-    // //set độ dài cartBook
-    // this.cartBookLength(this.CartBook);
-    // //set value giỏ hàng trên thanh head 
-    // this.getTotalCountAndPrice();
-
-    // // Hiện ra label khi giỏ hàng rỗng
-    // this.CheckViewCart();
+    if(!this.didPaypalScriptLoad) {
+      this.loadPaypalScript().then(() => {
+        paypal.Button.render(this.paypalConfig, '#paypal-button');
+        this.loading = false;
+      });
+    }
   let customer = this.route.snapshot.paramMap.get("customer_id");
 console.log(customer);
   }
@@ -376,4 +364,90 @@ console.log(customer);
 
     }
   }
+
+
+
+
+  title = 'app';
+  public didPaypalScriptLoad: boolean = false;
+
+
+  public paymentAmount: number = 1000;
+  totalcount = 150
+  public paypalConfig: any = {
+    env: 'sandbox',
+    client: {
+      sandbox: 'AXOgVTEdHkhFIylRT0CKOVDP8sQBp-qN-_OKdpI97zqA5rfD9glaEjAIljJ3vbZZhSSG9M4Fl2Vvl8ba',
+      production: 'xxxxxxxxxx'
+    },
+    commit: true,
+    payment: (data, actions) => {
+      return actions.payment.create({
+        payment: {
+          transactions: 
+          [{
+            "item_list": {
+                "items": [{
+                    "name": "books",
+                    "sku": "sờ cu",
+                    "price": "50.00",
+                    "currency": "USD",
+                    "quantity": 2
+                },
+                {
+                  "name": "books2",
+                  "sku": "sờ cu",
+                  "price": "50.00",
+                  "currency": "USD",
+                  "quantity": 1
+              }]
+            },
+            "amount": {
+                "currency": "USD",
+                "total": this.totalcount,
+                  "details": {
+                    "subtotal": this.totalcount
+                    // "tax": "0.07",
+                    // "shipping": "0.03",
+                    // "handling_fee": "1.00",
+                    // "shipping_discount": "-1.00",
+                    // "insurance": "0.01"
+                  }
+            },
+            "description": "This is the payment description."
+        }]
+
+          // [
+          //   { amount: { total: this.paymentAmount, currency: 'USD' } }
+          // ]
+        }
+      });
+    },
+    onAuthorize: (data, actions) => {
+      return actions.payment.execute().then((payment) => {
+        // show success page
+      });
+    }
+  };
+
+
+
+
+  public loadPaypalScript(): Promise<any> {
+    this.didPaypalScriptLoad = true;
+    return new Promise((resolve, reject) => {
+      const scriptElement = document.createElement('script');
+      scriptElement.src = 'https://www.paypalobjects.com/api/checkout.js';
+      scriptElement.onload = resolve;
+      document.body.appendChild(scriptElement);
+    });
+  }
+
+
+
+
+
+
+
+  
 }
