@@ -197,8 +197,7 @@
     }
     
     .page-header {
-        background: url(http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/Bookshelf-1200.jpg);
-        background-color: #555555;
+        background-color: white;
     }
     
     .btn-primary,
@@ -374,7 +373,7 @@
         background-color: #B7A930;
     }
     
-    body .social-links li a .social-icon {
+    /* body .social-links li a .social-icon {
         background: #24a9e2;
         color: #ffffff;
     }
@@ -392,7 +391,7 @@
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
         border-radius: 50%;
-    }
+    } */
 </style>
 
 <body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
@@ -401,9 +400,31 @@
 
 
         <!-- //MAIN NAVIGATION -->
-        <div class="page-header bks-breadcrumb">
+        <div class="page-header bks-breadcrumb"  style="background-color: white;">
             <div class="container">
-                <h1>Shipping</h1>
+                <!-- <h1>Shipping</h1> -->
+                <div class="wrap">
+                    <ul class="list">
+                      <!-- <li class="active"><i class="fas fa-file-alt"></i><p style = "font-size: 10px;">file</p></li>
+                      <li class="active"><i class="fas fa-archive"></i><p style = "font-size: 10px;">file</p></li>
+                      <li><i class="fas fa-truck"></i><p style = "font-size: 10px;">file</p></li>
+                     <li><i class="fas fa-check-circle"></i><p style = "font-size: 10px;">file</p></li> -->
+                     <li id = "login">1</li>                  
+                      <li id = "customer">2</li> 
+                      <li id = "payment">3</li> 
+                    </ul>
+                
+                  </div>
+                  <div class="row" style="margin-left:320px;">
+                    <!-- <li class="active"><i class="fas fa-file-alt"></i><p style = "font-size: 10px;">file</p></li>
+                    <li class="active"><i class="fas fa-archive"></i><p style = "font-size: 10px;">file</p></li>
+                    <li><i class="fas fa-truck"></i><p style = "font-size: 10px;">file</p></li>
+                   <li><i class="fas fa-check-circle"></i><p style = "font-size: 10px;">file</p></li> -->
+                   <div class="col-sm-3">Đăng Nhập</div>                  
+                   <div class="col-sm-3">Địa Chỉ Giao Hàng</div> 
+                   <div class="col-sm-3">Thanh Toán & Đặt Mua</div> 
+                  </div>
+              <!-- partial -->
             </div>
         </div>
 

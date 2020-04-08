@@ -77,6 +77,11 @@ export class BookCartCusInfoComponent implements OnInit {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
+
+      if(localStorage.getItem('statusLogin') == 'true'){
+          $("#login").addClass("active");
+          $("#customer").addClass("active");
+        }
     });
     // if (this.accountSocial) {
     //   this.email = this.accountSocial.email;
