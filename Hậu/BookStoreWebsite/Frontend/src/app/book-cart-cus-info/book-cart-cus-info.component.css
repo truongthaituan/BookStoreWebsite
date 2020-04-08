@@ -110,10 +110,10 @@
         margin-bottom: -10px;
       }
       .active {
-        background-image: linear-gradient(9deg, #185a9d, #43cea2);
+        background-image: linear-gradient(9deg, #27AE61, #27AE61);
       }
       .list li.active + li.active::before {
-        background-color: #22769F
+        background-color: #27AE61
       }
 
 

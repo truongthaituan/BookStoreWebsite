@@ -79,7 +79,7 @@ export class BookCartCusInfoComponent implements OnInit {
       });
 
       if(localStorage.getItem('statusLogin') == 'true'){
-          $("#login").addClass("active");
+          $("#checkLogin").addClass("active");
           $("#customer").addClass("active");
         }
     });
