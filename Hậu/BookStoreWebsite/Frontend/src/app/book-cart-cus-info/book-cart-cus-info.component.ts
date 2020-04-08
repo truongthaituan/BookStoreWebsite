@@ -200,16 +200,19 @@ export class BookCartCusInfoComponent implements OnInit {
   }
   statusEmailFailed: string = ""
   editEmail(event: any) {
+   
     this.email = event.target.value;
       this.verifyEmailService.actionVerifyEmail(this.email).subscribe(res =>{
         console.log(res);
         this.verifyEmailService.verifyEmail = res as VerifyEmail;
         if(this.CheckEmailInvalid() == true && this.verifyEmailService.verifyEmail.success == true){
           this.statusEmailFailed = "Xin lỗi, email này có thể không có thật!";
-        this.CheckEmail = true;
+          this.CheckEmail = true;
+        
       }
       else{
         this.CheckEmail = false;
+     
       }
       })
   }
@@ -267,7 +270,7 @@ export class BookCartCusInfoComponent implements OnInit {
     // if (check.length > 9 && check.length < 11) {
     //   this.CheckPhone = true;
     // }
-    var re = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+    var re = /^[0-9]{10,11}$/;
     return re.test(String(this.phone).toLowerCase());
     
   }
@@ -438,6 +441,8 @@ export class BookCartCusInfoComponent implements OnInit {
   }
   //#region Event Click Customer 
   ClickEditCustomer(customer: Customer) {
+    this.CheckEmail=true;
+    this.CheckPhone=true;
     this.ShowFormEdit = true;
     this.IsUpdateCustomer=true;
     this.customer_id = customer._id;
@@ -460,6 +465,7 @@ export class BookCartCusInfoComponent implements OnInit {
     if (setconfirm == true) {
       this._customerService.deleteCustomer(id).subscribe(
         customerput => {
+          this.ngOnInit();
         },
         error => console.log(error)
       );

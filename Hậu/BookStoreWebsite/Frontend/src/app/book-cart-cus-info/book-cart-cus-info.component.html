@@ -372,7 +372,6 @@
     .bks-promo {
         background-color: #B7A930;
     }
-    
     /* body .social-links li a .social-icon {
         background: #24a9e2;
         color: #ffffff;
@@ -400,31 +399,31 @@
 
 
         <!-- //MAIN NAVIGATION -->
-        <div class="page-header bks-breadcrumb"  style="background-color: white;">
+        <div class="page-header bks-breadcrumb" style="background-color: white;">
             <div class="container">
                 <!-- <h1>Shipping</h1> -->
                 <div class="wrap">
                     <ul class="list">
-                      <!-- <li class="active"><i class="fas fa-file-alt"></i><p style = "font-size: 10px;">file</p></li>
+                        <!-- <li class="active"><i class="fas fa-file-alt"></i><p style = "font-size: 10px;">file</p></li>
                       <li class="active"><i class="fas fa-archive"></i><p style = "font-size: 10px;">file</p></li>
                       <li><i class="fas fa-truck"></i><p style = "font-size: 10px;">file</p></li>
                      <li><i class="fas fa-check-circle"></i><p style = "font-size: 10px;">file</p></li> -->
-                     <li id = "checkLogin">1</li>                  
-                      <li id = "customer">2</li> 
-                      <li id = "payment">3</li> 
+                        <li id="checkLogin">1</li>
+                        <li id="customer">2</li>
+                        <li id="payment">3</li>
                     </ul>
-                
-                  </div>
-                  <div class="row" style="margin-left:320px;">
+
+                </div>
+                <div class="row" style="margin-left:320px;">
                     <!-- <li class="active"><i class="fas fa-file-alt"></i><p style = "font-size: 10px;">file</p></li>
                     <li class="active"><i class="fas fa-archive"></i><p style = "font-size: 10px;">file</p></li>
                     <li><i class="fas fa-truck"></i><p style = "font-size: 10px;">file</p></li>
                    <li><i class="fas fa-check-circle"></i><p style = "font-size: 10px;">file</p></li> -->
-                   <div class="col-sm-3">Đăng Nhập</div>                  
-                   <div class="col-sm-3">Địa Chỉ Giao Hàng</div> 
-                   <div class="col-sm-3">Thanh Toán & Đặt Mua</div> 
-                  </div>
-              <!-- partial -->
+                    <div class="col-sm-3">Đăng Nhập</div>
+                    <div class="col-sm-3">Địa Chỉ Giao Hàng</div>
+                    <div class="col-sm-3">Thanh Toán & Đặt Mua</div>
+                </div>
+                <!-- partial -->
             </div>
         </div>
 
@@ -444,16 +443,16 @@
                             <p style="margin:0px;">Điện thoại: {{customer.phone}}</p>
                             <p style="margin:0px;">Email: {{customer.email}}</p>
 
-                            <div class="row">
+                            <div class="row" style="padding-top: 10px;">
 
-                                <div class="col-sm-12 col-md-6 text-right">
+                                <div class="col-sm-12 col-md-5 ">
                                     <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="moveToPayment(customer)">Giao đến địa chỉ này</button>
                                 </div>
-                                <div class="col-sm-12  col-md-3">
-                                    <button class="btn btn-block" style="padding: 10px 16px;" (click)="ClickEditCustomer(customer)">Sửa</button>
+                                <div class="col-sm-12  col-md-2">
+                                    <button class="btn btn-block" style="padding: 10px 16px;margin-left: -20px;" (click)="ClickEditCustomer(customer)">Sửa</button>
                                 </div>
-                                <div class="col-sm-12  col-md-3">
-                                    <button class="btn btn-block" style="padding: 10px 16px;" (click)="ClickDeleteCustomer(customer._id)">Xóa</button>
+                                <div class="col-sm-12  col-md-2">
+                                    <button class="btn btn-block" style="padding: 10px 16px;margin-left: -40px;" (click)="ClickDeleteCustomer(customer._id)">Xóa</button>
                                 </div>
 
                             </div>
@@ -473,7 +472,7 @@
                                     <td>Email</td>
                                     <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}}>
                                         <span *ngIf="!CheckEmail" style="color: red;">{{statusEmailFailed}}</span>
-                                        <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                        <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: rgb(135, 243, 189);"></span>
                                     </td>
                                 </tr>
                                 <tr>
