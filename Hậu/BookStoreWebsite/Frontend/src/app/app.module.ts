@@ -81,7 +81,7 @@ export function provideConfig() {
     NgxPaginationModule,
     NpnSliderModule,
     SocialLoginModule,
-    Ng2SearchPipeModule 
+    Ng2SearchPipeModule
   ],
   providers: [UserService,
     {

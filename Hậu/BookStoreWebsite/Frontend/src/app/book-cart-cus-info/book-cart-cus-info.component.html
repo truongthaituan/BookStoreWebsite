@@ -451,6 +451,7 @@
                                 <tr>
                                     <td>Email</td>
                                     <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}}>
+                                        <span *ngIf="!CheckEmail" style="color: red;">{{statusEmailFailed}}</span>
                                         <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                     </td>
                                 </tr>

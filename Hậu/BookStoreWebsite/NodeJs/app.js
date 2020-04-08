@@ -30,7 +30,7 @@ const user = require('./routes/C_permission/userController');
 const comment = require('./routes/D_action/commentController');
 const rating = require('./routes/D_action/ratingController');
 const favorite = require('./routes/D_action/favoriteController');
-
+const checkEmail = require('./routes/D_action/checkEmailController');
 //E_payment
 const order = require('./routes/E_payment/orderController');
 const orderDetail = require('./routes/E_payment/orderDetailController');
@@ -76,6 +76,7 @@ app.use('/', accountSocial);
 app.use('/', comment);
 app.use('/', favorite);
 app.use('/', rating);
+app.use('/',checkEmail);
 //E_payment
 app.use('/', order);
 app.use('/', orderDetail);

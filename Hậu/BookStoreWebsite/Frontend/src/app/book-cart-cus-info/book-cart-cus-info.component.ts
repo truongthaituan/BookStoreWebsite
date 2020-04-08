@@ -13,6 +13,8 @@ import { Book } from '../app-services/book-service/book.model';
 import { LocationService } from '../app-services/location-service/location.service';
 import { getMaxListeners } from 'cluster';
 import { isBuffer } from 'util';
+import { VerifyEmailService } from '../app-services/verify-email/verify-email.service';
+import { VerifyEmail } from '../app-services/verify-email/verify-email.model';
 declare var $: any;
 @Component({
   selector: 'app-book-cart-cus-info',
@@ -22,7 +24,7 @@ declare var $: any;
 export class BookCartCusInfoComponent implements OnInit {
   constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService
-    , private _locationService: LocationService) {
+    , private _locationService: LocationService, private verifyEmailService: VerifyEmailService) {
 
   }
 
@@ -55,7 +57,7 @@ export class BookCartCusInfoComponent implements OnInit {
   LocationDistricts: any;
   LocationWards: any;
   // check validate Input Form
-  CheckEmail = false;// @gmail.com
+  CheckEmail : any;// @gmail.com
   CheckUserName = false;
   CheckPhone =false; // length = 10 
   CheckCity = false;
@@ -191,15 +193,20 @@ export class BookCartCusInfoComponent implements OnInit {
     this.wards = event.target.value;
     this.CheckWardInvalid();
   }
-
+  statusEmailFailed: string = ""
   editEmail(event: any) {
     this.email = event.target.value;
-    if(this.CheckEmailInvalid() == true){
-      this.CheckEmail = true;
-    }
-    else{
-      this.CheckEmail = false;
-    }
+      this.verifyEmailService.actionVerifyEmail(this.email).subscribe(res =>{
+        console.log(res);
+        this.verifyEmailService.verifyEmail = res as VerifyEmail;
+        if(this.CheckEmailInvalid() == true && this.verifyEmailService.verifyEmail.success == true){
+          this.statusEmailFailed = "Xin lỗi, email này có thể không có thật!";
+        this.CheckEmail = true;
+      }
+      else{
+        this.CheckEmail = false;
+      }
+      })
   }
 
   editUserName(event: any) {
