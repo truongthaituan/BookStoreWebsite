@@ -61,9 +61,10 @@ export class BookCartPaymentComponent implements OnInit {
       });
     }
   let customer_id = this.route.snapshot.paramMap.get("customer_id");
-  this.getCustomerByID(customer_id);
   this.getTotalCountAndPrice();
+  this.getCustomerByID(customer_id);
   console.log(this.CartBook);
+ 
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -99,6 +100,7 @@ export class BookCartPaymentComponent implements OnInit {
             getcustomer => {
               this.customer = getcustomer as Customer;
               console.log(this.customer);
+              this.createJson(this.CartBook);
             },
             error => console.log(error)
           );
@@ -112,7 +114,7 @@ export class BookCartPaymentComponent implements OnInit {
     this._router.navigate(['/shipping']);
   }
 //   //Lưu order và orderDetail
-//   public now: Date = new Date();
+  public now: Date = new Date();
 
 //   // sendmail
 //   sendMailCartBook(sendMail: SendMail) {
@@ -141,56 +143,47 @@ export class BookCartPaymentComponent implements OnInit {
 //     );
 //   }
   
-//   //get customer by userID
-//   getCustomerByUserID(Userid) {
-//     this._customerService.getCustomerByUserID(Userid).subscribe(
-//       getcustomer => {
-//         this.customer.userID = this.accountSocial._id;
-//         this.customer.email = this.email;
-//         this.customer.address = this.address;
-//         this.customer.name = this.username;
- 
-//         this.customer.phone = this.phone;
-//       },
-//       error => console.log(error)
-//     );
-//   }
+
 
   
-//   //post order Detail
-//   postOrderDetail(orderDetails: OrderDetail) {
-//     this._orderDetailService.postOrderDetail(orderDetails).subscribe(
-//       orderDetaildata => {
-//         localStorage.removeItem('CartBook');
-//         this.getTotalCountAndPrice();
-//         setTimeout(() => { this._router.navigate(['/']); }, 8000);
+  //post order Detail
+  postOrderDetail(orderDetails: OrderDetail) {
+    this._orderDetailService.postOrderDetail(orderDetails).subscribe(
+      orderDetaildata => {
+        localStorage.removeItem('CartBook');
+        this.getTotalCountAndPrice();
+        setTimeout(() => { this._router.navigate(['/']); }, 8000);
 
-//       },
-//       error => console.log(error)
-//     );
-//   }
-// //post order
-// postOrder(orders: Order) {
-//   this._orderService.postOrder(orders).subscribe(
-//     orderdata => {
-//       //Kiểm tra userInfo customer ( nếu chưa có thì tạo , có rồi thì cập nhật)
-//       this.getCustomerByUserID(orders.customerID);
-//       //lưu order detail
-//       for (var i = 0; i < this.lengthCartBook; i++) {
+      },
+      error => console.log(error)
+    );
+  }
+//post order
+postOrder(orders: Order) {
+  orders.customerID=this.customer._id;
+  this.now = new Date();
+  orders.orderDate = this.now.toString().substring(0, 24);
+  orders.totalPrice= this.TongTien;
+  this._orderService.postOrder(orders).subscribe(
+    orderdata => {
+     
+      //lưu order detail
+      for (var i = 0; i < this.lengthCartBook; i++) {
 
-//         this.orderDetails = new OrderDetail;
-//         this.orderDetails.bookID = this.CartBook[i]._id;
-//         this.orderDetails.count = this.CartBook[i].count;
-//         this.orderDetails.orderID = orderdata['_id'];
-//         this.orderDetails.price = parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook);
-//         //post order Detail
-//         this.postOrderDetail(this.orderDetails);
-//       }
+        this.orderDetails = new OrderDetail;
+        this.orderDetails.bookID = this.CartBook[i]._id;
+        this.orderDetails.count = this.CartBook[i].count;
+        this.orderDetails.orderID = orderdata['_id'];
+        this.orderDetails.price = parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook);
+        //post order Detail
+        this.postOrderDetail(this.orderDetails);
+      }
 
-//     },
-//     error => console.log(error)
-//   );
-// } 
+    },
+    error => console.log(error)
+  );
+} 
+
 //   payCheckOut() {
 //     //lưu order
 //     //set time
@@ -240,6 +233,18 @@ export class BookCartPaymentComponent implements OnInit {
 
 
 //#region paypal
+//create a json for paypal
+JsonCartBook :any
+createJson(CartBook:any){
+  this.JsonCartBook="";
+  for (var i = 0; i < this.lengthCartBook; i++) {
+    this.JsonCartBook+='{"name":"'+this.customer.name+'","price":"'+CartBook[i].priceBook+'","currency":"USD","quantity":"'+CartBook[i].count+'" },'
+  }
+console.log("--------->");
+
+console.log(this.JsonCartBook);
+console.log("--------->");
+}
   title = 'app';
   public didPaypalScriptLoad: boolean = false;
   public paymentAmount: number = 1000;
@@ -257,31 +262,14 @@ export class BookCartPaymentComponent implements OnInit {
           transactions: 
           [{
             "item_list": {
-                "items": [{
-                    "name": "books",
-                    "sku": "sờ cu",
-                    "price": "50.00",
-                    "currency": "USD",
-                    "quantity": 2
-                },
-                {
-                  "name": "books2",
-                  "sku": "sờ cu",
-                  "price": "50.00",
-                  "currency": "USD",
-                  "quantity": 1
-              }]
+              "items":[{"name":"undefined","price":"46900","currency":"USD","quantity":"2" },{"name":"undefined","price":"52500","currency":"USD","quantity":"5" },{"name":"undefined","price":"52900","currency":"USD","quantity":"3" },{"name":"undefined","price":"73500","currency":"USD","quantity":"10" },]
             },
             "amount": {
                 "currency": "USD",
-                "total": this.totalcount,
+                "total": this.TongTien,
                   "details": {
-                    "subtotal": this.totalcount
-                    // "tax": "0.07",
-                    // "shipping": "0.03",
-                    // "handling_fee": "1.00",
-                    // "shipping_discount": "-1.00",
-                    // "insurance": "0.01"
+                    "subtotal": this.TongTien
+   
                   }
             },
             "description": "This is the payment description."
@@ -295,7 +283,7 @@ export class BookCartPaymentComponent implements OnInit {
     },
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
-        // show success page
+        this.postOrder(this.orders);
       });
     }
   };

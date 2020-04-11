@@ -469,7 +469,7 @@
                             <h5 *ngFor="let book of CartBook">
                                 <div class="row">
                                     <div class="col-sm-8">
-                                        {{book.count}} x {{book.nameBook}}
+                                        {{book.count}} x <span style="color: blue;">{{book.nameBook}}</span>
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-3">
@@ -484,7 +484,7 @@
                             <h5 style=" border-top: 1px solid gainsboro;">
                                 <div class="row" style="margin-top : 10px;">
                                     <div class="col-sm-8">
-                                        Tạm tính
+                                        Tổng hóa đơn
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-3">
