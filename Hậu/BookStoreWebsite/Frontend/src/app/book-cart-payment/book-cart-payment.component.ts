@@ -62,6 +62,8 @@ export class BookCartPaymentComponent implements OnInit {
     }
   let customer_id = this.route.snapshot.paramMap.get("customer_id");
   this.getCustomerByID(customer_id);
+  this.getTotalCountAndPrice();
+  console.log(this.CartBook);
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -96,9 +98,18 @@ export class BookCartPaymentComponent implements OnInit {
     this._customerService.getCustomerById(id).subscribe(
             getcustomer => {
               this.customer = getcustomer as Customer;
+              console.log(this.customer);
             },
             error => console.log(error)
           );
+  }
+  goToBookCart()
+  {
+    this._router.navigate(['/cartBook']);
+  }
+  goToShipping()
+  {
+    this._router.navigate(['/shipping']);
   }
 //   //Lưu order và orderDetail
 //   public now: Date = new Date();

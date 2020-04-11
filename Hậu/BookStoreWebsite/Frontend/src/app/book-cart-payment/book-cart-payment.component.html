@@ -195,7 +195,6 @@
         background: url(../wp-content/uploads/2016/01/title.jpg);
         background-color: #e5e5e5;
     }
-    
     /* .page-header {
         background: url(http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/Bookshelf-1200.jpg);
         background-color: #555555;
@@ -373,7 +372,7 @@
     .bks-promo {
         background-color: #B7A930;
     }
-/*     
+    /*     
     body .social-links li a .social-icon {
         background: #24a9e2;
         color: #ffffff;
@@ -399,25 +398,25 @@
     <div class="wrapper">
 
 
-   <!-- //MAIN NAVIGATION -->
-   <div class="page-header bks-breadcrumb"  style="background-color: white;">
-    <div class="container">
-        <!-- <h1>Shipping</h1> -->
-        <div class="wrap">
-            <ul class="list">
-             <li id = "checkLogin">1</li>                  
-              <li id = "customer">2</li> 
-              <li id = "payment">3</li> 
-            </ul>
-        
-          </div>
-          <div class="row" style="margin-left:310px;font-size: 15px ;">
-           <div class="col-sm-3">Đăng Nhập</div>                  
-           <div class="col-sm-3">Địa Chỉ Giao Hàng</div> 
-           <div class="col-sm-3">Thanh Toán & Đặt Mua</div> 
-          </div>
-    </div>
-</div>
+        <!-- //MAIN NAVIGATION -->
+        <div class="page-header bks-breadcrumb" style="background-color: white;">
+            <div class="container">
+                <!-- <h1>Shipping</h1> -->
+                <div class="wrap">
+                    <ul class="list">
+                        <li id="checkLogin">1</li>
+                        <li id="customer">2</li>
+                        <li id="payment">3</li>
+                    </ul>
+
+                </div>
+                <div class="row" style="margin-left:310px;font-size: 15px ;">
+                    <div class="col-sm-3">Đăng Nhập</div>
+                    <div class="col-sm-3">Địa Chỉ Giao Hàng</div>
+                    <div class="col-sm-3">Thanh Toán & Đặt Mua</div>
+                </div>
+            </div>
+        </div>
 
         <br>
 
@@ -425,13 +424,80 @@
 
             <div class="container mb-4">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
 
                         <h5><b>1. Chọn hình thức thanh toán</b></h5>
                         <h1 *ngIf="loading">Loading...</h1>
                         <div id="paypal-button"></div>
                         <input type="number" [(ngModel)]="paymentAmount" />
 
+                    </div>
+                    <div class="col-sm-4">
+                        <div style="border-style:solid;border-width:1px;border-color:gainsboro; padding :10px;">
+                            <h5 style=" border-bottom: 1px solid gainsboro;padding-bottom: 25px;">Địa chỉ giao hàng
+                                <button style="float:right;
+                                padding-right:10px;
+                                margin-top: -10px;
+                                background-color:ghostwhite ;
+                                border-width:1px;
+                                border-color:gainsboro;
+                                height: 40px;" (click)="goToShipping()">
+                                Sửa đổi thông tin 
+                                </button>
+                            </h5>
+                            <h4><b>{{customer.name}}</b></h4>
+                            <div>
+                                <h5>{{customer.address}},{{customer.wards}},{{customer.districts}},{{customer.city}}<br>Điện thoại : {{customer.phone}}</h5>
+
+                            </div>
+                        </div>
+
+                        <div style="border-style:solid;border-width:1px;border-color:gainsboro; padding :10px; margin-top:10px;">
+                            <h5 style=" border-bottom: 1px solid gainsboro;padding-bottom: 25px;">Đơn Hàng ({{TongCount}} sản phẩm)
+                                <button style="float:right;
+                                padding-right:10px;
+                                margin-top: -10px;
+                                background-color:ghostwhite ;
+                                border-width:1px;
+                                border-color:gainsboro;
+                                height: 40px;" (click)="goToBookCart()">
+                                Sửa đổi đơn hàng
+                                </button>
+                            </h5>
+
+
+                            <h5 *ngFor="let book of CartBook">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        {{book.count}} x {{book.nameBook}}
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-3">
+                                        <span style="float:right;
+                                        padding-right:10px;">
+                                        {{book.priceBook*book.count|currency:"VND"}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </h5>
+
+                            <h5 style=" border-top: 1px solid gainsboro;">
+                                <div class="row" style="margin-top : 10px;">
+                                    <div class="col-sm-8">
+                                        Tạm tính
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-3">
+                                        <span style="float:right;
+                                        padding-right:10px;">
+                                        {{TongTien|currency:"VND"}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </h5>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
