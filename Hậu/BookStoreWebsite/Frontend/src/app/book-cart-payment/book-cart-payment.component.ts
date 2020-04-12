@@ -225,7 +225,7 @@ JsonCartBook :any
 CartBook2 = []
 createJson(CartBook:any) {
   for (var i = 0; i < this.lengthCartBook; i++) {
-     var infoCart = {name: this.customer.name, price: CartBook[i].priceBook, 
+     var infoCart = {name: CartBook[i].nameBook, price: CartBook[i].priceBook, 
       currency:"USD", quantity: CartBook[i].count };
      this.CartBook2.push(infoCart);
   }
@@ -253,7 +253,7 @@ console.log("--------->");
               "items": this.CartBook2
             },
             "amount": {
-                "currency": "USD",
+                "currency": "VND",
                 "total": this.TongTien,
                   "details": {
                     "subtotal": this.TongTien

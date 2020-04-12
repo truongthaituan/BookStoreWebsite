@@ -2,46 +2,71 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 router.post('/send', function(req, res) {
-
     var output = `
-      <p>You was buy book </p>
-      <h3>Your Info</h3>
+    <head>
+    <style>
+        table {
+         font-family: arial, sans-serif;
+          border-collapse: collapse;
+         width: 100%;
+        }
+  
+          td, th {
+           border: 1px solid #dddddd;
+            text-align: left;
+                   padding: 8px;
+              }
+  
+        tr:nth-child(even) {
+             background-color: #dddddd;
+                    }
+            </style>
+            </head>
+      <body>
+      <p>Information about your cart</p>
+      <h3>Cart Details</h3>
       <ul>  
         <li>Name : ${req.body.name}</li>
         <li>Email : ${req.body.email}</li>
         <li>Address : ${req.body.address}</li>
         <li>Phone : ${req.body.phone}</li>
-
-        </ul>  
-         <h3>List Book You Was Buy</h3>
       
-   
-    `;
+      </ul>
+      <h3></h3>
+      <table>
+      <thead>
+                                 <tr>
+                                   <th>BookImage</th>
+                                   <th>BookName</th>
+                                   <th>Quantity</th>
+                                   <th>Price</th>
+                                   <th>Sub Total</th>
+                                 </tr>
+                               </thead>
+                               <tbody>
+      `;
     var dem_i = 0;
     var dem_j = 0;
     var dem_k = 0;
     var dem_l = 0;
-    for (let i of(req.body.nameBook).split("next")) {
-        var dem_j = 0;
-        for (let j of(req.body.imgBook).split("next")) {
-            var dem_k = 0;
+    for (let i of(req.body.imgBook).split("next")) {
+        dem_j = 0;
+        for (let j of(req.body.nameBook).split("next")) {
+            dem_k = 0;
             for (let k of(req.body.count).split("next")) {
-                var dem_l = 0;
+                dem_l = 0;
                 for (let l of(req.body.price).split("next")) {
                     if (dem_i == dem_j && dem_i == dem_k && dem_i == dem_l) {
                         if (i != "") {
                             output = output + `
-               <div style="width:900px;height:150px;">
-               <img src="${j}" style="float:left;width:75px;height:125px;">
-               <div style="float:left;margin-left:10px;margin-top:-10px;">
-               <h3 >Name Of Book:${i}</h3>
-               <h3 >Price:${l}</h3> 
-               <h3 >Count:${k}</h3>
-
-                </div>
-                </div>
-              `;
-
+                            <tr>
+                            <td><img src = "${i}" style = "width: 70px;text-align: center;"/></td>
+                            <td>${j}</td>
+                            <td>${k}</td>
+                            <td>$${l}</td>
+                            <td>$${k * l}</td>
+                            </tr>
+                        `;
                         }
                     }
                     dem_l = dem_l + 1;
@@ -52,12 +77,13 @@ router.post('/send', function(req, res) {
         }
         dem_i = dem_i + 1;
     }
+    output = output + `</tbody>
+  </table>
+  <h3>Total : ${req.body.totalPrice}</h3>
+  <h3>Order date : ${req.body.orderDate}</h3>
+  </body> `;
 
-    const output2 = `
 
-   <h1>Total : ${req.body.totalPrice}</h1>
-   <h1>Order date : ${req.body.orderDate}</h1>
-  `;
 
     // create reusable transporter object using the default SMTP transport
     var transporter = nodemailer.createTransport({
@@ -81,7 +107,7 @@ router.post('/send', function(req, res) {
         to: req.body.email, // list of receivers
         subject: 'Node Contact Request', // Subject line
         text: 'Hello world?', // plain text body
-        html: output + output2 // html body
+        html: output // html body
     };
 
     // send mail with defined transport object
