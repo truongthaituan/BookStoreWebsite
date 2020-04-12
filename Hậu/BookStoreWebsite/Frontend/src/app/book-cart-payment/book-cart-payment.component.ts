@@ -124,7 +124,7 @@ export class BookCartPaymentComponent implements OnInit {
     //set user
     this.orders.customerID = this.accountSocial._id;
     //set bill
-    this.orders.totalPrice = this.TongTien;
+    this.orders.totalPrice = Math.round((this.TongTien / 23632) * 100) / 100;
     if (this.CartBook) {
       //SendMail
       this.sendMail.name = this.customer.name;
@@ -143,7 +143,7 @@ export class BookCartPaymentComponent implements OnInit {
       for (var i = 0; i < this.lengthCartBook; i++) {
 
         this.sendMail.count += this.CartBook[i].count + "next";
-        this.sendMail.price += (parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook)).toString() + "next";
+        this.sendMail.price += (Math.round((this.CartBook[i].priceBook / 23632) * 100) / 100).toString() + "next";
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
             this.sendMail.imgBook += getBook['imgBook'] + "next";
@@ -197,7 +197,7 @@ postOrder(orders: Order) {
         this.orderDetails.bookID = this.CartBook[i]._id;
         this.orderDetails.count = this.CartBook[i].count;
         this.orderDetails.orderID = orderdata['_id'];
-        this.orderDetails.price = parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook);
+        this.orderDetails.price = parseInt(this.CartBook[i].priceBook);
         //post order Detail
         this.postOrderDetail(this.orderDetails);
       }
@@ -223,14 +223,19 @@ postOrder(orders: Order) {
 //create a json for paypal
 JsonCartBook :any
 CartBook2 = []
+TongTienPayPal : any
 createJson(CartBook:any) {
+  this.TongTienPayPal=0;
   for (var i = 0; i < this.lengthCartBook; i++) {
-     var infoCart = {name: CartBook[i].nameBook, price: CartBook[i].priceBook, 
+     var infoCart = {name: CartBook[i].nameBook, price: Math.round((CartBook[i].priceBook / 23632) * 100) / 100, 
       currency:"USD", quantity: CartBook[i].count };
      this.CartBook2.push(infoCart);
+     this.TongTienPayPal +=Math.round((CartBook[i].priceBook / 23632) * 100) / 100;
+
   }
 console.log("--------->");
 console.log(this.CartBook2);
+console.log( this.TongTienPayPal);
 console.log("--------->");
 }
   title = 'app';
@@ -253,10 +258,10 @@ console.log("--------->");
               "items": this.CartBook2
             },
             "amount": {
-                "currency": "VND",
-                "total": this.TongTien,
+                "currency": "USD",
+                "total": this.TongTienPayPal,
                   "details": {
-                    "subtotal": this.TongTien
+                    "subtotal": this.TongTienPayPal
    
                   }
             },

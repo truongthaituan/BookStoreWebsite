@@ -437,6 +437,8 @@ export class BookCartCusInfoComponent implements OnInit {
   }
   ClickAddCustomer()
   {
+    this.CloseForm();
+ 
     this.CheckEmail=null;
     this.CheckPhone=false;
     
