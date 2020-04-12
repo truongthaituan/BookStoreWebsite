@@ -82,6 +82,22 @@ export class BookCartCusInfoComponent implements OnInit {
           $("#checkLogin").addClass("active");
           $("#customer").addClass("active");
         }
+        
+        $('#btnHuyBo').click(function(){
+          $('html,body').animate({
+            scrollTop: $("#infoAddress").offset().top},
+            'fast');
+        });
+        $('#addScrollUpdate').click(function(){
+          $('html,body').animate({
+            scrollTop: $("#formLocation").offset().top},
+            'fast');
+        });
+        $('#addScroll2').click(function(){
+          $('html,body').animate({
+            scrollTop: $("#formLocation").offset().top},
+            'fast');
+        });
     });
     // if (this.accountSocial) {
     //   this.email = this.accountSocial.email;
@@ -438,14 +454,13 @@ export class BookCartCusInfoComponent implements OnInit {
   ClickAddCustomer()
   {
     this.CloseForm();
- 
     this.CheckEmail=null;
     this.CheckPhone=false;
-    
     this.ShowFormEdit=true;
   }
   //#region Event Click Customer 
   ClickEditCustomer(customer: Customer) {
+    
     this.CheckEmail=true;
     this.CheckPhone=true;
     this.ShowFormEdit = true;
@@ -462,6 +477,7 @@ export class BookCartCusInfoComponent implements OnInit {
     this.getListDistricts(this.city);
     this.getListWards(this.city,this.districts);
     this.ngOnInit();
+    
   }
 
   ClickDeleteCustomer(id) {

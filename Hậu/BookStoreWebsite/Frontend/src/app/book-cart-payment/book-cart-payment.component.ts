@@ -143,7 +143,7 @@ export class BookCartPaymentComponent implements OnInit {
       for (var i = 0; i < this.lengthCartBook; i++) {
 
         this.sendMail.count += this.CartBook[i].count + "next";
-        this.sendMail.price += (this.CartBook[i].priceBook / 23632).toPrecision(3) + "next";
+        this.sendMail.price += (this.CartBook[i].priceBook / 23632).toFixed(2) + "next";
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
             this.sendMail.imgBook += getBook['imgBook'] + "next";
@@ -227,13 +227,13 @@ TongTienPayPal : any
 createJson(CartBook:any) {
   this.TongTienPayPal=0;
   for (var i = 0; i < this.lengthCartBook; i++) {
-     var infoCart = {name: CartBook[i].nameBook, price: (CartBook[i].priceBook / 23632).toPrecision(3), 
-      currency:"USD", quantity: CartBook[i].count };
+     var infoCart = {name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632).toFixed(2)), 
+      currency:"USD", quantity: CartBook[i].count};
      this.CartBook2.push(infoCart);
-     this.TongTienPayPal += CartBook[i].count*parseFloat((CartBook[i].priceBook / 23632).toPrecision(3)) ;
+     this.TongTienPayPal += CartBook[i].count*parseFloat((CartBook[i].priceBook / 23632).toFixed(2)) ;
     
   }
-  this.TongTienPayPal = this.TongTienPayPal.toPrecision(3);
+  this.TongTienPayPal = this.TongTienPayPal.toFixed(2);
 console.log("--------->");
 console.log(this.CartBook2);
 

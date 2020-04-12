@@ -434,7 +434,7 @@
 
                 <h5><b>2. Địa chỉ giao hàng</b></h5>
                 <p>Chọn địa chỉ giao hàng có sẵn bên dưới:</p>
-                <div class="row">
+                <div class="row" id="infoAddress">
 
                     <div class="col-sm-6" *ngFor="let customer of allCustomer" style="padding: 10px;">
                         <div style="border-style: dotted ;border-width:2px; padding :10px;">
@@ -448,7 +448,7 @@
                                 <div class="col-sm-12 col-md-5 ">
                                     <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="moveToPayment(customer)">Giao đến địa chỉ này</button>
                                 </div>
-                                <div class="col-sm-12  col-md-2">
+                                <div class="col-sm-12  col-md-2" id="addScrollUpdate">
                                     <button class="btn btn-block" style="padding: 10px 16px;margin-left: -20px;" (click)="ClickEditCustomer(customer)">Sửa</button>
                                 </div>
                                 <div class="col-sm-12  col-md-2">
@@ -460,36 +460,35 @@
                     </div>
 
                 </div>
-                <p>Bạn muốn giao hàng đến địa chỉ khác?<a style="color: cornflowerblue;" (click)="ClickAddCustomer()">Thêm địa chỉ giao hàng mới</a></p>
+                <p>Bạn muốn giao hàng đến địa chỉ khác?<a style="color: cornflowerblue;" (click)="ClickAddCustomer()" id="addScroll2">Thêm địa chỉ giao hàng mới</a></p>
                 <br>
-
-                <div class="row" *ngIf="ShowFormEdit">
-                    <div class="col-sm-10" style="float: center;">
-                        <div class="table-responsive">
+                <div class="row" *ngIf="ShowFormEdit" id="formLocation">
+                    <div class="col-sm-12" style="float: center;">
+                        <div class="table-responsive" style="overflow-x:hidden">
                             <table class="table table-striped" style="color: black;">
 
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}}>
+                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}} style="width:250px;height: 35px;">
                                         <span *ngIf="!CheckEmail" style="color: red;">{{statusEmailFailed}}</span>
                                         <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: rgb(135, 243, 189);"></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Họ tên</td>
-                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}}>
+                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}} style="width:250px;height: 35px;">
                                         <span *ngIf="CheckUserName" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Điện thoại </td>
-                                    <td><input type="text" name="Phone" (change)="editPhone($event)" value={{phone}} onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                    <td><input type="text" name="Phone" (change)="editPhone($event)" value={{phone}} style="width:250px;height: 35px;" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                                         <span *ngIf="CheckPhone" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tỉnh/Thành phố</td>
-                                    <td> <select name="orderby" (change)="editCity($event)" class="orderby">
+                                    <td> <select name="orderby" (change)="editCity($event)" class="orderby" style="width:250px;height: 35px;">
                                      
                                         <option  *ngIf="city!=''" value="" selected >{{city}}</option>
                                             <option *ngIf="city==''"  value="" selected >--Vui lòng chọn Tỉnh/Thành phố--</option>
@@ -500,7 +499,7 @@
                                 </tr>
                                 <tr>
                                     <td>Quận/Huyện</td>
-                                    <td> <select name="orderby" (change)="editdistricts($event)" class="orderby">
+                                    <td> <select name="orderby" (change)="editdistricts($event)" class="orderby" style="width:250px;height: 35px;">
 
                                         <option  *ngIf="districts!=''"value="" selected >{{districts}}</option>
                                         <option  *ngIf="districts==''"value="" selected >--Vui lòng chọn Quận/Huyện--</option>    
@@ -511,7 +510,7 @@
                                 </tr>
                                 <tr>
                                     <td>Phường/Xã</td>
-                                    <td> <select name="orderby" (change)="editWards($event)" class="orderby">
+                                    <td> <select name="orderby" (change)="editWards($event)" class="orderby" style="width:250px;height: 35px;">
                                         <option  *ngIf="wards!=''"value="" selected >{{wards}}</option>
                                         <option *ngIf="wards==''" value="" selected >--Vui lòng chọn Phường/Xã--</option>    
                                             <option  *ngFor="let wards of LocationWards" value={{wards}}  >{{wards}}</option>
@@ -551,7 +550,7 @@
                                     <td>
                                         <div class="col mb-2">
                                             <div class="row">
-                                                <div class="col-sm-12  col-md-6">
+                                                <div class="col-sm-12  col-md-6" id="btnHuyBo">
                                                     <button class="btn btn-block" style="padding: 10px 16px;" (click)="CloseForm()">Hủy bỏ</button>
                                                 </div>
                                                 <div class="col-sm-12 col-md-6 text-right">
