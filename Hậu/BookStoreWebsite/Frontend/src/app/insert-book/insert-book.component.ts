@@ -6,6 +6,8 @@ import { CategoryService } from '../app-services/category-service/category.servi
 import { AuthorService } from '../app-services/author-service/author.service';
 import { Category } from '../app-services/category-service/category.model';
 import { Author } from '../app-services/author-service/author.model';
+import { Seri} from '../app-services/seri-service/seri.model';
+import { SeriService } from '../app-services/seri-service/seri.service';
 declare var $:any;
 @Component({
   selector: 'app-insert-book',
@@ -19,7 +21,7 @@ export class InsertBookComponent implements OnInit {
   // countries = ['USA', 'Canada', 'Uk']
   constructor(private _router:Router,  private bookService:BookService, 
     private fb: FormBuilder,private categoryService: CategoryService, 
-    private authorService: AuthorService) {
+    private authorService: AuthorService,private seriService : SeriService) {
     $(function() {
       $(document).ready(function() {
         $("#selectCategory").change(function() {
@@ -43,6 +45,7 @@ export class InsertBookComponent implements OnInit {
     this.resetForm();
     this.getCategoryList();
     this.getAuthorList();
+    this.getSeriList();
   }
   resetForm(form?: NgForm) {
     if (form)
@@ -71,6 +74,12 @@ export class InsertBookComponent implements OnInit {
         console.log(res);
       });
     }
+    getSeriList() {
+      this.seriService.getSeriList().subscribe((res) => {
+        this.seriService.series = res as Seri[];
+        console.log(  this.seriService.series);
+      });
+      }
     cancel(){
       this._router.navigate(['/adminPage']);
     }

@@ -460,26 +460,25 @@
                                             <div class="col-sm-4">
                                                 <label>Tác Giả</label>&nbsp;
                                                 <!-- <input  class="form-control" type="text" name="donGiaMon"  placeholder="Nhập Tên Loại Sách"> -->
-                                                <div class="id_100">
-                                                    <select style="width: 250px;" name="authorID" id="selectAuthor" [(ngModel)]="bookService.book.authorID">
-                              <!-- <option ></option> -->
-                              <option *ngFor ="let author of authorService.author"
-                              value="{{author._id}}">{{author.nameAuthor}}</option>
-                            </select>
+                                                <div class="id_100" id="scrollable">
+                                                    <select name="authorID" id="selectAuthor" [(ngModel)]="bookService.book.authorID">
+                                                    <!-- <option ></option> -->
+                                                    <option *ngFor ="let author of authorService.author"
+                                                    value="{{author._id}}">{{author.nameAuthor}}</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-4">
                                                 <label>Seri</label>&nbsp;
-                                                <input class="form-control" type="text" name="seriID" #name="ngModel" [(ngModel)]="bookService.book.seriID" placeholder="Nhập Seri">
-                                                <!-- <div class="id_100">
-                          <select style="width: 250px;" name = "authorID" id = "selectAuthor"
-                           [(ngModel)]="bookService.book.authorID"> -->
+
+                                                <div class="id_100">
+                                                    <select style="width: 250px;" name="seriID" id="selectSeri" #name="ngModel" [(ngModel)]="bookService.book.seriID">
                                                 <!-- <option ></option> -->
-                                                <!-- <option *ngFor ="let author of authorService.author"
-                            value="{{author._id}}">{{author.nameAuthor}}</option>
-                          </select> -->
-                                                <!-- </div> -->
+                                                <option *ngFor ="let seri of seriService.series"
+                                                value="{{seri._id}}">{{seri.seriName}}</option>
+                                                </select>
+                                                </div>
                                             </div>
                                         </div>
 
