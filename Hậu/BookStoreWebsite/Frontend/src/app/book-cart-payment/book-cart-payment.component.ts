@@ -222,14 +222,15 @@ postOrder(orders: Order) {
 //#region paypal
 //create a json for paypal
 JsonCartBook :any
-createJson(CartBook:any){
-  this.JsonCartBook="";
+CartBook2 = []
+createJson(CartBook:any) {
   for (var i = 0; i < this.lengthCartBook; i++) {
-    this.JsonCartBook+='{"name":"'+this.customer.name+'","price":"'+CartBook[i].priceBook+'","currency":"USD","quantity":"'+CartBook[i].count+'" },'
+     var infoCart = {name: this.customer.name, price: CartBook[i].priceBook, 
+      currency:"USD", quantity: CartBook[i].count };
+     this.CartBook2.push(infoCart);
   }
 console.log("--------->");
-
-console.log(this.JsonCartBook);
+console.log(this.CartBook2);
 console.log("--------->");
 }
   title = 'app';
@@ -249,7 +250,7 @@ console.log("--------->");
           transactions: 
           [{
             "item_list": {
-              "items":[{"name":"undefined","price":"46900","currency":"USD","quantity":"2" },{"name":"undefined","price":"52500","currency":"USD","quantity":"5" },{"name":"undefined","price":"52900","currency":"USD","quantity":"3" },{"name":"undefined","price":"73500","currency":"USD","quantity":"10" },]
+              "items": this.CartBook2
             },
             "amount": {
                 "currency": "USD",
@@ -270,7 +271,7 @@ console.log("--------->");
     },
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
-        this.postOrder(this.orders);
+        this.payCheckOut();
       });
     }
   };
