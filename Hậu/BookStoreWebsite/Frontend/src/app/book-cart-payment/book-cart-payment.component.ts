@@ -116,48 +116,71 @@ export class BookCartPaymentComponent implements OnInit {
 //   //Lưu order và orderDetail
   public now: Date = new Date();
 
-//   // sendmail
-//   sendMailCartBook(sendMail: SendMail) {
-//     this._sendMail.postsendMail(sendMail).subscribe(
-//       postSendMail => {
-//         if (postSendMail == "Please check your email") {
-//           this.EmailCheck = false;
-//           console.log("SendMail False");
-//           //show alert
-//           this.alertMessage = "Thanh toán thất bại , vui lòng kiểm tra lại thông tin cá nhân trước khi thanh toán"
-//           this.alertFalse = true;
-//           setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 6000);
+  payCheckOut() {
+    //lưu order
+    //set time
+    this.now = new Date();
+    this.orders.orderDate = this.now.toString().substring(0, 24);
+    //set user
+    this.orders.customerID = this.accountSocial._id;
+    //set bill
+    this.orders.totalPrice = this.TongTien;
+    if (this.CartBook) {
+      //SendMail
+      this.sendMail.name = this.customer.name;
+      this.sendMail.address = this.customer.address+','+this.customer.wards+','+this.customer.districts+','+this.customer.city;
+      this.sendMail.email = this.customer.email;
+      this.sendMail.phone = this.customer.phone;
+      this.sendMail.orderDate = this.orders.orderDate;
+      this.sendMail.totalPrice = this.orders.totalPrice.toString();
+      this.sendMail.imgBook = "";
+      this.sendMail.nameBook = "";
+      this.sendMail.count = "";
+      this.sendMail.price = "";
 
-//         } else {
-//           console.log("SendMail Success");
-//           //show alert
-//           this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
-//           this.alertSucess = true;
-//           setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 6000);
-//           //thực hiện lưu db (order - orderDetail - customer )
-//           this.postOrder(this.orders);
-//         }
+      //khai báo độ dài cartBook
 
-//       },
-//       error => console.log(error)
-//     );
-//   }
-  
+      for (var i = 0; i < this.lengthCartBook; i++) {
 
+        this.sendMail.count += this.CartBook[i].count + "next";
+        this.sendMail.price += (parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook)).toString() + "next";
+        this._bookService.getBookById(this.CartBook[i]._id).subscribe(
+          getBook => {
+            this.sendMail.imgBook += getBook['imgBook'] + "next";
+            this.sendMail.nameBook += getBook['nameBook'] + "next";
+            //nếu chạy tới cuốn sách cuối 
+            if (this.CartBook[this.lengthCartBook - 1]._id == getBook['_id']) {
+              //sendmail -->thực hiện lưu db (order - orderDetail - customer )
+              console.log(this.sendMail);
+              this.sendMailCartBook(this.sendMail);
+            }
+          },
+          error => console.log(error)
+        );
+      }
 
-  
-  //post order Detail
-  postOrderDetail(orderDetails: OrderDetail) {
-    this._orderDetailService.postOrderDetail(orderDetails).subscribe(
-      orderDetaildata => {
-        localStorage.removeItem('CartBook');
-        this.getTotalCountAndPrice();
-        setTimeout(() => { this._router.navigate(['/']); }, 8000);
+    }
+  }
+
+  // sendmail
+  sendMailCartBook(sendMail: SendMail) {
+    this._sendMail.postsendMail(sendMail).subscribe(
+      postSendMail => {
+     
+          console.log("SendMail Success");
+          //show alert
+          this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
+          this.alertSucess = true;
+          setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 6000);
+          //thực hiện lưu db (order - orderDetail - customer )
+          this.postOrder(this.orders);
+        
 
       },
       error => console.log(error)
     );
   }
+  
 //post order
 postOrder(orders: Order) {
   orders.customerID=this.customer._id;
@@ -183,54 +206,18 @@ postOrder(orders: Order) {
     error => console.log(error)
   );
 } 
+  //post order Detail
+  postOrderDetail(orderDetails: OrderDetail) {
+    this._orderDetailService.postOrderDetail(orderDetails).subscribe(
+      orderDetaildata => {
+        localStorage.removeItem('CartBook');
+        this.getTotalCountAndPrice();
+        setTimeout(() => { this._router.navigate(['/']); }, 8000);
 
-//   payCheckOut() {
-//     //lưu order
-//     //set time
-//     this.now = new Date();
-//     this.orders.orderDate = this.now.toString().substring(0, 24);
-//     //set user
-//     this.orders.customerID = this.accountSocial._id;
-//     //set bill
-//     this.orders.totalPrice = this.TongTien;
-//     if (this.CartBook) {
-//       //SendMail
-//       this.sendMail.name = this.username;
-//       this.sendMail.address = this.address;
-//       this.sendMail.email = this.email;
-//       this.sendMail.phone = this.phone;
-//       this.sendMail.orderDate = this.orders.orderDate;
-//       this.sendMail.totalPrice = this.orders.totalPrice.toString();
-//       this.sendMail.imgBook = "";
-//       this.sendMail.nameBook = "";
-//       this.sendMail.count = "";
-//       this.sendMail.price = "";
-
-//       //khai báo độ dài cartBook
-
-//       for (var i = 0; i < this.lengthCartBook; i++) {
-
-//         this.sendMail.count += this.CartBook[i].count + "next";
-//         this.sendMail.price += (parseInt(this.CartBook[i].count) * parseInt(this.CartBook[i].priceBook)).toString() + "next";
-//         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
-//           getBook => {
-//             this.sendMail.imgBook += getBook['imgBook'] + "next";
-//             this.sendMail.nameBook += getBook['nameBook'] + "next";
-//             //nếu chạy tới cuốn sách cuối 
-//             if (this.CartBook[this.lengthCartBook - 1]._id == getBook['_id']) {
-//               //sendmail -->thực hiện lưu db (order - orderDetail - customer )
-//               console.log(this.sendMail);
-//               this.sendMailCartBook(this.sendMail);
-//             }
-//           },
-//           error => console.log(error)
-//         );
-//       }
-
-//     }
-//   }
-
-
+      },
+      error => console.log(error)
+    );
+  }
 
 //#region paypal
 //create a json for paypal
