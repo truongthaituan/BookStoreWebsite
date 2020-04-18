@@ -21,6 +21,21 @@ body.boxed-layout {
     background-position: 0 0;
     background-size: cover;
 }
+/* Button */
+.button {
+  padding: 16px 48px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bolder;  
+}
+
+.button:hover{
+  background-color: #27ae61;
+  color: white;
+}
 
 
 .page-header {

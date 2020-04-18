@@ -359,40 +359,9 @@
         color: #229955;
     }
     
-    .woocommerce div.product .woocommerce-tabs ul.tabs li {
-        background-color: #ffffff !important;
-        color: #333333 !important;
-    }
+  
     
-    .bks-cart-widget .minicart-button {
-        border-top-left-radius: 0px !important;
-        border-bottom-left-radius: 0px !important;
-        border-left: 0px;
-    }
-    
-    .bks-promo {
-        background-color: #B7A930;
-    }
-    
-    body .social-links li a .social-icon {
-        background: #24a9e2;
-        color: #ffffff;
-    }
-    
-    body .social-links li a .social-icon:hover,
-    body .social-links li a .social-icon:focus {
-        background: #1e73be;
-        color: #ffffff;
-    }
-    
-    body .social-links li .social-icon,
-    .social-icon:after {
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        border-radius: 50%;
-    }
+  
 </style>
 
 <body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
@@ -436,8 +405,20 @@
                                         <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
                                         <td>{{cartbook.nameBook}}</td>
                                         <td>{{cartbook.priceBook|currency:"VND"}}</td>
-                                        <td><input class="form-control" type="number" min="0" max="10" id="number" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                                style="text-align: center;" /></td>
+                                        
+                                        <td><div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button id="down" (click) = "minus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                                            </div>
+                                            <input class="form-control" min="1" max="10" value="1"
+                                             id="number" value="{{cartbook.count}}"
+                                              (change)="getCountUpdate($event,cartbook._id)" 
+                                              onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                            style="text-align: center;" />
+                                            <div class="input-group-btn">
+                                                <button id="up" (click) = "plus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                                            </div>
+                                        </div></td>
                                         <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
                                         <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
                                 </button> </td>

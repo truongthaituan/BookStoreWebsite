@@ -484,28 +484,23 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 text-right header-quick-links">
                         <ul id="menu" class="nav  nav-pills nav-stacked">
 
-
-                            <li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26">
-                                <button id="about" style="background-color: transparent;border-color: transparent;">Cửa Hàng</button>
-                            </li>
-                            <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
-                                <button id="login" *ngIf="statusLogin == null" (click)="moveToAccount();" style="background-color: transparent;border-color:
-                                 transparent;">Đăng Nhập / Đăng Ký</button></li>
-                            <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
-
+                            <a type="button" *ngIf="statusLogin == 'true' " (click) = "moveToProfile();" class="btn btn-link">Tài Khoản</a>
+                                <a type="button"  *ngIf="statusLogin == null" class="btn btn-link">Cửa Hàng</a>
+                                <a type="button"  *ngIf="statusLogin == null" (click)="moveToAccount();"  class="btn btn-link">Đăng Nhập / Đăng Ký</a>
+                                <!-- <button id="login" *ngIf="statusLogin == null" (click)="moveToAccount();" style="background-color: transparent;border-color:
+                                 transparent;">Đăng Nhập / Đăng Ký</button></li> -->
+                                
                                 <button id="username" *ngIf="statusLogin == 'true' " style="background-color: transparent;border-color:
-                                     transparent;color: green;">Chào Mừng {{accountSocial.username}}<img style="margin-left:10px;width: 30px;height: 30px;" src="{{accountSocial.imageUrl}}" id="imageAccountSocial" /></button>
-                                <button id="logout" *ngIf="statusLogin == 'true' " (click)="logout();" style="background-color: transparent;border-color:
-                                     transparent;">Đăng Xuất
-                                     </button>
-
+                                     transparent;color: green;" disabled>Chào Mừng {{accountSocial.username}}
+                                     <img style="margin-left:10px;width: 30px;height: 30px;" src="{{accountSocial.imageUrl}}" id="imageAccountSocial" /></button>
+                                <a id="logout" *ngIf="statusLogin == 'true' " (click)="logout();" class="btn btn-link" type="button">Đăng Xuất</a>
+                             
                                 <!-- <button id="username" *ngIf="statusLogin == 'true' && loginBy == 'loginbt' " style="background-color: transparent;border-color:
                                      transparent;color: green;">Chào Mừng {{accountUser.username}}<img style="margin-left:10px;width: 30px;height: 30px;"
                                       src={{accountUser.imageUrl}} id="imageAccountSocial" /></button>
                                 <button id="logout" *ngIf="statusLogin == 'true' && loginBy == 'loginbt'" (click)="logout();" style="background-color: transparent;border-color:
                                      transparent;">Đăng Xuất
                                      </button> -->
-                            </li>
                         </ul>
                     </div>
                 </div>

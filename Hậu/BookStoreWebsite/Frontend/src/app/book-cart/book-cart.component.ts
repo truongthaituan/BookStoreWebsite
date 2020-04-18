@@ -47,7 +47,18 @@ export class BookCartComponent implements OnInit {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
+    //   $('#up').click(function () {
+    //     if ($('#myNumber').val() < 10) {
+    //      $('#myNumber').val()(+$(this).prev().val() + 1);
+    //     }
+    // });
+    // $('#down').click(function () {
+    //     if ($('#myNumber').val() > 1) {
+    //       if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+    //     }
+    // });
     });
+    
    //#region Buộc phải có trên các component
    //get giỏ hàng
     this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
@@ -60,9 +71,29 @@ export class BookCartComponent implements OnInit {
     // Hiện ra label khi giỏ hàng rỗng
     this.CheckViewCart();
   }
-
   //#region Buộc phải có trên các component
- 
+  quantity: number = 1;
+   i = 1
+   plus(id) {
+     for(let j = 0; j < this.CartBook.length;j++){
+      if(this.CartBook[j].count < 10){
+        if (this.CartBook[j]._id == id) {
+          this.CartBook[j].count++;
+        this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
+       }
+      }
+     } 
+  }
+   minus(id) {
+    for(let j = 0; j < JSON.parse(localStorage.getItem("CartBook")).length;j++){
+      if(this.CartBook[j].count != 0){
+        if(this.CartBook[j]._id == id){
+          this.CartBook[j].count--;
+          this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
+        }
+      }
+     } 
+  }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
     if (CartBook == null) {
@@ -154,6 +185,9 @@ export class BookCartComponent implements OnInit {
         }
       }
       localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
+      this.ngOnInit();
+    }
+    else{
       this.ngOnInit();
     }
   }

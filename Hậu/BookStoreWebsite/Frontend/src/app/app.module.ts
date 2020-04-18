@@ -35,6 +35,9 @@ import { AccountProfileComponent } from './account-profile/account-profile.compo
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { BookCartCusInfoComponent } from './book-cart-cus-info/book-cart-cus-info.component';
 import { BookCartPaymentComponent } from './book-cart-payment/book-cart-payment.component';
+import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
+import { ProfileDetailEditComponent } from './profile-detail-edit/profile-detail-edit.component';
+import { ProfileChangePasswordComponent } from './profile-change-password/profile-change-password.component';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -67,7 +70,10 @@ export function provideConfig() {
     AccountProfileComponent,
     OrderHistoryComponent,
     BookCartCusInfoComponent,
-    BookCartPaymentComponent
+    BookCartPaymentComponent,
+    ProfileDetailComponent,
+    ProfileDetailEditComponent,
+    ProfileChangePasswordComponent
  
   ],
   imports: [
