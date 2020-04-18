@@ -30,7 +30,7 @@ router.post('/orders', function(req, res) {
     neworder.customerID = req.body.customerID;
     neworder.totalPrice = req.body.totalPrice;
     neworder.orderDate = req.body.orderDate;
-
+    neworder.status = "0"
     neworder.save(function(err, insertedorder) {
         if (err) {
             console.log('Err Saving order');
@@ -48,7 +48,7 @@ router.put('/orders/:id', function(req, res) {
                     customerID: req.body.customerID,
                     totalPrice: req.body.totalPrice,
                     orderDate: req.body.orderDate,
-
+                    status: req.body.status,
                 }
             }, {
                 new: true
@@ -67,7 +67,7 @@ router.delete('/orders/:id', function(req, res) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });
