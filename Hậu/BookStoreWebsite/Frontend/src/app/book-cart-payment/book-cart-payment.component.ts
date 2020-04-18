@@ -278,6 +278,7 @@ console.log("--------->");
     },
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
+        this.orders.paymentOption = "Online"; 
         this.payCheckOut();
       });
     }

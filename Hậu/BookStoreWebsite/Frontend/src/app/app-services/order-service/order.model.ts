@@ -3,5 +3,5 @@ export class Order {
     customerID: String;
     totalPrice: Number;
     orderDate: String;
-
+    paymentOption: String;
 }

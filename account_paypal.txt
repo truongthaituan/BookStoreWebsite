@@ -1,0 +1,14 @@
+Admin
+sb-cvyvv697202@business.example.com
+12345678
+
+Cus
+sb-vrf8c1402589@personal.example.com
+12345678
+
+sb-5ajyt695314@personal.example.com
+12345678
+
+sb-ubi8z695305@personal.example.com
+12345678
+
