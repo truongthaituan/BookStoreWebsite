@@ -9,4 +9,5 @@ export class SendMail{
    address : String;
    phone: String;
    orderDate: String;
+   paymentOption: String;
 }

@@ -137,6 +137,7 @@ export class BookCartPaymentComponent implements OnInit {
       this.sendMail.nameBook = "";
       this.sendMail.count = "";
       this.sendMail.price = "";
+      this.sendMail.paymentOption=this.orders.paymentOption;
 
       //khai báo độ dài cartBook
 
@@ -218,7 +219,11 @@ postOrder(orders: Order) {
       error => console.log(error)
     );
   }
-
+//pay by cash
+payByCash(){
+  this.orders.paymentOption = "Cash"; 
+  this.payCheckOut();
+}
 //#region paypal
 //create a json for paypal
 JsonCartBook :any

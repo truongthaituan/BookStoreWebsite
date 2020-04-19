@@ -63,9 +63,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                         <div class="col-sm-1">
                                                             <p>x {{orderDetail.count}}</p>
                                                         </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn-default">Re-Order</a>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,13 +89,9 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                 <div *ngFor="let cus of list_all_customer">
                                                     <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                 </div>
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-2"><span>Trạng thái</span><span>Chờ xác nhận </span></div>
-                                                <div class="col-sm-2">
-                                                    <div class="box">
-                                                        <a href="#" class="btn-default">Cancel</a>
-                                                    </div>
-                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-2"><span>Trạng thái</span><span>Đang vận chuyển</span></div>
+
                                             </div>
                                         </div>
                                         <div *ngFor="let orderDetail of list_OrderDetail">
@@ -116,9 +110,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                         <div class="col-sm-1">
                                                             <p>x {{orderDetail.count}}</p>
                                                         </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn-default">Re-Order</a>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,13 +134,9 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                 <div *ngFor="let cus of list_all_customer">
                                                     <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                 </div>
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-2"><span>Trạng thái</span><span>Chờ xác nhận </span></div>
-                                                <div class="col-sm-2">
-                                                    <div class="box">
-                                                        <a href="#" class="btn-default">Cancel</a>
-                                                    </div>
-                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-2"><span>Trạng thái</span><span>Đã giao hàng </span></div>
+
                                             </div>
                                         </div>
                                         <div *ngFor="let orderDetail of list_OrderDetail">

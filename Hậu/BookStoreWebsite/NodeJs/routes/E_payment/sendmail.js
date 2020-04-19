@@ -23,24 +23,23 @@ router.post('/send', function(req, res) {
             </style>
             </head>
       <body>
-      <p>Information about your cart</p>
-      <h3>Cart Details</h3>
+    
+      <h3>THÔNG TIN ĐƠN HÀNG BOOKSTORE</h3>
       <ul>  
-        <li>Name : ${req.body.name}</li>
+        <li>Người Đặt Hàng : ${req.body.name}</li>
         <li>Email : ${req.body.email}</li>
-        <li>Address : ${req.body.address}</li>
-        <li>Phone : ${req.body.phone}</li>
-      
+        <li>Địa Chỉ Giao Hàng : ${req.body.address}</li>
+        <li>Số Điện Thoại : ${req.body.phone}</li>        
       </ul>
       <h3></h3>
       <table>
       <thead>
                                  <tr>
-                                   <th>BookImage</th>
-                                   <th>BookName</th>
-                                   <th>Quantity</th>
-                                   <th>Price</th>
-                                   <th>Sub Total</th>
+                                   <th>Bìa sách</th>
+                                   <th>Sách</th>
+                                   <th>Số Lượng</th>
+                                   <th>Đơn Giá</th>
+                                   <th>Tổng Giá</th>
                                  </tr>
                                </thead>
                                <tbody>
@@ -77,10 +76,17 @@ router.post('/send', function(req, res) {
         }
         dem_i = dem_i + 1;
     }
+    var paymentOption = "";
+    if (req.body.paymentOption == "Online") {
+        paymentOption = "Đã Thanh Toán"
+    } else {
+        paymentOption = "Chưa Thanh Toán"
+    }
     output = output + `</tbody>
   </table>
-  <h3>Total : ${req.body.totalPrice}</h3>
-  <h3>Order date : ${req.body.orderDate}</h3>
+  <h3>Tổng Hóa Đơn : ${req.body.totalPrice}</h3>
+  <h3>Ngày Đặt Đơn Hàng : ${req.body.orderDate}</h3>` +
+        `<h3>Tình Trạng Đơn Hàng : ${paymentOption}</h3>
   </body> `;
 
 
