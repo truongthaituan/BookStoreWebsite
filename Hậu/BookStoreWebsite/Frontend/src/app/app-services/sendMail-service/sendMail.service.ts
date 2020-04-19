@@ -17,4 +17,7 @@ export class SendMailService {
     return this._http.post(this.baseURL, sendMail);
   }
 
+  postsendMailPayPal(sendMail: SendMail) {
+    return this._http.post(this.baseURL+'/PayPal', sendMail);
+  }
 }

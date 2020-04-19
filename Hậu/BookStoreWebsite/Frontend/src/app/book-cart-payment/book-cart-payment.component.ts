@@ -124,7 +124,7 @@ export class BookCartPaymentComponent implements OnInit {
     //set user
     this.orders.customerID = this.accountSocial._id;
     //set bill
-    this.orders.totalPrice = this.TongTienPayPal;
+
     if (this.CartBook) {
       //SendMail
       this.sendMail.name = this.customer.name;
@@ -132,7 +132,7 @@ export class BookCartPaymentComponent implements OnInit {
       this.sendMail.email = this.customer.email;
       this.sendMail.phone = this.customer.phone;
       this.sendMail.orderDate = this.orders.orderDate;
-      this.sendMail.totalPrice = this.orders.totalPrice.toString();
+
       this.sendMail.imgBook = "";
       this.sendMail.nameBook = "";
       this.sendMail.count = "";
@@ -144,7 +144,11 @@ export class BookCartPaymentComponent implements OnInit {
       for (var i = 0; i < this.lengthCartBook; i++) {
 
         this.sendMail.count += this.CartBook[i].count + "next";
-        this.sendMail.price += (this.CartBook[i].priceBook / 23632).toFixed(2) + "next";
+        if(this.IsPaypal){
+          this.sendMail.price += (this.CartBook[i].priceBook / 23632).toFixed(2) + "next";
+        }else{
+          this.sendMail.price += this.CartBook[i].priceBook+ "next";
+        }
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
             this.sendMail.imgBook += getBook['imgBook'] + "next";
@@ -165,6 +169,28 @@ export class BookCartPaymentComponent implements OnInit {
 
   // sendmail
   sendMailCartBook(sendMail: SendMail) {
+    if(this.IsPaypal){
+      this.sendMail.totalPrice = this.TongTienPayPal.toString();
+      this._sendMail.postsendMailPayPal(sendMail).subscribe(
+        postSendMail => {
+       
+            console.log("SendMail Success");
+            //show alert
+            this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
+            this.alertSucess = true;
+            setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 6000);
+            //thực hiện lưu db (order - orderDetail - customer )
+            this.postOrder(this.orders);
+          
+  
+        },
+        error => console.log(error)
+      );
+      
+    }else{
+    
+    this.sendMail.totalPrice = this.TongTien.toString();
+  
     this._sendMail.postsendMail(sendMail).subscribe(
       postSendMail => {
      
@@ -180,6 +206,7 @@ export class BookCartPaymentComponent implements OnInit {
       },
       error => console.log(error)
     );
+    }
   }
   
 //post order
@@ -213,7 +240,8 @@ postOrder(orders: Order) {
       orderDetaildata => {
         localStorage.removeItem('CartBook');
         this.getTotalCountAndPrice();
-        setTimeout(() => { this._router.navigate(['/']); }, 8000);
+        this.IsPaypal=false;
+        setTimeout(() => { this._router.navigate(['/']); }, 4000);
 
       },
       error => console.log(error)
@@ -229,6 +257,7 @@ payByCash(){
 JsonCartBook :any
 CartBook2 = []
 TongTienPayPal : any
+IsPaypal=false
 createJson(CartBook:any) {
   this.TongTienPayPal=0;
   for (var i = 0; i < this.lengthCartBook; i++) {
@@ -283,8 +312,10 @@ console.log("--------->");
     },
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
+        this.IsPaypal=true;
         this.orders.paymentOption = "Online"; 
         this.payCheckOut();
+        
       });
     }
   };
