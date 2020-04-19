@@ -7,14 +7,15 @@ import { HostService } from '../aHost/Host.service';
   providedIn: 'root'
 })
 export class AuthorService {
-
-  author: Author[];
+  author: Author
+  authors: Author[];
 
   constructor(private _http: HttpClient ,private _host:HostService) { }
   readonly baseURL = this._host.host()+':3000/authors';
   getAuthorList() {
     return this._http.get(this.baseURL);
   }
+
   putAuthor(author: Author) {
     return this._http.put(this.baseURL + `/${author._id}`,author);
   }

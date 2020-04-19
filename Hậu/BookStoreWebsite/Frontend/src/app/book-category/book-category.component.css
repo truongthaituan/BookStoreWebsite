@@ -15,6 +15,80 @@
 @import '../../assets/themes/bookstore/assets/css/common676a.css';
 @import '../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
+
+
+.btnFilterPrice{
+    background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:2px 90px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.btnFilterPrice:hover {
+    background-color:#5cbf2a;
+    color: #cdcdcd;
+}
+.btnFilterPrice:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+
+.myButtonCategory {
+	background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:2px 90px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.myButtonCategory:hover {
+    background-color:#5cbf2a;
+    color: #cdcdcd;
+}
+.myButtonCategory:active {
+	position:relative;
+	top:1px;
+}
+
+
+.myButton {
+	background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:2px 90px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.myButton:hover {
+    background-color:#5cbf2a;
+    color: #cdcdcd;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+        
+
 a.white-btn {
     display: inline-block;
     color: #fff;

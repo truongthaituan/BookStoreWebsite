@@ -153,7 +153,7 @@ export class BookDetailComponent implements OnInit {
   }
   getAuthorById(id: string) {
     this.authorService.getAuthorById(id).subscribe((res) => {
-      this.authorService.author = res as Author[];
+      this.authorService.author = res as Author;
       console.log(res);
     });
   }

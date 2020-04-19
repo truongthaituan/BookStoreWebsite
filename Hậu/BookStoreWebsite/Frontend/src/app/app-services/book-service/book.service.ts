@@ -28,4 +28,10 @@ export class BookService {
   getBookByCategoryId(category_id: string) {
     return this._http.get(this.baseURL +"/findbycategory"+ `/${category_id}`);
   }
+  getBookByAuthorId(author_id: string) {
+    return this._http.get(this.baseURL +"/findbyauthor"+ `/${author_id}`);
+  }
+  getBookByPrice(body: any) {
+    return this._http.post(this.baseURL +"/price", body);
+  }
 }

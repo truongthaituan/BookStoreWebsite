@@ -112,7 +112,7 @@ js-comp-ver-4.9.2 vc_responsive ">
             <div id="shop-sidebar" class="sidebar col-xs-12 col-sm-3 left">
                 <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
                     <h3 class="widget-title">Browse Books</h3>
-                    <ul class="product-categories" *ngFor = "let category of bookCategoryService.category">
+                    <ul class="product-categories" *ngFor = "let category of bookCategoryService.categories">
                         <li class="cat-item cat-item-11">
                             <a (click) = "showCategory(category._id);">{{category.nameCategory}}</a>
                         </li>

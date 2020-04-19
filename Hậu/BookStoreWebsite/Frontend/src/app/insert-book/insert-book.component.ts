@@ -65,12 +65,12 @@ export class InsertBookComponent implements OnInit {
   }
   getCategoryList() {
     this.categoryService.getCategoryList().subscribe((res) => {
-		  this.categoryService.category = res as Category[];
+		  this.categoryService.categories = res as Category[];
 		});
     }
     getAuthorList() {
       this.authorService.getAuthorList().subscribe((res) => {
-        this.authorService.author = res as Author[];
+        this.authorService.authors = res as Author[];
         console.log(res);
       });
     }

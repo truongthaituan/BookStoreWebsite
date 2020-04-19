@@ -93,5 +93,24 @@ router.get('/books/findbycategory/:category_id',function(req,res){
         else {res.json(books);}
     });
 })
-
+//get book by category
+router.get('/books/findbyauthor/:author_id',function(req,res){  
+    book.find({
+        authorID: req.params.author_id
+    })
+    .exec(function(err,books){
+        if(err) console.log("Error retrieving books");
+        else {res.json(books);}
+    });
+})
+//get book by category
+router.post('/books/price',function(req,res){  
+    book.find({
+        priceBook:  {$gte: req.body.price1 , $lte: req.body.price2 }
+    })
+    .exec(function(err,books){
+        if(err) console.log("Error retrieving books");
+        else {res.json(books);}
+    });
+})
 module.exports = router;
