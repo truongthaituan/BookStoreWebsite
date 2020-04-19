@@ -120,7 +120,7 @@ export class BookCartPaymentComponent implements OnInit {
     //lưu order
     //set time
     this.now = new Date();
-    this.orders.orderDate = this.now.toString().substring(0, 24);
+    this.orders.orderDate = this.now.toUTCString();
     //set user
     this.orders.customerID = this.accountSocial._id;
     //set bill

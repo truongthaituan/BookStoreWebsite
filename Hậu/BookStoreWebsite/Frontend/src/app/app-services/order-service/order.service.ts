@@ -28,5 +28,7 @@ export class OrderService {
   deleteOrder(_id: string) {
     return this._http.delete(this.baseURL + `/${_id}`);
   }
-
+  getOrderByUserId(_id: String){
+    return this._http.get(this.baseURL+"/findByUserID"+ `/${_id}`);
+  }
 }

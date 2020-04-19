@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const order = require('../../models/E_payment/order');
+const customer = require('../../models/B_profile/customer');
 //order
 //get all
 router.get('/orders', function(req, res) {
@@ -73,4 +74,80 @@ router.delete('/orders/:id', function(req, res) {
         }
     });
 });
+//get order by customerID
+router.get('/orders/findByCustomerID/:customerID', function(req, res) {
+    order.find({
+
+            customerID: req.params.customerID
+        })
+        .exec(function(err, orders) {
+            if (err) console.log("Error retrieving orders");
+            else { res.json(orders); }
+        });
+})
+
+//get order by customerID
+router.get('/orders/findByUserID/:userID', function(req, res) {
+
+    async function run() {
+        let arrayOrder = []
+        const data = await getAllCustomerByUserID(req.params.userID, res);
+        for (let index = 0; index < data.length; index++) {
+            console.log(data[index]._id);
+            const dataOrder = await getAllOrderByCustomerID(data[index]._id, res);
+            for (let index2 = 0; index2 < dataOrder.length; index2++) {
+                arrayOrder.push(dataOrder[index2]);
+            }
+            if (index == data.length - 1) {
+                res.json(arrayOrder.sort());
+                console.log(arrayOrder);
+            }
+        }
+    }
+    run();
+
+})
+
+async function getAllCustomerByUserID(userID, res) {
+
+    try {
+        const customerArray = await customer.find({
+            userID: userID
+        });
+        // console.log(customerArray)
+        return customerArray;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+}
+
+async function getAllOrderByCustomerID(customerID, res) {
+    try {
+        const orderArray = await order.find({
+            customerID: customerID
+        });
+        return orderArray;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+}
+
+
+// arrayOrder = []
+// for (let index = 0; index < customers.length; index++) {
+//      order.find({
+//             customerID: customers[index]._id
+//         }) 
+//         .exec(function(err, orders) {
+//             if (err) console.log("Error retrieving orders");
+//             else {
+//                 arrayOrder.push(orders[0]);
+//                 if (index == customers.length - 1) {
+//                     res.json(arrayOrder);
+//                     console.log(arrayOrder);
+//                 }
+//             }
+//         });
+// }
+
 module.exports = router;

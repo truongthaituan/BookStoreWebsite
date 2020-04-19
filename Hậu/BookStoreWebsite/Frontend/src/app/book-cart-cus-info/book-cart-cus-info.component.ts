@@ -73,6 +73,31 @@ export class BookCartCusInfoComponent implements OnInit {
   IsUpdateCustomer=false;
   ngOnInit() {
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
+    this.script_Frontend();
+    // if (this.accountSocial) {
+    //   this.email = this.accountSocial.email;
+    //   this.username = this.accountSocial.username;
+    // }
+    //get giỏ hàng
+    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
+
+    //set độ dài cartBook
+    this.cartBookLength(this.CartBook);
+    //set value giỏ hàng trên thanh head 
+    this.getTotalCountAndPrice();
+    this.getListCity();
+    //kiem tra  form
+    this.CheckEmailInvalid();
+    this.CheckUserNameInvalid();
+    this.CheckPhoneInvalid();
+
+    //get all customer
+    this.getPostPutCustomerByUserID(this.accountSocial._id);
+    this.RunCheckAllInValid();
+  
+  }
+  script_Frontend()
+  {
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
@@ -99,27 +124,6 @@ export class BookCartCusInfoComponent implements OnInit {
             'fast');
         });
     });
-    // if (this.accountSocial) {
-    //   this.email = this.accountSocial.email;
-    //   this.username = this.accountSocial.username;
-    // }
-    //get giỏ hàng
-    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
-
-    //set độ dài cartBook
-    this.cartBookLength(this.CartBook);
-    //set value giỏ hàng trên thanh head 
-    this.getTotalCountAndPrice();
-    this.getListCity();
-    //kiem tra  form
-    this.CheckEmailInvalid();
-    this.CheckUserNameInvalid();
-    this.CheckPhoneInvalid();
-
-    //get all customer
-    this.getPostPutCustomerByUserID(this.accountSocial._id);
-    this.RunCheckAllInValid();
-  
   }
   moveToPayment(customer: Customer) {
     return this._router.navigate(["/payment" + `/${customer._id}`]);
