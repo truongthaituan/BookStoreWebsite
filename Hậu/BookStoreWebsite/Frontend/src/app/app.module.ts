@@ -38,6 +38,7 @@ import { BookCartPaymentComponent } from './book-cart-payment/book-cart-payment.
 import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
 import { ProfileDetailEditComponent } from './profile-detail-edit/profile-detail-edit.component';
 import { ProfileChangePasswordComponent } from './profile-change-password/profile-change-password.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -73,7 +74,8 @@ export function provideConfig() {
     BookCartPaymentComponent,
     ProfileDetailComponent,
     ProfileDetailEditComponent,
-    ProfileChangePasswordComponent
+    ProfileChangePasswordComponent,
+    ManageOrderComponent
  
   ],
   imports: [

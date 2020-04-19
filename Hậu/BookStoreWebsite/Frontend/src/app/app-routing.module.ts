@@ -17,6 +17,7 @@ import { BookCartPaymentComponent } from './book-cart-payment/book-cart-payment.
 import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
 import { ProfileDetailEditComponent } from './profile-detail-edit/profile-detail-edit.component';
 import { ProfileChangePasswordComponent } from './profile-change-password/profile-change-password.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 
 
 const routes: Routes = [
@@ -36,7 +37,8 @@ const routes: Routes = [
   {path: 'changePassword/:id', component: ProfileChangePasswordComponent},
   {path: 'orderHistory',component: OrderHistoryComponent},
   {path: 'shipping',component:BookCartCusInfoComponent},
-  {path:'payment/:customer_id',component:BookCartPaymentComponent}
+  {path:'payment/:customer_id',component:BookCartPaymentComponent},
+  {path:'manageOrder',component:ManageOrderComponent}
 ];
 
 @NgModule({

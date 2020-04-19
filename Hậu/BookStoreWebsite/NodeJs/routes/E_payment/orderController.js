@@ -133,21 +133,5 @@ async function getAllOrderByCustomerID(customerID, res) {
 }
 
 
-// arrayOrder = []
-// for (let index = 0; index < customers.length; index++) {
-//      order.find({
-//             customerID: customers[index]._id
-//         }) 
-//         .exec(function(err, orders) {
-//             if (err) console.log("Error retrieving orders");
-//             else {
-//                 arrayOrder.push(orders[0]);
-//                 if (index == customers.length - 1) {
-//                     res.json(arrayOrder);
-//                     console.log(arrayOrder);
-//                 }
-//             }
-//         });
-// }
 
 module.exports = router;
