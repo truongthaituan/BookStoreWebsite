@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 //Send mail Cash
-router.post('/send', function(req, res) {
+router.post('/', function(req, res) {
     var output = `
     <head>
     <style>
@@ -128,7 +128,7 @@ router.post('/send', function(req, res) {
     });
 });
 //send mail PayPal
-router.post('/send/PayPal', function(req, res) {
+router.post('/PayPal', function(req, res) {
     var output = `
     <head>
     <style>

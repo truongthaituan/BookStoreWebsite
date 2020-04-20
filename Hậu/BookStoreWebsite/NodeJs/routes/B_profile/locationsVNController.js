@@ -4,7 +4,7 @@ const locationsVN = require('../../models/B_profile/locationsVN');
 const book = require('../../models/A_store/book');
 //locationsVN
 //get all
-router.get('/locations', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all locations');
     locationsVN.find({})
         .exec(function(err, locationsVns) {
@@ -17,7 +17,7 @@ router.get('/locations', function(req, res) {
 });
 
 // get all city  (get)
-router.get('/locations/cities', function(req, res) {
+router.get('/cities', function(req, res) {
     console.log('get request for all cities');
     locationsVN.distinct("city")
         .exec(function(err, locationsVns) {
@@ -29,7 +29,7 @@ router.get('/locations/cities', function(req, res) {
         });
 });
 // tra ve districts by city name (get)
-router.get('/locations/districts/:city', function(req, res) {
+router.get('/districts/:city', function(req, res) {
     console.log('get request for all cities');
     locationsVN.find({
             city: req.params.city
@@ -43,7 +43,7 @@ router.get('/locations/districts/:city', function(req, res) {
         });
 });
 // tra ve wards by districts name and city name (get)
-router.get('/locations/wards/:city/:districts', function(req, res) {
+router.get('/wards/:city/:districts', function(req, res) {
     console.log('get request for all cities');
     locationsVN.find({
             city: req.params.city,
@@ -61,7 +61,7 @@ router.get('/locations/wards/:city/:districts', function(req, res) {
 
 
 // get a person
-router.get('/locations/:locationsVNID', function(req, res) {
+router.get('/:locationsVNID', function(req, res) {
     locationsVN.findById(req.params.locationsVNID)
         .exec(function(err, locations) {
             if (err) console.log("Error retrieving locationsVN");
@@ -70,7 +70,7 @@ router.get('/locations/:locationsVNID', function(req, res) {
 })
 
 //post
-router.post('/locations', function(req, res) {
+router.post('/', function(req, res) {
     var newlocationsVN = new locationsVN();
     newlocationsVN.userID = req.body.userID;
     newlocationsVN.name = req.body.name;
@@ -92,7 +92,7 @@ router.post('/locations', function(req, res) {
 
 
 //update
-router.put('/locations/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         locationsVN.findByIdAndUpdate(req.params.id, {
                 $set: {
                     userID: req.body.userID,
@@ -119,7 +119,7 @@ router.put('/locations/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/locations/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     locationsVN.findByIdAndRemove(req.params.id, function(err, deletelocationsVN) {
         if (err) {
             res.send('err Delete');

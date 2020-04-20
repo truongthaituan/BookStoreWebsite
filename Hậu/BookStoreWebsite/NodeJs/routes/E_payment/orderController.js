@@ -4,7 +4,7 @@ const order = require('../../models/E_payment/order');
 const customer = require('../../models/B_profile/customer');
 //order
 //get all
-router.get('/orders', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all orders');
     order.find({})
         .exec(function(err, orders) {
@@ -17,7 +17,7 @@ router.get('/orders', function(req, res) {
 });
 
 // get a person
-router.get('/orders/:orderID', function(req, res) {
+router.get('/:orderID', function(req, res) {
     order.findById(req.params.orderID)
         .exec(function(err, orders) {
             if (err) console.log("Error retrieving order");
@@ -26,7 +26,7 @@ router.get('/orders/:orderID', function(req, res) {
 })
 
 //post
-router.post('/orders', function(req, res) {
+router.post('/', function(req, res) {
     var neworder = new order();
     neworder.customerID = req.body.customerID;
     neworder.totalPrice = req.body.totalPrice;
@@ -44,7 +44,7 @@ router.post('/orders', function(req, res) {
 
 
 //update
-router.put('/orders/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         order.findByIdAndUpdate(req.params.id, {
                 $set: {
                     customerID: req.body.customerID,
@@ -65,7 +65,7 @@ router.put('/orders/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/orders/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     order.findByIdAndRemove(req.params.id, function(err, deleteorder) {
         if (err) {
             res.send('err Delete');
@@ -75,7 +75,7 @@ router.delete('/orders/:id', function(req, res) {
     });
 });
 //get order by customerID
-router.get('/orders/findByCustomerID/:customerID', function(req, res) {
+router.get('/findByCustomerID/:customerID', function(req, res) {
     order.find({
 
             customerID: req.params.customerID
@@ -87,7 +87,7 @@ router.get('/orders/findByCustomerID/:customerID', function(req, res) {
 })
 
 //get order by customerID
-router.get('/orders/findByUserID/:userID', function(req, res) {
+router.get('/findByUserID/:userID', function(req, res) {
 
     async function run() {
         let arrayOrder = []

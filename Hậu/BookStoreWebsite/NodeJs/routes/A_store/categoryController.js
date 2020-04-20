@@ -3,7 +3,7 @@ const router = express.Router();
 const category = require('../../models/A_store/category');
 //category
 //get all
-router.get('/categories', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all categories');
     category.find({})
         .exec(function(err, categories) {
@@ -16,7 +16,7 @@ router.get('/categories', function(req, res) {
 });
 
 // get a person
-router.get('/categories/:categoryID', function(req, res) {
+router.get('/:categoryID', function(req, res) {
     category.findById(req.params.categoryID)
         .exec(function(err, categories) {
             if (err) console.log("Error retrieving category");
@@ -25,7 +25,7 @@ router.get('/categories/:categoryID', function(req, res) {
 })
 
 //post
-router.post('/categories', function(req, res) {
+router.post('/', function(req, res) {
     var newcategory = new category();
     newcategory.nameCategory = req.body.nameCategory;
 
@@ -40,7 +40,7 @@ router.post('/categories', function(req, res) {
 
 
 //update
-router.put('/categories/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         category.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameCategory: req.body.nameCategory,
@@ -57,12 +57,12 @@ router.put('/categories/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/categories/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     category.findByIdAndRemove(req.params.id, function(err, deletecategory) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

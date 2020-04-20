@@ -3,7 +3,7 @@ const router = express.Router();
 const promotion = require('../../models/F_event/promotion');
 //promotion
 //get all
-router.get('/promotions', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all promotions');
     promotion.find({})
         .exec(function(err, promotions) {
@@ -16,7 +16,7 @@ router.get('/promotions', function(req, res) {
 });
 
 // get a person
-router.get('/promotions/:promotionID', function(req, res) {
+router.get('/:promotionID', function(req, res) {
     promotion.findById(req.params.promotionID)
         .exec(function(err, promotions) {
             if (err) console.log("Error retrieving promotion");
@@ -25,7 +25,7 @@ router.get('/promotions/:promotionID', function(req, res) {
 })
 
 //post
-router.post('/promotions', function(req, res) {
+router.post('/', function(req, res) {
     var newpromotion = new promotion();
     newpromotion.detailPromotion = req.body.detailPromotion;
     newpromotion.discount = req.body.discount;
@@ -44,7 +44,7 @@ router.post('/promotions', function(req, res) {
 
 
 //update
-router.put('/promotions/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         promotion.findByIdAndUpdate(req.params.id, {
                 $set: {
                     detailPromotion: req.body.detailPromotion,
@@ -66,12 +66,12 @@ router.put('/promotions/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/promotions/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     promotion.findByIdAndRemove(req.params.id, function(err, deletepromotion) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

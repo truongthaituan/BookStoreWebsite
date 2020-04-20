@@ -3,7 +3,7 @@ const router = express.Router();
 const rating = require('../../models/D_action/rating');
 //rating
 //get all
-router.get('/ratings', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all ratings');
     rating.find({})
         .exec(function(err, ratings) {
@@ -16,7 +16,7 @@ router.get('/ratings', function(req, res) {
 });
 
 // get a person
-router.get('/ratings/:ratingID', function(req, res) {
+router.get('/:ratingID', function(req, res) {
     rating.findById(req.params.ratingID)
         .exec(function(err, ratings) {
             if (err) console.log("Error retrieving rating");
@@ -25,7 +25,7 @@ router.get('/ratings/:ratingID', function(req, res) {
 })
 
 //post
-router.post('/ratings', function(req, res) {
+router.post('/', function(req, res) {
     var newrating = new rating();
     newrating.bookID = req.body.bookID;
     newrating.userID = req.body.userID;
@@ -42,7 +42,7 @@ router.post('/ratings', function(req, res) {
 
 
 //update
-router.put('/ratings/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         rating.findByIdAndUpdate(req.params.id, {
                 $set: {
                     bookID: req.body.bookID,
@@ -62,22 +62,22 @@ router.put('/ratings/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/ratings/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     rating.findByIdAndRemove(req.params.id, function(err, deleterating) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });
-router.get('/ratings/findbooks/:book_id',function(req,res){
+router.get('/findbooks/:book_id', function(req, res) {
     rating.find({
-        bookID: req.params.book_id
-    })
-    .exec(function(err,ratings){
-        if(err) console.log("Error retrieving books");
-        else {res.json(ratings);}
-    });
+            bookID: req.params.book_id
+        })
+        .exec(function(err, ratings) {
+            if (err) console.log("Error retrieving books");
+            else { res.json(ratings); }
+        });
 })
 module.exports = router;

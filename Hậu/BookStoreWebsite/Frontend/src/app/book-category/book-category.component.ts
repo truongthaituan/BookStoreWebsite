@@ -84,7 +84,7 @@ export class BookCategoryComponent implements OnInit {
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
     this.getAllAuthor();
-   this.initialBookFilter();
+   //this.initialBookFilter();
   }
   initialBookFilter(){
     this.bookFilter = ({

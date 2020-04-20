@@ -3,7 +3,7 @@ const router = express.Router();
 const author = require('../../models/A_store/author');
 //author
 //get all
-router.get('/authors', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all authors');
     author.find({})
         .exec(function(err, authors) {
@@ -16,7 +16,7 @@ router.get('/authors', function(req, res) {
 });
 
 // get a person
-router.get('/authors/:authorID', function(req, res) {
+router.get('/:authorID', function(req, res) {
     author.findById(req.params.authorID)
         .exec(function(err, authors) {
             if (err) console.log("Error retrieving author");
@@ -25,7 +25,7 @@ router.get('/authors/:authorID', function(req, res) {
 })
 
 //post
-router.post('/authors', function(req, res) {
+router.post('/', function(req, res) {
     var newauthor = new author();
     newauthor.nameAuthor = req.body.nameAuthor;
 
@@ -40,7 +40,7 @@ router.post('/authors', function(req, res) {
 
 
 //update
-router.put('/authors/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         author.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameAuthor: req.body.nameAuthor
@@ -57,12 +57,12 @@ router.put('/authors/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/authors/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     author.findByIdAndRemove(req.params.id, function(err, deleteauthor) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

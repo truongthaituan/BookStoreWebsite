@@ -59,31 +59,31 @@ app.use(passport.session());
 require('./passport/passport-config');
 //app
 //A_store
-app.use('/', book);
-app.use('/', category);
-app.use('/', author);
+app.use('/books', book);
+app.use('/categories', category);
+app.use('/authors', author);
 
-app.use('/', seri);
+app.use('/series', seri);
 //B_profile
-app.use('/', customer);
-app.use('/', employee);
-app.use('/', location);
+app.use('/customers', customer);
+app.use('/employees', employee);
+app.use('/locations', location);
 //C_permission
-app.use('/', role);
-app.use('/', user);
-app.use('/', accountSocial);
+app.use('/roles', role);
+app.use('/users', user);
+app.use('/socials', accountSocial);
 //D_action
-app.use('/', comment);
-app.use('/', favorite);
-app.use('/', rating);
-app.use('/',checkEmail);
+app.use('/comments', comment);
+app.use('/favorites', favorite);
+app.use('/ratings', rating);
+app.use('/checkEmail', checkEmail);
 //E_payment
-app.use('/', order);
-app.use('/', orderDetail);
-app.use('/', sendmail);
+app.use('/orders', order);
+app.use('/orderDetails', orderDetail);
+app.use('/send', sendmail);
 //F_event
-app.use('/', discountCode);
-app.use('/', promotion);
+app.use('/discountCodes', discountCode);
+app.use('/promotions', promotion);
 //G_recommentSys
 //H_tracking
 
