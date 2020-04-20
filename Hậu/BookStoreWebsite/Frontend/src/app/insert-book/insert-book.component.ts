@@ -79,7 +79,7 @@ export class InsertBookComponent implements OnInit {
         this.seriService.series = res as Seri[];
         console.log(  this.seriService.series);
       });
-      }
+    }
     cancel(){
       this._router.navigate(['/adminPage']);
     }

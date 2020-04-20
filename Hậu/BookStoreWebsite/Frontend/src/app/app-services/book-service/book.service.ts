@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Book } from './book.model';
 import { HttpClient } from '@angular/common/http';
 import{HostService} from '../aHost/Host.service';
+import { BookFiter } from './bookfilter.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,5 +34,8 @@ export class BookService {
   }
   getBookByPrice(body: any) {
     return this._http.post(this.baseURL +"/price", body);
+  }
+  filterBook(body: any) {
+    return this._http.post(this.baseURL +"/filter", body);
   }
 }

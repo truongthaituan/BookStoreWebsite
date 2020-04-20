@@ -9,6 +9,7 @@ import { Session } from 'protractor';
 import { AuthorService } from '../app-services/author-service/author.service';
 import { Author } from '../app-services/author-service/author.model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BookFiter } from '../app-services/book-service/bookfilter.model';
 
 declare var $: any
 @Component({
@@ -22,6 +23,9 @@ export class BookCategoryComponent implements OnInit {
     price1: new FormControl(null),
     price2: new FormControl(null)
   });
+  searchForm: FormGroup = new FormGroup({
+    nameBook: new FormControl(null)
+  });
   searchText;
   searchCategory;
   pageOfItems: Array<any>;
@@ -29,6 +33,7 @@ export class BookCategoryComponent implements OnInit {
   items: any;
   collection = [];
   selectedCategory: String = "";
+  bookFilter: BookFiter = new BookFiter();
   //alert
   alertMessage = "";
   alertSucess = false;
@@ -41,11 +46,7 @@ export class BookCategoryComponent implements OnInit {
     });
     this.selectedCategory = localStorage.getItem('selectedCategory');
   }
-  // minValue2 = 1000;
-  // maxValue2 = 5000;
-  // step2 = 500;
   currentValues = [40000, 300000];
-  // currentValues2 = [2000, 4000];
   price1: number
   price2: number
   onSliderChange(selectedValues: number[]) {
@@ -54,20 +55,13 @@ export class BookCategoryComponent implements OnInit {
       $("#amount-min").val("Min : " + selectedValues[0] + "đ");
       $("#amount-max").val("Max : " + selectedValues[1] + "đ");
     });
-    console.log(this.filterPriceForm.value)
-    this.price1 = selectedValues[0];
-    this.price2 = selectedValues[1];
- 
+    console.log(this.bookFilter.price1)
+    this.bookFilter.price1 =  selectedValues[0];
+    this.bookFilter.price2 =  selectedValues[1];
+    this.filter();
   }
-  getBooksByPrice(){
-    // console.log(" 1" + this.price1 + " vaf price 2 " + this.price2)
-    this.filterPriceForm.value.price1 = this.price1;
-    this.filterPriceForm.value.price2 = this.price2;
-    this.bookService.getBookByPrice(this.filterPriceForm.value).subscribe(res => {
-      console.log(res);
-      this.books = res as Book[];
-    })
-  }
+
+
   booksCategory: []
   category_id: string;
   userGoogle: Array<Socialaccount>;
@@ -90,7 +84,16 @@ export class BookCategoryComponent implements OnInit {
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
     this.getAllAuthor();
-   
+   this.initialBookFilter();
+  }
+  initialBookFilter(){
+    this.bookFilter = ({
+      nameBook:'',
+      category_id: '',
+      author_id: '',
+      price1: null,
+      price2: null
+    })
   }
   // check count cart before add (hover )
   checkCountMax10=true;
@@ -127,12 +130,15 @@ export class BookCategoryComponent implements OnInit {
   }
 
   refreshBookList() {
+    this.bookFilter.category_id=null;
+    this.bookFilter.author_id=null;
+    this.bookFilter.price1=null;
+    this.bookFilter.price2=null;
     this.bookService.getBookList().subscribe((res) => {
       this.books = res as Book[];
       console.log(this.books);
     });
   }
-  booksFilter = []
   showCategory(id: String) {
     var category: any;
     this.bookCategoryService.getCategoryById(id).subscribe((res) => {
@@ -144,21 +150,54 @@ export class BookCategoryComponent implements OnInit {
     localStorage.setItem('book_detail', id);
   }
 
-  gettypeCategory(id) {
-    this.bookService.getBookByCategoryId(id)
-      .subscribe(resCategoryData => {
-        // console.log(resCategoryData);
-        this.books = resCategoryData as Book[];
-        console.log(this.books);
-      });
+  gettypeCategory(category_id) {
+    if(this.bookFilter.category_id == category_id){
+      this.bookFilter.category_id=null;
+    }else{
+    this.bookFilter.category_id = category_id;
+    }
+    this.filter();
   }
+
 
   getBookByAuthorId(author_id){
-    this.bookService.getBookByAuthorId(author_id).subscribe(res => {
-      this.books = res as Book[];
-    })
+    
+    if(this.bookFilter.author_id==author_id){
+      this.bookFilter.author_id=null;
+    }else{
+      this.bookFilter.author_id = author_id;
+    }
+    this.filter();
+  }
+ 
+
+  filter(){
+    this.bookService.filterBook(this.bookFilter).subscribe(res=>
+      {
+        this.books = res as Book[]
+      })
   }
 
+ change_alias(alias) {
+    var str = alias;
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str = str.replace(/đ/g,"d");
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+    str = str.replace(/ + /g," ");
+    str = str.trim(); 
+    return str;
+}
+  searchNameBook(){
+    console.log(this.searchForm.value.nameBook)
+    this.bookFilter.nameBook = this.searchForm.value.nameBook;
+    this.filter();
+  }
 
   sort() {
     if ($('.orderby option:selected').val() == 'SortByPrice') {
