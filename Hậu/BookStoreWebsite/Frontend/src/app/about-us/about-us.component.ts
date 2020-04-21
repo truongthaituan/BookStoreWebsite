@@ -9,7 +9,7 @@ declare var $:any;
 export class AboutUsComponent implements OnInit {
 
   
-  constructor(private _router:Router) { }
+  constructor(private router:Router) { }
   ngOnInit() {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
