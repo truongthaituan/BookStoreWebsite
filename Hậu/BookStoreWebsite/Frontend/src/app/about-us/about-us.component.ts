@@ -10,6 +10,7 @@ export class AboutUsComponent implements OnInit {
 
   
   constructor(private router:Router) { }
+  
   ngOnInit() {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
