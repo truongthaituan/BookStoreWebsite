@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 declare var $:any;
 @Component({
   selector: 'app-about-us',
@@ -8,7 +9,7 @@ declare var $:any;
 export class AboutUsComponent implements OnInit {
 
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   
   ngOnInit() {
