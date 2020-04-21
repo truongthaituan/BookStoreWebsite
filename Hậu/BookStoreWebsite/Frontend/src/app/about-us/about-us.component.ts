@@ -10,6 +10,7 @@ export class AboutUsComponent implements OnInit {
   
   constructor() { }
 
+  
   ngOnInit() {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
