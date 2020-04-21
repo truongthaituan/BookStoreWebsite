@@ -15,6 +15,7 @@ router.get('/', function(req, res) {
         });
 });
 
+
 // get a person
 router.get('/:favoriteID', function(req, res) {
     favorite.findById(req.params.favoriteID)
