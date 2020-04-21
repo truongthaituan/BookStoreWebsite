@@ -7,6 +7,7 @@ declare var $:any;
 })
 export class AboutUsComponent implements OnInit {
 
+  
   constructor() { }
 
   ngOnInit() {
