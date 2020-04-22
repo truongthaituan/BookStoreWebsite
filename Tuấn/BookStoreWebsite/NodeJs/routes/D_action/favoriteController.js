@@ -3,7 +3,7 @@ const router = express.Router();
 const favorite = require('../../models/D_action/favorite');
 //favorite
 //get all
-router.get('/favorites', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all favorites');
     favorite.find({})
         .exec(function(err, favorites) {
@@ -15,8 +15,11 @@ router.get('/favorites', function(req, res) {
         });
 });
 
+
+
+
 // get a person
-router.get('/favorites/:favoriteID', function(req, res) {
+router.get('/:favoriteID', function(req, res) {
     favorite.findById(req.params.favoriteID)
         .exec(function(err, favorites) {
             if (err) console.log("Error retrieving favorite");
@@ -25,7 +28,7 @@ router.get('/favorites/:favoriteID', function(req, res) {
 })
 
 //post
-router.post('/favorites', function(req, res) {
+router.post('/', function(req, res) {
     var newfavorite = new favorite();
     newfavorite.bookID = req.body.bookID;
     newfavorite.userID = req.body.userID;
@@ -41,7 +44,7 @@ router.post('/favorites', function(req, res) {
 
 
 //update
-router.put('/favorites/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         favorite.findByIdAndUpdate(req.params.id, {
                 $set: {
                     bookID: req.body.bookID,
@@ -60,12 +63,12 @@ router.put('/favorites/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/favorites/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     favorite.findByIdAndRemove(req.params.id, function(err, deletefavorite) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

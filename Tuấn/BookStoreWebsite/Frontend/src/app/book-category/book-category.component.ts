@@ -6,6 +6,10 @@ import { CategoryService } from '../app-services/category-service/category.servi
 import { Category } from '../app-services/category-service/category.model';
 import { Socialaccount } from '../app-services/socialAccount-service/socialaccount.model';
 import { Session } from 'protractor';
+import { AuthorService } from '../app-services/author-service/author.service';
+import { Author } from '../app-services/author-service/author.model';
+import { FormGroup, FormControl } from '@angular/forms';
+import { BookFiter } from '../app-services/book-service/bookfilter.model';
 
 declare var $: any
 @Component({
@@ -15,37 +19,49 @@ declare var $: any
 })
 
 export class BookCategoryComponent implements OnInit {
+  filterPriceForm: FormGroup = new FormGroup({
+    price1: new FormControl(null),
+    price2: new FormControl(null)
+  });
+  searchForm: FormGroup = new FormGroup({
+    nameBook: new FormControl(null)
+  });
   searchText;
   searchCategory;
   pageOfItems: Array<any>;
-  books: Array<Book>;
+  books: Array<Book> = new Array<Book>();
   items: any;
   collection = [];
   selectedCategory: String = "";
+  bookFilter: BookFiter = new BookFiter();
   //alert
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
-  constructor(private _router: Router, private bookService: BookService, private bookCategoryService: CategoryService) {
+  constructor(private _router: Router, private bookService: BookService,private authorService: AuthorService,
+     private bookCategoryService: CategoryService) {
 
     $(function () {
 
     });
     this.selectedCategory = localStorage.getItem('selectedCategory');
   }
-  minValue2 = 1000;
-  maxValue2 = 5000;
-  step2 = 500;
-  currentValues = [0, 0];
-  currentValues2 = [2000, 4000];
-
+  currentValues = [40000, 300000];
+  price1: number
+  price2: number
   onSliderChange(selectedValues: number[]) {
     this.currentValues = selectedValues;
     $(function () {
       $("#amount-min").val("Min : " + selectedValues[0] + "đ");
       $("#amount-max").val("Max : " + selectedValues[1] + "đ");
     });
+    console.log(this.bookFilter.price1)
+    this.bookFilter.price1 =  selectedValues[0];
+    this.bookFilter.price2 =  selectedValues[1];
+    this.filter();
   }
+
+
   booksCategory: []
   category_id: string;
   userGoogle: Array<Socialaccount>;
@@ -67,6 +83,17 @@ export class BookCategoryComponent implements OnInit {
     this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
+    this.getAllAuthor();
+   //this.initialBookFilter();
+  }
+  initialBookFilter(){
+    this.bookFilter = ({
+      nameBook:'',
+      category_id: '',
+      author_id: '',
+      price1: null,
+      price2: null
+    })
   }
   // check count cart before add (hover )
   checkCountMax10=true;
@@ -96,21 +123,26 @@ export class BookCategoryComponent implements OnInit {
   }
   refreshCategoryList() {
     this.bookCategoryService.getCategoryList().subscribe((res) => {
-      this.bookCategoryService.category = res as Category[];
+      this.bookCategoryService.categories = res as Category[];
+      this.startPageCategories = 0;
+      this.paginationLimitCategories = 5; 
     });
   }
 
   refreshBookList() {
+    this.bookFilter.category_id=null;
+    this.bookFilter.author_id=null;
+    this.bookFilter.price1=null;
+    this.bookFilter.price2=null;
     this.bookService.getBookList().subscribe((res) => {
       this.books = res as Book[];
       console.log(this.books);
     });
   }
-  booksFilter = []
   showCategory(id: String) {
     var category: any;
     this.bookCategoryService.getCategoryById(id).subscribe((res) => {
-      this.bookCategoryService.category = res as Category[];
+      this.bookCategoryService.categories = res as Category[];
       category = res;
     });
   }
@@ -118,13 +150,53 @@ export class BookCategoryComponent implements OnInit {
     localStorage.setItem('book_detail', id);
   }
 
-  gettypeCategory(id) {
-    this.bookService.getBookByCategoryId(id)
-      .subscribe(resCategoryData => {
-        // console.log(resCategoryData);
-        this.books = resCategoryData as Book[];
-        console.log(this.books);
-      });
+  gettypeCategory(category_id) {
+    if(this.bookFilter.category_id == category_id){
+      this.bookFilter.category_id=null;
+    }else{
+    this.bookFilter.category_id = category_id;
+    }
+    this.filter();
+  }
+
+
+  getBookByAuthorId(author_id){
+    
+    if(this.bookFilter.author_id==author_id){
+      this.bookFilter.author_id=null;
+    }else{
+      this.bookFilter.author_id = author_id;
+    }
+    this.filter();
+  }
+ 
+
+  filter(){
+    this.bookService.filterBook(this.bookFilter).subscribe(res=>
+      {
+        this.books = res as Book[]
+      })
+  }
+
+ change_alias(alias) {
+    var str = alias;
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str = str.replace(/đ/g,"d");
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+    str = str.replace(/ + /g," ");
+    str = str.trim(); 
+    return str;
+}
+  searchNameBook(){
+    console.log(this.searchForm.value.nameBook)
+    this.bookFilter.nameBook = this.searchForm.value.nameBook;
+    this.filter();
   }
 
   sort() {
@@ -136,7 +208,14 @@ export class BookCategoryComponent implements OnInit {
     }
   }
 
-
+  getAllAuthor() {
+    this.authorService.getAuthorList().subscribe((res) => {
+      this.authorService.authors = res as Author[];
+      this.startPage = 0;
+      this.paginationLimit = 5;
+      console.log(res);
+    });
+  }
 
   addABook = "";
   //add to cart (BookDetail,CountSelect)
@@ -226,5 +305,27 @@ export class BookCategoryComponent implements OnInit {
   // go to cart book
   goToCartBook() {
     this._router.navigate(['/cartBook']);
+  }
+
+  startPage : Number;
+  paginationLimit:Number; 
+
+  startPageCategories : Number;
+  paginationLimitCategories :Number; 
+  showMoreItems()
+  {
+     this.paginationLimit = this.authorService.authors.length;        
+  }
+  showLessItems()
+  {
+    this.paginationLimit = 5;
+  }
+  showMoreCategories()
+  {
+     this.paginationLimitCategories = this.bookCategoryService.categories.length;   
+  }
+  showLessCategories()
+  {
+    this.paginationLimitCategories = 5;
   }
 }

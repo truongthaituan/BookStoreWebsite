@@ -3,7 +3,7 @@ const router = express.Router();
 const orderDetail = require('../../models/E_payment/orderDetail');
 //orderDetail
 //get all
-router.get('/orderDetails', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all orderDetails');
     orderDetail.find({})
         .exec(function(err, orderDetails) {
@@ -16,7 +16,7 @@ router.get('/orderDetails', function(req, res) {
 });
 
 // get a person
-router.get('/orderDetails/:orderDetailID', function(req, res) {
+router.get('/:orderDetailID', function(req, res) {
     orderDetail.findById(req.params.orderDetailID)
         .exec(function(err, orderDetails) {
             if (err) console.log("Error retrieving orderDetail");
@@ -25,7 +25,7 @@ router.get('/orderDetails/:orderDetailID', function(req, res) {
 })
 
 //post
-router.post('/orderDetails', function(req, res) {
+router.post('/', function(req, res) {
     var neworderDetail = new orderDetail();
     neworderDetail.orderID = req.body.orderID;
     neworderDetail.bookID = req.body.bookID;
@@ -43,7 +43,7 @@ router.post('/orderDetails', function(req, res) {
 
 
 //update
-router.put('/orderDetails/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         orderDetail.findByIdAndUpdate(req.params.id, {
                 $set: {
                     orderID: req.body.orderID,
@@ -64,12 +64,12 @@ router.put('/orderDetails/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/orderDetails/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     orderDetail.findByIdAndRemove(req.params.id, function(err, deleteorderDetail) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

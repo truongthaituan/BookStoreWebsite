@@ -12,6 +12,12 @@ import { UpdateBookComponent } from './update-book/update-book.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { AccountProfileComponent } from './account-profile/account-profile.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
+import { BookCartCusInfoComponent } from './book-cart-cus-info/book-cart-cus-info.component';
+import { BookCartPaymentComponent } from './book-cart-payment/book-cart-payment.component';
+import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
+import { ProfileDetailEditComponent } from './profile-detail-edit/profile-detail-edit.component';
+import { ProfileChangePasswordComponent } from './profile-change-password/profile-change-password.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 
 
 const routes: Routes = [
@@ -26,7 +32,13 @@ const routes: Routes = [
   {path: 'updatePage/:id',component: UpdateBookComponent},
   {path: 'aboutUs',component: AboutUsComponent},
   {path: 'profile', component: AccountProfileComponent},
-  {path: 'orderHistory',component: OrderHistoryComponent}
+  {path: 'accountProfile', component: ProfileDetailComponent},
+  {path: 'accountProfileEdit/:id', component: ProfileDetailEditComponent},
+  {path: 'changePassword/:id', component: ProfileChangePasswordComponent},
+  {path: 'orderHistory',component: OrderHistoryComponent},
+  {path: 'shipping',component:BookCartCusInfoComponent},
+  {path:'payment/:customer_id',component:BookCartPaymentComponent},
+  {path:'manageOrder',component:ManageOrderComponent}
 ];
 
 @NgModule({

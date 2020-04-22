@@ -33,7 +33,7 @@ export class AdminPageComponent implements OnInit {
   }
   refreshCategoryList(){
     this.bookCategoryService.getCategoryList().subscribe((res) =>{
-      this.bookCategoryService.category = res as Category[];
+      this.bookCategoryService.categories = res as Category[];
     }); 
   }
   refreshBookList() {

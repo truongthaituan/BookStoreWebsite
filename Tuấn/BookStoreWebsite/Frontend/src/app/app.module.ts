@@ -33,6 +33,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FilterByPipe } from './filter-by.pipe';
 import { AccountProfileComponent } from './account-profile/account-profile.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
+import { BookCartCusInfoComponent } from './book-cart-cus-info/book-cart-cus-info.component';
+import { BookCartPaymentComponent } from './book-cart-payment/book-cart-payment.component';
+import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
+import { ProfileDetailEditComponent } from './profile-detail-edit/profile-detail-edit.component';
+import { ProfileChangePasswordComponent } from './profile-change-password/profile-change-password.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -63,7 +69,13 @@ export function provideConfig() {
     JwPaginationComponent,
     FilterByPipe,
     AccountProfileComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    BookCartCusInfoComponent,
+    BookCartPaymentComponent,
+    ProfileDetailComponent,
+    ProfileDetailEditComponent,
+    ProfileChangePasswordComponent,
+    ManageOrderComponent
  
   ],
   imports: [
@@ -77,7 +89,7 @@ export function provideConfig() {
     NgxPaginationModule,
     NpnSliderModule,
     SocialLoginModule,
-    Ng2SearchPipeModule 
+    Ng2SearchPipeModule
   ],
   providers: [UserService,
     {

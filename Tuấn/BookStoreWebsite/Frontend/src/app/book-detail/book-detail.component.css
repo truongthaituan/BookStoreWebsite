@@ -9,6 +9,13 @@
 @import '../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+.form-group {
+    width: 30%;
+    margin: 30px;
+  }
+  .form-group .glyphicon {
+    color: #95d7fc;
+  }
 div#successReview {
     color: green;
     background-color: rgb(50, 200, 50, .5);

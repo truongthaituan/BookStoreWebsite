@@ -6,12 +6,8 @@ js-comp-ver-4.9.2 vc_responsive ">
         <!-- //MAIN NAVIGATION -->
         <div class="product-header bks-breadcrumb">
             <div class="container">
-                <h1>Personal Finance</h1>
-                <ul class="breadcrumb clearfix">
-                    <li class="item-home"><a class="bread-link bread-home" href="http://wp.acmeedesign.com/bookstore" title="Home">Home</a></li>
-                    <li class="item-cat item-custom-post-type-product"><a class="bread-cat bread-custom-post-type-product" href="../../shop/index.html" title="Products">Products</a></li>
-                    <li class="item-current item-archive"><strong class="bread-current bread-archive">Personal Finance</strong></li>
-                </ul>
+                <h1>Book Store</h1>
+              
             </div>
         </div>
         <div class="container padding-40-v">
@@ -21,10 +17,9 @@ js-comp-ver-4.9.2 vc_responsive ">
 
                         <div class="before-shop-loop">
                             <p class="woocommerce-result-count">
-                                Showing all 5 results</p>
-                            <form class="woocommerce-ordering" method="get">
+                                Chọn lọc sắp xếp</p>
                                 <select name="orderby" class="orderby">
-					<option value="menu_order" selected='selected'>Default sorting</option>
+					<option value="menu_order" selected='selected'>Sắp xếp</option>
 					<option value="SortByPrice" >Sắp xếp theo giá tiền</option>
 					<option value="rating" >Sort by average rating</option>
 					<option value="date" >Sort by newness</option>
@@ -32,19 +27,20 @@ js-comp-ver-4.9.2 vc_responsive ">
 					<option value="price-desc" >Sort by price: high to low</option>
                     </select>
                                 <nav class="gridlist-toggle">
-                                    <a (click)="sort();"><span class="fa fa-search"></span> <em>Grid view</em></a>
+                                    <a (click)="sort();"><span class="fa fa-filter"></span> <em>Filter</em></a>
                                 </nav>
-                            </form>
-
+                          
                             <nav class="gridlist-toggle">
-                                <input placeholder="Search sách theo tên sách" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" style="border-color: lightslategrey;height: 30px;
-                                 font-style: italic; width: 350px;" id="category_id">
-                                <!-- <input type="text" 
-                                  [(ngModel)]="searchText" autocomplete="off" id = "category_id"> -->
-                                <!-- <a href="#" id="searchBook" title="Tra Cứu Sách">
-                                    <span class="fa fa-search"></span></a> -->
-                                <a href="#" id="grid" title="Grid view"><span class="fa fa-th-large"></span> <em>Grid view</em></a>
+                                <form method="post" [formGroup]="searchForm">
+                        <input placeholder="Search sách theo tên sách" type="text" formControlName="nameBook"  name="nameBook" class="nameBook"
+                                 style="border-color: lightslategrey;height: 30px;
+                                 font-style: italic; width: 350px;" id="nameBook">
+                                <a type="submit" (click) = "searchNameBook();" id="grid" title="Search">
+                                    <span class="fa fa-search"></span> <em>Search</em></a>
+                                </form>
                             </nav>
+                       
+
                         </div>
 
                         <div class="products clearfix" id="categorySach">
@@ -52,7 +48,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple"
-                                      *ngFor="let item of books | filter: searchText | paginate: { itemsPerPage: 6,currentPage: p }">
+                                      *ngFor="let item of books | paginate: { itemsPerPage: 6,currentPage: p }">
                                 <div class="product-wrap">
                                     <div class="product-image">
                                         <div class="catalog-image">
@@ -113,70 +109,68 @@ js-comp-ver-4.9.2 vc_responsive ">
             <!-- main app container -->
             <div id="shop-sidebar" class="sidebar col-xs-12 col-sm-3 left">
                 <div id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
-                    <h3 class="widget-title">Filter by price</h3>
+                    <h3 class="widget-title">Giá</h3>
+                    <!-- <form method="post" [formGroup]="filterPriceForm"> -->
                     <div id="price-slider">
                         <p>
-                            <label for="amount">Price range :</label>
-                            <input type="text" id="amount-min" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11.5px;">
-                            <input type="text" id="amount-max" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11.5px;">
+                            <label for="amount">Khoảng giá từ :</label>
+                            <input type="text" id="amount-min" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11px;">
+                            <input type="text" id="amount-max"    readonly style="border:0; color:#808080; font-weight:bold;font-size: 11px;">
                         </p>
-                        <npn-slider [min]="1000" [max]="5000" [minSelected]="2000" [maxSelected]="4000" [step]="500" [showStepIndicator]="true" (onChange)="onSliderChange($event)">
+                        <npn-slider [min]="10000" [max]="500000" [minSelected]="40000" [maxSelected]="300000" [step]="10000" [showStepIndicator]="true" (onChange)="onSliderChange($event)">
                         </npn-slider>
-                        <!-- <p>Selected Values: {{currentValues | json}}</p> -->
                     </div>
+                    <!-- <a class="btnFilterPrice" type="submit" (click)="getBooksByPrice()">
+                        Lọc theo giá
+                    </a> -->
+                    <!-- </form> -->
                 </div>
-                <style>
-                    #price-slider {
-                        width: 300px;
-                        height: 80px;
-                        font-size: 14px;
-                    }
-                    
-                    #price-slider input {
-                        width: 90px;
-                        display: inline-block;
-                        font-size: 12px;
-                    }
-                    
-                    #slider-range {
-                        position: relative;
-                        margin: auto;
-                        width: 250px;
-                        height: 13px;
-                        border: solid 1px black;
-                    }
-                    
-                    #slider-range .ui-slider-handle {
-                        position: absolute;
-                        width: 15px;
-                        height: 5px;
-                        margin-top: 2px;
-                        border: solid 1px black;
-                        cursor: pointer;
-                    }
-                    
-                    #slider-range .ui-slider-range {
-                        background: blue;
-                    }
-                    
-                    #slider-range .ui-corner-all {
-                        border-radius: 0px;
-                    }
-                </style>
+
 
                 <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
-                    <h3 class="widget-title">Browse Books</h3>
+                    <h3 class="widget-title">Loại Sách</h3>
                     <ul class="product-categories">
                         <li class="cat-item cat-item-11">
                             <a (click)="refreshBookList();">Tất Cả Sách</a>
                         </li>
                     </ul>
-                    <ul class="product-categories" *ngFor="let category of bookCategoryService.category">
-                        <li class="cat-item cat-item-11">
+                    <ul class="product-categories" *ngFor="let category of bookCategoryService.categories
+                     | slice: startPageCategories:paginationLimitCategories;">
+                        <li  *ngIf="category._id==bookFilter.category_id" class="cat-item cat-item-11">
+                            <a  style="background-color: red;" (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
+                        </li>
+                        <li  *ngIf="category._id!=bookFilter.category_id" class="cat-item cat-item-11">
                             <a (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
                         </li>
                     </ul>
+                    <a class="myButtonCategory" *ngIf ="paginationLimitCategories <  bookCategoryService.categories?.length" (click)="showMoreCategories()">
+                        Xem Thêm
+                    </a>
+                       <a class="myButtonCategory" *ngIf ="paginationLimitCategories ==  bookCategoryService.categories?.length" (click)="showLessCategories()">
+                        Thu Gọn
+                       </a>   
                 </div>
+
+                <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
+                    <h3 class="widget-title">Tác Giả</h3>
+                    <ul class="product-categories" *ngFor="let author of authorService.authors | slice: startPage:paginationLimit;">
+                        <li *ngIf="bookFilter.author_id==author._id" class="cat-item cat-item-11">
+                            <a  style="background-color: red;"(click)="getBookByAuthorId(author._id);">{{author.nameAuthor}}</a>
+                        </li>
+                        <li *ngIf="bookFilter.author_id!=author._id" class="cat-item cat-item-11">
+                            <a (click)="getBookByAuthorId(author._id);">{{author.nameAuthor}}</a>
+                        </li>
+                    </ul>
+                    <a class="myButton" *ngIf ="paginationLimit < authorService.authors?.length" (click)="showMoreItems()">
+                        Xem Thêm
+                    </a>
+                       <a class="myButton" *ngIf ="paginationLimit == authorService.authors?.length" (click)="showLessItems()">
+                        Thu Gọn
+                       </a>   
+                                
+                </div>
+
+               
             </div>
         </div>
 
@@ -238,3 +232,41 @@ js-comp-ver-4.9.2 vc_responsive ">
         </div>
     </div>
 </body>
+<style>
+    #price-slider {
+        width: 300px;
+        height: 80px;
+        font-size: 14px;
+    }
+    
+    #price-slider input {
+        width: 90px;
+        display: inline-block;
+        font-size: 12px;
+    }
+    
+    #slider-range {
+        position: relative;
+        margin: auto;
+        width: 250px;
+        height: 13px;
+        border: solid 1px black;
+    }
+    
+    #slider-range .ui-slider-handle {
+        position: absolute;
+        width: 15px;
+        height: 5px;
+        margin-top: 2px;
+        border: solid 1px black;
+        cursor: pointer;
+    }
+    
+    #slider-range .ui-slider-range {
+        background: blue;
+    }
+    
+    #slider-range .ui-corner-all {
+        border-radius: 0px;
+    }
+</style>

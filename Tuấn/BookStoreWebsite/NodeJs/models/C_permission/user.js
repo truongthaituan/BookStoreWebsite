@@ -20,6 +20,7 @@ UserSchema.pre('save', function(next) {
         user.password = hash;
         next();
     });
+    
 });
 // method to compare a given password with the database hash 
 UserSchema.methods.comparePassword = function(password) {

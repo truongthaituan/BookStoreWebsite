@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 declare var $:any;
 @Component({
   selector: 'app-about-us',
@@ -7,8 +8,9 @@ declare var $:any;
 })
 export class AboutUsComponent implements OnInit {
 
-  constructor() { }
-
+  
+  constructor(private router:Router) { }
+  
   ngOnInit() {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);

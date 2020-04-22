@@ -12,7 +12,18 @@
     font-weight: bold;
     font-size: 150%;
 }
-
+.product {
+    width: 30%;
+    margin: 30px;
+  }
+  
+  .form-group {
+    width: 30%;
+    margin: 30px;
+  }
+  .form-group .glyphicon {
+    color: #95d7fc;
+  }
 .category_block li:hover {
     background-color: #007bff;
 }
