@@ -11,7 +11,7 @@ export class UserService {
   selectedUser: User;
 
   constructor(private _http: HttpClient ,private _host:HostService) { }
-  readonly baseURL = this._host.host()+':3000';
+  readonly baseURL = this._host.host()+':3000/users';
   users: User[]
   register(body:any){
     return this._http.post(this.baseURL +'/signup',body,{
@@ -44,21 +44,21 @@ export class UserService {
     });
   }
   getAllUsers(){
-    return this._http.get(this.baseURL+"/users");
+    return this._http.get(this.baseURL);
   }
   getUserByEmail(email: string){
-    return this._http.get(this.baseURL+"/users/email/"+email);
+    return this._http.get(this.baseURL+"/email/"+email);
   }
   getUserById(id: string){
-    return this._http.get(this.baseURL+"/users/" + id);
+    return this._http.get(this.baseURL+"/" + id);
   }
   updateUser(user: User){
-    return this._http.put(this.baseURL+"/users"+ `/${user._id}`, user);
+    return this._http.put(this.baseURL+ `/${user._id}`, user);
   }
   deleteUser(userId: string) {
-    return this._http.delete(this.baseURL+"/users" + `/${userId}`).pipe(map(data => data))
+    return this._http.delete(this.baseURL + `/${userId}`).pipe(map(data => data))
   }
   changePassword(body: any) {
-    return this._http.put(this.baseURL+"/users/changePassword" + `/${body.email}`, body).pipe(map(data => data),)
+    return this._http.put(this.baseURL+"/changePassword" + `/${body.email}`, body).pipe(map(data => data),)
   }
 }

@@ -52,6 +52,11 @@ export class AppComponent  {
 
     return this._router.navigate(['/']);
   }
+  
+  moveToProfile(){
+    return this._router.navigate(['/profile']);
+  }
+  logo
   moveToCart(){
     return this._router.navigate(['/cartBook']);
   }

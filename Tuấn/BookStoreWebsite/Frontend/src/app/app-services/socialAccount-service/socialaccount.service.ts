@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socialaccount } from './socialaccount.model';
 import { HttpClient } from '@angular/common/http';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,10 @@ import { HttpClient } from '@angular/common/http';
 export class SocialaccountService {
   accountSocials: Socialaccount[];
   socialAccount: Socialaccount;
-  readonly baseURL = 'http://localhost:3000';
-  constructor(private _http: HttpClient) { }
+
+
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000';
   loginFacebook(facebook_id: String) {
     return this._http.post(this.baseURL + "/social/facebook",{
       facebook_id: facebook_id

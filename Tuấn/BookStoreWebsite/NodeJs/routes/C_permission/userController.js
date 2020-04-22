@@ -7,7 +7,7 @@ var jwt = require('jsonwebtoken');
 var superSecret = 'toihocmean';
 //user
 //get all
-router.get('/users', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all users');
     user.find({})
         .exec(function(err, users) {
@@ -20,7 +20,7 @@ router.get('/users', function(req, res) {
 });
 
 // get a person
-router.get('/users/:userID', function(req, res) {
+router.get('/:userID', function(req, res) {
     user.findById(req.params.userID)
         .exec(function(err, users) {
             if (err) console.log("Error retrieving user");
@@ -28,13 +28,23 @@ router.get('/users/:userID', function(req, res) {
         });
 })
 
-//register
+// get a person by username
+router.get('/email/:email', function(req, res) {
+        user.find({
+                email: req.params.email
+            })
+            .exec(function(err, users) {
+                if (err) console.log("Error retrieving user");
+                else res.json(users);
+            });
+    })
+    //register
 router.post('/signup', function(req, res) {
     var newuser = new user();
     newuser.email = req.body.email;
     newuser.password = req.body.password;
     newuser.username = req.body.username;
-    newuser.imageUrl = "https://png.pngtree.com/png-clipart/20190520/original/pngtree-vector-users-icon-png-image_4144740.jpg";
+    newuser.imageUrl = "https://nulm.gov.in/images/user.png";
     newuser.role = "CUSTOMER";
     newuser.save(function(err, inserteduser) {
         if (err) {
@@ -46,28 +56,68 @@ router.post('/signup', function(req, res) {
 });
 
 //update
-router.put('/users/:id', function(req, res) {
-        user.findByIdAndUpdate(req.params.id, {
-                $set: {
-                    email: req.body.email,
-                    password: req.body.password,
-                    username: req.body.username,
-                    imageUrl: req.body.imageUrl,
-                    role: "CUSTOMER"
-                }
-            }, {
-                new: true
-            },
-            function(err, updateduser) {
-                if (err) {
-                    res.send("err Update");
-                } else {
-                    res.json(updateduser);
-                }
-            })
-    })
-    //delete
-router.delete('/users/:id', function(req, res) {
+router.put('/:id', function(req, res) {
+    user.findByIdAndUpdate(req.params.id, {
+            $set: {
+                email: req.body.email,
+                password: req.body.password,
+                username: req.body.username,
+                imageUrl: req.body.imageUrl,
+                role: "CUSTOMER"
+            }
+        }, {
+            new: true
+        },
+        function(err, updateduser) {
+            if (err) {
+                res.send("err Update");
+            } else {
+                res.json(updateduser);
+            }
+        })
+})
+
+//changePassword
+router.put('/changePassword/:email', function(req, res) {
+    user.findOne({ email: req.body.email }).select('email username password').exec(function(err, user) {
+        if (err) return res.send(err);
+        // set the new user information if it exists in the request 
+        if (req.body.email) user.email = req.body.email;
+        if (req.body.username) user.username = req.body.username;
+        if (req.body.imageUrl) user.imageUrl = req.body.imageUrl;
+        if (req.body.role) user.role = req.body.role;
+        // if(req.body.newPassword) user.password = req.body.newPassword;
+        console.log(req.body.currentPassword)
+            // if(!user.comparePassword(req.body.currentPassword)){
+            //     res.json({  success: false, message: 'Password was wrong!'});
+            // } 
+        if (!user.comparePassword(req.body.currentPassword)) {
+            res.send({
+                status: false,
+                message: "Password was wrong!",
+                obj: null,
+                token: null
+            });
+        } else {
+            if (req.body.newPassword) user.password = req.body.newPassword;
+            // save the user
+            user.save(function(err, user) {
+                if (err) return res.send(err);
+                // return a message
+                res.send({
+                    status: true,
+                    message: "Change Password Successfully!",
+                    obj: user,
+                    token: null
+                });
+            });
+        }
+    });
+});
+
+
+//delete
+router.delete('/:id', function(req, res) {
     user.findByIdAndRemove(req.params.id, function(err, deleteuser) {
         if (err) {
             res.send('err Delete');
@@ -76,7 +126,7 @@ router.delete('/users/:id', function(req, res) {
         }
     });
 });
-router.get('/users', isLoggedIn, function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
     return res.status(200).json(req.user);
 });
 

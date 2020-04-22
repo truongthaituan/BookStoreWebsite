@@ -359,40 +359,9 @@
         color: #229955;
     }
     
-    .woocommerce div.product .woocommerce-tabs ul.tabs li {
-        background-color: #ffffff !important;
-        color: #333333 !important;
-    }
+  
     
-    .bks-cart-widget .minicart-button {
-        border-top-left-radius: 0px !important;
-        border-bottom-left-radius: 0px !important;
-        border-left: 0px;
-    }
-    
-    .bks-promo {
-        background-color: #B7A930;
-    }
-    
-    body .social-links li a .social-icon {
-        background: #24a9e2;
-        color: #ffffff;
-    }
-    
-    body .social-links li a .social-icon:hover,
-    body .social-links li a .social-icon:focus {
-        background: #1e73be;
-        color: #ffffff;
-    }
-    
-    body .social-links li .social-icon,
-    .social-icon:after {
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        border-radius: 50%;
-    }
+  
 </style>
 
 <body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
@@ -417,7 +386,7 @@
                         <b style="top:15px;position: relative;">Giỏ hàng của bạn đang trống </b></div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-sm-12">
                         <div class="table-responsive">
                             <table class="table table-striped" style="color: black;">
                                 <thead>
@@ -436,13 +405,25 @@
                                         <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
                                         <td>{{cartbook.nameBook}}</td>
                                         <td>{{cartbook.priceBook|currency:"VND"}}</td>
-                                        <td><input class="form-control" type="number" min="0" max="10" id="number" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                                style="text-align: center;" /></td>
+                                        
+                                        <td><div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button id="down" (click) = "minus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                                            </div>
+                                            <input class="form-control" min="1" max="10" value="1"
+                                             id="number" value="{{cartbook.count}}"
+                                              (change)="getCountUpdate($event,cartbook._id)" 
+                                              onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                            style="text-align: center;" />
+                                            <div class="input-group-btn">
+                                                <button id="up" (click) = "plus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                                            </div>
+                                        </div></td>
                                         <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
                                         <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
                                 </button> </td>
-                                        <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
-                                </button> </td>
+                                        <!-- <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
+                                </button> </td> -->
 
                                     </tr>
 
@@ -480,11 +461,11 @@
                     <div class="col mb-2">
                         <div class="row">
                             <div class="col-sm-12  col-md-6">
-                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" (click)="goToBookCategory()">Continue Shopping</button>
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" (click)="goToBookCategory()">Tiếp tục mua hàng</button>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkoutWhenNull()">Checkout</button>
-                                <button *ngIf="!checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#cartModal" type="button" (click)="checkout()">Checkout</button>
+                                <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkoutWhenNull()">Tiến hành đặt hàng</button>
+                                <button *ngIf="!checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="goToShipping()">Tiến hành đặt hàng</button>
                             </div>
 
                         </div>
@@ -512,88 +493,5 @@
 
 
 
-    <!--modal checkout-->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
-        <div class="modal-dialog modal-lg modal-dialog-centered " role="document ">
-            <div class="modal-content ">
-                <div class="modal-header border-bottom-0 ">
-                    <h5 class="modal-title " id="exampleModalLabel " style="font-size: 2rem; ">
-                        Your Shopping Cart
-                    </h5>
-                    <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
-                <span aria-hidden="true ">&times;</span>
-              </button>
-                </div>
-                <div class="row">
-                    <div class="col-sm-8" id="scroll">
-                        <div class="modal-body ">
-                            <table class="table table-image ">
-                                <thead>
-                                    <tr style="font-size: 2rem;">
-                                        <th scope="col "></th>
-                                        <th scope="col ">Book Name</th>
-                                        <th scope="col ">Price</th>
-                                        <th scope="col ">Count</th>
-                                        <th scope="col ">Total</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody *ngFor="let cartbook of CartBook">
-                                    <tr>
-                                        <td class="w-25 ">
-                                            <img src={{cartbook.imgBook}} alt="Sheep ">
-                                        </td>
-                                        <td>{{cartbook.nameBook}}</td>
-                                        <td>{{cartbook.priceBook |currency:"VND"}}</td>
-                                        <td>{{cartbook.count}}</td>
-                                        <td>{{cartbook.priceBook*cartbook.count |currency:"VND"}}</td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <div class="d-flex justify-content-end ">
-                                <h5 style="float:right;font-size: 4rem;margin-top: -1rem; ">Total: <span class="price text-success ">{{TongTien |currency:"VND"}}</span></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-left :68%;position: absolute;height:400px;width:1px;background-color:#EEE5E5;"></div>
-                    <div class="col-sm-4">
-                        <div class="modal-footer border-top-0 d-flex justify-content-between">
-
-                            <div style="padding-bottom: 30px;">
-                                <h3 style="font-weight:bold;margin-top: 15px; ">Your profile</h3>
-                                <table id="profile">
-                                    <tr>
-                                        <th>Email</th>
-                                        <!-- <td>{{accountSocial.email}}</td>
-                                         -->
-                                        <td><input type="text" name="Email" (change)="editEmail($event)" placeholder={{email}}></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Name</th>
-                                        <!-- <td>{{accountSocial.username}}</td> -->
-                                        <td><input type="text" name="Name" (change)="editUserName($event)" placeholder={{username}}></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Address</th>
-                                        <td><input type="text" name="Address" (change)="editAddress($event)" placeholder={{address}}></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Phone</th>
-                                        <td><input type="text" name="Phone" (change)="editPhone($event)" placeholder={{phone}}></td>
-                                    </tr>
-                                </table>
-
-                            </div>
-                            <button type="button " class="btn btn-secondary " data-dismiss="modal">Close</button>
-                            <button type="button " class="btn btn-success " (click)=payCheckOut() data-dismiss="modal">Checkout</button>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
 </body>

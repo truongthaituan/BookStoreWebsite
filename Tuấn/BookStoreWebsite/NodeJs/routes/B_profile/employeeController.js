@@ -3,7 +3,7 @@ const router = express.Router();
 const employee = require('../../models/B_profile/employee');
 //employee
 //get all
-router.get('/employees', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all employees');
     employee.find({})
         .exec(function(err, employees) {
@@ -16,7 +16,7 @@ router.get('/employees', function(req, res) {
 });
 
 // get a person
-router.get('/employees/:employeeID', function(req, res) {
+router.get('/:employeeID', function(req, res) {
     employee.findById(req.params.employeeID)
         .exec(function(err, employees) {
             if (err) console.log("Error retrieving employee");
@@ -25,7 +25,7 @@ router.get('/employees/:employeeID', function(req, res) {
 })
 
 //post
-router.post('/employees', function(req, res) {
+router.post('/', function(req, res) {
     var newemployee = new employee();
     newemployee.userID = req.body.userID;
     newemployee.nameEmp = req.body.nameEmp;
@@ -46,7 +46,7 @@ router.post('/employees', function(req, res) {
 
 
 //update
-router.put('/employees/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         employee.findByIdAndUpdate(req.params.id, {
                 $set: {
                     userID: req.body.userID,
@@ -70,12 +70,12 @@ router.put('/employees/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/employees/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     employee.findByIdAndRemove(req.params.id, function(err, deleteemployee) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

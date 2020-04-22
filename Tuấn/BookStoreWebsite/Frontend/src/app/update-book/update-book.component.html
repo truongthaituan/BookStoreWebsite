@@ -440,7 +440,7 @@
                                                 <div class="id_100" style="width: 250px;padding-left:0px;">
                                                     <select name="categoryID" id="selectCategory" [(ngModel)]="bookService.book.categoryID">
                               <!-- <option ></option> -->
-                              <option *ngFor ="let category of categoryService.category"
+                              <option *ngFor ="let category of categoryService.categories"
                               value="{{category._id}}">{{category.nameCategory}}</option>
                             </select>
                                                 </div>

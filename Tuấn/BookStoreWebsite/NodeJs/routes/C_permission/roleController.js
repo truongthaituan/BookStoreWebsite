@@ -3,7 +3,7 @@ const router = express.Router();
 const role = require('../../models/C_permission/role');
 //role
 //get all
-router.get('/roles', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all roles');
     role.find({})
         .exec(function(err, roles) {
@@ -16,7 +16,7 @@ router.get('/roles', function(req, res) {
 });
 
 // get a person
-router.get('/roles/:roleID', function(req, res) {
+router.get('/:roleID', function(req, res) {
     role.findById(req.params.roleID)
         .exec(function(err, roles) {
             if (err) console.log("Error retrieving role");
@@ -25,7 +25,7 @@ router.get('/roles/:roleID', function(req, res) {
 })
 
 //post
-router.post('/roles', function(req, res) {
+router.post('/', function(req, res) {
     var newrole = new role();
     newrole.nameRole = req.body.nameRole;
 
@@ -40,7 +40,7 @@ router.post('/roles', function(req, res) {
 
 
 //update
-router.put('/roles/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         role.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameRole: req.body.nameRole,
@@ -58,12 +58,12 @@ router.put('/roles/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/roles/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     role.findByIdAndRemove(req.params.id, function(err, deleterole) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

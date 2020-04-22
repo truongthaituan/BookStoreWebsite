@@ -3,5 +3,6 @@ export class Order {
     customerID: String;
     totalPrice: Number;
     orderDate: String;
-
+    status:String;
+    paymentOption: String;
 }

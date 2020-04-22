@@ -5,7 +5,7 @@ const book = require('../../models/A_store/book');
 
 //book
 //get all
-router.get('/books', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all books');
     book.find({})
         .exec(function(err, books) {
@@ -19,7 +19,7 @@ router.get('/books', function(req, res) {
 
 
 // get a person
-router.get('/books/:bookID', function(req, res) {
+router.get('/:bookID', function(req, res) {
     book.findById(req.params.bookID)
         .exec(function(err, books) {
             if (err) console.log("Error retrieving book");
@@ -29,7 +29,7 @@ router.get('/books/:bookID', function(req, res) {
 
 
 //post
-router.post('/books', function(req, res) {
+router.post('/', function(req, res) {
     var newbook = new book();
     newbook.nameBook = req.body.nameBook;
     newbook.categoryID = req.body.categoryID;
@@ -50,7 +50,7 @@ router.post('/books', function(req, res) {
 
 
 //update
-router.put('/books/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         book.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameBook: req.body.nameBook,
@@ -74,24 +74,74 @@ router.put('/books/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/books/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     book.findByIdAndRemove(req.params.id, function(err, deletebook) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });
 //get book by category
-router.get('/books/findbycategory/:category_id',function(req,res){
-    book.find({
-        categoryID: req.params.category_id
+router.get('/findbycategory/:category_id', function(req, res) {
+        book.find({
+                categoryID: req.params.category_id
+            })
+            .exec(function(err, books) {
+                if (err) console.log("Error retrieving books");
+                else { res.json(books); }
+            });
     })
-    .exec(function(err,books){
-        if(err) console.log("Error retrieving books");
-        else {res.json(books);}
-    });
+    //get book by category
+router.get('/findbyauthor/:author_id', function(req, res) {
+        book.find({
+                authorID: req.params.author_id
+            })
+            .exec(function(err, books) {
+                if (err) console.log("Error retrieving books");
+                else { res.json(books); }
+            });
+    })
+    //get book by category
+router.post('/price', function(req, res) {
+    book.find({
+            priceBook: { $gte: req.body.price1, $lte: req.body.price2 }
+        })
+        .exec(function(err, books) {
+            if (err) console.log("Error retrieving books");
+            else { res.json(books); }
+        });
 })
+router.post('/filter', function(req, res) {
 
+    book.find({})
+        .exec(function(err, books) {
+            // let booksList = []
+            // booksList.push(books)
+            // console.log
+            if (err) {
+                console.log("err req books");
+            } else {
+                if (req.body.category_id != null) {
+                    books = books.filter(book => book.categoryID == req.body.category_id);
+
+                }
+                if (req.body.author_id != null) {
+                    books = books.filter(book => book.authorID == req.body.author_id);
+                }
+                if (req.body.price1 != null && req.body.price2 != null) {
+                    books = books.filter(book => (book.priceBook >= req.body.price1 && book.priceBook <= req.body.price2));
+                }
+
+                if (req.body.nameBook != null) {
+
+                    books = books.filter(book => (book.nameBook.toLowerCase().indexOf(req.body.nameBook) != -1));
+                    console.log(books)
+                }
+
+                res.json(books);
+            }
+        });
+});
 module.exports = router;

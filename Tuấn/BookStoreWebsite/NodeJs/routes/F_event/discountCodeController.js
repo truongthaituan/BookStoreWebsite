@@ -3,7 +3,7 @@ const router = express.Router();
 const discountCode = require('../../models/F_event/discountCode');
 //discountCode
 //get all
-router.get('/discountCodes', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all discountCodes');
     discountCode.find({})
         .exec(function(err, discountCodes) {
@@ -16,7 +16,7 @@ router.get('/discountCodes', function(req, res) {
 });
 
 // get a person
-router.get('/discountCodes/:discountCodeID', function(req, res) {
+router.get('/:discountCodeID', function(req, res) {
     discountCode.findById(req.params.discountCodeID)
         .exec(function(err, discountCodes) {
             if (err) console.log("Error retrieving discountCode");
@@ -25,7 +25,7 @@ router.get('/discountCodes/:discountCodeID', function(req, res) {
 })
 
 //post
-router.post('/discountCodes', function(req, res) {
+router.post('/', function(req, res) {
     var newdiscountCode = new discountCode();
     newdiscountCode.discountDetail = req.body.discountDetail;
     newdiscountCode.dateStart = req.body.dateStart;
@@ -44,7 +44,7 @@ router.post('/discountCodes', function(req, res) {
 
 
 //update
-router.put('/discountCodes/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         discountCode.findByIdAndUpdate(req.params.id, {
                 $set: {
                     discountDetail: req.body.discountDetail,
@@ -66,12 +66,12 @@ router.put('/discountCodes/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/discountCodes/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     discountCode.findByIdAndRemove(req.params.id, function(err, deletediscountCode) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OrderDetail } from './orderDetail.model';
 import { HttpClient } from '@angular/common/http';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class OrderDetailService {
   selectedOrderDetail: OrderDetail;
   orderDetail: OrderDetail[];
-  readonly baseURL = 'http://localhost:3000/orderDetails';
-  constructor(private _http: HttpClient) { }
+
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/orderDetails';
   getOrderDetailList() {
     return this._http.get(this.baseURL);
   }

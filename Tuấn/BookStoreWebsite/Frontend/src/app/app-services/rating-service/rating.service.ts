@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Rating } from './rating.model';
 import { HttpClient } from '@angular/common/http';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class RatingService {
   selectedRating: Rating
   rating: Rating[];
-  readonly baseURL = 'http://localhost:3000/ratings';
-  constructor(private _http: HttpClient) { }
+
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/ratings';
   getRatingList() {
     return this._http.get(this.baseURL);
   }

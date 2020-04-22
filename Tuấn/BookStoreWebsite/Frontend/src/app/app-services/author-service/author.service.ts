@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Author } from './author.model';
 import { HttpClient } from '@angular/common/http';
+import { HostService } from '../aHost/Host.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorService {
+  author: Author
+  authors: Author[];
 
-  author: Author[];
-  readonly baseURL = 'http://localhost:3000/authors';
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/authors';
   getAuthorList() {
     return this._http.get(this.baseURL);
   }
+
   putAuthor(author: Author) {
     return this._http.put(this.baseURL + `/${author._id}`,author);
   }

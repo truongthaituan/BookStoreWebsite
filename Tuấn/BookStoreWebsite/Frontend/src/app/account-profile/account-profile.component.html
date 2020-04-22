@@ -19,7 +19,7 @@
            Thông Tin Khách Hàng
           </label>
           <div class="panel-body"  style="height: 80px;">
-            <a class="btn btn-default btn-block" href="#">Thông Tin Tài Khoản</a>
+            <a class="btn btn-default btn-block" (click) = "moveToProfileDetail();">Thông Tin Tài Khoản</a>
             <a class="btn btn-default btn-block" href="#">Thông Tin Liên Hệ</a>
             <a class="btn btn-default btn-block" href="#">Phương Thức Thanh Toán</a>
             <a class="btn btn-default btn-block"  href="#">Địa Chỉ Nhận Hàng</a>
@@ -41,6 +41,7 @@
                </div>
                </div>
       </div>
+      <button class="button" (click) = "cancel();">Back</button>
     </div>
   </section>
     <!-- Back to Top -->

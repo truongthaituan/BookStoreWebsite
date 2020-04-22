@@ -1,0 +1,74 @@
+<header>
+
+	<div class="container">
+
+		<div class="profile">
+
+			<div class="profile-image">
+
+				<img src="{{userService.selectedUser?.imageUrl}}" alt="">
+
+			</div>
+
+			<div class="profile-user-settings">
+
+			</div>
+
+			<div class="profile-stats">
+
+			
+				<h1 class="profile-user-name">{{userService.selectedUser?.username}}</h1>
+
+			</div>
+		</div>
+	</div>
+
+</header>
+
+<main>
+  
+	<div class="container">
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Tài Khoản</legend>
+          <form  #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="appointment-form" style="color: #555555;">
+        <div class="parent"> 
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Email</label>
+                    <input class="form-control" type="text" name="email" #name="ngModel"
+                    [(ngModel)]="userService.selectedUser.email" style="font-size: 15px;" required />            
+    
+                </div>            
+                    </div>
+                <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Username</label>
+                    <input class="form-control" type="text" name="username" #name="ngModel"
+                    [(ngModel)]="userService.selectedUser.username"  style="font-size: 15px;" required>               
+                </div>
+          </div>
+          </div>
+     
+          <div style="margin-top:30px;">
+            <div class="row">
+                <div class="col-sm-4">
+                  <button class="button"  type="submit" style="color: black;">Save</button>
+              </div>
+                <div class="col">
+                    <button class="button" type="button"
+                     (click) = "cancel();" style="color: black;"> Cancel</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      </form>
+    </fieldset>
+	</div>
+	<!-- End of container -->
+
+</main>
+<div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" 
+style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+    {{alertMessage}}
+</div>

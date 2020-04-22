@@ -4,7 +4,7 @@ var SocialAccount = require('../../models/C_permission/accountsocials');
 
 //user
 //get all
-router.get('/socials', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all users');
     SocialAccount.find({})
         .exec(function(err, SocialAccount) {
@@ -17,7 +17,7 @@ router.get('/socials', function(req, res) {
 });
 
 // get a person
-router.get('/socials/:userID', function(req, res) {
+router.get('/:userID', function(req, res) {
     SocialAccount.findById(req.params.userID)
         .exec(function(err, SocialAccount) {
             if (err) console.log("Error retrieving user");

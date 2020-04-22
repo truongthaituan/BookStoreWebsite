@@ -3,7 +3,7 @@ const router = express.Router();
 const comment = require('../../models/D_action/comment');
 //comment
 //get all
-router.get('/comments', function(req, res) {
+router.get('/', function(req, res) {
     console.log('get request for all comments');
     comment.find({})
         .exec(function(err, comments) {
@@ -16,7 +16,7 @@ router.get('/comments', function(req, res) {
 });
 
 // get a person
-router.get('/comments/:commentID', function(req, res) {
+router.get('/:commentID', function(req, res) {
     comment.findById(req.params.commentID)
         .exec(function(err, comments) {
             if (err) console.log("Error retrieving comment");
@@ -25,7 +25,7 @@ router.get('/comments/:commentID', function(req, res) {
 })
 
 //post
-router.post('/comments', function(req, res) {
+router.post('/', function(req, res) {
     var newcomment = new comment();
     newcomment.bookID = req.body.bookID;
     newcomment.userID = req.body.userID;
@@ -44,7 +44,7 @@ router.post('/comments', function(req, res) {
 
 
 //update
-router.put('/comments/:id', function(req, res) {
+router.put('/:id', function(req, res) {
         comment.findByIdAndUpdate(req.params.id, {
                 $set: {
                     bookID: req.body.bookID,
@@ -66,12 +66,12 @@ router.put('/comments/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/comments/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     comment.findByIdAndRemove(req.params.id, function(err, deletecomment) {
         if (err) {
             res.send('err Delete');
         } else {
-            res.json({ message: 'Successfully deleted'});
+            res.json({ message: 'Successfully deleted' });
         }
     });
 });

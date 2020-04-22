@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Book } from './book.model';
 import { HttpClient } from '@angular/common/http';
-
+import{HostService} from '../aHost/Host.service';
+import { BookFiter } from './bookfilter.model';
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
   selectedBook: Book;
   book: Book[];
-  readonly baseURL = 'http://localhost:3000/books';
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient ,private _host:HostService) { }
+  readonly baseURL = this._host.host()+':3000/books';
   getBookList() {
     return this._http.get(this.baseURL);
   }
@@ -27,5 +28,14 @@ export class BookService {
   }
   getBookByCategoryId(category_id: string) {
     return this._http.get(this.baseURL +"/findbycategory"+ `/${category_id}`);
+  }
+  getBookByAuthorId(author_id: string) {
+    return this._http.get(this.baseURL +"/findbyauthor"+ `/${author_id}`);
+  }
+  getBookByPrice(body: any) {
+    return this._http.post(this.baseURL +"/price", body);
+  }
+  filterBook(body: any) {
+    return this._http.post(this.baseURL +"/filter", body);
   }
 }
