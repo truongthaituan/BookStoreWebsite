@@ -1,4 +1,4 @@
-export class Socialaccount {
+export class SocialAccount {
     _id: string;
     email: string;
     username: string;

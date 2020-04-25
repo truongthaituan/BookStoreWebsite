@@ -4,4 +4,5 @@ export class BookFiter{
     price1: number;
     price2: number;
     nameBook: string;
+    sortByPrice: string;
 }

@@ -3,14 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const bodyParser = require('body-parser');
+var superSecret = 'toihocmean';
 var app = express();
 var cors = require('cors');
-
-app.use(cors({
-    origin: ['http://localhost:4200', 'http://192.168.1.16:4200'],
-    credentials: true
-}));
+const jwt = require('jsonwebtoken');
+var expressJWT = require('express-jwt');
 //A_store
 const book = require('./routes/A_store/bookController');
 const category = require('./routes/A_store/categoryController');
@@ -44,6 +42,13 @@ const promotion = require('./routes/F_event/promotionController');
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
+app.use(cors({
+    origin: ['http://localhost:4200', 'http://192.168.1.16:4200'],
+    credentials: true
+}));
+app.use(bodyParser.json({ limit: '10mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/bookstore');
 app.use(logger('dev'));
@@ -58,6 +63,36 @@ app.use(passport.session());
 
 require('./passport/passport-config');
 //app
+
+//ALLOW PATHS WITHOUT TOKEN AUTHENTICATION
+app.use(expressJWT({ secret: superSecret })
+    .unless(
+        {
+
+
+            path: [
+                '/users/login',
+                '/users/signup',
+                /^\/books.*/,
+                /^\/categories.*/,
+                /^\/authors.*/,
+                /^\/series.*/,
+                {
+                    url: /^\/ratings.*/, methods: ['GET']
+                },
+                /^\/socials.*/,
+                /^\/users.*/,
+                '/socials/google',
+                '/socials/facebook',
+                '/addAccount'
+            ]
+        },
+        {
+            path: [{
+                url: /^\/categories.*/, methods: ['GET']
+            }]
+        }
+    ));
 //A_store
 app.use('/books', book);
 app.use('/categories', category);
@@ -87,13 +122,14 @@ app.use('/promotions', promotion);
 //G_recommentSys
 //H_tracking
 
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

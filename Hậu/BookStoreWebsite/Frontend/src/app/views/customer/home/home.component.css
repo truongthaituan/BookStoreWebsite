@@ -11,6 +11,13 @@
 @import '../../../../assets/plugins/js_composer/assets/css/js_composer.min20fd.css';
 @import '../../../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
+
+.btnNav{
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 3px;
+}
+
 #login:hover {
     color: green;
 }

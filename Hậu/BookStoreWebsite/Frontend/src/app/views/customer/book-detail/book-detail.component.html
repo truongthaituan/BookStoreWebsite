@@ -999,8 +999,8 @@
                                                         </label>
                                                         <textarea #name="ngModel" [(ngModel)]="ratingService.rating.review" name="review" cols="45" rows="8" aria-required="true" required>
                                                         </textarea></p>
-                                                    <input type="hidden" name="bookID" #name="ngModel" [(ngModel)]="bookService.book.userID" required/>
-                                                    <input type='hidden' name='userID' id='comment_parent' value='025' />
+                                                    <input type="hidden" name="bookID" required/>
+                                                    <input type='hidden' name='userID' />
                                                     <p lass="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit" />
                                                     </p>
                                                 </form>
@@ -1019,16 +1019,13 @@
                             <h2 class="text-center">KHÁCH HÀNG NHẬN XÉT</h2>
 
                             <div class="card">
-                                <div class="card-body" *ngFor="let rating of ratingService.rating">
-                                    <div *ngFor="let account of accountSocialService.accountSocials">
+                                <div class="card-body" *ngFor="let rating of ratingService.ratings">
+                                    <div *ngFor="let account of accountSocialService.socialAccounts">
                                         <div class="row" *ngIf="rating.userID == account._id">
                                             <div class="col-md-2">
                                                 <img src="{{account.imageUrl}}" class="img img-rounded img-fluid" />
                                             </div>
                                             <div class="col-md-10">
-
-
-
                                                 <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
                                                     <strong>{{account.username}}</strong></a>
                                                 &nbsp;
@@ -1077,7 +1074,7 @@
                                                 <div *ngIf="rating.star == 3">
                                                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                 </div>
@@ -1118,15 +1115,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div *ngFor = "let account of userService.users">
-                                        <div class="row" *ngIf="rating.userID == account._id">
+                                    <div *ngFor = "let user of userService.users">
+                                        <div class="row" *ngIf="rating.userID == user._id">
                                             <div class="col-md-2">
-                                                <img src="../../assets/img/img_book/user.jpg" class="img img-rounded img-fluid" 
+                                                <img src="{{user.imageUrl}}" class="img img-rounded img-fluid" 
                                                 style="width: 100px;height: 100px;border-radius: 30px;" />
                                             </div>
                                             <div class="col-md-10">
                                                 <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
-                                                    <strong>{{account.username}}</strong></a>
+                                                    <strong>{{user.username}}</strong></a>
                                                 &nbsp;
                                                 <div *ngIf="rating.star == 0">
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
@@ -1173,7 +1170,7 @@
                                                 <div *ngIf="rating.star == 3">
                                                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                                 </div>

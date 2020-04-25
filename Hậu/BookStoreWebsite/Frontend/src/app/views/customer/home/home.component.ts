@@ -10,11 +10,37 @@ declare var $:any;
 })
 export class HomeComponent implements OnInit {
 	success: Boolean = false;
-  
+     //
+	 customOptions: any
   constructor(private _router:Router,  private bookService:BookService) {
 
 }
   ngOnInit() {
+	this.customOptions = {
+		loop: false,
+		mouseDrag: false,
+		touchDrag: false,
+		pullDrag: false,
+		dots: false,
+		navSpeed: 700,
+		navText: [ '<img src = "../../assets/img/02/Previous.png" class = "btnNav"/>',
+		'<img src = "../../assets/img/02/Next.png" class = "btnNav"/>'],
+		responsive: {
+		  0: {
+			items: 1
+		  },
+		  400: {
+			items: 2
+		  },
+		  740: {
+			items: 3
+		  },
+		  940: {
+			items: 4
+		  }
+		},
+		nav: true
+	  }
 	$(function () {
 		$("#scrollToTopButton").click(function () {
 		  $("html, body").animate({ scrollTop: 0 }, 1000);

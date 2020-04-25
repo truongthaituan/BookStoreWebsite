@@ -7,8 +7,8 @@ import { HostService } from '../aHost/Host.service';
   providedIn: 'root'
 })
 export class RatingService {
-  selectedRating: Rating
-  rating: Rating[];
+  rating: Rating
+  ratings: Rating[];
 
   constructor(private _http: HttpClient ,private _host:HostService) { }
   readonly baseURL = this._host.host()+':3000/ratings';

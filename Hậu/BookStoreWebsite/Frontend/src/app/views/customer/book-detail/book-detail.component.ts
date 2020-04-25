@@ -8,12 +8,12 @@ import { RatingService } from '../../../app-services/rating-service/rating.servi
 import { Rating } from '../../../app-services/rating-service/rating.model';
 import { NgForm } from '@angular/forms';
 import { SocialaccountService } from '../../../app-services/socialAccount-service/socialaccount.service';
-import { Socialaccount } from '../../../app-services/socialAccount-service/socialaccount.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import { UserService } from '../../../app-services/user-service/user.service';
 import { User } from '../../../app-services/user-service/user.model';
+import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
 
 declare var $: any
 @Component({
@@ -31,7 +31,7 @@ export class BookDetailComponent implements OnInit {
   id_category: String = ""
   loginBy: String = ""
   statusLogin: String = ""
-  user_social: Array<Socialaccount>;
+  user_social: Array<SocialAccount>;
   constructor(private _router: Router, private route: ActivatedRoute,
     private authorService: AuthorService, private bookService: BookService,
     private ratingService: RatingService, private accountSocialService: SocialaccountService,private userService: UserService) {
@@ -143,7 +143,7 @@ export class BookDetailComponent implements OnInit {
   resetForm(form?: NgForm) {
     if (form)
       form.reset();
-    this.ratingService.selectedRating = {
+    this.ratingService.rating = {
       _id: "",
       bookID: "",
       userID: "",
@@ -184,13 +184,14 @@ export class BookDetailComponent implements OnInit {
   account_social = [];
   getRatingsByBookID(id: string) {
     this.ratingService.getRatingsByBook(id).subscribe((res) => {
-      this.ratingService.rating = res as Rating[];
+      this.ratingService.ratings = res as Rating[];
+      console.log("Books By Id");
+      console.log(res)
     });
   }
   getAllAccount() {
     this.accountSocialService.getAllAccountSocial().subscribe(res => {
-      this.accountSocialService.accountSocials = res as Socialaccount[];
-      console.log(this.accountSocialService.accountSocials);
+      this.accountSocialService.socialAccounts = res as SocialAccount[];
     })
   }
   statusRating: boolean = false;
@@ -199,13 +200,13 @@ export class BookDetailComponent implements OnInit {
     this.statusLogin = localStorage.getItem('statusLogin');
      this.loginBy = localStorage.getItem('loginBy')
     if (this.statusLogin == null) {
-      alert("Vui lòng đăng nhập để đánh giá!");
-      this._router.navigate(['/account']);
+      console.log("not have access")
+      // this._router.navigate(['/account']);
     } else if(this.loginBy == 'loginbt' && this.statusLogin == 'true'){
       console.log(form.value)
-      let id = this.route.snapshot.paramMap.get('id');
-      form.value.bookID = id;
-      let id_user = JSON.parse(localStorage.getItem('accountUser'))._id;
+      let book_id = this.route.snapshot.paramMap.get('id');
+      form.value.bookID = book_id;
+      let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
       form.value.userID = id_user;
       this.ratingService.postRating(form.value).subscribe(
         data => {
@@ -224,8 +225,8 @@ export class BookDetailComponent implements OnInit {
      }
    else if(this.loginBy == 'loginSocial' && this.statusLogin == 'true'){
   console.log(form.value)
-  let id = this.route.snapshot.paramMap.get('id');
-  form.value.bookID = id;
+  let book_id = this.route.snapshot.paramMap.get('id');
+  form.value.bookID = book_id;
   let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
   form.value.userID = id_user;
   this.ratingService.postRating(form.value).subscribe(

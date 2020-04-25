@@ -1,0 +1,29 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SocialaccountService } from 'src/app/app-services/socialAccount-service/socialaccount.service';
+import { Location } from '@angular/common';
+import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
+
+@Component({
+  selector: 'app-profile-account-social',
+  templateUrl: './profile-account-social.component.html',
+  styleUrls: ['./profile-account-social.component.css']
+})
+export class ProfileAccountSocialComponent implements OnInit {
+
+  constructor(private _router: Router, private socialAccountService: SocialaccountService,
+     private location: Location, private route: ActivatedRoute) { }
+  ngOnInit() {
+    let googleID = JSON.parse(localStorage.getItem("accountSocial")).google_id;
+    this.getSocialAccountByGoogleID(googleID);
+  }
+  getSocialAccountByGoogleID(googleID){
+    this.socialAccountService.getSocialAccountByGoogleID(googleID).subscribe(res => {
+      console.log(res)
+      this.socialAccountService.socialAccount = res as SocialAccount;
+    })
+  }
+  cancel(){
+    this.location.back();
+  }
+}

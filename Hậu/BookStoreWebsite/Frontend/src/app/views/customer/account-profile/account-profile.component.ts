@@ -11,12 +11,16 @@ declare var $:any;
 export class AccountProfileComponent implements OnInit {
 
   constructor(private _router: Router, private location: Location) { }
-
+  loginBy: String = ""
   ngOnInit() {
-    
+    this.loginBy = localStorage.getItem('loginBy');
+
   }
   moveToProfileDetail(){
     this._router.navigate(['/accountProfile'])
+  }
+  moveToProfileAccountSocial(){
+    this._router.navigate(['/accountProfileSocial'])
   }
   cancel(){
     this.location.back();

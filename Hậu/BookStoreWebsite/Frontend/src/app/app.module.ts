@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +30,6 @@ import {
 import { UserService } from './app-services/user-service/user.service';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { FilterByPipe } from './filter-by.pipe';
 import { AccountProfileComponent } from './views/customer/account-profile/account-profile.component';
 import { OrderHistoryComponent } from './views/customer/order-history/order-history.component';
 import { BookCartCusInfoComponent } from './views/customer/book-cart-cus-info/book-cart-cus-info.component';
@@ -39,6 +38,8 @@ import { ProfileDetailComponent } from './views/customer/profile-detail/profile-
 import { ProfileDetailEditComponent } from './views/customer/profile-detail-edit/profile-detail-edit.component';
 import { ProfileChangePasswordComponent } from './views/customer/profile-change-password/profile-change-password.component';
 import { ManageOrderComponent } from './views/admin/manage-order/manage-order.component';
+import { ProfileAccountSocialComponent } from './views/customer/profile-account-social/profile-account-social.component';
+import { AuthInterceptorService } from './app-services/auth-service/auth-interceptor.service';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -67,7 +68,6 @@ export function provideConfig() {
     InsertBookComponent,
     AboutUsComponent,
     JwPaginationComponent,
-    FilterByPipe,
     AccountProfileComponent,
     OrderHistoryComponent,
     BookCartCusInfoComponent,
@@ -75,7 +75,8 @@ export function provideConfig() {
     ProfileDetailComponent,
     ProfileDetailEditComponent,
     ProfileChangePasswordComponent,
-    ManageOrderComponent
+    ManageOrderComponent,
+    ProfileAccountSocialComponent
  
   ],
   imports: [
@@ -91,7 +92,7 @@ export function provideConfig() {
     SocialLoginModule,
     Ng2SearchPipeModule
   ],
-  providers: [UserService,
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

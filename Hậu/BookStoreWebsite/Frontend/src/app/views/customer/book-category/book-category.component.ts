@@ -4,12 +4,12 @@ import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
 import { CategoryService } from '../../../app-services/category-service/category.service';
 import { Category } from '../../../app-services/category-service/category.model';
-import { Socialaccount } from '../../../app-services/socialAccount-service/socialaccount.model';
 import { Session } from 'protractor';
 import { AuthorService } from '../../../app-services/author-service/author.service';
 import { Author } from '../../../app-services/author-service/author.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BookFiter } from '../../../app-services/book-service/bookfilter.model';
+import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
 
 declare var $: any
 @Component({
@@ -22,6 +22,9 @@ export class BookCategoryComponent implements OnInit {
   filterPriceForm: FormGroup = new FormGroup({
     price1: new FormControl(null),
     price2: new FormControl(null)
+  });
+  sortPriceForm: FormGroup = new FormGroup({
+    sortByPrice: new FormControl(null)
   });
   searchForm: FormGroup = new FormGroup({
     nameBook: new FormControl(null)
@@ -64,7 +67,7 @@ export class BookCategoryComponent implements OnInit {
 
   booksCategory: []
   category_id: string;
-  userGoogle: Array<Socialaccount>;
+  userGoogle: Array<SocialAccount>;
   statusLogin: string = ""
   ngOnInit() {
     $(function () {
@@ -92,7 +95,8 @@ export class BookCategoryComponent implements OnInit {
       category_id: '',
       author_id: '',
       price1: null,
-      price2: null
+      price2: null,
+      sortByPrice: ''
     })
   }
   // check count cart before add (hover )
@@ -200,14 +204,12 @@ export class BookCategoryComponent implements OnInit {
   }
 
   sort() {
-    if ($('.orderby option:selected').val() == 'SortByPrice') {
-      this.books.sort(function (a, b) {
-        return (a.priceBook) - (b.priceBook);
-      });
-      console.log(this.books);
-    }
+    let selected = $('select[name=orderby] option').filter(':selected').val()
+    console.log(selected);
+    this.bookFilter.sortByPrice = selected;
+    this.filter();
   }
-
+  
   getAllAuthor() {
     this.authorService.getAuthorList().subscribe((res) => {
       this.authorService.authors = res as Author[];

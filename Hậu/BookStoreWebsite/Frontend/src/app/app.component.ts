@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Router } from '@angular/router';
-import { Socialaccount } from './app-services/socialAccount-service/socialaccount.model';
+import { SocialAccount } from './app-services/socialAccount-service/socialaccount.model';
 declare var $:any;
 @Component({
   selector: 'app-root',
@@ -10,37 +10,11 @@ declare var $:any;
 })
 export class AppComponent  {
     title = 'Angular';
-    accountUser = JSON.parse(localStorage.getItem('accountUser'));
-   
     accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
     statusLogin = localStorage.getItem('statusLogin');
     loginBy = localStorage.getItem('loginBy');
    
-    //
-    customOptions: any = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 700,
-    navText: ['', ''],
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 2
-      },
-      740: {
-        items: 3
-      },
-      940: {
-        items: 4
-      }
-    },
-    nav: true
-  }
+ 
 
   constructor(private _router:Router){
       
@@ -62,10 +36,17 @@ export class AppComponent  {
   }
   logout(){
     // this.statusLogin == null;
-    localStorage.removeItem('accountUser');
-    localStorage.removeItem('accountSocial');
-    localStorage.removeItem('statusLogin');
-    localStorage.removeItem('loginBy');
+    // localStorage.removeItem('accountUser');
+    // localStorage.removeItem('accountSocial');
+    // localStorage.removeItem('statusLogin');
+    // localStorage.removeItem('loginBy');
+    // localStorage.removeItem('access-token');
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('__paypal_storage__');
+    // localStorage.removeItem('TongCount');
+    // localStorage.removeItem('user-name');
+    // localStorage.removeItem('token');
+    localStorage.clear();
     window.location.href = "/";
   }
 }

@@ -13,7 +13,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Response } from '../../app-services/response/response.model';
 import { User } from '../../app-services/user-service/user.model';
 import { SocialaccountService } from '../../app-services/socialAccount-service/socialaccount.service';
-import { Socialaccount } from '../../app-services/socialAccount-service/socialaccount.model';
+import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
 
 
 declare var $: any;
@@ -170,7 +170,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
             }
             else {
               localStorage.setItem('loginBy', "loginSocial");
-              localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+              localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
               console.log("created");
               // this._router.navigate(['/booksCategory']);
               window.location.href = "/";
@@ -181,16 +181,16 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         }
         else {
           localStorage.setItem('loginBy', "loginSocial");
-          if ((response.obj as Socialaccount).role == "ADMIN") {
+          if ((response.obj as SocialAccount).role == "ADMIN") {
             this._router.navigate(['/adminPage']);
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
           }
-          else  if ((response.obj as Socialaccount).role == "CUSTOMER") {
+          else  if ((response.obj as SocialAccount).role == "CUSTOMER") {
             window.location.href = "/"
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
-            console.log(response.obj as Socialaccount);
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
+            console.log(response.obj as SocialAccount);
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
      
@@ -220,7 +220,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
             }
             else {
               localStorage.setItem('loginBy', "loginSocial");
-              localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
+              localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
               console.log("created");
               // this._router.navigate(['/booksCategory']);
               window.location.href = "/";
@@ -231,13 +231,12 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         }
         else {    
           localStorage.setItem('loginBy', "loginSocial");
-          if ((response.obj as Socialaccount).role == "ADMIN") {
+          if ((response.obj as SocialAccount).role == "ADMIN") {
             this._router.navigate(['/adminPage']);
           }
-          else  if ((response.obj as Socialaccount).role == "CUSTOMER") {
+          else  if ((response.obj as SocialAccount).role == "CUSTOMER") {
             window.location.href = "/"
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as Socialaccount)));
-            console.log(response.obj as Socialaccount);
+            localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
           }

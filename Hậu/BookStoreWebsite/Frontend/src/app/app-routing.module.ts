@@ -18,6 +18,7 @@ import { ProfileDetailComponent } from './views/customer/profile-detail/profile-
 import { ProfileDetailEditComponent } from './views/customer/profile-detail-edit/profile-detail-edit.component';
 import { ProfileChangePasswordComponent } from './views/customer/profile-change-password/profile-change-password.component';
 import { ManageOrderComponent } from './views/admin/manage-order/manage-order.component';
+import { ProfileAccountSocialComponent } from './views/customer/profile-account-social/profile-account-social.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'aboutUs',component: AboutUsComponent},
   {path: 'profile', component: AccountProfileComponent},
   {path: 'accountProfile', component: ProfileDetailComponent},
+  {path: 'accountProfileSocial', component: ProfileAccountSocialComponent},
   {path: 'accountProfileEdit/:id', component: ProfileDetailEditComponent},
   {path: 'changePassword/:id', component: ProfileChangePasswordComponent},
   {path: 'orderHistory',component: OrderHistoryComponent},

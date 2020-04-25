@@ -18,18 +18,19 @@ js-comp-ver-4.9.2 vc_responsive ">
                         <div class="before-shop-loop">
                             <p class="woocommerce-result-count">
                                 Chọn lọc sắp xếp</p>
+                                <form class="woocommerce-ordering">
                                 <select name="orderby" class="orderby">
-					<option value="menu_order" selected='selected'>Sắp xếp</option>
-					<option value="SortByPrice" >Sắp xếp theo giá tiền</option>
-					<option value="rating" >Sort by average rating</option>
+					<option selected='selected'>Sắp xếp</option>
+					<option value="sortAscending" >Sắp xếp theo giá tiền (Tăng Dần)</option>
+					<option  value="sortDescending" >Sắp xếp theo giá tiền (Giảm Dần)</option>
 					<option value="date" >Sort by newness</option>
 					<option value="price" >Sort by price: low to high</option>
 					<option value="price-desc" >Sort by price: high to low</option>
                     </select>
-                                <nav class="gridlist-toggle">
-                                    <a (click)="sort();"><span class="fa fa-filter"></span> <em>Filter</em></a>
-                                </nav>
-                          
+                    <nav class="gridlist-toggle">
+                        <a type="submit" (click)="sort();"><span class="fa fa-filter"></span> <em>Filter</em></a>
+                    </nav>
+                </form>
                             <nav class="gridlist-toggle">
                                 <form method="post" [formGroup]="searchForm">
                         <input placeholder="Search sách theo tên sách" type="text" formControlName="nameBook"  name="nameBook" class="nameBook"
