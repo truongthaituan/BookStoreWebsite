@@ -208,8 +208,13 @@ export class BookCartComponent implements OnInit {
   goToShipping(){
     // if (this.statusLogin == null) { this._router.navigate(['/account']); }
     // else{
-    this._router.navigate(['/shipping']);
-  // }
+     
+      if(JSON.parse(localStorage.getItem('accountSocial')) != null ){
+        this._router.navigate(['/shipping']);
+      }else{
+        alert("Token is valid");
+      }
+    // }
 }
 
 }

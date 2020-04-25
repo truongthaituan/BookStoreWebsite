@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { catchError, filter, take, switchMap } from "rxjs/operators";
 import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor{
-  constructor() {}
+  constructor(private _router: Router) {}
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log("Interception In Progress");
     const token: string = localStorage.getItem('token');
@@ -18,9 +19,15 @@ export class AuthInterceptorService implements HttpInterceptor{
     return next.handle(req)
         .pipe(
            catchError((error: HttpErrorResponse) => {
+            localStorage.removeItem("accountSocial");
+            localStorage.removeItem("token");
+            localStorage.removeItem("loginBy");
+            localStorage.removeItem("statusLogin");
                 //401 UNAUTHORIZED
                 if (error && error.status === 401) {
                     console.log("ERROR 401 UNAUTHORIZED")
+                   
+                    document.location.href = '/account';
                 }
                 const err = error.error.message || error.statusText;
                 return throwError(error);                    
