@@ -257,7 +257,7 @@ export class BookDetailComponent implements OnInit {
   getcountDetail(selectedBook: Book, event: any) {
 
     this.checkedAddBook = true;
-    console.log(this.countBookDetailCur);
+    //console.log(this.countBookDetailCur);
     //nếu nhập 0
     if (event.target.value == 0) {
       //show alert
@@ -314,9 +314,12 @@ export class BookDetailComponent implements OnInit {
   
   }
 
-  //add to cart (BookDetail,CountSelect) 
+  //add to cart (BookDetail,CountSelect)
+  nameBookShowOnModel=""
   addToCart(selectedBook: Book, form: Book) {
    
+    this.nameBookShowOnModel=selectedBook.nameBook;
+    
     this.checkedAddBook = true;
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
     var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
@@ -375,4 +378,61 @@ export class BookDetailComponent implements OnInit {
   goToCartBook() {
     this._router.navigate(['/cartBook']);
   }
+  clickAddBookOnModel(selectedBook: Book){
+    this.nameBookShowOnModel=selectedBook.nameBook;
+    var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
+    var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
+    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
+    // nếu localStorage "CartBook" không rỗng
+
+    if (localStorage.getItem('CartBook') != null) {
+      //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
+
+      for (var i = 0; i < JSON.parse(localStorage.getItem("CartBook")).length; i++) {
+        CartBook[i] = JSON.parse(localStorage.getItem("CartBook"))[i];
+        // nếu id book đã tồn tại trong  localStorage "CartBook" 
+        if (CartBook[i]._id == selectedBook._id) {
+          temp = 1;  //đặt biến temp
+          // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
+          if (parseInt(CartBook[i].count) + 1 <= 10) {
+            CartBook[i].count = parseInt(CartBook[i].count) + 1;  //tăng giá trị count
+          }
+          else {
+            //show alert
+            this.checkedAddBook = false;
+            //update lại số lượng 
+
+
+            this.alertMessage = "Đã tồn tại 10 quốn sách " + CartBook[i].nameBook + " trong giỏ hàng";
+            this.alertFalse = true;
+            setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+          }
+        }
+        dem++;  // đẩy vị trí gán tiếp theo
+      }
+    }
+
+    if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
+      selectedBook.count = 1;  // set count cho sách
+      CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
+    }
+    // đổ mảng vào localStorage "CartBook"
+    localStorage.setItem("CartBook", JSON.stringify(CartBook));
+
+    this.getTotalCountAndPrice();
+  }
+  clickGoToBookDetail(id)
+  { 
+     //set độ dài cartBook
+    this.cartBookLength(this.CartBook);
+    //set value giỏ hàng trên thanh head 
+    this.getTotalCountAndPrice();
+
+    this.getBookById(id);
+    this.getAllAccount();
+    this.getRatingsByBookID(id);
+    this.getAllUsers();
+    return this._router.navigate(["/bookDetail" + `/${id}`]);
+  }
+  
 }
