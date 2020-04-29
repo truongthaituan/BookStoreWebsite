@@ -12,22 +12,17 @@ export class AuthInterceptorService implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log("Interception In Progress");
     const token: string = localStorage.getItem('token');
+    
     req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
     req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
 
     return next.handle(req)
-        .pipe(
-           catchError((error: HttpErrorResponse) => {
-            localStorage.removeItem("accountSocial");
-            localStorage.removeItem("token");
-            localStorage.removeItem("loginBy");
-            localStorage.removeItem("statusLogin");
+        .pipe(catchError((error: HttpErrorResponse) => {
+         
                 //401 UNAUTHORIZED
                 if (error && error.status === 401) {
-                    console.log("ERROR 401 UNAUTHORIZED")
-                   
-                    document.location.href = '/account';
+                    console.log("ERROR 401 UNAUTHORIZED")      
                 }
                 const err = error.error.message || error.statusText;
                 return throwError(error);                    

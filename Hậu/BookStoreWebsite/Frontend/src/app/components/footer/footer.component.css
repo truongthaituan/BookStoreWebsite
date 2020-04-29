@@ -1,0 +1,4 @@
+@import '../../../assets/css_admin/css/material-dashboard.css';
+.dropdown-menu .dropdown-item{
+    font-size: 12px;
+}

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './views/customer/home/home.component';
+// import { HomeComponent } from './views/customer/home/home.component';
 import { BookCategoryComponent } from './views/customer/book-category/book-category.component';
 import { BookDetailComponent } from './views/customer/book-detail/book-detail.component';
 import { MyAccountComponent } from './auth/my-account/my-account.component';
@@ -19,32 +19,51 @@ import { ProfileDetailEditComponent } from './views/customer/profile-detail-edit
 import { ProfileChangePasswordComponent } from './views/customer/profile-change-password/profile-change-password.component';
 import { ManageOrderComponent } from './views/admin/manage-order/manage-order.component';
 import { ProfileAccountSocialComponent } from './views/customer/profile-account-social/profile-account-social.component';
-
+import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
+import { CommonModule, } from '@angular/common';
+import { BrowserModule  } from '@angular/platform-browser';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
-  {path: 'booksCategory',component: BookCategoryComponent},
-  {path: 'bookDetail/:id',component: BookDetailComponent},
-  {path: 'account',component: MyAccountComponent},
-  {path: 'lostPassword',component: LostPasswordComponent},
-  {path: 'cartBook',component: BookCartComponent},
-  {path: 'adminPage',component: AdminPageComponent},
-  {path: 'insertPage',component: InsertBookComponent},
-  {path: 'updatePage/:id',component: UpdateBookComponent},
-  {path: 'aboutUs',component: AboutUsComponent},
-  {path: 'profile', component: AccountProfileComponent},
-  {path: 'accountProfile', component: ProfileDetailComponent},
-  {path: 'accountProfileSocial', component: ProfileAccountSocialComponent},
-  {path: 'accountProfileEdit/:id', component: ProfileDetailEditComponent},
-  {path: 'changePassword/:id', component: ProfileChangePasswordComponent},
-  {path: 'orderHistory',component: OrderHistoryComponent},
-  {path: 'shipping',component:BookCartCusInfoComponent},
-  {path:'payment/:customer_id',component:BookCartPaymentComponent},
-  {path:'manageOrder',component:ManageOrderComponent}
+  // {path:'', component: HomeComponent},
+  // {path: 'adminPage',component: AdminPageComponent},
+  // {path: 'insertPage',component: InsertBookComponent},
+  // {path: 'updatePage/:id',component: UpdateBookComponent},
+  // {path: 'profile', component: AccountProfileComponent},
+  // {path: 'accountProfile', component: ProfileDetailComponent},
+  // {path: 'accountProfileSocial', component: ProfileAccountSocialComponent},
+  // {path: 'accountProfileEdit/:id', component: ProfileDetailEditComponent},
+  // {path: 'changePassword/:id', component: ProfileChangePasswordComponent},
+  // {path: 'orderHistory',component: OrderHistoryComponent},
+  // {path: 'shipping',component:BookCartCusInfoComponent},
+  // {path:'payment/:customer_id',component:BookCartPaymentComponent},
+  // {path:'manageOrder',component:ManageOrderComponent},
+  {
+    path: '',
+    redirectTo: 'homePage',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: CustomerLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
+    }]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+    }]
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [ CommonModule,
+    BrowserModule,RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

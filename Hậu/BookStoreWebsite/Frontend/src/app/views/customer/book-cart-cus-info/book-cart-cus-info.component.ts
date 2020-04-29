@@ -72,7 +72,7 @@ export class BookCartCusInfoComponent implements OnInit {
   //nếu bằng true thì sẽ là update
   IsUpdateCustomer=false;
   ngOnInit() {
-    if (this.statusLogin == null) { this._router.navigate(['/account']); }
+   
     this.script_Frontend();
     // if (this.accountSocial) {
     //   this.email = this.accountSocial.email;

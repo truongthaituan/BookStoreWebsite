@@ -150,7 +150,7 @@ router.post('/login', function(req, res, next) {
                 email: account.email,
                 username: account.username
             }, superSecret, {
-                expiresIn: '30s' // expires in 24 hours
+                expiresIn: '24h' // expires in 24 hours
             });
             res.send({
                 status: true,

@@ -134,10 +134,7 @@ router.post('/filter', function (req, res) {
                     books = books.filter(book => (book.priceBook >= req.body.price1 && book.priceBook <= req.body.price2));
                 }
 
-                if (req.body.nameBook != null) {
-                    books = books.filter(book => (book.nameBook.toLowerCase().indexOf(req.body.nameBook) != -1));
-                    console.log(books)
-                }
+             
                 if (req.body.sortByPrice == "sortAscending") {
                     books.sort(function (a, b) {
                         return (a.priceBook) - (b.priceBook);
@@ -154,6 +151,10 @@ router.post('/filter', function (req, res) {
                     books = books.filter((element, index) => {
                         return index === 0 || element.priceBook !== books[index - 1].priceBook;
                     });
+                    console.log(books)
+                }
+                if (req.body.nameBook != null) {
+                    books = books.filter(book => (book.nameBook.toLowerCase().indexOf(req.body.nameBook) != -1 || book.nameBook.indexOf(req.body.nameBook) != -1));
                     console.log(books)
                 }
                 res.json(books);

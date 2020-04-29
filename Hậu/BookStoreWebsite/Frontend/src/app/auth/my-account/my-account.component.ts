@@ -169,10 +169,10 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
               this.errorStr = response.message;
             }
             else {
+              localStorage.setItem("token", response.token)
               localStorage.setItem('loginBy', "loginSocial");
               localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
               console.log("created");
-              // this._router.navigate(['/booksCategory']);
               window.location.href = "/";
               this.statusLogin = true;
               localStorage.setItem('statusLogin', String(this.statusLogin));
@@ -182,12 +182,14 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         else {
           localStorage.setItem('loginBy', "loginSocial");
           if ((response.obj as SocialAccount).role == "ADMIN") {
+            localStorage.setItem("token", response.token)
             this._router.navigate(['/adminPage']);
             localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
           }
           else  if ((response.obj as SocialAccount).role == "CUSTOMER") {
+            localStorage.setItem("token", response.token)
             window.location.href = "/"
             localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
             console.log(response.obj as SocialAccount);
@@ -218,7 +220,9 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
             if (!response.status) {
               this.errorStr = response.message;
             }
-            else {
+            else 
+            {
+              localStorage.setItem("token", response.token)
               localStorage.setItem('loginBy', "loginSocial");
               localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
               console.log("created");
@@ -226,15 +230,18 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
               window.location.href = "/";
               this.statusLogin = true;
               localStorage.setItem('statusLogin', String(this.statusLogin));
-            }
+            } 
           });
+
         }
         else {    
           localStorage.setItem('loginBy', "loginSocial");
           if ((response.obj as SocialAccount).role == "ADMIN") {
+            localStorage.setItem("token", response.token)
             this._router.navigate(['/adminPage']);
           }
           else  if ((response.obj as SocialAccount).role == "CUSTOMER") {
+            localStorage.setItem("token", response.token)
             window.location.href = "/"
             localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
             this.statusLogin = true;

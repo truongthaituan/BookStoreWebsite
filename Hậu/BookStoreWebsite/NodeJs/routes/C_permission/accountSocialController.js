@@ -5,10 +5,10 @@ var jwt = require('jsonwebtoken');
 var superSecret = 'toihocmean';
 //user
 //get all
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     console.log('get request for all users');
     SocialAccount.find({})
-        .exec(function(err, SocialAccount) {
+        .exec(function (err, SocialAccount) {
             if (err) {
                 console.log("err req users");
             } else {
@@ -18,18 +18,18 @@ router.get('/', function(req, res) {
 });
 
 // get a person
-router.get('/:userID', function(req, res) {
+router.get('/:userID', function (req, res) {
     SocialAccount.findById(req.params.userID)
-        .exec(function(err, SocialAccount) {
+        .exec(function (err, SocialAccount) {
             if (err) console.log("Error retrieving user");
             else res.json(SocialAccount);
         });
 })
-router.get('/findByGoogleId/:googleID', function(req, res) {
+router.get('/findByGoogleId/:googleID', function (req, res) {
     SocialAccount.find({
         google_id: req.params.googleID
     })
-        .exec(function(err, SocialAccount) {
+        .exec(function (err, SocialAccount) {
             if (err) console.log("Error retrieving user");
             else res.json(SocialAccount);
         });
@@ -49,17 +49,17 @@ router.post('/google', (req, res) => {
             });
         } else {
             var socialAccount = doc;
-            // var token = jwt.sign({
-            //   email: socialAccount.email,
-            //   username: socialAccount.username
-            //   }, superSecret, {
-            //   expiresIn: '1h' // expires in 24 hours
-            //   });   
+            var token = jwt.sign({
+                email: socialAccount.email,
+                username: socialAccount.username
+            }, superSecret, {
+                expiresIn: '24h' // expires in 24 hours
+            });
             res.json({
                 status: true,
                 message: "Success",
-                obj: socialAccount
-                    // token: token
+                obj: socialAccount,
+                token: token
             });
         }
     });
@@ -79,10 +79,10 @@ router.post('/facebook', (req, res) => {
         } else {
             var SocialAccount = doc;
             var token = jwt.sign({
-
+                email: SocialAccount.email,
                 username: SocialAccount.username
             }, superSecret, {
-                expiresIn: '1h' // expires in 24 hours
+                expiresIn: '24h' // expires in 24 hours
             });
             res.json({
                 status: true,
@@ -111,12 +111,24 @@ router.post('/addAccount', (req, res) => {
                 obj: null
             });
         } else {
+            // res.json({
+            //     status: true,
+            //     message: "Insert Successfully!",
+            //     obj: socialAccount
+            // });
+            var token = jwt.sign({
+                email: socialAccount.email,
+                username: socialAccount.username
+            }, superSecret, {
+                expiresIn: '24h' // expires in 24 hours
+            });
             res.json({
                 status: true,
                 message: "Insert Successfully!",
-                obj: socialAccount
+                obj: socialAccount,
+                token: token
             });
         }
-    })
+    });
 });
 module.exports = router;

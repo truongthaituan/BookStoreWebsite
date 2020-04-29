@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../../app-services/order-service/order.service';
 import { OrderDetailService } from '../../../app-services/orderDetail-service/orderDetail.service';
@@ -19,6 +19,8 @@ declare var $: any;
 
 })
 export class BookCartComponent implements OnInit {
+  helper = new JwtHelperService();
+   token: any = this.helper.decodeToken(localStorage.getItem('token'));
   constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService) {
 
@@ -205,16 +207,26 @@ export class BookCartComponent implements OnInit {
   goToBookCategory() {
     this._router.navigate(['/booksCategory']);
   }
-  goToShipping(){
-    // if (this.statusLogin == null) { this._router.navigate(['/account']); }
-    // else{
-     
-      if(JSON.parse(localStorage.getItem('accountSocial')) != null ){
+  goToShipping(){  
+   
+    if(this.token == null){
+      this._router.navigate(['/account']);
+    }else{
+      let token_exp = this.token.exp;
+      let time_now = new Date().getTime()/1000;
+      if(time_now < token_exp){
         this._router.navigate(['/shipping']);
-      }else{
-        alert("Token is valid");
+      }else {
+        // alert("Token is valid");
+        localStorage.removeItem("accountSocial");
+        localStorage.removeItem("token");
+        localStorage.removeItem("loginBy");
+        localStorage.removeItem("statusLogin");
+        // this._router.navigate(['/account']);
+        this.alertMessage = "Phiên làm việc của bạn đã hết hạn! Vui lòng đăng nhập lại!";
+        this.alertFalse = true;
+        setTimeout(() => { document.location.href = '/account';}, 2000);
       }
-    // }
-}
-
+    }  
+  }
 }
