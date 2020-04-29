@@ -27,8 +27,8 @@ router.get('/:userID', function(req, res) {
 })
 router.get('/findByGoogleId/:googleID', function(req, res) {
     SocialAccount.find({
-        google_id: req.params.googleID
-    })
+            google_id: req.params.googleID
+        })
         .exec(function(err, SocialAccount) {
             if (err) console.log("Error retrieving user");
             else res.json(SocialAccount);
