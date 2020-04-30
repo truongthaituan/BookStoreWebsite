@@ -11,6 +11,8 @@ import { SendMailService } from '../../../app-services/sendMail-service/sendMail
 import { SendMail } from '../../../app-services/sendMail-service/sendMail.model';
 import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
+import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
+import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 declare var $: any;
 @Component({
   selector: 'app-book-cart',
@@ -19,10 +21,10 @@ declare var $: any;
 
 })
 export class BookCartComponent implements OnInit {
-  helper = new JwtHelperService();
-   token: any = this.helper.decodeToken(localStorage.getItem('token'));
+	helper = new JwtHelperService();
+    token: any = this.helper.decodeToken(localStorage.getItem('token'));
   constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
-    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService) {
+    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService) {
 
   }
   //#region Buộc phải có trên các component
@@ -43,7 +45,7 @@ export class BookCartComponent implements OnInit {
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
-  
+  cartBookDB : CartBook= new CartBook;
   ngOnInit() {
     $(function () {
       $("#scrollToTopButton").click(function () {
@@ -169,6 +171,8 @@ export class BookCartComponent implements OnInit {
           }
           else{
             this.CartBook[i].count = count;
+            //update cartbook DB
+            this.putCartBookDB(this.CartBook[i]);
           }
         }
       }
@@ -182,6 +186,7 @@ export class BookCartComponent implements OnInit {
     if (setconfirm == true) {
       for (var i = 0; i < this.lengthCartBook; i++) {
         if (this.CartBook[i]._id == id) {
+          this.deleteOneCartBookDB(this.CartBook[i]);
           this.CartBook.splice(i, 1);
           break;
         }
@@ -207,26 +212,54 @@ export class BookCartComponent implements OnInit {
   goToBookCategory() {
     this._router.navigate(['/booksCategory']);
   }
-  goToShipping(){  
-   
-    if(this.token == null){
-      this._router.navigate(['/account']);
-    }else{
-      let token_exp = this.token.exp;
-      let time_now = new Date().getTime()/1000;
-      if(time_now < token_exp){
-        this._router.navigate(['/shipping']);
-      }else {
-        // alert("Token is valid");
-        localStorage.removeItem("accountSocial");
-        localStorage.removeItem("token");
-        localStorage.removeItem("loginBy");
-        localStorage.removeItem("statusLogin");
-        // this._router.navigate(['/account']);
-        this.alertMessage = "Phiên làm việc của bạn đã hết hạn! Vui lòng đăng nhập lại!";
-        this.alertFalse = true;
-        setTimeout(() => { document.location.href = '/account';}, 2000);
-      }
-    }  
+    goToShipping(){  
+    
+      if(this.token == null){
+        this._router.navigate(['/account']);
+      }else{
+        let token_exp = this.token.exp;
+        let time_now = new Date().getTime()/1000;
+        if(time_now < token_exp){
+          this._router.navigate(['/shipping']);
+        }else {
+          // alert("Token is valid");
+          localStorage.removeItem("accountSocial");
+          localStorage.removeItem("token");
+          localStorage.removeItem("loginBy");
+          localStorage.removeItem("statusLogin");
+          // this._router.navigate(['/account']);
+          this.alertMessage = "Phiên làm việc của bạn đã hết hạn! Vui lòng đăng nhập lại!";
+          this.alertFalse = true;
+          setTimeout(() => { document.location.href = '/account';}, 2000);
+        }
+      }  
+    }
+
+putCartBookDB(selectedBook:Book){
+  if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
+    this.cartBookDB.userID=this.accountSocial._id;
+    this.cartBookDB.bookID=selectedBook._id;
+    this.cartBookDB.count=selectedBook.count;
+    this._cartBookDB.putCartBook(this.cartBookDB).subscribe(
+      req => {
+        console.log(req);
+      },
+      error => console.log(error)
+    );
   }
+}
+deleteOneCartBookDB(selectedBook:Book){
+  if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
+    this.cartBookDB.userID=this.accountSocial._id;
+    this.cartBookDB.bookID=selectedBook._id;
+    this.cartBookDB.count=selectedBook.count;
+    this._cartBookDB.deleteOneCartBook(this.cartBookDB).subscribe(
+      req => {
+        console.log(req);
+      },
+      error => console.log(error)
+    );
+  }
+}
+
 }

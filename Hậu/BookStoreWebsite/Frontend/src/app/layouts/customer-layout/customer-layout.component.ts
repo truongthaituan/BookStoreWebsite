@@ -34,16 +34,7 @@ export class CustomerLayoutComponent implements OnInit {
     return this._router.navigate(['/cartBook']);
   }
   logout() {
-    // this.statusLogin == null;
-    // localStorage.removeItem('accountUser');
-    localStorage.removeItem('accountSocial');
-    localStorage.removeItem('statusLogin');
-    localStorage.removeItem('loginBy');
-    // localStorage.removeItem('access-token');
-    localStorage.removeItem('token');
-    // localStorage.removeItem('__paypal_storage__');
-    // localStorage.removeItem('TongCount');
-    // localStorage.removeItem('token');
+    localStorage.clear();
     window.location.href = "/";
   }
 

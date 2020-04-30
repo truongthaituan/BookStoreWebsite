@@ -10,7 +10,8 @@ import { Author } from '../../../app-services/author-service/author.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BookFiter } from '../../../app-services/book-service/bookfilter.model';
 import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
-
+import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
+import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 declare var $: any
 @Component({
   selector: 'app-book-category',
@@ -41,8 +42,9 @@ export class BookCategoryComponent implements OnInit {
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
+  cartBookDB : CartBook= new CartBook;
   constructor(private _router: Router, private bookService: BookService,private authorService: AuthorService,
-     private bookCategoryService: CategoryService) {
+     private bookCategoryService: CategoryService, private _cartBookDB: CartBookService) {
 
     $(function () {
 
@@ -67,7 +69,7 @@ export class BookCategoryComponent implements OnInit {
 
   booksCategory: []
   category_id: string;
-  userGoogle: Array<SocialAccount>;
+  accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin: string = ""
   ngOnInit() {
     $(function () {
@@ -79,7 +81,7 @@ export class BookCategoryComponent implements OnInit {
     this.refreshBookList();
     this.refreshCategoryList();
     this.category_id = localStorage.getItem('category_id');
-    this.userGoogle = JSON.parse(localStorage.getItem('userGoogle'));
+    
     this.statusLogin = localStorage.getItem('statusLogin');
 
     //set độ dài cartBook
@@ -242,6 +244,8 @@ export class BookCategoryComponent implements OnInit {
           // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
           if (parseInt(CartBook[i].count) + 1 <= 10) {
             CartBook[i].count = parseInt(CartBook[i].count) + 1;  //tăng giá trị count
+             //cập nhật cartbook vào db
+             this.putCartBookDB(CartBook[i]);
           }
           else {
             //show alert
@@ -261,6 +265,8 @@ export class BookCategoryComponent implements OnInit {
     if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
       selectedBook.count = 1;  // set count cho sách
       CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
+       //lưu cartbook vào db
+       this.postCartBookDB(selectedBook);
     }
     // đổ mảng vào localStorage "CartBook"
     localStorage.setItem("CartBook", JSON.stringify(CartBook));
@@ -294,6 +300,7 @@ export class BookCategoryComponent implements OnInit {
     $('.cart_items').html(this.TongCount.toString());
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());
+    console.log(this.CartBook);
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -329,5 +336,33 @@ export class BookCategoryComponent implements OnInit {
   showLessCategories()
   {
     this.paginationLimitCategories = 5;
+  }
+
+  postCartBookDB(selectedBook:Book)
+  {
+    if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
+      this.cartBookDB.userID= this.accountSocial._id;
+      this.cartBookDB.bookID=selectedBook._id;
+      this.cartBookDB.count=selectedBook.count;
+      this._cartBookDB.postCartBook(this.cartBookDB).subscribe(
+      req => {
+        console.log(req);
+      },
+      error => console.log(error)
+    );
+    }
+  }
+  putCartBookDB(selectedBook:Book){
+    if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
+      this.cartBookDB.userID=this.accountSocial._id;
+      this.cartBookDB.bookID=selectedBook._id;
+      this.cartBookDB.count=selectedBook.count;
+      this._cartBookDB.putCartBook(this.cartBookDB).subscribe(
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
+    }
   }
 }

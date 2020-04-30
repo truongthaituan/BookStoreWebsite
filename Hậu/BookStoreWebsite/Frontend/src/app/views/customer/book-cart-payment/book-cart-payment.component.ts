@@ -12,6 +12,8 @@ import { SendMailService } from '../../../app-services/sendMail-service/sendMail
 import { SendMail } from '../../../app-services/sendMail-service/sendMail.model';
 import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
+import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
+import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 declare var $: any;
 declare let paypal: any;
 
@@ -22,7 +24,7 @@ declare let paypal: any;
 })
 export class BookCartPaymentComponent implements OnInit {
   constructor(private _router: Router,private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
-    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService) {
+    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService) {
 
   }
   //chứa thông tin giỏ hàng
@@ -46,6 +48,7 @@ export class BookCartPaymentComponent implements OnInit {
   alertSucess = false;
   alertFalse = false;
   //paypal
+  cartBookDB : CartBook= new CartBook;
   public loading: boolean = true;
   ngOnInit() {
     if(localStorage.getItem('statusLogin') == 'true'){
@@ -228,6 +231,7 @@ postOrder(orders: Order) {
         this.orderDetails.price = this.CartBook[i].priceBook;
         //post order Detail
         this.postOrderDetail(this.orderDetails);
+  
       }
 
     },
@@ -239,6 +243,8 @@ postOrder(orders: Order) {
     this._orderDetailService.postOrderDetail(orderDetails).subscribe(
       orderDetaildata => {
         localStorage.removeItem('CartBook');
+        //delete allcartbookDB by userID
+        this.deleteAllCartBookDBByUserID(this.accountSocial._id);
         this.getTotalCountAndPrice();
         this.IsPaypal=false;
         // setTimeout(() => {  }, 4000);
@@ -329,4 +335,15 @@ console.log("--------->");
     });
   }
 //#endregion  
+deleteAllCartBookDBByUserID(id){
+  if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
+  
+    this._cartBookDB.deleteAllCartBookByUserID(id).subscribe(
+      req => {
+        console.log(req);
+      },
+      error => console.log(error)
+    );
+  }
+}
 }

@@ -7,7 +7,7 @@ js-comp-ver-4.9.2 vc_responsive ">
         <div class="product-header bks-breadcrumb">
             <div class="container">
                 <h1>Book Store</h1>
-              
+
             </div>
         </div>
         <div class="container padding-40-v">
@@ -18,7 +18,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                         <div class="before-shop-loop">
                             <p class="woocommerce-result-count">
                                 Chọn lọc sắp xếp</p>
-                                <form class="woocommerce-ordering">
+                            <form class="woocommerce-ordering">
                                 <select name="orderby" class="orderby">
 					<option selected='selected'>Sắp xếp</option>
 					<option value="sortAscending" >Sắp xếp theo giá tiền (Tăng Dần)</option>
@@ -27,20 +27,19 @@ js-comp-ver-4.9.2 vc_responsive ">
 					<option value="price" >Sort by price: low to high</option>
 					<option value="price-desc" >Sort by price: high to low</option>
                     </select>
-                    <nav class="gridlist-toggle">
-                        <a type="submit" (click)="sort();"><span class="fa fa-filter"></span> <em>Filter</em></a>
-                    </nav>
-                </form>
+                                <nav class="gridlist-toggle">
+                                    <a type="submit" (click)="sort();"><span class="fa fa-filter"></span> <em>Filter</em></a>
+                                </nav>
+                            </form>
                             <nav class="gridlist-toggle">
                                 <form method="post" [formGroup]="searchForm">
-                        <input placeholder="Search sách theo tên sách" type="text" formControlName="nameBook"  name="nameBook" class="nameBook"
-                                 style="border-color: lightslategrey;height: 30px;
+                                    <input placeholder="Search sách theo tên sách" type="text" formControlName="nameBook" name="nameBook" class="nameBook" style="border-color: lightslategrey;height: 30px;
                                  font-style: italic; width: 350px;" id="nameBook">
-                                <a type="submit" (click) = "searchNameBook();" id="grid" title="Search">
-                                    <span class="fa fa-search"></span> <em>Search</em></a>
+                                    <a type="submit" (click)="searchNameBook();" id="grid" title="Search">
+                                        <span class="fa fa-search"></span> <em>Search</em></a>
                                 </form>
                             </nav>
-                       
+
 
                         </div>
 
@@ -48,8 +47,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <div class="item col-xs-12 col-sm-4 post-78 product type-product
                                     status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
-                                     instock sale featured shipping-taxable purchasable product-type-simple"
-                                      *ngFor="let item of books | paginate: { itemsPerPage: 6,currentPage: p }">
+                                     instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books | paginate: { itemsPerPage: 6,currentPage: p }">
                                 <div class="product-wrap">
                                     <div class="product-image">
                                         <div class="catalog-image">
@@ -116,7 +114,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                         <p>
                             <label for="amount">Khoảng giá từ :</label>
                             <input type="text" id="amount-min" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11px;">
-                            <input type="text" id="amount-max"    readonly style="border:0; color:#808080; font-weight:bold;font-size: 11px;">
+                            <input type="text" id="amount-max" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11px;">
                         </p>
                         <npn-slider [min]="10000" [max]="500000" [minSelected]="40000" [maxSelected]="300000" [step]="10000" [showStepIndicator]="true" (onChange)="onSliderChange($event)">
                         </npn-slider>
@@ -137,50 +135,50 @@ js-comp-ver-4.9.2 vc_responsive ">
                     </ul>
                     <ul class="product-categories" *ngFor="let category of bookCategoryService.categories
                      | slice: startPageCategories:paginationLimitCategories;">
-                        <li  *ngIf="category._id==bookFilter.category_id" class="cat-item cat-item-11">
-                            <a  style="background-color: red;" (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
+                        <li *ngIf="category._id==bookFilter.category_id" class="cat-item cat-item-11">
+                            <a style="background-color: red;" (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
                         </li>
-                        <li  *ngIf="category._id!=bookFilter.category_id" class="cat-item cat-item-11">
+                        <li *ngIf="category._id!=bookFilter.category_id" class="cat-item cat-item-11">
                             <a (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
                         </li>
                     </ul>
-                    <a class="myButtonCategory" *ngIf ="paginationLimitCategories <  bookCategoryService.categories?.length" (click)="showMoreCategories()">
+                    <a class="myButtonCategory" *ngIf="paginationLimitCategories <  bookCategoryService.categories?.length" (click)="showMoreCategories()">
                         Xem Thêm
                     </a>
-                       <a class="myButtonCategory" *ngIf ="paginationLimitCategories ==  bookCategoryService.categories?.length" (click)="showLessCategories()">
+                    <a class="myButtonCategory" *ngIf="paginationLimitCategories ==  bookCategoryService.categories?.length" (click)="showLessCategories()">
                         Thu Gọn
-                       </a>   
+                       </a>
                 </div>
 
                 <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
                     <h3 class="widget-title">Tác Giả</h3>
                     <ul class="product-categories" *ngFor="let author of authorService.authors | slice: startPage:paginationLimit;">
                         <li *ngIf="bookFilter.author_id==author._id" class="cat-item cat-item-11">
-                            <a  style="background-color: red;"(click)="getBookByAuthorId(author._id);">{{author.nameAuthor}}</a>
+                            <a style="background-color: red;" (click)="getBookByAuthorId(author._id);">{{author.nameAuthor}}</a>
                         </li>
                         <li *ngIf="bookFilter.author_id!=author._id" class="cat-item cat-item-11">
                             <a (click)="getBookByAuthorId(author._id);">{{author.nameAuthor}}</a>
                         </li>
                     </ul>
-                    <a class="myButton" *ngIf ="paginationLimit < authorService.authors?.length" (click)="showMoreItems()">
+                    <a class="myButton" *ngIf="paginationLimit < authorService.authors?.length" (click)="showMoreItems()">
                         Xem Thêm
                     </a>
-                       <a class="myButton" *ngIf ="paginationLimit == authorService.authors?.length" (click)="showLessItems()">
+                    <a class="myButton" *ngIf="paginationLimit == authorService.authors?.length" (click)="showLessItems()">
                         Thu Gọn
-                       </a>   
-                                
+                       </a>
+
                 </div>
 
-               
+
             </div>
         </div>
 
 
         <!--  message alert -->
-        <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+        <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;z-index: 1000001;">
             {{alertMessage}}
         </div>
-        <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
+        <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;z-index: 1000001;">
             {{alertMessage}}
         </div>
         <!--  message alert -->
@@ -223,9 +221,63 @@ js-comp-ver-4.9.2 vc_responsive ">
                         </div>
                     </div>
                     <h4>Có thể bạn sẽ thích</h4>
-                    <div class="modal-footer border-top-0 d-flex justify-content-between">
+                    <div class="modal-footer border-top-0 d-flex justify-content-between" id="scroll">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3 product type-product
+                            status-publish has-post-thumbnail product_cat-budgeting-and-finance 
+                            product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
+                             instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
+                            paginate: { itemsPerPage: 4,currentPage: p }">
+                                <div class="product-wrap" style="height: 270px;">
+                                    <div class="product-image">
+                                        <div class="catalog-image">
+                                            <button (click)="detailBook(item);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">
+                                   <img width="207" height="265" src="{{item.imgBook}}"
+                                    class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
+                                     alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
+                                        <div class="button yith-wcqv-button" data-product_id="78">
+                                        <i class="fa fa-search"></i>
+                                   </div>
+                                           </button>
+                                        </div>
 
+                                        <div class="product-buttons">
+                                            <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (click)="addToCart(item)">Add to cart</a>
+                                            </div>
+                                            <div class="yith_compare_btn">
+                                                <div class="woocommerce product compare-button">
+                                                    <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                            </div>
+                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                                <div class="yith-wcwl-add-button show" style="display:block">
+                                                    <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+                   Add to Wishlist</a>
+                                                </div>
+                                                <div style="clear:both"></div>
+                                                <div class="yith-wcwl-wishlistaddresponse"></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                    <!-- end product-image -->
+                                    <div class="product-content">
 
+                                        <h4 class="product_title">
+                                            <a class="bks_product_t itle_link" href="bookDetail" style="font-size: 15px;">{{item.nameBook}}</a></h4>
+
+                                        <span class="price">
+                       <span class="woocommerce-Price-amount amount" id="priceBook" >
+                           {{item.priceBook | currency:"VND"}}</span></span>
+                                    </div>
+                                    <!-- end product-content -->
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
                     </div>
 
                 </div>

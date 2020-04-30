@@ -1,9 +1,5 @@
-
 <body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
     <div class="wrapper">
-
-
-
         <!-- //MAIN NAVIGATION -->
         <div class="page-header bks-breadcrumb">
             <div class="container">
@@ -40,20 +36,19 @@
                                         <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
                                         <td>{{cartbook.nameBook}}</td>
                                         <td>{{cartbook.priceBook|currency:"VND"}}</td>
-                                        
-                                        <td><div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button id="down" (click) = "minus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-btn">
+                                                    <button id="down" (click)="minus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                                                </div>
+                                                <input class="form-control" min="1" max="10" value="1" id="number" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                                    style="text-align: center;" />
+                                                <div class="input-group-btn">
+                                                    <button id="up" (click)="plus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                                                </div>
                                             </div>
-                                            <input class="form-control" min="1" max="10" value="1"
-                                             id="number" value="{{cartbook.count}}"
-                                              (change)="getCountUpdate($event,cartbook._id)" 
-                                              onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                            style="text-align: center;" />
-                                            <div class="input-group-btn">
-                                                <button id="up" (click) = "plus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </div>
-                                        </div></td>
+                                        </td>
                                         <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
                                         <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
                                 </button> </td>
@@ -125,6 +120,26 @@
     <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;">
         {{alertMessage}}
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <style id='bookstore-custom-styles-inline-css' type='text/css'>
@@ -132,16 +147,19 @@
         background: url(../wp-content/uploads/2016/01/title.jpg);
         background-color: #e5e5e5;
     }
+    
     .page-header {
         background: url(http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/Bookshelf-1200.jpg);
         background-color: #555555;
     }
+    
     .btn-primary,
     #back-to-top .btn {
         background-color: #27ae61 !important;
         border-color: #27ae61 !important;
         color: #ffffff !important;
     }
+    
     .read-more:hover {
         color: #229955;
     }
