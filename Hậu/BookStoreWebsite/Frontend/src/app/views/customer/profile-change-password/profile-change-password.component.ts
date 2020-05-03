@@ -67,8 +67,13 @@ export class ProfileChangePasswordComponent implements OnInit {
               data => {
                 console.log(data);
                 const response: Response = data as Response;
-                this.statusChangePass = true;
-                this.alertMessage = response.message;
+                if( response.message ==  "Password was wrong!"){
+                  this.statusChangePass = false;
+                  this.alertMessage = response.message;
+                }else{
+                  this.statusChangePass = true;
+                  this.alertMessage = response.message;
+                }
                 if(this.alertMessage == "Password was wrong!") {
                   setTimeout(() => {  this.statusChangePass = false;
                     this.alertMessage = ""; }, 3000);

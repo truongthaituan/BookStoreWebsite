@@ -12,7 +12,17 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit {
 	success: Boolean = false;
-	//
+	// options: Array<String> = ["$100", "$10", "$25", "$250", "$30", "$1000", "$1", "$200", "$45", "$500",
+	// 	"$5", "$20", "Lose", "$1000000", "Lose", "$350", "$5", "$99"];
+
+	// startAngle: number = 0;
+	// arc = Math.PI / (this.options.length / 2);
+	// spinTimeout = null;
+	// spinAngleStart: number;
+	// spinArcStart = 10;
+	// spinTime = 0;
+	// spinTimeTotal = 0;
+	// ctx;
 	customOptions: any
 	constructor(private _router: Router, private bookService: BookService, private _cartBookDB: CartBookService) {
 
@@ -28,21 +38,15 @@ export class HomeComponent implements OnInit {
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
-		//set Tổng tiền và số lượng trên header
-		// if (localStorage.getItem('TongTien') == null) {
-		// 	localStorage.setItem("TongTien", "0");
-		// 	localStorage.setItem("TongCount", "0");
-		// 	$('#tongtien').html("&nbsp;" + localStorage.getItem('TongTien') + " đ");
-		// 	$('.cart_items').html(localStorage.getItem('TongCount'));
-		// } else {
-		// 	$('#tongtien').html("&nbsp;" + localStorage.getItem('TongTien') + " đ");
-		// 	$('.cart_items').html(localStorage.getItem('TongCount'));
-		// }
-		//
-
 		this.checkCartBookDBAndLocalStorage();
-
+		// var el = document.getElementById('spin');
+		// if (el) {
+		// 	el.addEventListener('click', this.spin);
+		// }
 	}
+	
+
+
 	script_Frontend() {
 		this.customOptions = {
 			loop: false,
@@ -145,7 +149,7 @@ export class HomeComponent implements OnInit {
 					else if (Object.keys(cartBookDB).length != this.lengthCartBook) {
 						//xóa hết db user // lưu lại mới theo localstorage
 						this.mergeCartBookAndCartBookDB(cartBookDB);
-						
+
 					} else {
 						var temp = 0
 						// kiểm tra các value bên trong
@@ -203,7 +207,7 @@ export class HomeComponent implements OnInit {
 		});
 	}
 	//Xóa hết DB lưu lại theo giỏ hàng
-	mergeCartBookAndCartBookDB(cartBookDB: Object){
+	mergeCartBookAndCartBookDB(cartBookDB: Object) {
 		var setconfirm = confirm('Giỏ hàng cũ của bạn chưa được thanh toán ,bạn có muốn gộp giỏ hàng cũ vào không ?')
 		if (setconfirm == true) {
 			//gộp cartbook

@@ -59,4 +59,5 @@ export class AdminPageComponent implements OnInit {
     moveToInsert(){
       this._router.navigate(['/insertPage']);
     }
+  
 }

@@ -1,15 +1,33 @@
-@import '../../../../assets/plugins/woocommerce/assets/css/woocommerce-layout72e6.css';
-@import '../../../../assets/plugins/woocommerce/assets/css/woocommerce-smallscreen72e6.css';
-@import '../../../../assets/plugins/vc-mega-menu/assets/frontend/vc-mm676a.css';
-@import '../../../../assets/themes/bookstore/assets/css/font-awesome/css/font-awesome.min676a.css';
-@import '../../../../assets/themes/bookstore/assets/css/bootstrap.min676a.css';
-@import '../../../../assets/themes/bookstore/assets/css/common676a.css';
-@import '../../../../assets/themes/bookstore/assets/css/styles676a.css';
-@import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
-#login:hover {
-    color: green;
+@import '../../../../assets/css_admin/css/material-dashboard.css';
+.dropdown-menu .dropdown-item{
+    font-size: 12px;
 }
 
-#about:hover {
-    color: green;
+#banner_image {
+    min-height: calc(100vh - 250px);
+    background-image:
+      url("../../../../assets/css_admin/img/sidebar-1.jpg");
+  }
+  div[data-image] {   
+    background-image: attr(data-image url);
 }
+.sidebar{
+    background:  linear-gradient(
+        rgba(192,192,192,0.3), 
+        rgba(171, 161, 247, 1)
+      )    
+      ,
+     url('../../../../assets/css_admin/img/sidebar-1.jpg');
+}
+/* .mat-cell:nth-child(3), .mat-header-cell:nth-child(3) {
+    flex: 0 0 120%;
+} */
+.w-75{
+    width: 100px;
+}
+.custom-select{
+    -webkit-appearance: listbox;
+    -moz-appearance: none;
+    appearance: none;
+    background:none;
+  }

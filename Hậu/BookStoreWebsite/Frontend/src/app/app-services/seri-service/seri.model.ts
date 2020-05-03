@@ -1,4 +1,4 @@
 export class Seri {
     _id: String;
-    nameSeri: String;
+    seriName: String;
 }

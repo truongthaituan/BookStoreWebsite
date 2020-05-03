@@ -27,7 +27,6 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 const routes: Routes = [
   // {path:'', component: HomeComponent},
   // {path: 'adminPage',component: AdminPageComponent},
-  // {path: 'insertPage',component: InsertBookComponent},
   // {path: 'updatePage/:id',component: UpdateBookComponent},
   // {path: 'profile', component: AccountProfileComponent},
   // {path: 'accountProfile', component: ProfileDetailComponent},

@@ -200,6 +200,7 @@ svg:not(:root) {
 
 table {
   border-collapse: collapse;
+  font-size: 15px;
 }
 
 caption {
@@ -15559,7 +15560,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .main-panel>.content {
   margin-top: 70px;
   padding: 30px 15px;
-  min-height: calc(100vh - 123px);
+  min-height: calc(100vh - 200px);
 }
 
 .main-panel>.footer {
@@ -15618,10 +15619,10 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   .sidebar-mini .sidebar .sidebar-wrapper {
     width: 80px;
   }
-
+/* 
   .sidebar-mini .main-panel {
     width: calc(100% - 80px);
-  }
+  } */
 
   .sidebar-mini .sidebar {
     display: block;
