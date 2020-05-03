@@ -484,18 +484,18 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 text-right header-quick-links">
                         <ul id="menu" class="nav  nav-pills nav-stacked">
 
-                            <a type="button" *ngIf="statusLogin == 'true' " (click) = "moveToProfile();" class="btn btn-link">Tài Khoản</a>
-                                <a type="button"  *ngIf="statusLogin == null" class="btn btn-link">Cửa Hàng</a>
-                                <a type="button"  *ngIf="statusLogin == null" (click)="moveToAccount();"  class="btn btn-link">Đăng Nhập / Đăng Ký</a>
-                                <!-- <button id="login" *ngIf="statusLogin == null" (click)="moveToAccount();" style="background-color: transparent;border-color:
+                            <a type="button" *ngIf="statusLogin == 'true' " (click)="moveToProfile();" class="btn btn-link">Tài Khoản</a>
+                            <a type="button" *ngIf="statusLogin == null" class="btn btn-link">Cửa Hàng</a>
+                            <a type="button" *ngIf="statusLogin == null" (click)="moveToAccount();" class="btn btn-link">Đăng Nhập / Đăng Ký</a>
+                            <!-- <button id="login" *ngIf="statusLogin == null" (click)="moveToAccount();" style="background-color: transparent;border-color:
                                  transparent;">Đăng Nhập / Đăng Ký</button></li> -->
-                                
-                                <button id="username" *ngIf="statusLogin == 'true' " style="background-color: transparent;border-color:
+
+                            <button id="username" *ngIf="statusLogin == 'true' " style="background-color: transparent;border-color:
                                      transparent;color: green;" disabled>Chào Mừng {{accountSocial.username}}
                                      <img style="margin-left:10px;width: 30px;height: 30px;" src="{{accountSocial.imageUrl}}" id="imageAccountSocial" /></button>
-                                <a id="logout" *ngIf="statusLogin == 'true' " (click)="logout();" class="btn btn-link" type="button">Đăng Xuất</a>
-                             
-                                <!-- <button id="username" *ngIf="statusLogin == 'true' && loginBy == 'loginbt' " style="background-color: transparent;border-color:
+                            <a id="logout" *ngIf="statusLogin == 'true' " (click)="logout();" class="btn btn-link" type="button">Đăng Xuất</a>
+
+                            <!-- <button id="username" *ngIf="statusLogin == 'true' && loginBy == 'loginbt' " style="background-color: transparent;border-color:
                                      transparent;color: green;">Chào Mừng {{accountUser.username}}<img style="margin-left:10px;width: 30px;height: 30px;"
                                       src={{accountUser.imageUrl}} id="imageAccountSocial" /></button>
                                 <button id="logout" *ngIf="statusLogin == 'true' && loginBy == 'loginbt'" (click)="logout();" style="background-color: transparent;border-color:
@@ -717,7 +717,7 @@
                         </li>
                         <li id="menu-item-29" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-29 vc-menu-item vc-d-0 vc-mm-layout-full"><a href="../../shop/index.html" class="nav-link"><span class="vc-label">Cửa Hàng</span></a></li>
                         <li id="menu-item-151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-151 vc-menu-item vc-d-0 vc-mm-layout-full"><a href="#" class="nav-link"><span class="vc-label">Liên Hệ</span></a>
-                            <div class='sub-menu'>
+                            <!-- <div class='sub-menu'>
                                 <ul class="sub-menu-inner">
                                     <li id="menu-item-402" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-402 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="../../tabbed-products-slider/index.html" class="nav-link"><span class="vc-label">Tabbed products slider</span></a></li>
                                     <li id="menu-item-405" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-405 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="../../featured-products/index.html" class="nav-link"><span class="vc-label">Featured Products</span></a></li>
@@ -726,12 +726,15 @@
                                     <li id="menu-item-404" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-404 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="../../google-map/index.html" class="nav-link"><span class="vc-label">Google map</span></a></li>
                                     <li id="menu-item-406" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-406 vc-menu-item vc-d-1 vc-mm-layout-full"><a href="../../faq/index.html" class="nav-link"><span class="vc-label">FAQ</span></a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </li>
 
+
                     </ul>
+
                 </div>
             </div>
+            <a style="cursor: pointer;" data-toggle="modal" data-target="#myModal"><img style="width: 50px;float: right;position: absolute;top: 20px;right: 60px;" src="../../../assets/spinner/img_spin/spinner.png"></a>
         </nav>
         <router-outlet></router-outlet>
 
@@ -753,17 +756,17 @@
                                 <div class="textwidget">
                                     <ul class='bks_icon_list '>
                                         <li><em style='color:#27ae61;' class='fa fa-paper-plane'></em>
-                                            <div class='list_content' style=''>868 Bechole Road, Victory Lorem Ispuse, New York</div>
+                                            <div class='list_content'>868 Bechole Road, Victory Lorem Ispuse, New York</div>
                                         </li>
                                     </ul>
                                     <ul class='bks_icon_list '>
                                         <li><em style='color:#27ae61;' class='fa fa-phone'></em>
-                                            <div class='list_content' style=''>Phone: (+80) 123 456 Fax: (+80) 123 456 789</div>
+                                            <div class='list_content'>Phone: (+80) 123 456 Fax: (+80) 123 456 789</div>
                                         </li>
                                     </ul>
                                     <ul class='bks_icon_list '>
                                         <li><em style='color:#27ae61;' class='fa fa-envelope'></em>
-                                            <div class='list_content' style=''>Email: Contact@example.com Website: www.example.com</div>
+                                            <div class='list_content'>Email: Contact@example.com Website: www.example.com</div>
                                         </li>
                                     </ul>
                                 </div>
@@ -846,26 +849,35 @@
         <!-- //FOOTER -->
 
     </div>
-
-
-    <div id="yith-quick-view-modal">
-
-        <div class="yith-quick-view-overlay"></div>
-
-        <div class="yith-wcqv-wrapper">
-
-            <div class="yith-wcqv-main">
-
-                <div class="yith-wcqv-head">
-                    <a href="#" id="yith-quick-view-close" class="yith-wcqv-close">X</a>
+    <!-- modal add book -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #2EFE64;font-size: 15px;">
+                        <b>Vòng Quay May Mắn</b>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    </h5>
                 </div>
-
-                <div id="yith-quick-view-content" class="woocommerce single-product"></div>
-
+                <div class="modal-body">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <button id="spin_start" class="btn">Quay ngay</button>
+                                <button id="spin_reset" class="btn">Quay lại</button>
+                            </td>
+                            <td width="434" height="510" class="the_wheel" valign="center">
+                                <canvas id="canvas" width="436" height="436" style="margin-top: 30px;margin-left: -1px;">
+                                    <p>Sorry, your browser doesn't support canvas. Please try another.</p>
+                                </canvas>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-
         </div>
-
     </div>
 
 </body>

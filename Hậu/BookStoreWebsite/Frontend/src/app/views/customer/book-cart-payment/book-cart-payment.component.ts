@@ -14,6 +14,8 @@ import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
+import { Point } from 'src/app/app-services/point-service/point.model';
+import { PointService } from 'src/app/app-services/point-service/point.service';
 declare var $: any;
 declare let paypal: any;
 
@@ -24,7 +26,8 @@ declare let paypal: any;
 })
 export class BookCartPaymentComponent implements OnInit {
   constructor(private _router: Router,private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
-    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService) {
+    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService
+    , private _pointService: PointService) {
 
   }
   //chứa thông tin giỏ hàng
@@ -35,7 +38,7 @@ export class BookCartPaymentComponent implements OnInit {
   orders: Order = new Order;
   orderDetails: OrderDetail = new OrderDetail;
   customer: Customer = new Customer;
-
+  point: Point = new Point;
   TongTien = 0;
   TongCount = 0;
   //thông tin login
@@ -79,9 +82,11 @@ export class BookCartPaymentComponent implements OnInit {
   }
 
   //get total count and price 
+  addPoint = 0;
   getTotalCountAndPrice() {
     this.TongTien = 0;
     this.TongCount = 0;
+    this.addPoint=0;
     this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
@@ -93,6 +98,20 @@ export class BookCartPaymentComponent implements OnInit {
     }
     $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
     $('.cart_items').html(this.TongCount.toString());
+    this.addPoint=parseInt((this.TongTien /10000).toFixed(0));
+    this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
+      PointUser =>{
+       
+          this.point.point =  this.addPoint+ Object.values(PointUser)[0].point;
+          this.point.userID = this.accountSocial._id;
+          this._pointService.putPointByUserID(this.point).subscribe(
+            pointNew=>{
+              console.log(Object.values(pointNew)[2]);
+              localStorage.setItem("Point", Object.values(pointNew)[2]);
+            }
+          );
+      }
+    );
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
@@ -149,6 +168,7 @@ export class BookCartPaymentComponent implements OnInit {
         this.sendMail.count += this.CartBook[i].count + "next";
         if(this.IsPaypal){
           this.sendMail.price += (this.CartBook[i].priceBook / 23632).toFixed(2) + "next";
+         
         }else{
           this.sendMail.price += this.CartBook[i].priceBook+ "next";
         }
@@ -174,26 +194,32 @@ export class BookCartPaymentComponent implements OnInit {
   sendMailCartBook(sendMail: SendMail) {
     if(this.IsPaypal){
       this.sendMail.totalPrice = this.TongTienPayPal.toString();
+   
       this._sendMail.postsendMailPayPal(sendMail).subscribe(
         postSendMail => {
-       
+            //tăng point 
+            this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
+              PointUser =>{
+                  this.point.point =  this.addPoint+ Object.values(PointUser)[0].point;
+                  this.point.userID = this.accountSocial._id;
+                  this._pointService.putPointByUserID(this.point);
+              }
+            );
             console.log("SendMail Success");
             //show alert
             this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
             this.alertSucess = true;
-            setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 6000);
+            setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
             //thực hiện lưu db (order - orderDetail - customer )
             this.postOrder(this.orders);
-          
+
   
         },
         error => console.log(error)
       );
       
     }else{
-    
     this.sendMail.totalPrice = this.TongTien.toString();
-  
     this._sendMail.postsendMail(sendMail).subscribe(
       postSendMail => {
      
@@ -201,7 +227,7 @@ export class BookCartPaymentComponent implements OnInit {
           //show alert
           this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
           this.alertSucess = true;
-          setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 6000);
+          setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
           //thực hiện lưu db (order - orderDetail - customer )
           this.postOrder(this.orders);
         

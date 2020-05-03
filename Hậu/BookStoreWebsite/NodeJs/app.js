@@ -30,6 +30,7 @@ const rating = require('./routes/D_action/ratingController');
 const favorite = require('./routes/D_action/favoriteController');
 const checkEmail = require('./routes/D_action/checkEmailController');
 const cartBook = require('./routes/D_action/cartBookController');
+const point = require('./routes/D_action/pointController');
 //E_payment
 const order = require('./routes/E_payment/orderController');
 const orderDetail = require('./routes/E_payment/orderDetailController');
@@ -78,6 +79,7 @@ app.use(expressJWT({ secret: superSecret })
             /^\/socials.*/,
             /^\/users.*/,
             /^\/cartBooks.*/,
+            /^\/points.*/,
             '/socials/google',
             '/socials/facebook',
             '/addAccount',
@@ -113,6 +115,7 @@ app.use('/favorites', favorite);
 app.use('/ratings', rating);
 app.use('/checkEmail', checkEmail);
 app.use('/cartBooks', cartBook);
+app.use('/points', point);
 //E_payment
 app.use('/orders', order);
 app.use('/orderDetails', orderDetail);

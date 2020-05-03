@@ -25,4 +25,7 @@ export class AccountProfileComponent implements OnInit {
   cancel(){
     this.location.back();
   }
+  goToOrderHistory(){
+    this._router.navigate(['/orderHistory'])
+  }
 }

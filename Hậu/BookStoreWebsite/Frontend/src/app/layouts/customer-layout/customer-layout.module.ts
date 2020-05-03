@@ -22,6 +22,7 @@ import { ProfileDetailEditComponent } from 'src/app/views/customer/profile-detai
 import { ProfileChangePasswordComponent } from 'src/app/views/customer/profile-change-password/profile-change-password.component';
 import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-account-social/profile-account-social.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +31,7 @@ import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-ac
     ReactiveFormsModule,
     NgxPaginationModule,
     NpnSliderModule,
-    CarouselModule
+    CarouselModule  
   ],
   declarations: [
     HomeComponent,

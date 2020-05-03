@@ -4,6 +4,8 @@ import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
+import { Point } from 'src/app/app-services/point-service/point.model';
+import { PointService } from 'src/app/app-services/point-service/point.service';
 declare var $: any;
 @Component({
 	selector: 'app-home',
@@ -14,13 +16,14 @@ export class HomeComponent implements OnInit {
 	success: Boolean = false;
 	//
 	customOptions: any
-	constructor(private _router: Router, private bookService: BookService, private _cartBookDB: CartBookService) {
+	constructor(private _router: Router, private bookService: BookService, private _cartBookDBService: CartBookService, private _pointService: PointService) {
 
 	}
 	//chứa thông tin giỏ hàng
 	CartBook = [];
 	TongTien = 0;
 	TongCount = 0;
+	point: Point = new Point;
 	lengthCartBook = 0;
 	accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
 	cartBookDB: CartBook = new CartBook;
@@ -126,11 +129,8 @@ export class HomeComponent implements OnInit {
 	//Kiểm tra so sánh cartbookLocal và cartbookDB
 	checkCartBookDBAndLocalStorage() {
 		if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
-			this._cartBookDB.getAllCartBookDBByUserID(this.accountSocial._id).subscribe(
+			this._cartBookDBService.getAllCartBookDBByUserID(this.accountSocial._id).subscribe(
 				cartBookDB => {
-					console.log(cartBookDB);
-					console.log(this.CartBook);
-
 					//kiểm tra xem cartbook và cartbookDB có khớp không
 					if (this.lengthCartBook == 0) {
 						//load cartbookDB by userID lên localStosrage (neu co)
@@ -167,13 +167,33 @@ export class HomeComponent implements OnInit {
 				},
 				error => console.log(error)
 			);
+			//get point user by userID
+			this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
+				Point => {
+				
+					//nếu chưa tạo Point thì set = 0
+					if( Object.keys(Point).length == 0 ){
+						this.point.userID=this.accountSocial._id;
+						this.point.point=0;
+						this._pointService.postPoint(this.point).subscribe(
+							pointNew=>{
+								localStorage.setItem("Point", Object.values(pointNew)[0].point);
+							}
+						);
+					}else{
+						console.log(Object.values(Point)[0].point);
+						localStorage.setItem("Point", Object.values(Point)[0].point);
+					}
+				},
+				error => console.log(error)
+			);
 		}
 	}
 	//xóa hết db by UserID
 	deleteAllCartBookDBByUserID(id) {
 		if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
 
-			this._cartBookDB.deleteAllCartBookByUserID(id).subscribe(
+			this._cartBookDBService.deleteAllCartBookByUserID(id).subscribe(
 				req => {
 					for (var i = 0; i < this.lengthCartBook; i++) {
 						this.postCartBookDB(this.CartBook[i]);
@@ -189,7 +209,7 @@ export class HomeComponent implements OnInit {
 			this.cartBookDB.userID = this.accountSocial._id;
 			this.cartBookDB.bookID = selectedBook._id;
 			this.cartBookDB.count = selectedBook.count;
-			this._cartBookDB.postCartBook(this.cartBookDB).subscribe(
+			this._cartBookDBService.postCartBook(this.cartBookDB).subscribe(
 				req => {
 					console.log(req);
 				},

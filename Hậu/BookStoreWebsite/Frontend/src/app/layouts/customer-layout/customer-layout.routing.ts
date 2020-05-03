@@ -32,5 +32,4 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'payment/:customer_id', component: BookCartPaymentComponent },
     // { path: 'manageOrder', component: ManageOrderComponent },
     { path: 'profile', component: AccountProfileComponent }
-
 ];

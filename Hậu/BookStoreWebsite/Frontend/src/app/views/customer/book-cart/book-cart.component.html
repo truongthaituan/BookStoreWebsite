@@ -12,94 +12,98 @@
         <div id="page-content" role="main">
 
             <div class="container mb-4">
-                <div *ngIf="checkViewCart">
+                <div *ngIf="checkViewCart" style="padding-bottom: 20px;">
                     <div style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
                         <b style="top:15px;position: relative;">Giỏ hàng của bạn đang trống </b></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table class="table table-striped" style="color: black;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"> </th>
-                                        <th scope="col">Tên Sách</th>
-                                        <th scope="col">Đơn Giá</th>
-                                        <th scope="col" class="text-center">Số Lượng</th>
-                                        <th scope="col" class="text-right">Tổng Tiền</th>
-                                        <th> </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let cartbook of CartBook">
+                        <div *ngIf="!checkViewCart">
+                            <div class="table-responsive">
+                                <table class="table table-striped" style="color: black;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"> </th>
+                                            <th scope="col">Tên Sách</th>
+                                            <th></th>
+                                            <th scope="col">Đơn Giá</th>
+                                            <th scope="col" class="text-center">Số Lượng</th>
+                                            <th scope="col" class="text-right">Tổng Tiền</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cartbook of CartBook">
 
-                                        <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
-                                        <td>{{cartbook.nameBook}}</td>
-                                        <td>{{cartbook.priceBook|currency:"VND"}}</td>
+                                            <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
+                                            <td colspan="2">{{cartbook.nameBook}}</td>
+                                            <td>{{cartbook.priceBook|currency:"VND"}}</td>
 
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-btn">
-                                                    <button id="down" (click)="minus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-btn">
+                                                        <button id="down" (click)="minus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                                                    </div>
+                                                    <input class="form-control" min="1" max="10" value="1" id="number" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                                        style="text-align: center;" />
+                                                    <div class="input-group-btn">
+                                                        <button id="up" (click)="plus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                                                    </div>
                                                 </div>
-                                                <input class="form-control" min="1" max="10" value="1" id="number" value="{{cartbook.count}}" (change)="getCountUpdate($event,cartbook._id)" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                                    style="text-align: center;" />
-                                                <div class="input-group-btn">
-                                                    <button id="up" (click)="plus(cartbook._id);" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
-                                        <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
+                                            </td>
+                                            <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
+                                            <td class="text-center"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
                                 </button> </td>
-                                        <!-- <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
+                                            <!-- <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
                                 </button> </td> -->
 
-                                    </tr>
+                                        </tr>
 
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Tổng Tiền</td>
-                                        <td class="text-right">{{TongTien|currency:"VND"}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Giao Hàng</td>
-                                        <td class="text-right">6,90 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><strong>Xác Nhận Tổng Tiền</strong></td>
-                                        <td class="text-right"><strong>346,90 đ</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Tổng Tiền</td>
+                                            <td class="text-right">{{TongTien|currency:"VND"}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Giao Hàng</td>
+                                            <td class="text-right">6,90 đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong>Xác Nhận Tổng Tiền</strong></td>
+                                            <td class="text-right"><strong>346,90 đ</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col mb-2">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-6">
+                                    <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" (click)="goToBookCategory()">Tiếp tục mua hàng</button>
+                                </div>
+                                <div class="col-sm-12 col-md-6 text-right">
+                                    <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkoutWhenNull()">Tiến hành đặt hàng</button>
+                                    <button *ngIf="!checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="goToShipping()">Tiến hành đặt hàng</button>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    <div class="col mb-2">
-                        <div class="row">
-                            <div class="col-sm-12  col-md-6">
-                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" (click)="goToBookCategory()">Tiếp tục mua hàng</button>
-                            </div>
-                            <div class="col-sm-12 col-md-6 text-right">
-                                <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkoutWhenNull()">Tiến hành đặt hàng</button>
-                                <button *ngIf="!checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="goToShipping()">Tiến hành đặt hàng</button>
-                            </div>
 
-                        </div>
-                    </div>
                 </div>
             </div>
 

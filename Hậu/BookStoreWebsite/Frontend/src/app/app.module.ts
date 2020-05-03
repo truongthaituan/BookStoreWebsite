@@ -26,6 +26,7 @@ import { ManageOrderComponent } from './views/admin/manage-order/manage-order.co
 import { AuthInterceptorService } from './app-services/auth-service/auth-interceptor.service';
 import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { NgxWheelModule } from 'ngx-wheel'; //<-- import here
 
 let config = new AuthServiceConfig([
   {
@@ -63,7 +64,9 @@ export function provideConfig() {
     NpnSliderModule,
     SocialLoginModule,
     Ng2SearchPipeModule,
-    ChartsModule
+    ChartsModule,
+    NgxWheelModule  //<-- and here
+
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   {
