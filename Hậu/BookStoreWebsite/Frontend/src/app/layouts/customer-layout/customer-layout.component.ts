@@ -45,17 +45,21 @@ export class CustomerLayoutComponent implements OnInit {
           { 'fillStyle': '#eae56f', 'text': '+30 điểm' },
           { 'fillStyle': '#89f26e', 'text': '+10 điểm' },
           { 'fillStyle': '#55E652', 'text': '+20 điểm' },
-          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-          { 'fillStyle': '#55E652', 'text': '+20 điểm' },
+          // { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          // { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          { 'fillStyle': '#eae56f', 'text': '+30 điểm' },
+          { 'fillStyle': '#89f26e', 'text': '+10 điểm' },
 
           { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
           { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
           { 'fillStyle': '#FE2EF7', 'text': '+200 điểm' },
 
-          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
+          // { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          // { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          // { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
+          { 'fillStyle': '#eae56f', 'text': '+30 điểm' },
+          { 'fillStyle': '#89f26e', 'text': '+10 điểm' },
+          { 'fillStyle': '#55E652', 'text': '+20 điểm' },
         ],
       'animation': {
         'type': 'spinToStop',
@@ -63,14 +67,14 @@ export class CustomerLayoutComponent implements OnInit {
         'spins': spins,
         'callbackSound': playSound,     //Hàm gọi âm thanh khi quay
         'soundTrigger': 'pin',         //Chỉ định chân là để kích hoạt âm thanh
-        'callbackFinished': this.alertPrize,    //Hàm hiển thị kết quả trúng giải thưởng
+        'callbackFinished': alertPrize,    //Hàm hiển thị kết quả trúng giải thưởng
       },
       'pins':
       {
         'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
       }
     });
-    let addPoint: any
+    var addPoint: any
    
     //Kiểm tra vòng quay
     let wheelSpinning = false;
@@ -114,6 +118,38 @@ export class CustomerLayoutComponent implements OnInit {
 
     //Result
     
+    function alertPrize(indicatedSegment) {
+      if (indicatedSegment.text == "Không có quà") {
+         alert("Chúc Bạn May Mắn Lần Sau");
+      } else
+        if (indicatedSegment.text[0] == "+") {
+          var res = indicatedSegment.text.split(" điểm");
+          var str = res[0].split("+");
+          alert("Bạn Được Cộng Thêm " + str[1] + " Điểm Vào Tài Khoản");
+          // chạy dòng này oke thì ngon  
+          addPoint = str[1];
+        } else {
+          alert("Chúc Mừng Bạn Đã Trúng " + indicatedSegment.text + " Cho Toàn Bộ Đơn Hàng");
+        }
+      //CSS hiển thị button
+      statusButton(3);
+      // chạy dòng này oke thì ngon  
+      console.log(addPoint); 
+      $.ajax({
+        type: "post",
+        url: 'http://localhost:3000/points/updatePointByUserID',
+        data: {
+          userID: (JSON.parse(localStorage.getItem('accountSocial')))._id,
+          point: addPoint
+        },
+        success: function(response) {      
+          $.get('http://localhost:3000/points/getPointByUserID/'+ (JSON.parse(localStorage.getItem('accountSocial')))._id, function(data) {
+            $("#pointcur").html(data[0].point + " Điểm");
+        });
+        }
+    });
+    }
+
     //resetWheel
     function resetWheel() {
       //CSS hiển thị button
@@ -127,24 +163,6 @@ export class CustomerLayoutComponent implements OnInit {
     }
     document.getElementById("spin_start").addEventListener("click", startSpin);
     document.getElementById("spin_reset").addEventListener("click", resetWheel);
-  }
-
-  alertPrize(indicatedSegment) {
-    if (indicatedSegment.text == "Không có quà") {
-       alert("Chúc Bạn May Mắn Lần Sau");
-    } else
-      if (indicatedSegment.text[0] == "+") {
-        var res = indicatedSegment.text.split(" điểm");
-        var str = res[0].split("+");
-        alert("Bạn Được Cộng Thêm " + str[1] + " Điểm Vào Tài Khoản");
-        // chạy dòng này oke thì ngon  
-        this.addPoint = str[1];
-      } else {
-        alert("Chúc Mừng Bạn Đã Trúng " + indicatedSegment.text + " Cho Toàn Bộ Đơn Hàng");
-      }
-    //CSS hiển thị button
-    // chạy dòng này oke thì ngon  
-    console.log(this.addPoint);  
   }
   moveToAccount() {
     return this._router.navigate(['/account']);
@@ -178,24 +196,23 @@ export class CustomerLayoutComponent implements OnInit {
       error => console.log(error)
     );
   }
-  updatePoint(add: any, minus: any) {
-    //tăng point 
+  // updatePoint(add: any, minus: any) {
+  //   //tăng point 
 
-    this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
-      PointUser => {
+  //   this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
+  //     PointUser => {
 
-        this.point.point = parseInt(add) + parseInt(Object.values(PointUser)[0].point) + parseInt(minus);
-        this.point.userID = this.accountSocial._id;
-        this._pointService.putPointByUserID(this.point).subscribe(
-          pointNew => {
-
-            localStorage.setItem("Point", Object.values(pointNew)[2]);
-            this.point.point = Object.values(pointNew)[2];
-          }
-        );
-      }
-    );
-  }
+  //       this.point.point = parseInt(add) + parseInt(Object.values(PointUser)[0].point) + parseInt(minus);
+  //       this.point.userID = this.accountSocial._id;
+  //       this._pointService.putPointByUserID(this.point).subscribe(
+  //         pointNew => {
+  //           localStorage.setItem("Point", Object.values(pointNew)[2]);
+  //           this.point.point = Object.values(pointNew)[2];
+  //         }
+  //       );
+  //     }
+  //   );
+  // }
   alert1(a){
     console.log(a);
   }

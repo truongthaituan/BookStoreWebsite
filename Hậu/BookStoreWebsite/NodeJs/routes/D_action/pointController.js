@@ -56,16 +56,16 @@ router.post('/updatePointByUserID', function(req, res) {
             const Point = await getPointByUserID(req.body.userID, res);
             point.findByIdAndUpdate(Point[0]._id, {
                     $set: {
-                        point: req.body.point
+                        point: Number(Point[0].point) + Number(req.body.point)
                     }
                 }, {
                     new: true
                 },
-                function(err, updatedcartBook) {
+                function(err, updatedPoint) {
                     if (err) {
                         res.send("err Update");
                     } else {
-                        res.json(updatedcartBook);
+                        res.json(updatedPoint);
                     }
                 })
         }
