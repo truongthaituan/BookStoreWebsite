@@ -23,11 +23,6 @@
     flex: 0 0 120%;
 } */
 .w-75{
-    width: 100px;
+    width:10px;
 }
-.custom-select{
-    -webkit-appearance: listbox;
-    -moz-appearance: none;
-    appearance: none;
-    background:none;
-  }
+ 

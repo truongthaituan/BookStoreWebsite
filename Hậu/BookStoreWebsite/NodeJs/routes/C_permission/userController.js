@@ -63,7 +63,7 @@ router.put('/:id', function(req, res) {
                 password: req.body.password,
                 username: req.body.username,
                 imageUrl: req.body.imageUrl,
-                role: "CUSTOMER"
+                role: req.body.role
             }
         }, {
             new: true

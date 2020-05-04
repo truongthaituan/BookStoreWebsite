@@ -19,15 +19,3 @@
       ,
      url('../../../../assets/css_admin/img/sidebar-1.jpg');
 }
-/* .mat-cell:nth-child(3), .mat-header-cell:nth-child(3) {
-    flex: 0 0 120%;
-} */
-.w-75{
-    width: 100px;
-}
-.custom-select{
-    -webkit-appearance: listbox;
-    -moz-appearance: none;
-    appearance: none;
-    background:none;
-  }

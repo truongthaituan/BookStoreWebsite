@@ -127,7 +127,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
           localStorage.setItem("token", response.token)
           //admin
           if ((response.obj as User).role == "ADMIN") {
-            window.location.href = "/adminPage"
+            window.location.href = "/dashboard"
             localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
@@ -183,7 +183,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
           localStorage.setItem('loginBy', "loginSocial");
           if ((response.obj as SocialAccount).role == "ADMIN") {
             localStorage.setItem("token", response.token)
-            this._router.navigate(['/adminPage']);
+            this._router.navigate(['/dashboard']);
             localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
             this.statusLogin = true;
             localStorage.setItem('statusLogin', String(this.statusLogin));
@@ -238,7 +238,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
           localStorage.setItem('loginBy', "loginSocial");
           if ((response.obj as SocialAccount).role == "ADMIN") {
             localStorage.setItem("token", response.token)
-            this._router.navigate(['/adminPage']);
+            this._router.navigate(['/dashboard']);
           }
           else  if ((response.obj as SocialAccount).role == "CUSTOMER") {
             localStorage.setItem("token", response.token)

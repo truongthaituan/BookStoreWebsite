@@ -7,8 +7,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminPageComponent } from './views/admin/admin-page/admin-page.component';
-import { UpdateBookComponent } from './views/admin/update-book/update-book.component';
-import { InsertBookComponent } from './views/admin/insert-book/insert-book.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NpnSliderModule } from "npn-slider";
@@ -26,7 +24,7 @@ import { ManageOrderComponent } from './views/admin/manage-order/manage-order.co
 import { AuthInterceptorService } from './app-services/auth-service/auth-interceptor.service';
 import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { NgxWheelModule } from 'ngx-wheel'; //<-- import here
+import { NgxWheelModule } from 'ngx-wheel';
 
 let config = new AuthServiceConfig([
   {
@@ -46,12 +44,10 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     AdminPageComponent,
-    UpdateBookComponent,
-    InsertBookComponent,
     ManageOrderComponent,
     CustomerLayoutComponent,
-    AdminLayoutComponent
-  ],
+    AdminLayoutComponent   
+      ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -65,8 +61,7 @@ export function provideConfig() {
     SocialLoginModule,
     Ng2SearchPipeModule,
     ChartsModule,
-    NgxWheelModule  //<-- and here
-
+    NgxWheelModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   {

@@ -16,6 +16,7 @@ declare var $:any;
 })
 export class InsertBookComponent implements OnInit {
   statusInsert:Boolean = false;
+  accountSocial = JSON.parse(localStorage.getItem("accountSocial"));
 
   countryForm: FormGroup;
   // countries = ['USA', 'Canada', 'Uk']
@@ -65,29 +66,31 @@ export class InsertBookComponent implements OnInit {
   }
   getCategoryList() {
     this.categoryService.getCategoryList().subscribe((res) => {
-		  this.categoryService.categories = res as Category[];
+      this.categoryService.categories = res as Category[];
+    
 		});
     }
     getAuthorList() {
       this.authorService.getAuthorList().subscribe((res) => {
         this.authorService.authors = res as Author[];
-        console.log(res);
+        
       });
     }
     getSeriList() {
       this.seriService.getSeriList().subscribe((res) => {
         this.seriService.series = res as Seri[];
-        console.log(  this.seriService.series);
+       
       });
     }
     cancel(){
-      this._router.navigate(['/adminPage']);
+      this._router.navigate(['/manageBook']);
     }
     onSubmit(form: NgForm) {
       console.log(form.value)
           this.bookService.postBook(form.value).subscribe(
-            data => {console.log(data);this._router.navigate(['/adminPage']);
-          this.statusInsert = true;localStorage.setItem('statusInsert',String(this.statusInsert))},
+            data => {console.log(data);this._router.navigate(['/manageBook']);
+          this.statusInsert = true;
+        },
             error => console.log(error)
            );
     }
