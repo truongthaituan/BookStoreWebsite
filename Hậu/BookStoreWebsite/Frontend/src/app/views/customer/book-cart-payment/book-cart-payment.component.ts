@@ -200,9 +200,15 @@ export class BookCartPaymentComponent implements OnInit {
             //tăng point 
             this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
               PointUser =>{
+               
                   this.point.point =  this.addPoint+ Object.values(PointUser)[0].point;
                   this.point.userID = this.accountSocial._id;
-                  this._pointService.putPointByUserID(this.point);
+                  this._pointService.putPointByUserID(this.point).subscribe(
+                    pointNew=>{
+                      console.log(Object.values(pointNew)[2]);
+                      localStorage.setItem("Point", Object.values(pointNew)[2]);
+                    }
+                  );
               }
             );
             console.log("SendMail Success");

@@ -734,7 +734,7 @@
 
                 </div>
             </div>
-            <a style="cursor: pointer;" data-toggle="modal" data-target="#myModal"><img style="width: 50px;float: right;position: absolute;top: 20px;right: 60px;" src="../../../assets/spinner/img_spin/spinner.png"></a>
+            <a (click)="getPointByUserID()" style="cursor: pointer;" data-toggle="modal" data-target="#myModal"><img style="width: 50px;float: right;position: absolute;top: 20px;right: 60px;" src="../../../assets/spinner/img_spin/spinner.png"></a>
         </nav>
         <router-outlet></router-outlet>
 
@@ -854,21 +854,32 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #2EFE64;font-size: 15px;">
+                    <h4 class="modal-title" id="exampleModalLabel" style="color: #2EFE64;font-size: 15px;">
                         <b>Vòng Quay May Mắn</b>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
-                    </h5>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <table cellpadding="0" cellspacing="0">
                         <tr>
-                            <td>
-                                <button id="spin_start" class="btn">Quay ngay</button>
-                                <button id="spin_reset" class="btn">Quay lại</button>
+                            <td style="border-top: none;">
+                                <div><b> Điểm Hiện Tại Của Bạn : <span id="pointcur"style="color:#5858FA;">{{point.point}} Điểm</span></b></div>
+                                <div style="padding: 10px;">
+                                    <div>1.Mỗi lần đơn hàng đã được giao bạn sẽ được cộng 1điểm/10.000đ</div>
+                                    <div>2.Với mỗi 80 điểm cho một lần quay</div>
+                                    <div>3.Bạn sẽ nhận được các ưu đãi tương ứng tùy vào vận may của bạn</div>
+
+                                </div>
+
+                                <div>
+                                    <button id="spin_start" class="btn">Quay Ngay </button>
+                                    <button id="spin_reset" class="btn" style="margin-left:10px;">Quay Lại</button>
+                                </div>
+                                <div><img style="width:400px;height:320px;" src="../../../assets/spinner/img_spin/img_box3.webp"></div>
                             </td>
-                            <td width="434" height="510" class="the_wheel" valign="center">
+                            <td width="434" height="510" class="the_wheel" valign="center" style="border-top: none;">
                                 <canvas id="canvas" width="436" height="436" style="margin-top: 30px;margin-left: -1px;">
                                     <p>Sorry, your browser doesn't support canvas. Please try another.</p>
                                 </canvas>
