@@ -19,7 +19,6 @@ export class CustomerLayoutComponent implements OnInit {
   point: Point = new Point;
   pointCur: any;
   addPoint = 0;
-  minusPoint = 0; 
 
   constructor(private _router: Router, private _pointService: PointService) {
 
@@ -39,27 +38,23 @@ export class CustomerLayoutComponent implements OnInit {
       'rotationAngle': 0,     // Đặt góc vòng quay từ 0 đến 360 độ.
       'segments':        // Các thành phần bao gồm màu sắc và văn bản.
         [
-          // { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-          // { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-          // { 'fillStyle': '#55E652', 'text': '+20 điểm' },
-          { 'fillStyle': '#eae56f', 'text': '+30 điểm' },
-          { 'fillStyle': '#89f26e', 'text': '+10 điểm' },
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
           { 'fillStyle': '#55E652', 'text': '+20 điểm' },
-          // { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-          // { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-          { 'fillStyle': '#eae56f', 'text': '+30 điểm' },
-          { 'fillStyle': '#89f26e', 'text': '+10 điểm' },
+       
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          { 'fillStyle': '#eae56f', 'text': '+20 điểm' },
+
 
           { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
           { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
           { 'fillStyle': '#FE2EF7', 'text': '+200 điểm' },
 
-          // { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-          // { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-          // { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
-          { 'fillStyle': '#eae56f', 'text': '+30 điểm' },
-          { 'fillStyle': '#89f26e', 'text': '+10 điểm' },
-          { 'fillStyle': '#55E652', 'text': '+20 điểm' },
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
+    
         ],
       'animation': {
         'type': 'spinToStop',
@@ -102,10 +97,27 @@ export class CustomerLayoutComponent implements OnInit {
       }
     }
     statusButton(1);
-
+   function minusPoint() {
+      //tăng point 
+      $.ajax({
+        type: "post",
+        url: 'http://localhost:3000/points/updatePointByUserID',
+        data: {
+          userID: (JSON.parse(localStorage.getItem('accountSocial')))._id,
+          point: -80
+        },
+        success: function(response) {      
+          $.get('http://localhost:3000/points/getPointByUserID/'+ (JSON.parse(localStorage.getItem('accountSocial')))._id, function(data) {
+            $("#pointcur").html(data[0].point + " Điểm");
+        });
+        }
+    });
+        }
     //startSpin
     function startSpin() {
-      // Ensure that spinning can't be clicked again while already running.
+      $.get('http://localhost:3000/points/getPointByUserID/'+ (JSON.parse(localStorage.getItem('accountSocial')))._id, function(data) {
+      if(data[0].point>=80) {    
+        // Ensure that spinning can't be clicked again while already running.
       if (wheelSpinning == false) {
         //CSS hiển thị button
         statusButton(2);
@@ -113,11 +125,13 @@ export class CustomerLayoutComponent implements OnInit {
         theWheel.startAnimation();
         //Khóa vòng quay
         wheelSpinning = true;
+        minusPoint();
+      }}else{
+        alert('Bạn không đủ điều kiện để quay thưởng');
       }
+    });
     }
-
     //Result
-    
     function alertPrize(indicatedSegment) {
       if (indicatedSegment.text == "Không có quà") {
          alert("Chúc Bạn May Mắn Lần Sau");
@@ -128,26 +142,25 @@ export class CustomerLayoutComponent implements OnInit {
           alert("Bạn Được Cộng Thêm " + str[1] + " Điểm Vào Tài Khoản");
           // chạy dòng này oke thì ngon  
           addPoint = str[1];
+          $.ajax({
+            type: "post",
+            url: 'http://localhost:3000/points/updatePointByUserID',
+            data: {
+              userID: (JSON.parse(localStorage.getItem('accountSocial')))._id,
+              point: addPoint
+            },
+            success: function(response) {      
+              $.get('http://localhost:3000/points/getPointByUserID/'+ (JSON.parse(localStorage.getItem('accountSocial')))._id, function(data) {
+                $("#pointcur").html(data[0].point + " Điểm");
+            });
+            }
+        });
         } else {
           alert("Chúc Mừng Bạn Đã Trúng " + indicatedSegment.text + " Cho Toàn Bộ Đơn Hàng");
         }
       //CSS hiển thị button
       statusButton(3);
       // chạy dòng này oke thì ngon  
-      console.log(addPoint); 
-      $.ajax({
-        type: "post",
-        url: 'http://localhost:3000/points/updatePointByUserID',
-        data: {
-          userID: (JSON.parse(localStorage.getItem('accountSocial')))._id,
-          point: addPoint
-        },
-        success: function(response) {      
-          $.get('http://localhost:3000/points/getPointByUserID/'+ (JSON.parse(localStorage.getItem('accountSocial')))._id, function(data) {
-            $("#pointcur").html(data[0].point + " Điểm");
-        });
-        }
-    });
     }
 
     //resetWheel
@@ -187,34 +200,12 @@ export class CustomerLayoutComponent implements OnInit {
 
     this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
       Point => {
-
         localStorage.setItem("Point", Object.values(Point)[0].point);
         this.point.point = Object.values(Point)[0].point;
-
-
       },
       error => console.log(error)
     );
   }
-  // updatePoint(add: any, minus: any) {
-  //   //tăng point 
 
-  //   this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
-  //     PointUser => {
-
-  //       this.point.point = parseInt(add) + parseInt(Object.values(PointUser)[0].point) + parseInt(minus);
-  //       this.point.userID = this.accountSocial._id;
-  //       this._pointService.putPointByUserID(this.point).subscribe(
-  //         pointNew => {
-  //           localStorage.setItem("Point", Object.values(pointNew)[2]);
-  //           this.point.point = Object.values(pointNew)[2];
-  //         }
-  //       );
-  //     }
-  //   );
-  // }
-  alert1(a){
-    console.log(a);
-  }
 
 }
