@@ -5,4 +5,5 @@ export class Order {
     orderDate: String;
     status:String;
     paymentOption: String;
+    discountCode: Number;
 }

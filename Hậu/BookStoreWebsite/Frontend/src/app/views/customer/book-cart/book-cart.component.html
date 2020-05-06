@@ -74,8 +74,8 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>Giao Hàng</td>
-                                            <td class="text-right">6,90 đ</td>
+                                            <td>Giảm {{discountCode.discountCode}}%</td>
+                                            <td class="text-right">-&ensp;{{TongTien*discountCode.discountCode/100|currency:"VND"}}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -83,8 +83,8 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><strong>Xác Nhận Tổng Tiền</strong></td>
-                                            <td class="text-right"><strong>346,90 đ</strong></td>
+                                            <td><strong>Số Tiền Phải Trả</strong></td>
+                                            <td class="text-right">{{TongTien*(100-discountCode.discountCode)/100|currency:"VND"}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

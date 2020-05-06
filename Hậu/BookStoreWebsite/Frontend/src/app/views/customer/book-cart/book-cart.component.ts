@@ -1,18 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router, ActivatedRoute } from '@angular/router';
-import { OrderService } from '../../../app-services/order-service/order.service';
-import { OrderDetailService } from '../../../app-services/orderDetail-service/orderDetail.service';
-import { Order } from '../../../app-services/order-service/order.model';
-import { OrderDetail } from '../../../app-services/orderDetail-service/orderDetail.model';
-import { CustomerService } from '../../../app-services/customer-service/customer.service';
-import { Customer } from '../../../app-services/customer-service/Customer.model';
-import { SendMailService } from '../../../app-services/sendMail-service/sendMail.service';
-import { SendMail } from '../../../app-services/sendMail-service/sendMail.model';
-import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
+import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
+import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
 declare var $: any;
 @Component({
   selector: 'app-book-cart',
@@ -21,10 +14,9 @@ declare var $: any;
 
 })
 export class BookCartComponent implements OnInit {
-	helper = new JwtHelperService();
-    token: any = this.helper.decodeToken(localStorage.getItem('token'));
-  constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
-    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService) {
+  helper = new JwtHelperService();
+  token: any = this.helper.decodeToken(localStorage.getItem('token'));
+  constructor(private _router: Router, private _cartBookDB: CartBookService, private _discountCode: DiscountCodeService) {
 
   }
   //#region Buộc phải có trên các component
@@ -37,7 +29,7 @@ export class BookCartComponent implements OnInit {
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin = localStorage.getItem('statusLogin');
   //#endregion
-  
+
   // kiểm tra giỏ hàng rỗng
   checkViewCart = false;
   lengthCartBook = 0;
@@ -45,58 +37,63 @@ export class BookCartComponent implements OnInit {
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
-  cartBookDB : CartBook= new CartBook;
+  cartBookDB: CartBook = new CartBook;
+  discountCode: DiscountCode = new DiscountCode;
+
   ngOnInit() {
+    if (localStorage.getItem('DiscountCode') != null) {
+      this.discountCode = JSON.parse(localStorage.getItem('DiscountCode'));
+    } else {
+      this.discountCode.discountCode = 0;
+    }
+
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
-    //   $('#up').click(function () {
-    //     if ($('#myNumber').val() < 10) {
-    //      $('#myNumber').val()(+$(this).prev().val() + 1);
-    //     }
-    // });
-    // $('#down').click(function () {
-    //     if ($('#myNumber').val() > 1) {
-    //       if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
-    //     }
-    // });
+
     });
-    
-   //#region Buộc phải có trên các component
-   //get giỏ hàng
+
+    //#region Buộc phải có trên các component
+    //get giỏ hàng
     this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
     //set độ dài cartBook
     this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
     //#endregion
-    
+
     // Hiện ra label khi giỏ hàng rỗng
     this.CheckViewCart();
   }
   //#region Buộc phải có trên các component
   quantity: number = 1;
-   i = 1
-   plus(id) {
-     for(let j = 0; j < this.CartBook.length;j++){
-      if(this.CartBook[j].count < 10){
-        if (this.CartBook[j]._id == id) {
+  i = 1
+  plus(id) {
+    for (let j = 0; j < this.CartBook.length; j++) {
+      if (this.CartBook[j]._id == id) {
+        if (this.CartBook[j].count < 10) {
           this.CartBook[j].count++;
-        this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
-       }
+          this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
+        }
+         else {
+        this.alertMessage = "Bạn chỉ được nhập tối đa 10 quốn sách";
+        this.alertFalse = true;
+        setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
       }
-     } 
+      }
+     
+    }
   }
-   minus(id) {
-    for(let j = 0; j < JSON.parse(localStorage.getItem("CartBook")).length;j++){
-      if(this.CartBook[j].count != 0){
-        if(this.CartBook[j]._id == id){
+  minus(id) {
+    for (let j = 0; j < JSON.parse(localStorage.getItem("CartBook")).length; j++) {
+      if (this.CartBook[j].count != 0) {
+        if (this.CartBook[j]._id == id) {
           this.CartBook[j].count--;
           this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
         }
       }
-     } 
+    }
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -146,9 +143,8 @@ export class BookCartComponent implements OnInit {
     // kiểm tra xem có lớn hơn 10 ko
     if (event.target.value <= 10) {
       console.log("update");
-      this.updateCartBook(id,event.target.value);
-    }else
-     {
+      this.updateCartBook(id, event.target.value);
+    } else {
       //show alert
       this.checkedAddBook = false;
       //update lại số lượng 
@@ -160,7 +156,7 @@ export class BookCartComponent implements OnInit {
     }
   }
   //Update Cart Book
-  updateCartBook(id,count) {
+  updateCartBook(id, count) {
     //kiểm tra book[id].count có bằng 0 không ,... nếu =0 thì ==> gửi qua hàm xóa
     if (this.checkedAddBook) {
       for (var i = 0; i < this.lengthCartBook; i++) {
@@ -169,7 +165,7 @@ export class BookCartComponent implements OnInit {
           if (count == 0) {
             this.deleteCartBook(id);
           }
-          else{
+          else {
             this.CartBook[i].count = count;
             //update cartbook DB
             this.putCartBookDB(this.CartBook[i]);
@@ -194,7 +190,7 @@ export class BookCartComponent implements OnInit {
       localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
       this.ngOnInit();
     }
-    else{
+    else {
       this.ngOnInit();
     }
   }
@@ -212,54 +208,54 @@ export class BookCartComponent implements OnInit {
   goToBookCategory() {
     this._router.navigate(['/booksCategory']);
   }
-    goToShipping(){  
-    
-      if(this.token == null){
-        this._router.navigate(['/account']);
-      }else{
-        let token_exp = this.token.exp;
-        let time_now = new Date().getTime()/1000;
-        if(time_now < token_exp){
-          this._router.navigate(['/shipping']);
-        }else {
-          // alert("Token is valid");
-          localStorage.removeItem("accountSocial");
-          localStorage.removeItem("token");
-          localStorage.removeItem("loginBy");
-          localStorage.removeItem("statusLogin");
-          // this._router.navigate(['/account']);
-          this.alertMessage = "Phiên làm việc của bạn đã hết hạn! Vui lòng đăng nhập lại!";
-          this.alertFalse = true;
-          setTimeout(() => { document.location.href = '/account';}, 2000);
-        }
-      }  
-    }
+  goToShipping() {
 
-putCartBookDB(selectedBook:Book){
-  if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
-    this.cartBookDB.userID=this.accountSocial._id;
-    this.cartBookDB.bookID=selectedBook._id;
-    this.cartBookDB.count=selectedBook.count;
-    this._cartBookDB.putCartBook(this.cartBookDB).subscribe(
-      req => {
-        console.log(req);
-      },
-      error => console.log(error)
-    );
+    if (this.token == null) {
+      this._router.navigate(['/account']);
+    } else {
+      let token_exp = this.token.exp;
+      let time_now = new Date().getTime() / 1000;
+      if (time_now < token_exp) {
+        this._router.navigate(['/shipping']);
+      } else {
+        // alert("Token is valid");
+        localStorage.removeItem("accountSocial");
+        localStorage.removeItem("token");
+        localStorage.removeItem("loginBy");
+        localStorage.removeItem("statusLogin");
+        // this._router.navigate(['/account']);
+        this.alertMessage = "Phiên làm việc của bạn đã hết hạn! Vui lòng đăng nhập lại!";
+        this.alertFalse = true;
+        setTimeout(() => { document.location.href = '/account'; }, 2000);
+      }
+    }
   }
-}
-deleteOneCartBookDB(selectedBook:Book){
-  if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
-    this.cartBookDB.userID=this.accountSocial._id;
-    this.cartBookDB.bookID=selectedBook._id;
-    this.cartBookDB.count=selectedBook.count;
-    this._cartBookDB.deleteOneCartBook(this.cartBookDB).subscribe(
-      req => {
-        console.log(req);
-      },
-      error => console.log(error)
-    );
+
+  putCartBookDB(selectedBook: Book) {
+    if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+      this.cartBookDB.userID = this.accountSocial._id;
+      this.cartBookDB.bookID = selectedBook._id;
+      this.cartBookDB.count = selectedBook.count;
+      this._cartBookDB.putCartBook(this.cartBookDB).subscribe(
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
+    }
   }
-}
+  deleteOneCartBookDB(selectedBook: Book) {
+    if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+      this.cartBookDB.userID = this.accountSocial._id;
+      this.cartBookDB.bookID = selectedBook._id;
+      this.cartBookDB.count = selectedBook.count;
+      this._cartBookDB.deleteOneCartBook(this.cartBookDB).subscribe(
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
+    }
+  }
 
 }

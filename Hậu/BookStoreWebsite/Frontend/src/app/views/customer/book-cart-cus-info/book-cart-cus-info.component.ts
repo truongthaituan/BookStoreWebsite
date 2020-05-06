@@ -2,17 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../../app-services/order-service/order.service';
 import { OrderDetailService } from '../../../app-services/orderDetail-service/orderDetail.service';
-import { Order } from '../../../app-services/order-service/order.model';
-import { OrderDetail } from '../../../app-services/orderDetail-service/orderDetail.model';
 import { CustomerService } from '../../../app-services/customer-service/customer.service';
 import { Customer } from '../../../app-services/customer-service/Customer.model';
 import { SendMailService } from '../../../app-services/sendMail-service/sendMail.service';
-import { SendMail } from '../../../app-services/sendMail-service/sendMail.model';
 import { BookService } from '../../../app-services/book-service/book.service';
-import { Book } from '../../../app-services/book-service/book.model';
 import { LocationService } from '../../../app-services/location-service/location.service';
-import { getMaxListeners } from 'cluster';
-import { isBuffer } from 'util';
+
 import { VerifyEmailService } from '../../../app-services/verify-email/verify-email.service';
 import { VerifyEmail } from '../../../app-services/verify-email/verify-email.model';
 declare var $: any;
@@ -22,10 +17,8 @@ declare var $: any;
   styleUrls: ['./book-cart-cus-info.component.css']
 })
 export class BookCartCusInfoComponent implements OnInit {
-  constructor(private _router: Router, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
-    private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService
-    , private _locationService: LocationService, private verifyEmailService: VerifyEmailService) {
-
+  constructor(private _router: Router, private _customerService: CustomerService ,
+     private _locationService: LocationService, private verifyEmailService: VerifyEmailService) {
   }
 
   //chứa thông tin giỏ hàng

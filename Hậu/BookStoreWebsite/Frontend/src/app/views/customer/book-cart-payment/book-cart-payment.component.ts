@@ -11,11 +11,13 @@ import { Customer } from '../../../app-services/customer-service/Customer.model'
 import { SendMailService } from '../../../app-services/sendMail-service/sendMail.service';
 import { SendMail } from '../../../app-services/sendMail-service/sendMail.model';
 import { BookService } from '../../../app-services/book-service/book.service';
-import { Book } from '../../../app-services/book-service/book.model';
+
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { PointService } from 'src/app/app-services/point-service/point.service';
+import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
+import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
 declare var $: any;
 declare let paypal: any;
 
@@ -27,7 +29,7 @@ declare let paypal: any;
 export class BookCartPaymentComponent implements OnInit {
   constructor(private _router: Router, private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService
-    , private _pointService: PointService) {
+    , private _pointService: PointService,private _discountCode : DiscountCodeService) {
 
   }
   //chứa thông tin giỏ hàng
@@ -53,7 +55,13 @@ export class BookCartPaymentComponent implements OnInit {
   //paypal
   cartBookDB: CartBook = new CartBook;
   public loading: boolean = true;
+  discountCode: DiscountCode = new DiscountCode;
   ngOnInit() {
+    if(localStorage.getItem('DiscountCode')!=null){
+      this.discountCode=JSON.parse(localStorage.getItem('DiscountCode'));
+    }else{
+      this.discountCode.discountCode=0;
+    }
     if (localStorage.getItem('statusLogin') == 'true') {
       $("#checkLogin").addClass("active");
       $("#customer").addClass("active");

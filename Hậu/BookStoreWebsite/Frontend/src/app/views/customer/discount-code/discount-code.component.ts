@@ -1,19 +1,5 @@
-
-
-
-
-
-
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Customer } from '../../../app-services/customer-service/Customer.model';
-import { OrderService } from '../../../app-services/order-service/order.service';
-import { OrderDetailService } from '../../../app-services/orderDetail-service/orderDetail.service';
-import { Order } from '../../../app-services/order-service/order.model';
-import { OrderDetail } from '../../../app-services/orderDetail-service/orderDetail.model';
-import { CustomerService } from '../../../app-services/customer-service/customer.service';
-import { Book } from '../../../app-services/book-service/book.model';
-import { BookService } from '../../../app-services/book-service/book.service';
 import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
 import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
 declare var $: any;
@@ -75,6 +61,10 @@ export class DiscountCodeComponent implements OnInit {
   }
   goToDiscountCode(){
     this._router.navigate(['/discountCode'])
+  }
+  goToBookCart(Object:any){
+    localStorage.setItem("DiscountCode",JSON.stringify(Object));
+    this._router.navigate(['/cartBook'])
   }
   getDisCountCodeByUserID(){
     this._discountCode.getDiscountCodeByUserID(this.accountSocial._id).subscribe(
