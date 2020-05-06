@@ -26,6 +26,7 @@ import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layo
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { NgxWheelModule } from 'ngx-wheel';
 
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -46,7 +47,8 @@ export function provideConfig() {
     AdminPageComponent,
     ManageOrderComponent,
     CustomerLayoutComponent,
-    AdminLayoutComponent   
+    AdminLayoutComponent,
+
       ],
   imports: [
     BrowserModule,

@@ -135,5 +135,10 @@ export class OrderHistoryComponent implements OnInit {
         this.list_Book = allBookList as Book[]
       });
   }
-
+  goToOrderHistory(){
+    this._router.navigate(['/orderHistory'])
+  }
+  goToDiscountCode(){
+    this._router.navigate(['/discountCode'])
+  }
 }

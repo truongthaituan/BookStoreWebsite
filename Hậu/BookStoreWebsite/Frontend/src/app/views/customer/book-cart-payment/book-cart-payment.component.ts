@@ -25,7 +25,7 @@ declare let paypal: any;
   styleUrls: ['./book-cart-payment.component.css']
 })
 export class BookCartPaymentComponent implements OnInit {
-  constructor(private _router: Router,private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
+  constructor(private _router: Router, private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService
     , private _pointService: PointService) {
 
@@ -51,26 +51,26 @@ export class BookCartPaymentComponent implements OnInit {
   alertSucess = false;
   alertFalse = false;
   //paypal
-  cartBookDB : CartBook= new CartBook;
+  cartBookDB: CartBook = new CartBook;
   public loading: boolean = true;
   ngOnInit() {
-    if(localStorage.getItem('statusLogin') == 'true'){
+    if (localStorage.getItem('statusLogin') == 'true') {
       $("#checkLogin").addClass("active");
       $("#customer").addClass("active");
       $("#payment").addClass("active");
     }
     //paypal
-    if(!this.didPaypalScriptLoad) {
+    if (!this.didPaypalScriptLoad) {
       this.loadPaypalScript().then(() => {
         paypal.Button.render(this.paypalConfig, '#paypal-button');
         this.loading = false;
       });
     }
-  let customer_id = this.route.snapshot.paramMap.get("customer_id");
-  this.getTotalCountAndPrice();
-  this.getCustomerByID(customer_id);
-  console.log(this.CartBook);
- 
+    let customer_id = this.route.snapshot.paramMap.get("customer_id");
+    this.getTotalCountAndPrice();
+    this.getCustomerByID(customer_id);
+    console.log(this.CartBook);
+
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -86,7 +86,7 @@ export class BookCartPaymentComponent implements OnInit {
   getTotalCountAndPrice() {
     this.TongTien = 0;
     this.TongCount = 0;
-    this.addPoint=0;
+    this.addPoint = 0;
     this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
@@ -98,44 +98,37 @@ export class BookCartPaymentComponent implements OnInit {
     }
     $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
     $('.cart_items').html(this.TongCount.toString());
-    this.addPoint=parseInt((this.TongTien /10000).toFixed(0));
-    this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
-      PointUser =>{
-       
-          this.point.point =  this.addPoint+ Object.values(PointUser)[0].point;
-          this.point.userID = this.accountSocial._id;
-          this._pointService.putPointByUserID(this.point).subscribe(
-            pointNew=>{
-              console.log(Object.values(pointNew)[2]);
-              localStorage.setItem("Point", Object.values(pointNew)[2]);
-            }
-          );
+
+    this.point.point = parseInt((this.TongTien / 10000).toFixed(0));
+    this.point.userID = this.accountSocial._id;
+    this._pointService.putPointByUserID(this.point).subscribe(
+      pointNew => {
+        console.log(Object.values(pointNew)[2]);
+        localStorage.setItem("Point", Object.values(pointNew)[2]);
       }
     );
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
-  
+
   //get customer By ID
-  getCustomerByID(id){
+  getCustomerByID(id) {
     this._customerService.getCustomerById(id).subscribe(
-            getcustomer => {
-              this.customer = getcustomer as Customer;
-              console.log(this.customer);
-              this.createJson(this.CartBook);
-            },
-            error => console.log(error)
-          );
+      getcustomer => {
+        this.customer = getcustomer as Customer;
+        console.log(this.customer);
+        this.createJson(this.CartBook);
+      },
+      error => console.log(error)
+    );
   }
-  goToBookCart()
-  {
+  goToBookCart() {
     this._router.navigate(['/cartBook']);
   }
-  goToShipping()
-  {
+  goToShipping() {
     this._router.navigate(['/shipping']);
   }
-//   //Lưu order và orderDetail
+  //   //Lưu order và orderDetail
   public now: Date = new Date();
 
   payCheckOut() {
@@ -150,7 +143,7 @@ export class BookCartPaymentComponent implements OnInit {
     if (this.CartBook) {
       //SendMail
       this.sendMail.name = this.customer.name;
-      this.sendMail.address = this.customer.address+','+this.customer.wards+','+this.customer.districts+','+this.customer.city;
+      this.sendMail.address = this.customer.address + ',' + this.customer.wards + ',' + this.customer.districts + ',' + this.customer.city;
       this.sendMail.email = this.customer.email;
       this.sendMail.phone = this.customer.phone;
       this.sendMail.orderDate = this.orders.orderDate;
@@ -159,18 +152,18 @@ export class BookCartPaymentComponent implements OnInit {
       this.sendMail.nameBook = "";
       this.sendMail.count = "";
       this.sendMail.price = "";
-      this.sendMail.paymentOption=this.orders.paymentOption;
+      this.sendMail.paymentOption = this.orders.paymentOption;
 
       //khai báo độ dài cartBook
 
       for (var i = 0; i < this.lengthCartBook; i++) {
 
         this.sendMail.count += this.CartBook[i].count + "next";
-        if(this.IsPaypal){
+        if (this.IsPaypal) {
           this.sendMail.price += (this.CartBook[i].priceBook / 23632).toFixed(2) + "next";
-         
-        }else{
-          this.sendMail.price += this.CartBook[i].priceBook+ "next";
+
+        } else {
+          this.sendMail.price += this.CartBook[i].priceBook + "next";
         }
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
@@ -192,43 +185,12 @@ export class BookCartPaymentComponent implements OnInit {
 
   // sendmail
   sendMailCartBook(sendMail: SendMail) {
-    if(this.IsPaypal){
+    if (this.IsPaypal) {
       this.sendMail.totalPrice = this.TongTienPayPal.toString();
-   
+
       this._sendMail.postsendMailPayPal(sendMail).subscribe(
         postSendMail => {
-            //tăng point 
-            this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
-              PointUser =>{
-               
-                  this.point.point =  this.addPoint+ Object.values(PointUser)[0].point;
-                  this.point.userID = this.accountSocial._id;
-                  this._pointService.putPointByUserID(this.point).subscribe(
-                    pointNew=>{
-                      console.log(Object.values(pointNew)[2]);
-                      localStorage.setItem("Point", Object.values(pointNew)[2]);
-                    }
-                  );
-              }
-            );
-            console.log("SendMail Success");
-            //show alert
-            this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
-            this.alertSucess = true;
-            setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
-            //thực hiện lưu db (order - orderDetail - customer )
-            this.postOrder(this.orders);
 
-  
-        },
-        error => console.log(error)
-      );
-      
-    }else{
-    this.sendMail.totalPrice = this.TongTien.toString();
-    this._sendMail.postsendMail(sendMail).subscribe(
-      postSendMail => {
-     
           console.log("SendMail Success");
           //show alert
           this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
@@ -236,40 +198,58 @@ export class BookCartPaymentComponent implements OnInit {
           setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
           //thực hiện lưu db (order - orderDetail - customer )
           this.postOrder(this.orders);
-        
+
+
+        },
+        error => console.log(error)
+      );
+
+    } else {
+      this.sendMail.totalPrice = this.TongTien.toString();
+      this._sendMail.postsendMail(sendMail).subscribe(
+        postSendMail => {
+
+          console.log("SendMail Success");
+          //show alert
+          this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
+          this.alertSucess = true;
+          setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
+          //thực hiện lưu db (order - orderDetail - customer )
+          this.postOrder(this.orders);
+
+
+        },
+        error => console.log(error)
+      );
+    }
+  }
+
+  //post order
+  postOrder(orders: Order) {
+    orders.customerID = this.customer._id;
+    this.now = new Date();
+    orders.orderDate = this.now.toString().substring(0, 24);
+    orders.totalPrice = this.TongTien;
+    this._orderService.postOrder(orders).subscribe(
+      orderdata => {
+
+        //lưu order detail
+        for (var i = 0; i < this.lengthCartBook; i++) {
+
+          this.orderDetails = new OrderDetail;
+          this.orderDetails.bookID = this.CartBook[i]._id;
+          this.orderDetails.count = this.CartBook[i].count;
+          this.orderDetails.orderID = orderdata['_id'];
+          this.orderDetails.price = this.CartBook[i].priceBook;
+          //post order Detail
+          this.postOrderDetail(this.orderDetails);
+
+        }
 
       },
       error => console.log(error)
     );
-    }
   }
-  
-//post order
-postOrder(orders: Order) {
-  orders.customerID=this.customer._id;
-  this.now = new Date();
-  orders.orderDate = this.now.toString().substring(0, 24);
-  orders.totalPrice= this.TongTien;
-  this._orderService.postOrder(orders).subscribe(
-    orderdata => {
-     
-      //lưu order detail
-      for (var i = 0; i < this.lengthCartBook; i++) {
-
-        this.orderDetails = new OrderDetail;
-        this.orderDetails.bookID = this.CartBook[i]._id;
-        this.orderDetails.count = this.CartBook[i].count;
-        this.orderDetails.orderID = orderdata['_id'];
-        this.orderDetails.price = this.CartBook[i].priceBook;
-        //post order Detail
-        this.postOrderDetail(this.orderDetails);
-  
-      }
-
-    },
-    error => console.log(error)
-  );
-} 
   //post order Detail
   postOrderDetail(orderDetails: OrderDetail) {
     this._orderDetailService.postOrderDetail(orderDetails).subscribe(
@@ -278,40 +258,42 @@ postOrder(orders: Order) {
         //delete allcartbookDB by userID
         this.deleteAllCartBookDBByUserID(this.accountSocial._id);
         this.getTotalCountAndPrice();
-        this.IsPaypal=false;
+        this.IsPaypal = false;
         // setTimeout(() => {  }, 4000);
         this._router.navigate(['/']);
       },
       error => console.log(error)
     );
   }
-//pay by cash
-payByCash(){
-  this.orders.paymentOption = "Cash"; 
-  this.payCheckOut();
-}
-//#region paypal
-//create a json for paypal
-JsonCartBook :any
-CartBook2 = []
-TongTienPayPal : any
-IsPaypal=false
-createJson(CartBook:any) {
-  this.TongTienPayPal=0;
-  for (var i = 0; i < this.lengthCartBook; i++) {
-     var infoCart = {name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632).toFixed(2)), 
-      currency:"USD", quantity: CartBook[i].count};
-     this.CartBook2.push(infoCart);
-     this.TongTienPayPal += CartBook[i].count*parseFloat((CartBook[i].priceBook / 23632).toFixed(2)) ;
-    
+  //pay by cash
+  payByCash() {
+    this.orders.paymentOption = "Cash";
+    this.payCheckOut();
   }
-  this.TongTienPayPal = this.TongTienPayPal.toFixed(2);
-console.log("--------->");
-console.log(this.CartBook2);
+  //#region paypal
+  //create a json for paypal
+  JsonCartBook: any
+  CartBook2 = []
+  TongTienPayPal: any
+  IsPaypal = false
+  createJson(CartBook: any) {
+    this.TongTienPayPal = 0;
+    for (var i = 0; i < this.lengthCartBook; i++) {
+      var infoCart = {
+        name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632).toFixed(2)),
+        currency: "USD", quantity: CartBook[i].count
+      };
+      this.CartBook2.push(infoCart);
+      this.TongTienPayPal += CartBook[i].count * parseFloat((CartBook[i].priceBook / 23632).toFixed(2));
 
-console.log( this.TongTienPayPal);
-console.log("--------->");
-}
+    }
+    this.TongTienPayPal = this.TongTienPayPal.toFixed(2);
+    console.log("--------->");
+    console.log(this.CartBook2);
+
+    console.log(this.TongTienPayPal);
+    console.log("--------->");
+  }
   title = 'app';
   public didPaypalScriptLoad: boolean = false;
   public paymentAmount: number = 1000;
@@ -326,21 +308,21 @@ console.log("--------->");
     payment: (data, actions) => {
       return actions.payment.create({
         payment: {
-          transactions: 
-          [{
-            "item_list": {
-              "items": this.CartBook2
-            },
-            "amount": {
+          transactions:
+            [{
+              "item_list": {
+                "items": this.CartBook2
+              },
+              "amount": {
                 "currency": "USD",
                 "total": this.TongTienPayPal,
-                  "details": {
-                    "subtotal": this.TongTienPayPal
-   
-                  }
-            },
-            "description": "This is the payment description."
-        }]
+                "details": {
+                  "subtotal": this.TongTienPayPal
+
+                }
+              },
+              "description": "This is the payment description."
+            }]
 
           // [
           //   { amount: { total: this.paymentAmount, currency: 'USD' } }
@@ -350,10 +332,10 @@ console.log("--------->");
     },
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
-        this.IsPaypal=true;
-        this.orders.paymentOption = "Online"; 
+        this.IsPaypal = true;
+        this.orders.paymentOption = "Online";
         this.payCheckOut();
-        
+
       });
     }
   };
@@ -366,16 +348,16 @@ console.log("--------->");
       document.body.appendChild(scriptElement);
     });
   }
-//#endregion  
-deleteAllCartBookDBByUserID(id){
-  if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
-  
-    this._cartBookDB.deleteAllCartBookByUserID(id).subscribe(
-      req => {
-        console.log(req);
-      },
-      error => console.log(error)
-    );
+  //#endregion  
+  deleteAllCartBookDBByUserID(id) {
+    if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+
+      this._cartBookDB.deleteAllCartBookByUserID(id).subscribe(
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
+    }
   }
-}
 }

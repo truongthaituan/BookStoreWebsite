@@ -27,12 +27,10 @@ router.get('/:discountCodeID', function(req, res) {
 //post
 router.post('/', function(req, res) {
     var newdiscountCode = new discountCode();
-    newdiscountCode.discountDetail = req.body.discountDetail;
-    newdiscountCode.dateStart = req.body.dateStart;
-    newdiscountCode.dateEnd = req.body.dateEnd;
-    newdiscountCode.check = req.body.check;
-    newdiscountCode.discount = req.body.discount;
 
+    newdiscountCode.userID = req.body.userID;
+    newdiscountCode.discountCode = req.body.discountCode;
+    newdiscountCode.discountDetail = req.body.discountDetail;
     newdiscountCode.save(function(err, inserteddiscountCode) {
         if (err) {
             console.log('Err Saving discountCode');
@@ -47,12 +45,10 @@ router.post('/', function(req, res) {
 router.put('/:id', function(req, res) {
         discountCode.findByIdAndUpdate(req.params.id, {
                 $set: {
-                    discountDetail: req.body.discountDetail,
-                    dateStart: req.body.dateStart,
-                    dateEnd: req.body.dateEnd,
-                    check: req.body.check,
-                    discount: req.body.discount,
 
+                    userID: req.body.userID,
+                    discountDetail: req.body.discountDetail,
+                    discountCode: req.body.discountCode,
                 }
             }, {
                 new: true
@@ -75,4 +71,15 @@ router.delete('/:id', function(req, res) {
         }
     });
 });
+
+//get discountCode By UserID
+router.get('/findByUserID/:id', function(req, res) {
+    discountCode.find({
+            userID: req.params.id
+        })
+        .exec(function(err, discountCodes) {
+            if (err) console.log("Error retrieving discountCodes");
+            else { res.json(discountCodes); }
+        });
+})
 module.exports = router;

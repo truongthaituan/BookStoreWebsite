@@ -734,7 +734,8 @@
 
                 </div>
             </div>
-            <a (click)="getPointByUserID()" style="cursor: pointer;" data-toggle="modal" data-target="#myModal"><img style="width: 50px;float: right;position: absolute;top: 20px;right: 60px;" src="../../../assets/spinner/img_spin/spinner.png"></a>
+            <a *ngIf="!accountSocial" (click)="moveToAccount()" style="cursor: pointer;"><img style="width: 50px;float: right;position: absolute;top: 20px;right: 60px;" src="../../../assets/spinner/img_spin/spinner.png"></a>
+            <a *ngIf="accountSocial" (click)="getPointByUserID()" style="cursor: pointer;" data-toggle="modal" data-target="#myModal1"><img style="width: 50px;float: right;position: absolute;top: 20px;right: 60px;" src="../../../assets/spinner/img_spin/spinner.png"></a>
         </nav>
         <router-outlet></router-outlet>
 
@@ -850,7 +851,7 @@
 
     </div>
     <!-- modal add book -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">

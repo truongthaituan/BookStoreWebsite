@@ -28,4 +28,7 @@ export class AccountProfileComponent implements OnInit {
   goToOrderHistory(){
     this._router.navigate(['/orderHistory'])
   }
+  goToDiscountCode(){
+    this._router.navigate(['/discountCode'])
+  }
 }

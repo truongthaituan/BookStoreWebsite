@@ -3,6 +3,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Router } from '@angular/router';
 import { PointService } from 'src/app/app-services/point-service/point.service';
 import { Point } from 'src/app/app-services/point-service/point.model';
+import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
+import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
+
 declare var $: any;
 declare let Winwheel: any
 
@@ -17,14 +20,16 @@ export class CustomerLayoutComponent implements OnInit {
   statusLogin = localStorage.getItem('statusLogin');
   loginBy = localStorage.getItem('loginBy');
   point: Point = new Point;
+  discountCode: DiscountCode = new DiscountCode;
   pointCur: any;
   addPoint = 0;
 
-  constructor(private _router: Router, private _pointService: PointService) {
+  constructor(private _router: Router, private _pointService: PointService, private _discountCode: DiscountCodeService) {
 
   }
   ngOnInit() {
     this.designWheel();
+    console.log(this.accountSocial);
   }
 
   designWheel() {
@@ -40,11 +45,11 @@ export class CustomerLayoutComponent implements OnInit {
         [
           { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
           { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-          { 'fillStyle': '#55E652', 'text': '+20 điểm' },
+          { 'fillStyle': '#55E652', 'text': '+100 điểm' },
        
           { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
           { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-          { 'fillStyle': '#eae56f', 'text': '+20 điểm' },
+          { 'fillStyle': '#55E652', 'text': '+100 điểm' },
 
 
           { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
@@ -157,6 +162,18 @@ export class CustomerLayoutComponent implements OnInit {
         });
         } else {
           alert("Chúc Mừng Bạn Đã Trúng " + indicatedSegment.text + " Cho Toàn Bộ Đơn Hàng");
+          var res = indicatedSegment.text.split("Mã giảm giá ");
+          var str = res[1].split("%");
+          console.log("Here--->>"+str[0]);
+          $.ajax({
+            type: "post",
+            url: 'http://localhost:3000/discountCodes',
+            data: {
+              userID: (JSON.parse(localStorage.getItem('accountSocial')))._id,
+              discountCode: str[0],
+              discountDetail: indicatedSegment.text
+            }
+        });
         }
       //CSS hiển thị button
       statusButton(3);

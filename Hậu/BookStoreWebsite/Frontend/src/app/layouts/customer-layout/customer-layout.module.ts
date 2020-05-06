@@ -21,6 +21,7 @@ import { BookCartPaymentComponent } from 'src/app/views/customer/book-cart-payme
 import { ProfileDetailEditComponent } from 'src/app/views/customer/profile-detail-edit/profile-detail-edit.component';
 import { ProfileChangePasswordComponent } from 'src/app/views/customer/profile-change-password/profile-change-password.component';
 import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-account-social/profile-account-social.component';
+import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/discount-code.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-ac
     BookCartPaymentComponent,
     ProfileDetailEditComponent,
     ProfileChangePasswordComponent,
-    ProfileAccountSocialComponent
+    ProfileAccountSocialComponent,
+    DiscountCodeComponent,
   ]
 })
 
