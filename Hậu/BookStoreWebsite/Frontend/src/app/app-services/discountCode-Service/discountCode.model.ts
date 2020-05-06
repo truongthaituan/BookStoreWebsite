@@ -3,5 +3,5 @@ export class DiscountCode {
     userID: string;
     discountCode: Number;
     discountDetail: string;
-
+    status:Number;
 }

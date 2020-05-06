@@ -171,7 +171,8 @@ export class CustomerLayoutComponent implements OnInit {
             data: {
               userID: (JSON.parse(localStorage.getItem('accountSocial')))._id,
               discountCode: str[0],
-              discountDetail: indicatedSegment.text
+              discountDetail: indicatedSegment.text,
+              status:0,
             }
         });
         }

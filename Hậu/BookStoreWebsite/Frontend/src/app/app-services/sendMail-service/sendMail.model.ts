@@ -10,4 +10,5 @@ export class SendMail{
    phone: String;
    orderDate: String;
    paymentOption: String;
+   discountCode:Number;
 }

@@ -25,7 +25,7 @@ declare var $: any;
 })
 export class MyAccountComponent implements OnInit {
   public user: any = SocialUser;
-  errString: String = ""
+  errStringLogin: String = ""
   errRegister: String = ""
   statusRegister: Boolean
   showErrorMessage: Boolean = false;
@@ -80,7 +80,6 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
       role: ""
     });
   }
-
   register() {
     if (!this.registerForm.valid) {
       alert("Mời nhập đầy đủ thông tin và nhập email theo cú pháp ***@***.***")
@@ -98,11 +97,19 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         this._userService.register(JSON.stringify(this.registerForm.value))
           .subscribe(
             data => {
-              console.log(data);
-              // this._router.navigate(['/account']);
-              this.registerForm.reset();
+              const response: Response = data as Response;
+            if (response.status == false) {
+              console.log(response.message)
+              this.errRegister = "Email đã tồn tại! Vui lòng chọn email khác!";
+              setTimeout(() => {  this.errRegister = null; }, 3000);
+            }
+            else {
+              // console.log(data);
               this.statusRegister = true;
-              this.alertMessage = "Đăng ký thành công!";
+              setTimeout(() => {  this.statusRegister = false; }, 3000);
+              this.registerForm.reset();
+              console.log("Add User Successfully!");
+              }
             },
             error => {
               console.log(error);
@@ -123,7 +130,7 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         const response: Response = res as Response;
         if (response.status == false) {
           console.log(response.message)
-          this.errString = "Email hoặc password không đúng!";
+          this.errStringLogin = "Email hoặc password không đúng!";
         }
         else {
           localStorage.setItem("token", response.token)

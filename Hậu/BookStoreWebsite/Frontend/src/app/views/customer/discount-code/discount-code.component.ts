@@ -67,7 +67,7 @@ export class DiscountCodeComponent implements OnInit {
     this._router.navigate(['/cartBook'])
   }
   getDisCountCodeByUserID(){
-    this._discountCode.getDiscountCodeByUserID(this.accountSocial._id).subscribe(
+    this._discountCode.getDiscountCodeByUserIDAndStatus(this.accountSocial._id).subscribe(
       listDiscountCode => {
         this.discountCodes = listDiscountCode as DiscountCode[]
         console.log(this.discountCodes);

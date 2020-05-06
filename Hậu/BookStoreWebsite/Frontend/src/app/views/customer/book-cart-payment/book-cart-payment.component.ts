@@ -193,9 +193,15 @@ export class BookCartPaymentComponent implements OnInit {
 
   // sendmail
   sendMailCartBook(sendMail: SendMail) {
+    if(this.discountCode._id!=null){
+      //update discount code
+      this.discountCode.status=1;
+     
+      this.putDiscountCode(this.discountCode);
+    }
+    this.sendMail.discountCode =  this.discountCode.discountCode;
     if (this.IsPaypal) {
       this.sendMail.totalPrice = this.TongTienPayPal.toString();
-
       this._sendMail.postsendMailPayPal(sendMail).subscribe(
         postSendMail => {
 
@@ -238,6 +244,7 @@ export class BookCartPaymentComponent implements OnInit {
     this.now = new Date();
     orders.orderDate = this.now.toString().substring(0, 24);
     orders.totalPrice = this.TongTien;
+    orders.discountCode= this.discountCode.discountCode;
     this._orderService.postOrder(orders).subscribe(
       orderdata => {
 
@@ -249,6 +256,7 @@ export class BookCartPaymentComponent implements OnInit {
           this.orderDetails.count = this.CartBook[i].count;
           this.orderDetails.orderID = orderdata['_id'];
           this.orderDetails.price = this.CartBook[i].priceBook;
+        
           //post order Detail
           this.postOrderDetail(this.orderDetails);
 
@@ -263,6 +271,7 @@ export class BookCartPaymentComponent implements OnInit {
     this._orderDetailService.postOrderDetail(orderDetails).subscribe(
       orderDetaildata => {
         localStorage.removeItem('CartBook');
+        localStorage.removeItem('DiscountCode');
         //delete allcartbookDB by userID
         this.deleteAllCartBookDBByUserID(this.accountSocial._id);
         this.getTotalCountAndPrice();
@@ -368,4 +377,14 @@ export class BookCartPaymentComponent implements OnInit {
       );
     }
   }
+  //update discount code
+  putDiscountCode(discountCode:DiscountCode) {
+      this._discountCode.putDiscountCode(discountCode).subscribe(
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
+    }
+  
 }

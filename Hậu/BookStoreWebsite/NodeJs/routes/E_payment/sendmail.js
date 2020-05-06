@@ -83,11 +83,42 @@ router.post('/', function(req, res) {
     } else {
         paymentOption = "Chưa Thanh Toán"
     }
-    output = output + `</tbody>
+    output = output + `
+    </tbody>
   </table>
-  <h3>Tổng Hóa Đơn : ${req.body.totalPrice}VND</h3>
-  <h3>Ngày Đặt Đơn Hàng : ${req.body.orderDate}</h3>
-  <h2>Đơn Hàng ${paymentOption}</h2>
+  <h3>THÔNG TIN THANH TOÁN BOOKSTORE</h3>
+  <table style="width:50%;">
+    <thead>
+        <tr>
+            <th>Nội Dung</th>
+            <th></th>
+        </tr>                    
+    </thead>
+    <tbody>
+        <tr>
+            <td>Tổng Tiền</td>
+
+            <td> <span style="float:right;
+            padding-right:10px;">${req.body.totalPrice}VND
+                                        </span></td>
+        </tr>
+        <tr>
+            <td>Giảm  ${req.body.discountCode}%</td>
+            <td><span style="float:right;padding-right:10px;">-${req.body.totalPrice*req.body.discountCode/100}VND</span></td>
+        </tr>
+        <tr>
+            <td>Số Tiền Phải Trả</td>
+            <td><b style="float:right;padding-right:10px;">${req.body.totalPrice*(100-req.body.discountCode)/100}VND</b></td>
+        </tr>
+        <tr>
+            <td>Ngày Đặt Đơn Hàng</td>
+            <td><b style="float:right;padding-right:10px;">${req.body.orderDate}</span></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;"><b style="padding-right:10px;">Đơn Hàng ${paymentOption}</b></td>
+        </tr>
+    </tbody>   
+    </table>              
   </body> `;
 
 
@@ -209,12 +240,42 @@ router.post('/PayPal', function(req, res) {
     } else {
         paymentOption = "Unpaid Order"
     }
-    output = output + `</tbody>
-  </table>
-  <h3>Order Total: $${req.body.totalPrice}</h3>
-  <h3>Order Date: ${req.body.orderDate}</h3>
-  <h2>${paymentOption}</h2>
-  </body> `;
+    output = output + ` </tbody>
+    </table>
+    <h3>INFORMATION PAYMENT BOOKSTORE</h3>
+    <table style="width:50%;">
+      <thead>
+          <tr>
+              <th>Nội Dung</th>
+              <th></th>
+          </tr>                    
+      </thead>
+      <tbody>
+          <tr>
+              <td>Order Total</td>
+  
+              <td> <span style="float:right;
+              padding-right:10px;">${req.body.totalPrice}VND
+                                          </span></td>
+          </tr>
+          <tr>
+              <td>Discount  ${req.body.discountCode}%</td>
+              <td><span style="float:right;padding-right:10px;">-${req.body.totalPrice*req.body.discountCode/100}VND</span></td>
+          </tr>
+          <tr>
+              <td>Total Cost To Pay</td>
+              <td><b style="float:right;padding-right:10px;">${req.body.totalPrice*(100-req.body.discountCode)/100}VND</b></td>
+          </tr>
+          <tr>
+              <td>Order Date</td>
+              <td><b style="float:right;padding-right:10px;">${req.body.orderDate}</span></td>
+          </tr>
+          <tr>
+              <td colspan="2" style="text-align:center;"><b style="padding-right:10px;">${paymentOption}</b></td>
+          </tr>
+      </tbody>   
+      </table>              
+    </body> `;
 
 
     // create reusable transporter object using the default SMTP transport

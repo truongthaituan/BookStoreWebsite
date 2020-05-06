@@ -31,5 +31,10 @@ export class DiscountCodeService {
   getDiscountCodeByUserID(_id: string){
     return this._http.get(this.baseURL + "/findByUserID"+`/${_id}`);
   }
+  //get discountCOde By UserID && status = 0 ( chưa dùng)
+  getDiscountCodeByUserIDAndStatus(_id:string){
+
+    return this._http.get(this.baseURL + "/findByUserIDANDStatus"+`/${_id}`);
+  }
   
 }

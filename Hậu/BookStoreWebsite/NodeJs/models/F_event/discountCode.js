@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const discountCodeSchema = mongoose.Schema({
     userID: String,
     discountCode: Number,
-    discountDetail: String
+    discountDetail: String,
+    status: Number,
 
 });
 

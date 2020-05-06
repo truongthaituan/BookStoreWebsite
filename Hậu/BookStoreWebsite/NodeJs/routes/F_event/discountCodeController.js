@@ -31,6 +31,7 @@ router.post('/', function(req, res) {
     newdiscountCode.userID = req.body.userID;
     newdiscountCode.discountCode = req.body.discountCode;
     newdiscountCode.discountDetail = req.body.discountDetail;
+    newdiscountCode.status = req.body.status;
     newdiscountCode.save(function(err, inserteddiscountCode) {
         if (err) {
             console.log('Err Saving discountCode');
@@ -45,7 +46,7 @@ router.post('/', function(req, res) {
 router.put('/:id', function(req, res) {
         discountCode.findByIdAndUpdate(req.params.id, {
                 $set: {
-
+                    status: req.body.status,
                     userID: req.body.userID,
                     discountDetail: req.body.discountDetail,
                     discountCode: req.body.discountCode,
@@ -76,6 +77,18 @@ router.delete('/:id', function(req, res) {
 router.get('/findByUserID/:id', function(req, res) {
     discountCode.find({
             userID: req.params.id
+        })
+        .exec(function(err, discountCodes) {
+            if (err) console.log("Error retrieving discountCodes");
+            else { res.json(discountCodes); }
+        });
+})
+
+//get discountCode ByUserID && Status True (code chưa dùng)
+router.get('/findByUserIDANDStatus/:id', function(req, res) {
+    discountCode.find({
+            userID: req.params.id,
+            status: 0,
         })
         .exec(function(err, discountCodes) {
             if (err) console.log("Error retrieving discountCodes");
