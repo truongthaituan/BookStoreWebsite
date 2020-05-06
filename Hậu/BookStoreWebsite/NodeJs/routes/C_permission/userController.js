@@ -38,21 +38,45 @@ router.get('/email/:email', function(req, res) {
                 else res.json(users);
             });
     })
+
     //register
 router.post('/signup', function(req, res) {
+  
     var newuser = new user();
-    newuser.email = req.body.email;
+    newuser.email = String(req.body.email).trim()
     newuser.password = req.body.password;
-    newuser.username = req.body.username;
+    newuser.username = String(req.body.username).trim()
     newuser.imageUrl = "https://nulm.gov.in/images/user.png";
-    newuser.role = "CUSTOMER";
-    newuser.save(function(err, inserteduser) {
-        if (err) {
-            res.send('Err Saving user');
-        } else {
-            res.json(inserteduser);
-        }
-    });
+    newuser.role = req.body.role;
+    try{
+        user.findOne({email:  String(req.body.email).trim()}, function(err, existingUser){
+            if(existingUser == null){
+                newuser.save(function(err, inserteduser) {
+                    if (err) {
+                        res.send('Err Saving user');
+                    } else {
+                        res.send({
+                            status: true,
+                            message: "Register Successfully!",
+                            obj: inserteduser,
+                            token: null
+                        });
+                    }
+                });
+            }else{
+                res.send({
+                    status: false,
+                    message: "Email is already exist!",
+                    obj: null,
+                    token: null
+                });
+            }
+        })
+  
+    }catch(err){
+        console.log(err);
+    }
+  
 });
 
 //update

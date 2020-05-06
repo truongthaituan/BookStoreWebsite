@@ -181,5 +181,13 @@ export class AdminLayoutComponent implements OnInit {
   moveToManageBook(){
     this._router.navigate(['/manageBook']);
   }
-  
+    moveToMap(){
+    this._router.navigate(['/maps']);
+  }
+  moveToManageUser(){
+    this._router.navigate(['/manageUser']);
+  }
+  moveToUserDetail(userId){
+    return this._router.navigate(["/userDetail" + `/${userId}`]);
+  }
 }

@@ -4,15 +4,16 @@ import { UserService } from 'src/app/app-services/user-service/user.service';
 import { User } from 'src/app/app-services/user-service/user.model';
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
-
 @Component({
-  selector: 'app-admin-profile-edit',
-  templateUrl: './admin-profile-edit.component.html',
-  styleUrls: ['./admin-profile-edit.component.css']
+  selector: 'app-user-details-edit',
+  templateUrl: './user-details-edit.component.html',
+  styleUrls: ['./user-details-edit.component.css']
 })
-export class AdminProfileEditComponent implements OnInit {
+export class UserDetailsEditComponent implements OnInit {
+
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
-  constructor(private _router: Router, private userService: UserService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private _router: Router, private userService: UserService,
+    private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
@@ -24,6 +25,7 @@ export class AdminProfileEditComponent implements OnInit {
       this.userService.selectedUser = res as User;
     })
   }
+
   resetForm(form?: NgForm) {
     if (form)
       form.reset();
@@ -45,7 +47,7 @@ export class AdminProfileEditComponent implements OnInit {
         this.userService.selectedUser = res as User;
         this.userService.selectedUser.email = form.value.email;
         this.userService.selectedUser.username = form.value.username;
-        this.userService.selectedUser.role = "ADMIN";
+        this.userService.selectedUser.role = form.value.role;
         this.userService.updateUser(this.userService.selectedUser).subscribe(
           data => {
             console.log(data);
@@ -53,8 +55,6 @@ export class AdminProfileEditComponent implements OnInit {
             this.alertSucess = true;
             // this.alertMessage = "Update Profile Successfully!";
             setTimeout(() => {  this.location.back(); }, 1000);
-            localStorage.removeItem("accountSocial");
-           localStorage.setItem("accountSocial", JSON.stringify(data)); 
          },
           error => console.log(error)
          );
@@ -63,8 +63,9 @@ export class AdminProfileEditComponent implements OnInit {
      console.log('Your form data: '+  form.value)
       }
     }
-    moveToAdminProfile(){
-      this._router.navigate(['/adminProfile']);
+
+    cancel(){
+      this.location.back();    
     }
     logout(){
       localStorage.clear();

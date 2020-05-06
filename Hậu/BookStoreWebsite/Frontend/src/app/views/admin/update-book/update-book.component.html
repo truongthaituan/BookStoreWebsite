@@ -143,7 +143,7 @@
                                 <div class="id_100">
                                     <select class="custom-select" style="height:36px;font-size: 14px;padding-left: 10px;"
                                     name="seriID" id="selectSeri" #name="ngModel" [(ngModel)]="bookService.selectedBook.seriID">
-                                <!-- <option ></option> -->
+                                <option value="">Không có Seri</option>
                                 <option *ngFor ="let seri of seriService.series"
                                 value="{{seri._id}}">{{seri.seriName}}</option>
                                 </select>

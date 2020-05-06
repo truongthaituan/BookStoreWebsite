@@ -1,4 +1,3 @@
-
 @import '../../../../assets/css_admin/css/material-dashboard.css';
 .dropdown-menu .dropdown-item{
     font-size: 12px;
@@ -20,3 +19,9 @@
       ,
      url('../../../../assets/css_admin/img/sidebar-1.jpg');
 }
+.custom-select{
+    -webkit-appearance: listbox;
+    -moz-appearance: none;
+    appearance: none;
+    background:none;
+  }

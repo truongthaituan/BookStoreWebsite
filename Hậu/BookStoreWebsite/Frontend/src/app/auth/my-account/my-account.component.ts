@@ -31,6 +31,7 @@ export class MyAccountComponent implements OnInit {
   showErrorMessage: Boolean = false;
   errorStr: string = ''
   statusLogin: Boolean = false
+  alertMessage: string = ''
   registerForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
     username: new FormControl(null, Validators.required),
@@ -91,20 +92,21 @@ $('.cart_items').html(localStorage.getItem('TongCount'));
         return;
       }
       else {
-        this.registerForm.value.imageUrl="hello";
+        this.registerForm.value.role = "CUSTOMER";
         console.log(JSON.stringify(this.registerForm.value)); 
 
         this._userService.register(JSON.stringify(this.registerForm.value))
           .subscribe(
             data => {
               console.log(data);
-              this._router.navigate(['/account']);
+              // this._router.navigate(['/account']);
               this.registerForm.reset();
               this.statusRegister = true;
+              this.alertMessage = "Đăng ký thành công!";
             },
             error => {
               console.log(error);
-              this.errRegister = "Tài khoản có thể đã tồn tại!";
+              this.errRegister = "Email có thể đã tồn tại! Mời đăng ký bằng email khác!";
             })
       }
   }

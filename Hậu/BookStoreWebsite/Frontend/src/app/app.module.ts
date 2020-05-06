@@ -24,7 +24,9 @@ import { ManageOrderComponent } from './views/admin/manage-order/manage-order.co
 import { AuthInterceptorService } from './app-services/auth-service/auth-interceptor.service';
 import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { NgxWheelModule } from 'ngx-wheel';
+import {
+  AgmCoreModule
+} from '@agm/core';
 
 
 let config = new AuthServiceConfig([
@@ -47,9 +49,8 @@ export function provideConfig() {
     AdminPageComponent,
     ManageOrderComponent,
     CustomerLayoutComponent,
-    AdminLayoutComponent,
-
-      ],
+    AdminLayoutComponent
+        ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -63,7 +64,10 @@ export function provideConfig() {
     SocialLoginModule,
     Ng2SearchPipeModule,
     ChartsModule,
-    NgxWheelModule
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBQ0quGzcr4DdR5kip1FaZudNOzAGQ0xmc',
+      libraries: ['places']
+    })
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   {

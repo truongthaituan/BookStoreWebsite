@@ -53,4 +53,5 @@ export class DashboardComponent implements OnInit {
   moveToAdminProfile(){
     this._router.navigate(['/adminProfile']);
   }
+
 }

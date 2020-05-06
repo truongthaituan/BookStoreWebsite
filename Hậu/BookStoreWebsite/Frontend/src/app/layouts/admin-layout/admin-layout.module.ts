@@ -53,6 +53,14 @@ import {MatTreeModule} from '@angular/material/tree';
 import { InsertBookComponent } from 'src/app/views/admin/insert-book/insert-book.component';
 import { AdminBookDetailsComponent } from 'src/app/views/admin/admin-book-details/admin-book-details.component';
 import { UpdateBookComponent } from 'src/app/views/admin/update-book/update-book.component';
+import { MapsComponent } from 'src/app/views/admin/maps/maps.component';
+import {
+  AgmCoreModule
+} from '@agm/core';
+import { AdminManageUserComponent } from 'src/app/views/admin/admin-manage-user/admin-manage-user.component';
+import { UserDetailsComponent } from 'src/app/views/admin/user-details/user-details.component';
+import { UserDetailsEditComponent } from 'src/app/views/admin/user-details-edit/user-details-edit.component';
+import { InsertUserComponent } from 'src/app/views/admin/insert-user/insert-user.component';
 
 @NgModule({
   imports: [
@@ -94,8 +102,10 @@ import { UpdateBookComponent } from 'src/app/views/admin/update-book/update-book
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule
-  ],
+    MatTreeModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBQ0quGzcr4DdR5kip1FaZudNOzAGQ0xmc'
+    })  ],
   declarations: [
     DashboardComponent,
     AdminProfileComponent,
@@ -104,13 +114,13 @@ import { UpdateBookComponent } from 'src/app/views/admin/update-book/update-book
     AdminManageBookComponent,
     InsertBookComponent,
     AdminBookDetailsComponent,
-    UpdateBookComponent
-    // TableListComponent,
-    // TypographyComponent,
-    // IconsComponent,
-    // MapsComponent,
-    // NotificationsComponent,
-    // UpgradeComponent,
+    UpdateBookComponent,
+    MapsComponent,
+    AdminManageUserComponent,
+    UserDetailsComponent,
+    UserDetailsEditComponent,
+    InsertUserComponent
+        // UpgradeComponent,
   ]
 })
 
