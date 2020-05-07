@@ -61,6 +61,7 @@ import { AdminManageUserComponent } from 'src/app/views/admin/admin-manage-user/
 import { UserDetailsComponent } from 'src/app/views/admin/user-details/user-details.component';
 import { UserDetailsEditComponent } from 'src/app/views/admin/user-details-edit/user-details-edit.component';
 import { InsertUserComponent } from 'src/app/views/admin/insert-user/insert-user.component';
+import { ManageOrderComponent } from 'src/app/views/admin/manage-order/manage-order.component';
 
 @NgModule({
   imports: [
@@ -119,8 +120,8 @@ import { InsertUserComponent } from 'src/app/views/admin/insert-user/insert-user
     AdminManageUserComponent,
     UserDetailsComponent,
     UserDetailsEditComponent,
-    InsertUserComponent
-        // UpgradeComponent,
+    InsertUserComponent,
+    ManageOrderComponent
   ]
 })
 
