@@ -8,6 +8,10 @@ import { OrderDetail } from '../../../app-services/orderDetail-service/orderDeta
 import { CustomerService } from '../../../app-services/customer-service/customer.service';
 import { Book } from '../../../app-services/book-service/book.model';
 import { BookService } from '../../../app-services/book-service/book.service';
+import { Point } from 'src/app/app-services/point-service/point.model';
+import { PointService } from 'src/app/app-services/point-service/point.service';
+import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
+import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
 declare var $: any;
 @Component({
   selector: 'app-manage-order',
@@ -16,7 +20,7 @@ declare var $: any;
 })
 export class ManageOrderComponent implements OnInit {
 
-  constructor(private _router: Router, private _order: OrderService, private _customer: CustomerService, private _orderDetail: OrderDetailService, private _book:BookService) { }
+  constructor(private _router: Router, private _order: OrderService, private _customer: CustomerService, private _orderDetail: OrderDetailService, private _book:BookService, private _pointService: PointService) { }
   //chứa thông tin giỏ hàng
   CartBook = [];
  
@@ -27,6 +31,7 @@ export class ManageOrderComponent implements OnInit {
   list_Book: Array<Book>;
   TongTien = 0;
   TongCount = 0;
+  point: Point = new Point;
   lengthCartBook = 0;
   //thông tin login
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
@@ -150,7 +155,15 @@ export class ManageOrderComponent implements OnInit {
     orders.status="Done";
     this._order.putOrder(orders).subscribe(
       order => {
-  
+          this.point.point = parseInt((this.TongTien / 10000).toFixed(0));
+          this.point.userID = this.accountSocial._id;
+          this._pointService.putPointByUserID(this.point).subscribe(
+            pointNew => {
+              console.log(Object.values(pointNew)[2]);
+              localStorage.setItem("Point", Object.values(pointNew)[2]);
+            }
+          );
+          
         this.ngOnInit();
        
       });

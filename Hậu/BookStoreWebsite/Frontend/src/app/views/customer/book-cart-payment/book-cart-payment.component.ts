@@ -107,14 +107,6 @@ export class BookCartPaymentComponent implements OnInit {
     $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
     $('.cart_items').html(this.TongCount.toString());
 
-    this.point.point = parseInt((this.TongTien / 10000).toFixed(0));
-    this.point.userID = this.accountSocial._id;
-    this._pointService.putPointByUserID(this.point).subscribe(
-      pointNew => {
-        console.log(Object.values(pointNew)[2]);
-        localStorage.setItem("Point", Object.values(pointNew)[2]);
-      }
-    );
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
