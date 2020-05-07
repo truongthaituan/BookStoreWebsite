@@ -56,6 +56,7 @@ export class BookCartPaymentComponent implements OnInit {
   cartBookDB: CartBook = new CartBook;
   public loading: boolean = true;
   discountCode: DiscountCode = new DiscountCode;
+  paymentLoading=false;
   ngOnInit() {
     if(localStorage.getItem('DiscountCode')!=null){
       this.discountCode=JSON.parse(localStorage.getItem('DiscountCode'));
@@ -78,7 +79,7 @@ export class BookCartPaymentComponent implements OnInit {
     this.getTotalCountAndPrice();
     this.getCustomerByID(customer_id);
     console.log(this.CartBook);
-
+    this.paymentLoading=false;
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -185,6 +186,7 @@ export class BookCartPaymentComponent implements OnInit {
 
   // sendmail
   sendMailCartBook(sendMail: SendMail) {
+
     if(this.discountCode._id!=null){
       //update discount code
       this.discountCode.status=1;
@@ -268,14 +270,17 @@ export class BookCartPaymentComponent implements OnInit {
         this.deleteAllCartBookDBByUserID(this.accountSocial._id);
         this.getTotalCountAndPrice();
         this.IsPaypal = false;
-        // setTimeout(() => {  }, 4000);
+        
+        
         this._router.navigate(['/']);
       },
       error => console.log(error)
     );
   }
   //pay by cash
+
   payByCash() {
+    this.paymentLoading=true;
     this.orders.paymentOption = "Cash";
     this.payCheckOut();
   }
@@ -349,13 +354,16 @@ export class BookCartPaymentComponent implements OnInit {
     }
   };
   public loadPaypalScript(): Promise<any> {
+  
+    this.paymentLoading=true;
     this.didPaypalScriptLoad = true;
     return new Promise((resolve, reject) => {
       const scriptElement = document.createElement('script');
       scriptElement.src = 'https://www.paypalobjects.com/api/checkout.js';
       scriptElement.onload = resolve;
       document.body.appendChild(scriptElement);
-    });
+    })
+   
   }
   //#endregion  
   deleteAllCartBookDBByUserID(id) {
