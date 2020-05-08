@@ -13,6 +13,7 @@ import { AdminManageUserComponent } from 'src/app/views/admin/admin-manage-user/
 import { UserDetailsComponent } from 'src/app/views/admin/user-details/user-details.component';
 import { UserDetailsEditComponent } from 'src/app/views/admin/user-details-edit/user-details-edit.component';
 import { InsertUserComponent } from 'src/app/views/admin/insert-user/insert-user.component';
+import { ManageOrderComponent } from 'src/app/views/admin/manage-order/manage-order.component';
 // import { UserProfileComponent } from '../../user-profile/user-profile.component';
 // import { TableListComponent } from '../../table-list/table-list.component';
 // import { TypographyComponent } from '../../typography/typography.component';
@@ -22,18 +23,20 @@ import { InsertUserComponent } from 'src/app/views/admin/insert-user/insert-user
 // import { UpgradeComponent } from '../../upgrade/upgrade.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'adminProfile',   component: AdminProfileComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'adminProfile', component: AdminProfileComponent },
     { path: 'adminProfileEdit/:id', component: AdminProfileEditComponent },
-    { path: 'adminChangePassword/:id',     component: AdminChangePasswordComponent },
-    { path: 'manageBook',     component: AdminManageBookComponent },
-    {path: 'insertBook',component: InsertBookComponent},
-    { path: 'bookDetails/:id',          component: AdminBookDetailsComponent },
-    { path: 'updateBook/:id',           component: UpdateBookComponent },
-    { path: 'maps',  component: MapsComponent },
-    { path: 'manageUser',     component: AdminManageUserComponent },
+    { path: 'adminChangePassword/:id', component: AdminChangePasswordComponent },
+    { path: 'manageBook', component: AdminManageBookComponent },
+    { path: 'insertBook', component: InsertBookComponent },
+    { path: 'bookDetails/:id', component: AdminBookDetailsComponent },
+    { path: 'updateBook/:id', component: UpdateBookComponent },
+    { path: 'maps', component: MapsComponent },
+    { path: 'manageUser', component: AdminManageUserComponent },
     { path: 'userDetail/:id', component: UserDetailsComponent },
     { path: 'userDetailEdit/:id', component: UserDetailsEditComponent },
-    {path: 'insertUser',component: InsertUserComponent}
+    { path: 'insertUser', component: InsertUserComponent },
+    { path: 'manageOrder', component: ManageOrderComponent }
+
 
 ];

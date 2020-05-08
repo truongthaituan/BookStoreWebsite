@@ -20,7 +20,6 @@ import {
 import { UserService } from './app-services/user-service/user.service';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { ManageOrderComponent } from './views/admin/manage-order/manage-order.component';
 import { AuthInterceptorService } from './app-services/auth-service/auth-interceptor.service';
 import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -47,7 +46,6 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     AdminPageComponent,
-    ManageOrderComponent,
     CustomerLayoutComponent,
     AdminLayoutComponent
         ],

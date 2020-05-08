@@ -190,4 +190,7 @@ export class AdminLayoutComponent implements OnInit {
   moveToUserDetail(userId){
     return this._router.navigate(["/userDetail" + `/${userId}`]);
   }
+  moveToManageOrder(){
+    this._router.navigate(['/manageOrder']);
+  }
 }
