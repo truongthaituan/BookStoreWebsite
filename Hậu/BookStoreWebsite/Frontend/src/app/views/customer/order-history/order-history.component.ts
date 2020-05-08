@@ -141,4 +141,8 @@ export class OrderHistoryComponent implements OnInit {
   goToDiscountCode(){
     this._router.navigate(['/discountCode'])
   }
+  clickGoToBookDetail(id)
+  { 
+    return this._router.navigate(["/bookDetail" + `/${id}`]);
+  }
 }

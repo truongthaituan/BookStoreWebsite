@@ -34,11 +34,12 @@ js-comp-ver-4.9.2 vc_responsive ">
                                         <div class="header">
                                             <div class="row">
                                                 <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                <div class="col-sm-2"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}}</span></div>
+                                                <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
                                                 <div *ngFor="let cus of list_all_customer">
                                                     <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                 </div>
-                                                <div class="col-sm-1"></div>
+
                                                 <div class="col-sm-2"><span>Trạng thái</span><span>Chờ xác nhận </span></div>
                                                 <div class="col-sm-2">
                                                     <div class="box">
@@ -85,7 +86,8 @@ js-comp-ver-4.9.2 vc_responsive ">
                                         <div class="header">
                                             <div class="row">
                                                 <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                <div class="col-sm-2"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}}</span></div>
+                                                <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
                                                 <div *ngFor="let cus of list_all_customer">
                                                     <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                 </div>
@@ -126,7 +128,8 @@ js-comp-ver-4.9.2 vc_responsive ">
                                         <div class="header">
                                             <div class="row">
                                                 <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                <div class="col-sm-2"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}}</span></div>
+                                                <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
                                                 <div *ngFor="let cus of list_all_customer">
                                                     <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                 </div>
@@ -151,7 +154,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                             <p>x {{orderDetail.count}}</p>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <a href="#" class="btn-default">Re-Order</a>
+                                                            <a class="btn-default" style="cursor:pointer;" (click)="clickGoToBookDetail(orderDetail.bookID);">Re-Order</a>
                                                         </div>
                                                     </div>
                                                 </div>
