@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
             if (err) {
                 console.log("err req orders");
             } else {
-                res.json(orders);
+                res.json(orders.sort());
             }
         });
 });

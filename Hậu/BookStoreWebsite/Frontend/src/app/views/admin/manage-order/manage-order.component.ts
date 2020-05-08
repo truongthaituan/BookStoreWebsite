@@ -20,10 +20,10 @@ declare var $: any;
 })
 export class ManageOrderComponent implements OnInit {
 
-  constructor(private _router: Router, private _order: OrderService, private _customer: CustomerService, private _orderDetail: OrderDetailService, private _book:BookService, private _pointService: PointService) { }
+  constructor(private _router: Router, private _order: OrderService, private _customer: CustomerService, private _orderDetail: OrderDetailService, private _book: BookService, private _pointService: PointService) { }
   //chứa thông tin giỏ hàng
   CartBook = [];
- 
+
   orders: Order = new Order;
   list_all_customer: Array<Customer>;
   list_Order: Array<Order>;
@@ -40,11 +40,11 @@ export class ManageOrderComponent implements OnInit {
   ngOnInit() {
     this.script_Frontend();
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
-    this.getOrderByUserID(this.accountSocial._id);
+    this.getAllOrder();
     this.getAllCustomer();
     this.getAllOrderDetail();
     this.getAllBook();
-    
+
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
     // this.sortByDate();
@@ -114,8 +114,8 @@ export class ManageOrderComponent implements OnInit {
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
   // get order by userID
-  getOrderByUserID(id) {
-    this._order.getOrderByUserId(id).subscribe(
+  getAllOrder() {
+    this._order.getOrderList().subscribe(
       listOrder => {
         this.list_Order = listOrder as Order[];
       },
@@ -129,43 +129,54 @@ export class ManageOrderComponent implements OnInit {
         this.list_all_customer = allCustomerlist as Customer[];
       });
   }
-  getAllOrderDetail(){
+  getAllOrderDetail() {
     this._orderDetail.getOrderDetailList().subscribe(
       allOrderDetailList => {
         this.list_OrderDetail = allOrderDetailList as OrderDetail[];
       });
   }
-  getAllBook(){
+  getAllBook() {
     this._book.getBookList().subscribe(
       allBookList => {
         this.list_Book = allBookList as Book[]
       });
   }
   //update 
-  ClickGiaoHang(orders: Order){
-    orders.status="Inprogress";
+  ClickGiaoHang(orders: Order) {
+    orders.status = "Inprogress";
     this._order.putOrder(orders).subscribe(
       order => {
-        this.ngOnInit();
         
+        this.ngOnInit();
+
       });
   }
 
-  ClickDaGiao(orders: Order){
-    orders.status="Done";
-    this._order.putOrder(orders).subscribe(
-      order => {
-          this.point.point = parseInt((this.TongTien / 10000).toFixed(0));
-          this.point.userID = this.accountSocial._id;
-          this._pointService.putPointByUserID(this.point).subscribe(
-            pointNew => {
-              console.log(Object.values(pointNew)[2]);
-              localStorage.setItem("Point", Object.values(pointNew)[2]);
-            }
-          );
-          
-        this.ngOnInit();
-       
-      });
+  ClickDaGiao(orders: Order) {
+    orders.status = "Done";
+    console.log(orders)
+    this._customer.getUserIDByCustomerID(orders.customerID).subscribe(
+      UserID => {
+
+
+        this._order.putOrder(orders).subscribe(
+          order => {
+            this.point.point = parseInt((orders.totalPrice / 10000).toFixed(0));
+            this.point.userID = Object.values(UserID)[0].userID;
+            console.log(this.point);
+            this._pointService.putPointByUserID(this.point).subscribe(
+              pointNew => {
+                
+                localStorage.setItem("Point", Object.values(pointNew)[2]);
+                // this.ngOnInit();  
+              }
+            );
+
+
+
+          });
+      }
+    )
+
   }
 }

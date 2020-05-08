@@ -1,7 +1,7 @@
 export class Order {
     _id: string;
     customerID: String;
-    totalPrice: Number;
+    totalPrice: number;
     orderDate: String;
     status:String;
     paymentOption: String;

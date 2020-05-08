@@ -31,5 +31,9 @@ export class CustomerService {
   getCustomerByUserID(_id: String) {
     return this._http.get(this.baseURL + "/UserID/" + _id);
   }
+  //get userID by customerID
+  getUserIDByCustomerID(_id:String){
+    return this._http.get(this.baseURL+ "/getUserIDByCustomerID/" + _id);
+  }
 
 }

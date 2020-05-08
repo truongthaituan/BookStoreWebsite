@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const customer = require('../../models/B_profile/customer')
+    // var SocialAccount = require('../../models/C_permission/accountsocials');
+    // const user = require('../../models/C_permission/user');
     //customer
     //get all
 router.get('/', function(req, res) {
@@ -93,4 +95,17 @@ router.get('/UserID/:user_id', function(req, res) {
             else res.json(customers);
         });
 })
+
+
+//get userid by customerID
+router.get('/getUserIDByCustomerID/:customerID', function(req, res) {
+    customer.find({
+            _id: req.params.customerID
+        })
+        .exec(function(err, customers) {
+            if (err) console.log("Error retrieving customer");
+            else res.json(customers);
+        });
+})
+
 module.exports = router;
