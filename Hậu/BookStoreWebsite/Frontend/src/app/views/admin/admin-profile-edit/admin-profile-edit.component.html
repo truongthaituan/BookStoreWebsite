@@ -100,6 +100,15 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Avatar</label>
+                          <input type="text" class="form-control"  name="imageUrl" #name="ngModel"
+                          [(ngModel)]="userService.selectedUser.imageUrl">
+                        </div>
+                      </div>
+                    </div>
                     <button type="button" class="btn btn-primary pull-right" style="font-size: 13px;" (click) = "moveToAdminProfile();">Trở Về</button>
         
                     <button type="submit" class="btn btn-primary pull-right" style="font-size: 13px;">Lưu Thông Tin</button>

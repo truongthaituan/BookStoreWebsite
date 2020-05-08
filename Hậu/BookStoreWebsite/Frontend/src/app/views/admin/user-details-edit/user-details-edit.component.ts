@@ -48,6 +48,7 @@ export class UserDetailsEditComponent implements OnInit {
         this.userService.selectedUser.email = form.value.email;
         this.userService.selectedUser.username = form.value.username;
         this.userService.selectedUser.role = form.value.role;
+        this.userService.selectedUser.imageUrl = form.value.imageUrl;
         this.userService.updateUser(this.userService.selectedUser).subscribe(
           data => {
             console.log(data);
