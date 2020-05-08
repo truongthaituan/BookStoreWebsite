@@ -67,5 +67,11 @@ export class InsertUserComponent implements OnInit {
         this.getUsername=event.target.value;
   
       }
+       
+  logout() {
+    localStorage.clear();
+    window.location.href = "/homePage";
+  }
+
 }
 

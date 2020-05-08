@@ -129,4 +129,10 @@ export class UpdateBookComponent implements OnInit {
       this.getLinkImgBook=event.target.value;
 
     }
+     
+  logout() {
+    localStorage.clear();
+    window.location.href = "/homePage";
+  }
+
 }

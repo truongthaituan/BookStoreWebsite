@@ -49,4 +49,10 @@ export class AdminBookDetailsComponent implements OnInit {
     cancel(){
       this._router.navigate(['/manageBook'])
     }
+     
+  logout() {
+    localStorage.clear();
+    window.location.href = "/homePage";
+  }
+
 }

@@ -30,5 +30,10 @@ export class MapsComponent implements OnInit {
         });
       }
     }
-
+ 
+    logout() {
+      localStorage.clear();
+      window.location.href = "/homePage";
+    }
+  
 }

@@ -114,4 +114,10 @@ export class AdminManageBookComponent implements OnInit {
   addBook() {
     this._router.navigate(['/insertBook']);
   }
+   
+  logout() {
+    localStorage.clear();
+    window.location.href = "/homePage";
+  }
+
 }

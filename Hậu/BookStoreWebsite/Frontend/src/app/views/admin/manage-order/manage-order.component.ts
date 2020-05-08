@@ -151,6 +151,11 @@ export class ManageOrderComponent implements OnInit {
 
       });
   }
+ 
+  logout() {
+    localStorage.clear();
+    window.location.href = "/homePage";
+  }
 
   ClickDaGiao(orders: Order) {
     orders.status = "Done";

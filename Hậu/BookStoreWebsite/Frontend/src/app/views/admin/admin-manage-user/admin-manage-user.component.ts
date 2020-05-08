@@ -86,4 +86,10 @@ export class AdminManageUserComponent implements OnInit {
   insertUser() {
     this._router.navigate(['/insertUser']);
   }
+   
+  logout() {
+    localStorage.clear();
+    window.location.href = "/homePage";
+  }
+
 }
