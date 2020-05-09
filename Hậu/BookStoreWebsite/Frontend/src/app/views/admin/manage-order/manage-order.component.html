@@ -91,9 +91,9 @@
                                             <div class="header">
                                                 <div class="row">
                                                     <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                    <div class="col-sm-2"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}}</span></div>
-
-                                                    <div class="col-sm-3">
+                                                    <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                    <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
+                                                    <div class="col-sm-2">
                                                         <div *ngFor="let cus of list_all_customer">
                                                             <div *ngIf="cus._id==order.customerID">
                                                                 <span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
@@ -148,8 +148,9 @@
                                             <div class="header">
                                                 <div class="row">
                                                     <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                    <div class="col-sm-2"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}}</span></div>
-                                                    <div class="col-sm-3">
+                                                    <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                    <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
+                                                    <div class="col-sm-2">
                                                         <div *ngFor="let cus of list_all_customer">
                                                             <div *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                         </div>
@@ -198,8 +199,9 @@
                                             <div class="header">
                                                 <div class="row">
                                                     <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                    <div class="col-sm-2"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}}</span></div>
-                                                    <div class="col-sm-3">
+                                                    <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                    <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
+                                                    <div class="col-sm-2">
                                                         <div *ngFor="let cus of list_all_customer">
                                                             <div *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                         </div>
