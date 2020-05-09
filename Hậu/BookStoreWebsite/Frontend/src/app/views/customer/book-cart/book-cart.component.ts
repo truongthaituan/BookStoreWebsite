@@ -257,5 +257,7 @@ export class BookCartComponent implements OnInit {
       );
     }
   }
-
+  goToDiscountCode(){
+    this._router.navigate(['/discountCode']);
+  }
 }

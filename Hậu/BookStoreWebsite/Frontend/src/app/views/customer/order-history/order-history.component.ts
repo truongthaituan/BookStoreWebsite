@@ -145,4 +145,25 @@ export class OrderHistoryComponent implements OnInit {
   { 
     return this._router.navigate(["/bookDetail" + `/${id}`]);
   }
+  ClickDeleteOrder(orderDel:Order){
+    if(orderDel.discountCode!=0){
+      var setconfirm = confirm('Xóa đơn hàng này bạn sẽ bị mất mã giảm giá '+orderDel.discountCode+"%, /n<br> Bạn có chắc là muốn xóa ? ")
+      if(setconfirm){
+        this. DeleteOrder(orderDel._id);
+      }
+    }else{
+      var setconfirm = confirm('Bạn có chắc là muốn hủy đơn hàng này chứ ?');
+      if(setconfirm){
+       this. DeleteOrder(orderDel._id);
+      }
+    }
+  
+  }
+  DeleteOrder(id:string){
+    this._order.deleteOrder(id).subscribe(
+      orderDel =>{
+      }
+    )
+  }
+  
 }

@@ -73,9 +73,9 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td>Giảm {{discountCode.discountCode}}%</td>
-                                            <td class="text-right">-&ensp;{{TongTien*discountCode.discountCode/100|currency:"VND"}}</td>
+                                            <td><button class="btn btn-sm btn-info" style="float: right;" type="button" (click)="goToDiscountCode()">Dùng Mã <i class="fa fa-ticket"></i> </button></td>
+                                            <td style="padding-top: 14px;">Giảm {{discountCode.discountCode}}%</td>
+                                            <td class="text-right" style="padding-top: 14px;">-&ensp;{{TongTien*discountCode.discountCode/100|currency:"VND"}}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
