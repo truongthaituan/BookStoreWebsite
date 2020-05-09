@@ -11,7 +11,10 @@ router.get('/', function(req, res) {
             if (err) {
                 console.log("err req orders");
             } else {
-                res.json(orders.sort());
+                orders.sort(function(a, b) {
+                    return (Date.parse((b.orderDate).toString())) - (Date.parse((a.orderDate).toString()));
+                });
+                res.json(orders);
             }
         });
 });
@@ -101,8 +104,10 @@ router.get('/findByUserID/:userID', function(req, res) {
                 arrayOrder.push(dataOrder[index2]);
             }
             if (index == data.length - 1) {
-                res.json(arrayOrder.sort());
-                console.log(arrayOrder);
+                dataOrder.sort(function(a, b) {
+                    return (Date.parse((b.orderDate).toString())) - (Date.parse((a.orderDate).toString()));
+                });
+                 res.json(dataOrder);
             }
         }
     }

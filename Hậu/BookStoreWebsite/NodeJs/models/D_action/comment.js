@@ -6,6 +6,7 @@ const commentSchema = mongoose.Schema({
     commentDate: String,
     time: String,
     content: String,
+    replies: []
 });
 
 module.exports = mongoose.model('comments', commentSchema);

@@ -117,12 +117,15 @@ export class ManageOrderComponent implements OnInit {
   getAllOrder() {
     this._order.getOrderList().subscribe(
       listOrder => {
-        this.list_Order = listOrder as Order[];
+        this.list_Order = listOrder as Order[]; 
+      // console.log(Date.parse((this.list_Order[0].orderDate).toString()))
+      // console.log(Date.parse((this.list_Order[1].orderDate).toString()))
       },
       error => console.log(error)
     );
   }
-
+   sortByDueDate() {
+}
   getAllCustomer() {
     this._customer.getCustomerList().subscribe(
       allCustomerlist => {
