@@ -22,6 +22,10 @@ import { ProfileDetailEditComponent } from 'src/app/views/customer/profile-detai
 import { ProfileChangePasswordComponent } from 'src/app/views/customer/profile-change-password/profile-change-password.component';
 import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-account-social/profile-account-social.component';
 import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/discount-code.component';
+import { AgmCoreModule } from '@agm/core';
+import { GoogleMapsComponent } from 'src/app/views/customer/google-maps/google-maps.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmDirectionModule } from 'agm-direction'; 
 
 
 @NgModule({
@@ -29,10 +33,16 @@ import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/disc
     CommonModule,
     RouterModule.forChild(CustomerLayoutRoutes),
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     NgxPaginationModule,
     NpnSliderModule,
-    CarouselModule  
+    CarouselModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBQ0quGzcr4DdR5kip1FaZudNOzAGQ0xmc',
+      libraries: ['places']
+    }),
+    AgmDirectionModule
   ],
   declarations: [
     HomeComponent,
@@ -51,7 +61,9 @@ import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/disc
     ProfileChangePasswordComponent,
     ProfileAccountSocialComponent,
     DiscountCodeComponent,
-  ]
+    GoogleMapsComponent
+  ],
+  entryComponents: [ GoogleMapsComponent ]
 })
 
 export class CustomerLayoutModule {}

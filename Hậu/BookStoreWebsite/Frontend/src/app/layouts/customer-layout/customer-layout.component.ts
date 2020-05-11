@@ -23,7 +23,6 @@ export class CustomerLayoutComponent implements OnInit {
   discountCode: DiscountCode = new DiscountCode;
   pointCur: any;
   addPoint = 0;
-
   constructor(private _router: Router, private _pointService: PointService, private _discountCode: DiscountCodeService) {
 
   }

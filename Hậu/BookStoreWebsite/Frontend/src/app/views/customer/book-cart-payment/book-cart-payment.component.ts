@@ -105,13 +105,17 @@ export class BookCartPaymentComponent implements OnInit {
 
       }
     }
-    $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
+    $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
     $('.cart_items').html(this.TongCount.toString());
-
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
-
+  //#endregion
+   formatCurrency(number){
+    var n = number.split('').reverse().join("");
+    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
+    return  n2.split('').reverse().join('') + 'VNĐ';
+}
   //get customer By ID
   getCustomerByID(id) {
     this._customerService.getCustomerById(id).subscribe(

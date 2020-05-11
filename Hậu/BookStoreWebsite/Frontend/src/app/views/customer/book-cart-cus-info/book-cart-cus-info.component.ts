@@ -7,19 +7,40 @@ import { Customer } from '../../../app-services/customer-service/Customer.model'
 import { SendMailService } from '../../../app-services/sendMail-service/sendMail.service';
 import { BookService } from '../../../app-services/book-service/book.service';
 import { LocationService } from '../../../app-services/location-service/location.service';
-
+import { ViewChild, ElementRef, NgZone } from '@angular/core';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { VerifyEmailService } from '../../../app-services/verify-email/verify-email.service';
 import { VerifyEmail } from '../../../app-services/verify-email/verify-email.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GoogleMapsComponent } from '../google-maps/google-maps.component';
 declare var $: any;
+interface Coordinates {
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
 @Component({
   selector: 'app-book-cart-cus-info',
   templateUrl: './book-cart-cus-info.component.html',
   styleUrls: ['./book-cart-cus-info.component.css']
 })
 export class BookCartCusInfoComponent implements OnInit {
-  constructor(private _router: Router, private _customerService: CustomerService ,
+  coordinates: Coordinates;
+
+  constructor(private _router: Router, private _customerService: CustomerService ,  private mapsAPILoader: MapsAPILoader,private modalService: NgbModal,
+    private ngZone: NgZone,
      private _locationService: LocationService, private verifyEmailService: VerifyEmailService) {
+      this.coordinates = {} as Coordinates;
   }
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  addressgg: string;
+  private geoCoder;
+
+  @ViewChild('search', {static: false})
+  public searchElementRef: ElementRef;
 
   //chứa thông tin giỏ hàng
   CartBook = [];
@@ -64,8 +85,35 @@ export class BookCartCusInfoComponent implements OnInit {
   ShowFormEdit = false;
   //nếu bằng true thì sẽ là update
   IsUpdateCustomer=false;
+  iconUrl = { url: '../../../../assets/img/img_marker/marker.png', scaledSize: {height: 50, width: 50}}
+  origin: any;
+  destination: any;
   ngOnInit() {
-   
+    this.showAddressStore();
+
+ //load Places Autocomplete
+ this.mapsAPILoader.load().then(() => {
+  this.setCurrentLocation();
+  this.geoCoder = new google.maps.Geocoder;
+  let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+  autocomplete.addListener("place_changed", () => {
+    this.ngZone.run(() => {
+      //get the place result
+      let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      //verify result
+      if (place.geometry === undefined || place.geometry === null) {
+        return;
+      }
+      //set latitude, longitude and zoom
+      this.latitude = place.geometry.location.lat();
+      this.longitude = place.geometry.location.lng();
+      this.zoom = 12;
+      this.getAddress(this.latitude,this.longitude);
+      this.calculateDistance(place.geometry.location.lat(),  place.geometry.location.lng());
+      this.getDirection(place.geometry.location.lat(),  place.geometry.location.lng());
+    });
+  });
+});
     this.script_Frontend();
     // if (this.accountSocial) {
     //   this.email = this.accountSocial.email;
@@ -89,6 +137,90 @@ export class BookCartCusInfoComponent implements OnInit {
     this.RunCheckAllInValid();
   
   }
+
+// Get Current Location Coordinates
+private setCurrentLocation() {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.zoom = 8;
+      this.getAddress(this.latitude, this.longitude);
+      this.calculateDistance(position.coords.latitude, position.coords.longitude);
+      this.getDirection(position.coords.latitude, position.coords.longitude)
+    });
+   
+  }
+}
+
+markerDragEnd($event: MouseEvent) {
+  console.log($event);
+  this.latitude = $event.coords.lat;
+  this.longitude = $event.coords.lng;
+  this.getAddress(this.latitude, this.longitude);
+  this.calculateDistance($event.coords.lat, $event.coords.lng);
+  this.getDirection($event.coords.lat, $event.coords.lng);
+}
+getDirection(latTo, lngTo) {
+  this.origin = { lat: this.latStore, lng: this.longStore};
+  this.destination = { lat: latTo, lng: lngTo};
+}
+getAddress(latitude, longitude) {
+  this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+    console.log(results);
+    console.log(status);
+    if (status === 'OK') {
+      if (results[0]) {
+        this.zoom = 12;
+        this.addressgg = results[0].formatted_address;
+      } else {
+        window.alert('No results found');
+      }
+    } else {
+      window.alert('Geocoder failed due to: ' + status);
+    }
+
+  });
+}
+  latStore: number = 10.8579485;
+  longStore: number = 106.7582144;
+  addressStore: String = '';
+  showAddressStore() {
+    this.mapsAPILoader.load().then(() => {
+    let geocoder = new google.maps.Geocoder;
+    let latlng = {lat: this.latStore, lng: this.longStore};
+    geocoder.geocode({'location': latlng}, (results, status) => {
+       this.addressStore = results[0].formatted_address;
+    });
+  });
+}
+feeShip: number
+calculateDistance(latTo, longTo) {
+  this.mapsAPILoader.load().then(() => {
+  const from = new google.maps.LatLng(this.latStore, this.longStore);
+  const to = new google.maps.LatLng(latTo, longTo);
+  const distance = Number((google.maps.geometry.spherical.computeDistanceBetween(from, to)).toFixed(0));
+  console.log(distance)
+  if(distance <= 1000){
+    this.feeShip = 0;
+  }
+  if(1000 <= distance && distance <= 10000){
+    this.feeShip = Number((distance / 1000).toFixed(0)) * 2000;
+    console.log(this.feeShip)
+  }else
+  if(10000 <= distance && distance <= 50000){
+    let shipDefault10000 =  20000;
+    this.feeShip = (Number(((distance - 10000) / 1000).toFixed(0))  * 5000) + shipDefault10000;
+    console.log(this.feeShip)
+  }else
+  if(50000 <= distance && distance <= 100000){
+    let shipDefault50000 =  50000;
+    this.feeShip = (Number(((distance - 50000) / 1000).toFixed(0)) * 10000) + shipDefault50000;
+    console.log(this.feeShip)
+  }
+  });
+}
+
   script_Frontend()
   {
     $(function () {
@@ -142,13 +274,17 @@ export class BookCartCusInfoComponent implements OnInit {
         this.TongCount += parseInt(this.CartBook[i].count);
       }
     }
-    $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
+    $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
     $('.cart_items').html(this.TongCount.toString());
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
-  //#region get danh sách Location 
-
+  //#endregion
+   formatCurrency(number){
+    var n = number.split('').reverse().join("");
+    var n2 = n.replace(/\d\d\d(?!$)/g, "$&.");    
+    return  n2.split('').reverse().join('') + 'VNĐ';
+}
   //get list city
   getListCity() {
     this._locationService.getLocationCity().subscribe(
@@ -212,20 +348,19 @@ export class BookCartCusInfoComponent implements OnInit {
     this.CheckWardInvalid();
   }
   statusEmailFailed: string = ""
+  verifyEmail: any
   editEmail(event: any) {
    
     this.email = event.target.value;
       this.verifyEmailService.actionVerifyEmail(this.email).subscribe(res =>{
         console.log(res);
-        this.verifyEmailService.verifyEmail = res as VerifyEmail;
-        if(this.CheckEmailInvalid() == true && this.verifyEmailService.verifyEmail.success == true){
-          this.statusEmailFailed = "Xin lỗi, email này có thể không có thật!";
+        this.verifyEmail = res
+        if(this.CheckEmailInvalid() == true && this.verifyEmail.deliverable == true){
           this.CheckEmail = true;
-        
       }
       else{
         this.CheckEmail = false;
-     
+        this.statusEmailFailed = "Xin lỗi, email này có thể không có thật!";
       }
       })
   }

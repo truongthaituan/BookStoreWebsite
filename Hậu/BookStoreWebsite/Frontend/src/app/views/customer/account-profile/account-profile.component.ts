@@ -31,4 +31,5 @@ export class AccountProfileComponent implements OnInit {
   goToDiscountCode(){
     this._router.navigate(['/discountCode'])
   }
+  
 }

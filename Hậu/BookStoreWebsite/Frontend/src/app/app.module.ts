@@ -17,12 +17,12 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from 'ng4-social-login';
-import { UserService } from './app-services/user-service/user.service';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AuthInterceptorService } from './app-services/auth-service/auth-interceptor.service';
 import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AgmDirectionModule } from 'agm-direction'; 
 import {
   AgmCoreModule
 } from '@agm/core';
@@ -48,7 +48,7 @@ export function provideConfig() {
     AdminPageComponent,
     CustomerLayoutComponent,
     AdminLayoutComponent
-        ],
+          ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -65,7 +65,8 @@ export function provideConfig() {
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBQ0quGzcr4DdR5kip1FaZudNOzAGQ0xmc',
       libraries: ['places']
-    })
+    }),
+    AgmDirectionModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   {

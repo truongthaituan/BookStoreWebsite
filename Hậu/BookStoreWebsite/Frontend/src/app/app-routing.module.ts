@@ -48,7 +48,7 @@ const routes: Routes = [
     component: CustomerLayoutComponent,
     children: [{
       path: '',
-      loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
+      loadChildren: () => import('./layouts/customer-layout/customer-layout.module').then(m => m.CustomerLayoutModule)
     }]
   },
   {
@@ -56,7 +56,7 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [{
       path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
     }]
   }
 ];

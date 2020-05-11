@@ -11,7 +11,9 @@
 @import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css");
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
-
+agm-map {
+    height: 300px;
+}
 /* .wrap {
 
         margin: auto;
@@ -62,7 +64,9 @@
       .list li.active + li.active::before {
         background-color: #00B6F0;
       } */
-
+      agm-map {
+        height: 300px;
+    }
 .wrap {
     margin: auto;
     display: flex;
