@@ -5,8 +5,8 @@ export class Customer {
     phone: string;
     address: string;
     email: string;
-    city: string;
-    districts: string;
-    wards: string;
+    // city: string;
+    // districts: string;
+    // wards: string;
     typeAddress: string;
 }

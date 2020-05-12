@@ -34,9 +34,9 @@ router.post('/', function(req, res) {
     newcustomer.phone = req.body.phone;
     newcustomer.address = req.body.address;
     newcustomer.email = req.body.email;
-    newcustomer.city = req.body.city;
-    newcustomer.districts = req.body.districts;
-    newcustomer.wards = req.body.wards;
+    // newcustomer.city = req.body.city;
+    // newcustomer.districts = req.body.districts;
+    // newcustomer.wards = req.body.wards;
     newcustomer.typeAddress = req.body.typeAddress;
     newcustomer.save(function(err, insertedcustomer) {
         if (err) {
@@ -58,9 +58,9 @@ router.put('/:id', function(req, res) {
                     phone: req.body.phone,
                     address: req.body.address,
                     email: req.body.email,
-                    city: req.body.city,
-                    districts: req.body.districts,
-                    wards: req.body.wards,
+                    // city: req.body.city,
+                    // districts: req.body.districts,
+                    // wards: req.body.wards,
                     typeAddress: req.body.typeAddress,
 
                 }

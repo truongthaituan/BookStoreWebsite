@@ -67,9 +67,9 @@ export class BookCartCusInfoComponent implements OnInit {
   CheckEmail : any;// @gmail.com
   CheckUserName = false;
   CheckPhone =false; // length = 10 
-  CheckCity = false;
-  CheckDistrict = false;
-  CheckWards = false;
+  // CheckCity = false;
+  // CheckDistrict = false;
+  // CheckWards = false;
   CheckAddress = false;
   CheckTypeAddress = false;
   //check toàn bộ ở trên
@@ -119,7 +119,7 @@ export class BookCartCusInfoComponent implements OnInit {
     this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
-    this.getListCity();
+    // this.getListCity();
     //kiem tra  form
     this.CheckEmailInvalid();
     this.CheckUserNameInvalid();
@@ -166,6 +166,7 @@ getAddress(latitude, longitude) {
       if (results[0]) {
         this.zoom = 12;
         this.addressgg = results[0].formatted_address;
+    
       } else {
         window.alert('No results found');
       }
@@ -278,72 +279,72 @@ calculateDistance(latTo, longTo) {
     var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
     return  n2.split('').reverse().join('') + 'VNĐ';
 }
-  //get list city
-  getListCity() {
-    this._locationService.getLocationCity().subscribe(
-      ListCity => {
+  // //get list city
+  // getListCity() {
+  //   this._locationService.getLocationCity().subscribe(
+  //     ListCity => {
 
-        this.LocationCity = ListCity;
+  //       this.LocationCity = ListCity;
 
-      },
-      error => console.log(error)
-    );
-  }
-  //get list districts
-  getListDistricts(city: string) {
-    this._locationService.getLocationdistricts(city).subscribe(
-      ListDistricts => {
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
+  // //get list districts
+  // getListDistricts(city: string) {
+  //   this._locationService.getLocationdistricts(city).subscribe(
+  //     ListDistricts => {
 
-        this.LocationDistricts = ListDistricts;
+  //       this.LocationDistricts = ListDistricts;
 
-      },
-      error => console.log(error)
-    );
-  }
-  //get list wards
-  getListWards(city: string, districts: string) {
-    this._locationService.getLocationWards(city, districts).subscribe(
-      ListWards => {
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
+  // //get list wards
+  // getListWards(city: string, districts: string) {
+  //   this._locationService.getLocationWards(city, districts).subscribe(
+  //     ListWards => {
 
-        this.LocationWards = ListWards;
+  //       this.LocationWards = ListWards;
 
-      },
-      error => console.log(error)
-    );
-  }
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
   //#endregion
 
   //#region Edit OnChange Form
   //eidt customer info
   //edit city --> update list districts --> wards về rỗng
-  editCity(event: any) {
-    this.city = event.target.value;
-    this.wards = "";
-    this.districts = "";
-    this.LocationWards = null;
-    this.LocationDistricts = null;
-    this.getListDistricts(this.city);
-    this.CheckCityInvalid();
-    this.CheckDistricInvalid();
-    this.CheckWardInvalid();
-  }
-  //edit  districts --> update list wards
-  editdistricts(event: any) {
-    this.districts = event.target.value;
-    this.wards = "";
-    this.LocationWards = null;
-    this.getListWards(this.city, this.districts);
-    this.CheckDistricInvalid();
-    this.CheckWardInvalid();
-  }
-  editWards(event: any) {
-    this.wards = event.target.value;
-    this.CheckWardInvalid();
-  }
+  // editCity(event: any) {
+  //   this.city = event.target.value;
+  //   this.wards = "";
+  //   this.districts = "";
+  //   this.LocationWards = null;
+  //   this.LocationDistricts = null;
+  //   this.getListDistricts(this.city);
+  //   this.CheckCityInvalid();
+  //   this.CheckDistricInvalid();
+  //   this.CheckWardInvalid();
+  // }
+  // //edit  districts --> update list wards
+  // editdistricts(event: any) {
+  //   this.districts = event.target.value;
+  //   this.wards = "";
+  //   this.LocationWards = null;
+  //   this.getListWards(this.city, this.districts);
+  //   this.CheckDistricInvalid();
+  //   this.CheckWardInvalid();
+  // }
+  // editWards(event: any) {
+  //   this.wards = event.target.value;
+  //   this.CheckWardInvalid();
+  // }
   statusEmailFailed: string = ""
   verifyEmail: any
   editEmail(event: any) {
-   
+    this.CheckEmail = true;
     this.email = event.target.value;
       this.verifyEmailService.actionVerifyEmail(this.email).subscribe(res =>{
         console.log(res);
@@ -351,10 +352,10 @@ calculateDistance(latTo, longTo) {
         if(this.CheckEmailInvalid() == true && this.verifyEmail.deliverable == true){
           this.CheckEmail = true;
       }
-      else{
-        this.CheckEmail = false;
-        this.statusEmailFailed = "Xin lỗi, email này có thể không có thật!";
-      }
+      // else{
+      //   this.CheckEmail = false;
+      //   this.statusEmailFailed = "Xin lỗi, email này có thể không có thật!";
+      // }
       })
   }
 
@@ -415,24 +416,24 @@ calculateDistance(latTo, longTo) {
     return re.test(String(this.phone).toLowerCase());
     
   }
-  CheckCityInvalid() {
-    this.CheckCity = false;
-    if (this.city != "") {
-      this.CheckCity = true;
-    }
-  }
-  CheckDistricInvalid() {
-    this.CheckDistrict = false;
-    if (this.districts != "") {
-      this.CheckDistrict = true;
-    }
-  }
-  CheckWardInvalid() {
-    this.CheckWards = false;
-    if (this.wards != "") {
-      this.CheckWards = true;
-    }
-  }
+  // CheckCityInvalid() {
+  //   this.CheckCity = false;
+  //   if (this.city != "") {
+  //     this.CheckCity = true;
+  //   }
+  // }
+  // CheckDistricInvalid() {
+  //   this.CheckDistrict = false;
+  //   if (this.districts != "") {
+  //     this.CheckDistrict = true;
+  //   }
+  // }
+  // CheckWardInvalid() {
+  //   this.CheckWards = false;
+  //   if (this.wards != "") {
+  //     this.CheckWards = true;
+  //   }
+  // }
   CheckAddressInvalid() {
     this.CheckAddress = false;
     var temp = this.address.trim();
@@ -450,9 +451,9 @@ calculateDistance(latTo, longTo) {
     this.CheckEmailInvalid();
     this.CheckUserNameInvalid();
     this.CheckPhoneInvalid();
-    this.CheckCityInvalid();
-    this.CheckDistricInvalid();
-    this.CheckWardInvalid();
+    // this.CheckCityInvalid();
+    // this.CheckDistricInvalid();
+    // this.CheckWardInvalid();
     this.CheckAddressInvalid();
     this.CheckTypeAddressInvalid();
   }
@@ -483,20 +484,22 @@ calculateDistance(latTo, longTo) {
           this.CheckAll = false;
           //message
           this.alertMessage = "Vui lòng kiểm tra lại số điện thoại của bạn";
-        } else
-          if (!this.CheckCity) {
-            this.CheckAll = false;
-            //message
-            this.alertMessage = "Vui lòng chọn Tỉnh/Thành phố";
-          } else
-            if (!this.CheckDistrict) {
-              this.CheckAll = false;
-              this.alertMessage = "Vui lòng chọn Quận/Huyện"
-            } else
-              if (!this.CheckWards) {
-                this.CheckAll = false;
-                this.alertMessage = "Vui lòng chọn Phường/Xã"
-              } else
+        }
+        //  else
+        //   if (!this.CheckCity) {
+        //     this.CheckAll = false;
+        //     //message
+        //     this.alertMessage = "Vui lòng chọn Tỉnh/Thành phố";
+        //   } else
+        //     if (!this.CheckDistrict) {
+        //       this.CheckAll = false;
+        //       this.alertMessage = "Vui lòng chọn Quận/Huyện"
+        //     } else
+        //       if (!this.CheckWards) {
+        //         this.CheckAll = false;
+        //         this.alertMessage = "Vui lòng chọn Phường/Xã"
+        //       } 
+              else
                 if (!this.CheckAddress) {
                   this.CheckAll = false;
                   this.alertMessage = "Vui lòng nhập địa chỉ"
@@ -520,10 +523,10 @@ calculateDistance(latTo, longTo) {
       customer.email = this.email;
       customer.name = this.username;
       customer.phone = this.phone;
-      customer.city = this.city;
-      customer.districts = this.districts;
-      customer.wards = this.wards;
-      customer.address = this.address;
+      // customer.city = this.city;
+      // customer.districts = this.districts;
+      // customer.wards = this.wards;
+      customer.address = this.addressgg;
       customer.typeAddress = this.typeAddress;
       this._customerService.postCustomer(customer).subscribe(
         customerpost => {
@@ -547,10 +550,10 @@ calculateDistance(latTo, longTo) {
       customer.email = this.email;
       customer.name = this.username;
       customer.phone = this.phone;
-      customer.city = this.city;
-      customer.districts = this.districts;
-      customer.wards = this.wards;
-      customer.address = this.address;
+      // customer.city = this.city;
+      // customer.districts = this.districts;
+      // customer.wards = this.wards;
+      customer.address = this.addressgg;
       customer.typeAddress = this.typeAddress;
       console.log(customer);
       this._customerService.putCustomer(customer).subscribe(
@@ -594,13 +597,13 @@ calculateDistance(latTo, longTo) {
     this.email = customer.email;
     this.username = customer.name;
     this.phone = customer.phone;
-    this.city = customer.city;
-    this.districts = customer.districts;
-    this.wards = customer.wards;
+    // this.city = customer.city;
+    // this.districts = customer.districts;
+    // this.wards = customer.wards;
     this.address = customer.address;
     this.typeAddress = customer.typeAddress;
-    this.getListDistricts(this.city);
-    this.getListWards(this.city,this.districts);
+    // this.getListDistricts(this.city);
+    // this.getListWards(this.city,this.districts);
     this.ngOnInit();
     
   }

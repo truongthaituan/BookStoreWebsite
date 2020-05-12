@@ -5,9 +5,9 @@ const customerSchema = mongoose.Schema({
     email: String,
     name: String,
     phone: String,
-    city: String,
-    districts: String,
-    wards: String,
+    // city: String,
+    // districts: String,
+    // wards: String,
     address: String,
     typeAddress: String,
 

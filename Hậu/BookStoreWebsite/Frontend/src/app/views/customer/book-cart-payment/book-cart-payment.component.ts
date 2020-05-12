@@ -148,7 +148,7 @@ export class BookCartPaymentComponent implements OnInit {
     if (this.CartBook) {
       //SendMail
       this.sendMail.name = this.customer.name;
-      this.sendMail.address = this.customer.address + ',' + this.customer.wards + ',' + this.customer.districts + ',' + this.customer.city;
+      this.sendMail.address = this.customer.address ;
       this.sendMail.email = this.customer.email;
       this.sendMail.phone = this.customer.phone;
       this.sendMail.orderDate = this.orders.orderDate;
