@@ -55,7 +55,10 @@ export class MyAccountComponent implements OnInit {
   }
   
   socialUser: SocialUser;
-
+  CartBook = [];
+	TongTien = 0;
+  TongCount = 0;
+  lengthCartBook = 0;
   templogin = 0;
   ngOnInit() {
     $(function () {
@@ -64,11 +67,39 @@ export class MyAccountComponent implements OnInit {
       });
     });
     this.initialAccount();
-//set Tổng tiền và số lượng trên header
-$('#tongtien').html("&nbsp;" +localStorage.getItem('TongTien') + " đ");
-$('.cart_items').html(localStorage.getItem('TongCount'));
-//
+    this.getTotalCountAndPrice();
   }
+  // set độ dài của giỏ hàng
+  cartBookLength(CartBook) {
+    if (CartBook == null) {
+      this.lengthCartBook = 0;
+    } else {
+      this.lengthCartBook = CartBook.length;
+    }
+  }
+  //get total count and price 
+  getTotalCountAndPrice() {
+    this.TongTien = 0;
+    this.TongCount = 0;
+    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
+    this.cartBookLength(this.CartBook);
+    if (this.CartBook != null) {
+      for (var i = 0; i < this.lengthCartBook; i++) {
+        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+        this.TongCount += parseInt(this.CartBook[i].count);
+      }
+    }
+    $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
+    $('.cart_items').html(this.TongCount.toString());
+    localStorage.setItem("TongTien", this.TongTien.toString());
+    localStorage.setItem("TongCount", this.TongCount.toString());
+  }
+  //#endregion
+   formatCurrency(number){
+    var n = number.split('').reverse().join("");
+    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
+    return  n2.split('').reverse().join('') + 'VNĐ';
+}
   initialAccount() {
     this.socialAccountService.socialAccount = ({
       _id: null,

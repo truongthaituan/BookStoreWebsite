@@ -138,7 +138,7 @@ export class BookDetailComponent implements OnInit {
         this.TongCount += parseInt(this.CartBook[i].count);
       }
     }
-    $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien));
+    $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
     $('.cart_items').html(this.TongCount.toString());
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());

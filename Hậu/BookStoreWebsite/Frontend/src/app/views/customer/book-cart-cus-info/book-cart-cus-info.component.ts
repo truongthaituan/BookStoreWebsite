@@ -12,13 +12,9 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { VerifyEmailService } from '../../../app-services/verify-email/verify-email.service';
 import { VerifyEmail } from '../../../app-services/verify-email/verify-email.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GoogleMapsComponent } from '../google-maps/google-maps.component';
+
 declare var $: any;
-interface Coordinates {
-  address: string;
-  latitude: number;
-  longitude: number;
-}
+
 
 @Component({
   selector: 'app-book-cart-cus-info',
@@ -26,12 +22,9 @@ interface Coordinates {
   styleUrls: ['./book-cart-cus-info.component.css']
 })
 export class BookCartCusInfoComponent implements OnInit {
-  coordinates: Coordinates;
 
   constructor(private _router: Router, private _customerService: CustomerService ,  private mapsAPILoader: MapsAPILoader,private modalService: NgbModal,
-    private ngZone: NgZone,
-     private _locationService: LocationService, private verifyEmailService: VerifyEmailService) {
-      this.coordinates = {} as Coordinates;
+    private ngZone: NgZone, private _locationService: LocationService, private verifyEmailService: VerifyEmailService) {
   }
   latitude: number;
   longitude: number;
@@ -85,7 +78,7 @@ export class BookCartCusInfoComponent implements OnInit {
   ShowFormEdit = false;
   //nếu bằng true thì sẽ là update
   IsUpdateCustomer=false;
-  iconUrl = { url: '../../../../assets/img/img_marker/marker.png', scaledSize: {height: 50, width: 50}}
+  iconUrl = { url: '../../../../assets/img/img_marker/marker.png', scaledSize: {height: 40, width: 40}}
   origin: any;
   destination: any;
   ngOnInit() {
@@ -282,7 +275,7 @@ calculateDistance(latTo, longTo) {
   //#endregion
    formatCurrency(number){
     var n = number.split('').reverse().join("");
-    var n2 = n.replace(/\d\d\d(?!$)/g, "$&.");    
+    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
     return  n2.split('').reverse().join('') + 'VNĐ';
 }
   //get list city

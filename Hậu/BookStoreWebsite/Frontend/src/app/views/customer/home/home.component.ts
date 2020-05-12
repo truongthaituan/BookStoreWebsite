@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
 		// 	$('.cart_items').html(localStorage.getItem('TongCount'));
 		// }
 		//
-
 		this.checkCartBookDBAndLocalStorage();
 
 	}

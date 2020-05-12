@@ -676,7 +676,7 @@
                                                 <h4 class="product_title">
                                                     <button class="bks_product_title_link" (click)="moveToBookDetail();" style="border-color: transparent;background-color: transparent;">{{books.nameBook}}</button>
                                                 </h4>
-                                                <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ books.priceBook }} đ</span>
+                                                <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ books.priceBook| currency:'VND' }} </span>
                                                 </span>
                                             </div>
                                             <!-- end product-content -->

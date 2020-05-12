@@ -98,21 +98,27 @@ export class ManageOrderComponent implements OnInit {
   }
   //get total count and price 
   getTotalCountAndPrice() {
-    this.TongTien = 0;
-    this.TongCount = 0;
-    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
-    this.cartBookLength(this.CartBook);
-    if (this.CartBook != null) {
-      for (var i = 0; i < this.lengthCartBook; i++) {
-        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
-        this.TongCount += parseInt(this.CartBook[i].count);
-      }
-    }
-    $('#tongtien').html("&nbsp;" + this.TongTien.toString() + " đ");
-    $('.cart_items').html(this.TongCount.toString());
-    localStorage.setItem("TongTien", this.TongTien.toString());
-    localStorage.setItem("TongCount", this.TongCount.toString());
-  }
+		this.TongTien = 0;
+		this.TongCount = 0;
+		this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
+		this.cartBookLength(this.CartBook);
+		if (this.CartBook != null) {
+			for (var i = 0; i < this.lengthCartBook; i++) {
+				this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+				this.TongCount += parseInt(this.CartBook[i].count);
+			}
+		}
+		$('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
+		$('.cart_items').html(this.TongCount.toString());
+		localStorage.setItem("TongTien", this.TongTien.toString());
+		localStorage.setItem("TongCount", this.TongCount.toString());
+	  }
+	  //#endregion
+	   formatCurrency(number){
+		var n = number.split('').reverse().join("");
+		var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
+		return  n2.split('').reverse().join('') + 'VNĐ';
+	}
   // get order by userID
   getAllOrder() {
     this._order.getOrderList().subscribe(

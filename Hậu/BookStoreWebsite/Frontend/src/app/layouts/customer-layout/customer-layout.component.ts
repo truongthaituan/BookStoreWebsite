@@ -23,19 +23,61 @@ export class CustomerLayoutComponent implements OnInit {
   discountCode: DiscountCode = new DiscountCode;
   pointCur: any;
   addPoint = 0;
+  CartBook = [];
+	TongTien = 0;
+  TongCount = 0;
+  lengthCartBook = 0;
   constructor(private _router: Router, private _pointService: PointService, private _discountCode: DiscountCodeService) {
 
   }
+  changespinner="chocolate"  ;
   ngOnInit() {
+    $("#changewhell").css({'float':'right','width':'90px','background-color':this.changespinner});
+    $("#color").css({'color':this.changespinner});
+    console.log("alo12323");
+    console.log(this.changespinner);
     this.designWheel();
     console.log(this.accountSocial);
+    this.getTotalCountAndPrice();
   }
-
+  // set độ dài của giỏ hàng
+	cartBookLength(CartBook) {
+		if (CartBook == null) {
+			this.lengthCartBook = 0;
+		} else {
+			this.lengthCartBook = CartBook.length;
+		}
+	}
+	//get total count and price 
+	getTotalCountAndPrice() {
+		this.TongTien = 0;
+		this.TongCount = 0;
+		this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
+		this.cartBookLength(this.CartBook);
+		if (this.CartBook != null) {
+			for (var i = 0; i < this.lengthCartBook; i++) {
+				this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+				this.TongCount += parseInt(this.CartBook[i].count);
+			}
+		}
+		$('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
+		$('.cart_items').html(this.TongCount.toString());
+		localStorage.setItem("TongTien", this.TongTien.toString());
+		localStorage.setItem("TongCount", this.TongCount.toString());
+	  }
+	  //#endregion
+	   formatCurrency(number){
+		var n = number.split('').reverse().join("");
+		var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
+		return  n2.split('').reverse().join('') + 'VNĐ';
+	}
   designWheel() {
     //Thông số vòng quay
     let duration = 5; //Thời gian kết thúc vòng quay
     let spins = 15; //Quay nhanh hay chậm 3, 8, 15
-    let theWheel = new Winwheel({
+    let theWheel;
+    if(this.changespinner=="gold"){
+     theWheel = new Winwheel({
       'numSegments': 12,     // Chia 8 phần bằng nhau
       'outerRadius': 212,   // Đặt bán kính vòng quay
       'textFontSize': 18,    // Đặt kích thước chữ
@@ -73,6 +115,85 @@ export class CustomerLayoutComponent implements OnInit {
         'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
       }
     });
+  }else
+  if(this.changespinner=="silver"){
+     theWheel = new Winwheel({
+      'numSegments': 12,     // Chia 8 phần bằng nhau
+      'outerRadius': 212,   // Đặt bán kính vòng quay
+      'textFontSize': 18,    // Đặt kích thước chữ
+      'rotationAngle': 0,     // Đặt góc vòng quay từ 0 đến 360 độ.
+      'segments':        // Các thành phần bao gồm màu sắc và văn bản.
+        [
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
+          { 'fillStyle': '#55E652', 'text': '+100 điểm' },
+       
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          { 'fillStyle': '#55E652', 'text': '+100 điểm' },
+
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
+          { 'fillStyle': '#FE2EF7', 'text': '+200 điểm' },
+
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
+    
+        ],
+      'animation': {
+        'type': 'spinToStop',
+        'duration': duration,
+        'spins': spins,
+        'callbackSound': playSound,     //Hàm gọi âm thanh khi quay
+        'soundTrigger': 'pin',         //Chỉ định chân là để kích hoạt âm thanh
+        'callbackFinished': alertPrize,    //Hàm hiển thị kết quả trúng giải thưởng
+      },
+      'pins':
+      {
+        'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
+      }
+    })
+  }else{
+     theWheel = new Winwheel({
+      'numSegments': 12,     // Chia 8 phần bằng nhau
+      'outerRadius': 212,   // Đặt bán kính vòng quay
+      'textFontSize': 18,    // Đặt kích thước chữ
+      'rotationAngle': 0,     // Đặt góc vòng quay từ 0 đến 360 độ.
+      'segments':        // Các thành phần bao gồm màu sắc và văn bản.
+        [
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
+          { 'fillStyle': '#55E652', 'text': '+100 điểm' },
+       
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          { 'fillStyle': '#55E652', 'text': '+100 điểm' },
+
+
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
+          { 'fillStyle': '#FE2EF7', 'text': '+200 điểm' },
+
+          { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
+          { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
+          { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
+    
+        ],
+      'animation': {
+        'type': 'spinToStop',
+        'duration': duration,
+        'spins': spins,
+        'callbackSound': playSound,     //Hàm gọi âm thanh khi quay
+        'soundTrigger': 'pin',         //Chỉ định chân là để kích hoạt âm thanh
+        'callbackFinished': alertPrize,    //Hàm hiển thị kết quả trúng giải thưởng
+      },
+      'pins':
+      {
+        'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
+      }
+    });
+  }
     var addPoint: any
    
     //Kiểm tra vòng quay
@@ -222,6 +343,11 @@ export class CustomerLayoutComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+  ChangeWheelSpnner(event : any)
+  {
+    this.changespinner=event.target.value;
+    this.ngOnInit();
   }
 
 

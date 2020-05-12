@@ -23,7 +23,7 @@ import { ProfileChangePasswordComponent } from 'src/app/views/customer/profile-c
 import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-account-social/profile-account-social.component';
 import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/discount-code.component';
 import { AgmCoreModule } from '@agm/core';
-import { GoogleMapsComponent } from 'src/app/views/customer/google-maps/google-maps.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmDirectionModule } from 'agm-direction'; 
 
@@ -60,10 +60,8 @@ import { AgmDirectionModule } from 'agm-direction';
     ProfileDetailEditComponent,
     ProfileChangePasswordComponent,
     ProfileAccountSocialComponent,
-    DiscountCodeComponent,
-    GoogleMapsComponent
-  ],
-  entryComponents: [ GoogleMapsComponent ]
+    DiscountCodeComponent
+  ]
 })
 
 export class CustomerLayoutModule {}
