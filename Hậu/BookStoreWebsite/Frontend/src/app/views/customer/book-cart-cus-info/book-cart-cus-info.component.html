@@ -431,113 +431,58 @@
                 <h5><b>2. Địa chỉ giao hàng</b></h5>
                 <p>Chọn địa chỉ giao hàng có sẵn bên dưới:</p>
                 <div class="row" id="infoAddress">
-
-                    <div class="col-sm-6" *ngFor="let customer of allCustomer" style="padding: 10px;">
-                        <div style="border-style: dotted ;border-width:2px; padding :10px;">
-                            <b style="margin:0px;">{{customer.name}}</b>
-                            <p style="margin:0px;">Địa chỉ: {{addressgg}}</p>
-                            <p style="margin:0px;">Điện thoại: {{customer.phone}}</p>
-                            <p style="margin:0px;">Email: {{customer.email}}</p>
-                            <p style="margin:0px;">Vị trí cửa hàng: {{ addressStore }}</p>
-                            <p style="margin:0px;">Phí Ship: {{ feeShip | currency:'VND' }}</p>
-                            <div class="row" style="padding-top: 10px;">
-                                <div class="col-sm-12 col-md-5 ">
-                                    <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="moveToPayment(customer)">Giao đến địa chỉ này</button>
-                                </div>
-                                <div class="col-sm-12  col-md-2" id="addScrollUpdate">
-                                    <button class="btn btn-block" style="padding: 10px 16px;margin-left: -20px;" (click)="ClickEditCustomer(customer)">Sửa</button>
-                                </div>
-                                <div class="col-sm-12  col-md-2">
-                                    <button class="btn btn-block" style="padding: 10px 16px;margin-left: -40px;" (click)="ClickDeleteCustomer(customer._id)">Xóa</button>
-                                </div>
-                                <div class="col-sm-12  col-md-2">
-                                    <button class="btn btn-success" style="padding: 10px 16px;margin-left: -40px;" (click)="setCurrentLocation()">Địa chỉ hiện tại</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
+                    <div  class="col-sm-6">
 
                         <div class="form-group">
                             <label>Nhập địa chỉ: </label>
                             <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Tìm kiếm địa chỉ" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
                         </div>
-
-                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
-                            <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
-                        </agm-map>
-
-                        <h5>Address: {{addressgg}}</h5>
+                        <div style="margin-top: 10px;">
+                            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                                <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
+                            </agm-map>
+                        </div>
+                        <!-- 
+                        <h5>Address: {{address}}</h5>
                         <div>Latitude: {{latitude}}</div>
-                        <div>Longitude: {{longitude}}</div>
+                        <div>Longitude: {{longitude}}</div> -->
                     </div>
-                </div>
+                      <div class="row" *ngIf="!ShowFormEdit" id="formLocation" >
+                    <div class="col-sm-6" style="float: center; width:100%;height:500;">
+                      
+                    </div>
 
-                <p>Bạn muốn giao hàng đến địa chỉ khác?<a style="color: cornflowerblue;" (click)="ClickAddCustomer()" id="addScroll2">Thêm địa chỉ giao hàng mới</a></p>
-                <br>
-                <div class="row" *ngIf="ShowFormEdit" id="formLocation">
-                    <div class="col-sm-12" style="float: center;">
-                        <div class="table-responsive" style="overflow-x:hidden">
+
+                </div>
+                <div class="row" *ngIf="ShowFormEdit" id="formLocation" >
+                    <div class="col-sm-6" style="float: center;">
+                        <div class="table-responsive" style="overflow-x:hidden;margin-top:35px;" >
                             <table class="table table-striped" style="color: black;">
 
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}} style="width:250px;height: 35px;">
+                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}} style="width:400px;height: 35px;">
                                         <span *ngIf="!CheckEmail" style="color: red;">{{statusEmailFailed}}</span>
                                         <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: rgb(135, 243, 189);"></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Họ tên</td>
-                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}} style="width:250px;height: 35px;">
+                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}} style="width:400px;height: 35px;">
                                         <span *ngIf="CheckUserName" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Điện thoại </td>
-                                    <td><input type="text" name="Phone" (change)="editPhone($event)" value={{phone}} style="width:250px;height: 35px;" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                    <td><input type="text" name="Phone" (input)="editPhone($event)" value={{phone}} style="width:400px;height: 35px;" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                                         <span *ngIf="CheckPhone" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                     </td>
                                 </tr>
-                                <!-- <tr>
-                                <td>Tỉnh/Thành phố</td>
-                                <td> <select name="orderby" (change)="editCity($event)" class="orderby" style="width:250px;height: 35px;">
-
-                                        <option *ngIf="city!=''" value="" selected>{{city}}</option>
-                                        <option *ngIf="city==''" value="" selected>--Vui lòng chọn Tỉnh/Thành phố--
-                                        </option>
-                                        <option *ngFor="let city of LocationCity" value={{city}}>{{city}}</option>
-                                    </select>
-                                    <span *ngIf="CheckCity" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Quận/Huyện</td>
-                                <td> <select name="orderby" (change)="editdistricts($event)" class="orderby" style="width:250px;height: 35px;">
-
-                                        <option *ngIf="districts!=''" value="" selected>{{districts}}</option>
-                                        <option *ngIf="districts==''" value="" selected>--Vui lòng chọn Quận/Huyện--
-                                        </option>
-                                        <option *ngFor="let districts of LocationDistricts" value={{districts}}>
-                                            {{districts}}</option>
-                                    </select>
-                                    <span *ngIf="CheckDistrict" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Phường/Xã</td>
-                                <td> <select name="orderby" (change)="editWards($event)" class="orderby" style="width:250px;height: 35px;">
-                                        <option *ngIf="wards!=''" value="" selected>{{wards}}</option>
-                                        <option *ngIf="wards==''" value="" selected>--Vui lòng chọn Phường/Xã--</option>
-                                        <option *ngFor="let wards of LocationWards" value={{wards}}>{{wards}}</option>
-                                    </select>
-                                    <span *ngIf="CheckWards" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
-                                </td>
-                            </tr> -->
+                         
                                 <tr>
                                     <td>Địa chỉ</td>
-                                    <td> <textarea class="form-control" style="height: 70px;" type="text" name="detailBook" (change)="editAddress($event)" placeholder="Vui lòng nhập địa chỉ">{{addressgg}}</textarea>
+                                    <td> <input style="width:400px;height: 50px;" type="text" readonly name="detailBook" (change)="editAddress($event)" value={{address}}>
                                         <span *ngIf="CheckAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                     </td>
                                 </tr>
@@ -595,6 +540,36 @@
 
 
                 </div>
+                    <div class="col-sm-6" *ngFor="let customer of allCustomer" style="padding: 10px;">
+                        <div style="border-style: dotted ;border-width:2px; padding :10px;">
+                            <b style="margin:0px;">{{customer.name}}</b>
+                            <p style="margin:0px;">Địa chỉ: {{customer.address}}</p>
+                            <p style="margin:0px;">Điện thoại: {{customer.phone}}</p>
+                            <p style="margin:0px;">Email: {{customer.email}}</p>
+                            <p style="margin:0px;">Vị trí cửa hàng: {{ addressStore }}</p>
+                            <p style="margin:0px;">Phí Ship: {{ customer.feeShip | currency:'VND' }}</p>
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-12 col-md-5 ">
+                                    <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="moveToPayment(customer)">Giao đến địa chỉ này</button>
+                                </div>
+                                <div class="col-sm-12  col-md-2" id="addScrollUpdate">
+                                    <button class="btn btn-block" style="padding: 10px 16px;margin-left: -20px;" (click)="ClickEditCustomer(customer)">Sửa</button>
+                                </div>
+                                <div class="col-sm-12  col-md-2">
+                                    <button class="btn btn-block" style="padding: 10px 16px;margin-left: -40px;" (click)="ClickDeleteCustomer(customer._id)">Xóa</button>
+                                </div>
+                                <div class="col-sm-12  col-md-2">
+                                    <button class="btn btn-success" style="padding: 10px 16px;margin-left: -40px;" (click)="setCurrentLocation2(customer)">Địa chỉ hiện tại</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p>Bạn muốn giao hàng đến địa chỉ khác?<a style="color: cornflowerblue;" (click)="ClickAddCustomer()" id="addScroll2">Thêm địa chỉ giao hàng mới</a></p>
+                <br>
+      
             </div>
         </div>
 

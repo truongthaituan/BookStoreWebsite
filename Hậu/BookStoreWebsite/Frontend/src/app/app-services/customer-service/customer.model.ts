@@ -5,6 +5,9 @@ export class Customer {
     phone: string;
     address: string;
     email: string;
+    latitude: number;
+    longitude: number;
+    feeShip:number;
     // city: string;
     // districts: string;
     // wards: string;

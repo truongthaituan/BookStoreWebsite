@@ -29,7 +29,6 @@ export class BookCartCusInfoComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom: number;
-  addressgg: string;
   private geoCoder;
 
   @ViewChild('search', {static: false})
@@ -81,6 +80,7 @@ export class BookCartCusInfoComponent implements OnInit {
   iconUrl = { url: '../../../../assets/img/img_marker/marker.png', scaledSize: {height: 40, width: 40}}
   origin: any;
   destination: any;
+  addressgg="";
   ngOnInit() {
     this.showAddressStore();
 
@@ -102,8 +102,8 @@ export class BookCartCusInfoComponent implements OnInit {
       this.longitude = place.geometry.location.lng();
       this.zoom = 12;
       this.getAddress(this.latitude,this.longitude);
-      this.calculateDistance(place.geometry.location.lat(),  place.geometry.location.lng());
-      this.getDirection(place.geometry.location.lat(),  place.geometry.location.lng());
+      this.calculateDistance( this.latitude, this.longitude );
+      this.getDirection( this.latitude, this.longitude );
     });
   });
 });
@@ -137,26 +137,51 @@ private setCurrentLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
-      this.zoom = 8;
-      this.getAddress(this.latitude, this.longitude);
-      this.calculateDistance(position.coords.latitude, position.coords.longitude);
-      this.getDirection(position.coords.latitude, position.coords.longitude)
+
+  this.zoom = 8;
+  this.getAddress(this.latitude, this.longitude);
+  this.calculateDistance(this.latitude, this.longitude);
+  this.getDirection(this.latitude, this.longitude);
     });
    
   }
+
+  //
+ 
+}
+IsOpenMap=false;
+private setCurrentLocation2(customer:Customer) {
+  this.IsOpenMap=true;
+  this.mapsAPILoader.load().then(() => {
+  console.log(customer);
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.latitude = customer.latitude;
+      this.longitude = customer.longitude;
+
+
+  this.zoom = 8;
+  this.getAddress(this.latitude, this.longitude);
+  this.calculateDistance(this.latitude, this.longitude);
+  this.getDirection(this.latitude, this.longitude);
+    });
+  }
+});
+ 
 }
 
 markerDragEnd($event: MouseEvent) {
   console.log($event);
   this.latitude = $event.coords.lat;
   this.longitude = $event.coords.lng;
+  // this.getAddress(this.latitude, this.longitude);
   this.getAddress(this.latitude, this.longitude);
-  this.calculateDistance($event.coords.lat, $event.coords.lng);
-  this.getDirection($event.coords.lat, $event.coords.lng);
+  this.calculateDistance(this.latitude, this.longitude);
+  this.getDirection(this.latitude, this.longitude);
 }
-getDirection(latTo, lngTo) {
+getDirection(latitude, longitude) {
   this.origin = { lat: this.latStore, lng: this.longStore};
-  this.destination = { lat: latTo, lng: lngTo};
+  this.destination = { lat: latitude, lng: longitude};
 }
 getAddress(latitude, longitude) {
   this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
@@ -165,8 +190,8 @@ getAddress(latitude, longitude) {
     if (status === 'OK') {
       if (results[0]) {
         this.zoom = 12;
-        this.addressgg = results[0].formatted_address;
-    
+        this.address = results[0].formatted_address;
+        this.CheckAddress=true;
       } else {
         window.alert('No results found');
       }
@@ -204,12 +229,12 @@ calculateDistance(latTo, longTo) {
   }else
   if(10000 <= distance && distance <= 50000){
     let shipDefault10000 =  20000;
-    this.feeShip = (Number(((distance - 10000) / 1000).toFixed(0))  * 5000) + shipDefault10000;
+    this.feeShip = (Number(((distance - 10000) / 1000).toFixed(0))  * 3000) + shipDefault10000;
     console.log(this.feeShip)
   }else
   if(50000 <= distance && distance <= 100000){
     let shipDefault50000 =  50000;
-    this.feeShip = (Number(((distance - 50000) / 1000).toFixed(0)) * 10000) + shipDefault50000;
+    this.feeShip = (Number(((distance - 50000) / 1000).toFixed(0)) * 5000) + shipDefault50000;
     console.log(this.feeShip)
   }
   });
@@ -279,68 +304,7 @@ calculateDistance(latTo, longTo) {
     var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
     return  n2.split('').reverse().join('') + 'VNĐ';
 }
-  // //get list city
-  // getListCity() {
-  //   this._locationService.getLocationCity().subscribe(
-  //     ListCity => {
-
-  //       this.LocationCity = ListCity;
-
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
-  // //get list districts
-  // getListDistricts(city: string) {
-  //   this._locationService.getLocationdistricts(city).subscribe(
-  //     ListDistricts => {
-
-  //       this.LocationDistricts = ListDistricts;
-
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
-  // //get list wards
-  // getListWards(city: string, districts: string) {
-  //   this._locationService.getLocationWards(city, districts).subscribe(
-  //     ListWards => {
-
-  //       this.LocationWards = ListWards;
-
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
-  //#endregion
-
-  //#region Edit OnChange Form
-  //eidt customer info
-  //edit city --> update list districts --> wards về rỗng
-  // editCity(event: any) {
-  //   this.city = event.target.value;
-  //   this.wards = "";
-  //   this.districts = "";
-  //   this.LocationWards = null;
-  //   this.LocationDistricts = null;
-  //   this.getListDistricts(this.city);
-  //   this.CheckCityInvalid();
-  //   this.CheckDistricInvalid();
-  //   this.CheckWardInvalid();
-  // }
-  // //edit  districts --> update list wards
-  // editdistricts(event: any) {
-  //   this.districts = event.target.value;
-  //   this.wards = "";
-  //   this.LocationWards = null;
-  //   this.getListWards(this.city, this.districts);
-  //   this.CheckDistricInvalid();
-  //   this.CheckWardInvalid();
-  // }
-  // editWards(event: any) {
-  //   this.wards = event.target.value;
-  //   this.CheckWardInvalid();
-  // }
+ 
   statusEmailFailed: string = ""
   verifyEmail: any
   editEmail(event: any) {
@@ -523,10 +487,13 @@ calculateDistance(latTo, longTo) {
       customer.email = this.email;
       customer.name = this.username;
       customer.phone = this.phone;
+      customer.latitude= this.latitude;
+      customer.longitude= this.longitude;
+      customer.feeShip = this.feeShip;
       // customer.city = this.city;
       // customer.districts = this.districts;
       // customer.wards = this.wards;
-      customer.address = this.addressgg;
+      customer.address = this.address;
       customer.typeAddress = this.typeAddress;
       this._customerService.postCustomer(customer).subscribe(
         customerpost => {
@@ -550,10 +517,13 @@ calculateDistance(latTo, longTo) {
       customer.email = this.email;
       customer.name = this.username;
       customer.phone = this.phone;
+      customer.latitude= this.latitude;
+      customer.longitude= this.longitude;
+      customer.feeShip = this.feeShip;
       // customer.city = this.city;
       // customer.districts = this.districts;
       // customer.wards = this.wards;
-      customer.address = this.addressgg;
+      customer.address = this.address;
       customer.typeAddress = this.typeAddress;
       console.log(customer);
       this._customerService.putCustomer(customer).subscribe(
@@ -581,22 +551,33 @@ calculateDistance(latTo, longTo) {
   }
   ClickAddCustomer()
   {
+     this.CheckAddress=false;
+    this.address="";
     this.CloseForm();
+    this.IsOpenMap=false; //Đóng GG Map VIew
+    this.IsOpenMapEdit=true;
     this.CheckEmail=null;
     this.CheckPhone=false;
     this.ShowFormEdit=true;
   }
   //#region Event Click Customer 
+  IsOpenMapEdit=false;
   ClickEditCustomer(customer: Customer) {
-    
+    this.setCurrentLocation2(customer);
+    // this.IsOpenMap=false; //Đóng GG Map VIew
+    // this.IsOpenMapEdit=true;
     this.CheckEmail=true;
     this.CheckPhone=true;
+    this.CheckAddress=true;
+    this.CheckUserName=true;
+    this.CheckTypeAddress=true;
     this.ShowFormEdit = true;
     this.IsUpdateCustomer=true;
     this.customer_id = customer._id;
     this.email = customer.email;
     this.username = customer.name;
     this.phone = customer.phone;
+   
     // this.city = customer.city;
     // this.districts = customer.districts;
     // this.wards = customer.wards;
@@ -604,7 +585,7 @@ calculateDistance(latTo, longTo) {
     this.typeAddress = customer.typeAddress;
     // this.getListDistricts(this.city);
     // this.getListWards(this.city,this.districts);
-    this.ngOnInit();
+    // this.ngOnInit();
     
   }
 
@@ -614,6 +595,7 @@ calculateDistance(latTo, longTo) {
     if (setconfirm == true) {
       this._customerService.deleteCustomer(id).subscribe(
         customerput => {
+          this.CloseForm();
           this.ngOnInit();
         },
         error => console.log(error)
@@ -625,9 +607,11 @@ calculateDistance(latTo, longTo) {
     this.email = "";
     this.username = "";
     this.phone = "";
-    this.city = "";
-    this.districts = "";
-    this.wards = "";
+
+  
+    // this.city = "";
+    // this.districts = "";
+    // this.wards = "";
     this.address = "";
     this.typeAddress = "";
     this.IsUpdateCustomer=false;

@@ -11,11 +11,7 @@ declare var $: any;
 export class DiscountCodeComponent implements OnInit {
 
   constructor(private _router: Router,private _discountCode : DiscountCodeService) { }
-  //chứa thông tin giỏ hàng
-  CartBook = [];
-  TongTien = 0;
-  TongCount = 0;
-  lengthCartBook = 0;
+
   discountCodes: Array<DiscountCode> = new Array<DiscountCode>();
 
   //thông tin login
@@ -25,43 +21,11 @@ export class DiscountCodeComponent implements OnInit {
   ngOnInit() {
 
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
-    //set value giỏ hàng trên thanh head 
-    this.getTotalCountAndPrice();
     this.getDisCountCodeByUserID();
   }
  
 
-  // set độ dài của giỏ hàng
-  cartBookLength(CartBook) {
-    if (CartBook == null) {
-      this.lengthCartBook = 0;
-    } else {
-      this.lengthCartBook = CartBook.length;
-    }
-  }
-  //get total count and price 
-  getTotalCountAndPrice() {
-    this.TongTien = 0;
-    this.TongCount = 0;
-    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
-    this.cartBookLength(this.CartBook);
-    if (this.CartBook != null) {
-      for (var i = 0; i < this.lengthCartBook; i++) {
-        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
-        this.TongCount += parseInt(this.CartBook[i].count);
-      }
-    }
-    $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien));
-    $('.cart_items').html(this.TongCount.toString());
-    localStorage.setItem("TongTien", this.TongTien.toString());
-    localStorage.setItem("TongCount", this.TongCount.toString());
-  }
-  //#endregion
-   formatCurrency(number){
-    var n = number.split('').reverse().join("");
-    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
-    return  n2.split('').reverse().join('') + 'VNĐ';
-}
+
   goToOrderHistory(){
     this._router.navigate(['/orderHistory'])
   }

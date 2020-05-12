@@ -198,6 +198,7 @@ export class BookCartPaymentComponent implements OnInit {
       this.putDiscountCode(this.discountCode);
     }
     this.sendMail.discountCode =  this.discountCode.discountCode;
+    this.sendMail.feeShip =  this.customer.feeShip;
     if (this.IsPaypal) {
       this.sendMail.totalPrice = this.TongTienPayPal.toString();
       this._sendMail.postsendMailPayPal(sendMail).subscribe(
@@ -243,6 +244,7 @@ export class BookCartPaymentComponent implements OnInit {
     orders.orderDate = this.now.toString().substring(0, 24);
     orders.totalPrice = this.TongTien;
     orders.discountCode= this.discountCode.discountCode;
+    orders.feeShip= this.customer.feeShip;
     this._orderService.postOrder(orders).subscribe(
       orderdata => {
 

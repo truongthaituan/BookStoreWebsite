@@ -37,6 +37,7 @@ router.post('/', function(req, res) {
     neworder.status = "New"
     neworder.paymentOption = req.body.paymentOption;
     neworder.discountCode = req.body.discountCode;
+    neworder.feeShip = req.body.feeShip;
     neworder.save(function(err, insertedorder) {
         if (err) {
             console.log('Err Saving order');
@@ -57,6 +58,7 @@ router.put('/:id', function(req, res) {
                     status: req.body.status,
                     paymentOption: req.body.paymentOption,
                     discountCode: req.body.discountCode,
+                    feeShip: req.body.feeShip,
                 }
             }, {
                 new: true

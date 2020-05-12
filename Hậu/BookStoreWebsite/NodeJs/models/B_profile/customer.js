@@ -8,6 +8,9 @@ const customerSchema = mongoose.Schema({
     // city: String,
     // districts: String,
     // wards: String,
+    latitude: Number,
+    feeShip: Number,
+    longitude: Number,
     address: String,
     typeAddress: String,
 

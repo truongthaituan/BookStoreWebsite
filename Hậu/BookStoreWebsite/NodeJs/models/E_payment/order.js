@@ -7,6 +7,7 @@ const orderSchema = mongoose.Schema({
     status: String,
     paymentOption: String,
     discountCode: Number,
+    feeShip:Number,
 });
 
 module.exports = mongoose.model('orders', orderSchema);

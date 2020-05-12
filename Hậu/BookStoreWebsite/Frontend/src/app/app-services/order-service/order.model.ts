@@ -6,4 +6,5 @@ export class Order {
     status:String;
     paymentOption: String;
     discountCode: Number;
+    feeShip:number;
 }

@@ -11,4 +11,5 @@ export class SendMail{
    orderDate: String;
    paymentOption: String;
    discountCode:Number;
+   feeShip:Number;
 }

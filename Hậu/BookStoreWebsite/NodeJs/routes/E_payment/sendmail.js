@@ -106,9 +106,13 @@ router.post('/', function(req, res) {
             <td>Giảm  ${req.body.discountCode}%</td>
             <td><span style="float:right;padding-right:10px;">-${req.body.totalPrice*req.body.discountCode/100}VND</span></td>
         </tr>
+         <tr>
+            <td>Phí Vận Chuyển</td>
+            <td><b style="float:right;padding-right:10px;">${req.body.feeShip}VND</b></td>
+        </tr>
         <tr>
             <td>Số Tiền Phải Trả</td>
-            <td><b style="float:right;padding-right:10px;">${req.body.totalPrice*(100-req.body.discountCode)/100}VND</b></td>
+            <td><b style="float:right;padding-right:10px;">${req.body.totalPrice*(100-req.body.discountCode)/100+req.body.feeShip}VND</b></td>
         </tr>
         <tr>
             <td>Ngày Đặt Đơn Hàng</td>
@@ -262,9 +266,13 @@ router.post('/PayPal', function(req, res) {
               <td>Discount  ${req.body.discountCode}%</td>
               <td><span style="float:right;padding-right:10px;">-${req.body.totalPrice*req.body.discountCode/100}VND</span></td>
           </tr>
+           <tr>
+              <td>Ship COD</td>
+              <td><span style="float:right;padding-right:10px;">${req.body.feeShip}VND</span></td>
+          </tr>
           <tr>
               <td>Total Cost To Pay</td>
-              <td><b style="float:right;padding-right:10px;">${req.body.totalPrice*(100-req.body.discountCode)/100}VND</b></td>
+              <td><b style="float:right;padding-right:10px;">${req.body.totalPrice*(100-req.body.discountCode)/100+req.body.feeShip}VND</b></td>
           </tr>
           <tr>
               <td>Order Date</td>

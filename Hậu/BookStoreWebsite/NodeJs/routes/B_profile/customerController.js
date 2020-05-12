@@ -34,6 +34,9 @@ router.post('/', function(req, res) {
     newcustomer.phone = req.body.phone;
     newcustomer.address = req.body.address;
     newcustomer.email = req.body.email;
+    newcustomer.latitude = req.body.latitude;
+    newcustomer.longitude = req.body.longitude;
+    newcustomer.feeShip = req.body.feeShip;
     // newcustomer.city = req.body.city;
     // newcustomer.districts = req.body.districts;
     // newcustomer.wards = req.body.wards;
@@ -58,6 +61,9 @@ router.put('/:id', function(req, res) {
                     phone: req.body.phone,
                     address: req.body.address,
                     email: req.body.email,
+                    latitude: req.body.latitude,
+                    longitude: req.body.longitude,
+                    feeShip: req.body.feeShip,
                     // city: req.body.city,
                     // districts: req.body.districts,
                     // wards: req.body.wards,
