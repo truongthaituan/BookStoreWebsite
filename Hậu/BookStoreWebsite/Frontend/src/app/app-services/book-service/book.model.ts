@@ -5,6 +5,7 @@ export class Book {
      authorID: string;
      priceBook: number;
      detailBook: string;
+     tryRead: string;
      imgBook: string;
      seriID: string;
      sale: number;

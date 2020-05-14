@@ -31,6 +31,7 @@
         "jsonwebtoken": "^8.5.1",
         "jw-angular-pagination": "^1.1.0",
         "ng2-charts": "^2.3.0",
+        "ng2-file-upload": "^1.4.0",
         "ng2-search-filter": "^0.5.1",
         "ng4-social-login": "^1.4.2",
         "ngx-owl-carousel-o": "^2.0.3",
@@ -40,6 +41,7 @@
         "perfect-scrollbar": "^1.5.0",
         "rxjs": "~6.4.0",
         "rxjs-compat": "^6.5.4",
+        "safe-pipe": "^1.0.3",
         "tslib": "^1.10.0",
         "winwheel": "^1.0.1",
         "zone.js": "~0.9.1"

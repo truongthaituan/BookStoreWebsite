@@ -36,6 +36,7 @@ router.post('/', function(req, res) {
     newbook.authorID = req.body.authorID;
     newbook.priceBook = req.body.priceBook;
     newbook.detailBook = req.body.detailBook;
+    newbook.tryRead = req.body.tryRead;
     newbook.imgBook = req.body.imgBook;
     newbook.seriID = req.body.seriID;
     newbook.sale = req.body.sale;
@@ -58,6 +59,7 @@ router.put('/:id', function(req, res) {
                     authorID: req.body.authorID,
                     priceBook: req.body.priceBook,
                     detailBook: req.body.detailBook,
+                    tryRead: req.body.tryRead,
                     imgBook: req.body.imgBook,
                     seriID: req.body.seriID,
                     sale: req.body.sale,

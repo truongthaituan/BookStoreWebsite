@@ -23,9 +23,11 @@ import { AuthInterceptorService } from './app-services/auth-service/auth-interce
 import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AgmDirectionModule } from 'agm-direction'; 
+import { FileUploadModule } from 'ng2-file-upload';
 import {
   AgmCoreModule
 } from '@agm/core';
+import { SafePipeModule } from 'safe-pipe';
 
 
 let config = new AuthServiceConfig([
@@ -39,6 +41,7 @@ let config = new AuthServiceConfig([
   }
 ], false);
 
+
 export function provideConfig() {
   return config;
 }
@@ -47,9 +50,10 @@ export function provideConfig() {
     AppComponent,
     AdminPageComponent,
     CustomerLayoutComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
           ],
   imports: [
+    SafePipeModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

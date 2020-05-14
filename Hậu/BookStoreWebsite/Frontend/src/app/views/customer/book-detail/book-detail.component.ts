@@ -16,7 +16,8 @@ import { User } from '../../../app-services/user-service/user.model';
 import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
-
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any
 @Component({
   selector: 'app-book-detail',
@@ -24,8 +25,8 @@ declare var $: any
   styleUrls: ['./book-detail.component.css']
 })
 //open modal
-
 export class BookDetailComponent implements OnInit {
+  public linkRead: string;
   private subscription: Subscription;
   private timer: Observable<any>;
   pageOfItems: Array<any>;
@@ -36,7 +37,7 @@ export class BookDetailComponent implements OnInit {
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   
   cartBookDB : CartBook= new CartBook;
-  constructor(private _router: Router, private route: ActivatedRoute,
+  constructor(private _router: Router, private route: ActivatedRoute,private sanitizer: DomSanitizer,
     private authorService: AuthorService, private bookService: BookService,
     private ratingService: RatingService, private accountSocialService: SocialaccountService,
     private userService: UserService, private _cartBookDB: CartBookService) {
@@ -88,12 +89,12 @@ export class BookDetailComponent implements OnInit {
   TongCount = 0;
   lengthCartBook = 0;
   ngOnInit() {
-  
+    $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
+    $('#username').attr('style', 'font-size: 16px !important;background-color: transparent;border-color: transparent;color: green;');
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
-
     });
     this.resetForm();
     let id = this.route.snapshot.paramMap.get('id');
@@ -174,13 +175,14 @@ export class BookDetailComponent implements OnInit {
   getBookById(id: string) {
     var books: any
     this.bookService.getBookById(id).subscribe((res) => {
-      this.bookService.book = res as Book[];
+      this.bookService.selectedBook = res as Book;
       books = res;
       this.getAuthorById(books.authorID);
       this.gettypeCategory(books.categoryID);
       this.getRatingsByBookID(id);
       window.scrollTo(0, 0)
       this.checkGetCountBookDetailEqual10(id);
+      this.linkRead = this.bookService.selectedBook.tryRead;
     });
   }
   gettypeCategory(id) {
@@ -464,4 +466,5 @@ export class BookDetailComponent implements OnInit {
       );
     }
   }
+
 }

@@ -6,6 +6,7 @@
      authorID: String,
      priceBook: Number,
      detailBook: String,
+     tryRead: String,
      imgBook: String,
      seriID: String,
      sale: Number,

@@ -26,10 +26,12 @@ import { AgmCoreModule } from '@agm/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmDirectionModule } from 'agm-direction'; 
+import { SafePipeModule } from 'safe-pipe';
 
 
 @NgModule({
   imports: [
+    SafePipeModule,
     CommonModule,
     RouterModule.forChild(CustomerLayoutRoutes),
     FormsModule,
