@@ -30,4 +30,7 @@ export class RatingService {
   getRatingsByBook(_id: string) {
     return this._http.get(this.baseURL + "/findbooks" + `/${_id}`);
   }
+  getRatingAverage(id_book: string){
+    return this._http.get(this.baseURL+'/averageRating'+`/${id_book}`)
+  }
 }

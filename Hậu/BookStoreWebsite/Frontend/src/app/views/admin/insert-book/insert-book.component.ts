@@ -36,6 +36,7 @@ export class InsertBookComponent implements OnInit {
       });
     });
   }
+  
   ngOnInit() {
     $(function () {
       $("#scrollToTopButton").click(function () {
@@ -58,6 +59,7 @@ export class InsertBookComponent implements OnInit {
       authorID: "",
       priceBook: null,
       detailBook: "",
+      tryRead: "",
       imgBook: "",
       seriID: "",
       sale: null,

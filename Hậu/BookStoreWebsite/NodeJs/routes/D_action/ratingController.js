@@ -76,8 +76,25 @@ router.get('/findbooks/:book_id', function(req, res) {
             bookID: req.params.book_id
         })
         .exec(function(err, ratings) {
-            if (err) console.log("Error retrieving books");
-            else { res.json(ratings); }
+            if (err) console.log("Error retrieving rating");
+            else 
+                res.json(ratings);
         });
 })
+router.get('/averageRating/:book_id', function(req, res) {
+    rating.find({
+            bookID: req.params.book_id
+        })
+        .exec(function(err, ratings) {
+            if (err) console.log("Error retrieving rating");
+            else 
+            if(ratings.length == 0){
+                res.json({'ratings': null, 'status': false});
+            }else{
+                res.json({'ratings': ratings, 'status': true});
+            }
+        });
+})
+
+
 module.exports = router;

@@ -492,7 +492,8 @@
 
                             <button id="username" *ngIf="statusLogin == 'true' " style="background-color: transparent;border-color:
                                      transparent;color: green;" disabled>Chào Mừng {{accountSocial.username}}
-                                     <img style="margin-left:10px;width: 30px;height: 30px;" src="{{accountSocial.imageUrl}}" id="imageAccountSocial" /></button>
+                                     <img style="margin-left:10px;width: 30px;height: 30px;" src="{{accountSocial.imageUrl}}" id="imageAccountSocial" />
+                            </button>
                             <a id="logout" *ngIf="statusLogin == 'true' " (click)="logout();" class="btn btn-link" type="button">Đăng Xuất</a>
 
                             <!-- <button id="username" *ngIf="statusLogin == 'true' && loginBy == 'loginbt' " style="background-color: transparent;border-color:

@@ -62,9 +62,11 @@ import { UserDetailsComponent } from 'src/app/views/admin/user-details/user-deta
 import { UserDetailsEditComponent } from 'src/app/views/admin/user-details-edit/user-details-edit.component';
 import { InsertUserComponent } from 'src/app/views/admin/insert-user/insert-user.component';
 import { ManageOrderComponent } from 'src/app/views/admin/manage-order/manage-order.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
+    FileUploadModule,
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,

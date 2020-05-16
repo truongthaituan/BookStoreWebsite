@@ -134,7 +134,7 @@ embed, iframe, object, video {
     body.boxed-layout {
         width: 1200px;
         box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-        margin: 0 auto;
+        /* margin: 0 auto; */
     }
 }
 
@@ -2370,13 +2370,13 @@ a.view-all-posts-btn:hover {
 
 .woocommerce #content div.product div.images, .woocommerce div.product div.images,
 .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images {
-  width: 42%;
-  margin-right: 2%;
+  width: 50%;
+  /* margin-right: 2%; */
 }
 
 .woocommerce #content div.product div.summary, .woocommerce div.product div.summary,
 .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
-  width: 55%;
+  width: 50%;
 }
 
 .woocommerce .products .product-image {

@@ -68,6 +68,7 @@ export class UpdateBookComponent implements OnInit {
       authorID: "",
       priceBook: null,
       detailBook: "",
+      tryRead: "",
       imgBook: "",
       seriID: "",
       sale: null,

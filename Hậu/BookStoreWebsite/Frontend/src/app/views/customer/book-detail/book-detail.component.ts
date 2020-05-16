@@ -19,6 +19,7 @@ import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any
+
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
@@ -35,7 +36,6 @@ export class BookDetailComponent implements OnInit {
   loginBy: String = ""
   statusLogin: String = ""
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
-  
   cartBookDB : CartBook= new CartBook;
   constructor(private _router: Router, private route: ActivatedRoute,private sanitizer: DomSanitizer,
     private authorService: AuthorService, private bookService: BookService,
@@ -82,19 +82,66 @@ export class BookDetailComponent implements OnInit {
       });
     });
   }
-
+	customOptions: any
   //chứa thông tin giỏ hàng
   CartBook = [];
   TongTien = 0;
   TongCount = 0;
   lengthCartBook = 0;
   ngOnInit() {
+    this.customOptions = {
+			loop: false,
+			mouseDrag: false,
+			touchDrag: false,
+			pullDrag: false,
+			dots: false,
+			navSpeed: 700,
+			navText: ['<img src = "../../assets/img/02/Previous.png" class = "btnNav"/>',
+				'<img src = "../../assets/img/02/Next.png" class = "btnNav"/>'],
+			responsive: {
+				0: {
+					items: 1
+				},
+				400: {
+					items: 2
+				},
+				740: {
+					items: 3
+				},
+				940: {
+					items: 4
+				}
+			},
+			nav: true
+		}
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('#username').attr('style', 'font-size: 16px !important;background-color: transparent;border-color: transparent;color: green;');
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
+      $('#moreRating').click(function(){
+        $('html,body').animate({
+          scrollTop: $("#ratingList").offset().top},
+          'slow');
+      });
+
+      $('.bar span').hide();
+      $('#bar-five').animate({
+        width: '75%'}, 1000);
+      $('#bar-four').animate({
+        width: '35%'}, 1000);
+      $('#bar-three').animate({
+        width: '20%'}, 1000);
+      $('#bar-two').animate({
+        width: '15%'}, 1000);
+      $('#bar-one').animate({
+        width: '30%'}, 1000);
+      
+      setTimeout(function() {
+        $('.bar span').fadeIn('slow');
+      }, 1000);
+      
     });
     this.resetForm();
     let id = this.route.snapshot.paramMap.get('id');
@@ -107,7 +154,7 @@ export class BookDetailComponent implements OnInit {
     this.getAllAccount();
     this.getRatingsByBookID(id);
     this.getAllUsers();
-    
+    this.getRatingAverageByBook(id);
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -165,7 +212,27 @@ export class BookDetailComponent implements OnInit {
   getAuthorById(id: string) {
     this.authorService.getAuthorById(id).subscribe((res) => {
       this.authorService.author = res as Author;
-      console.log(res);
+      // console.log(res);
+    });
+  }
+  sum: number = 0.0
+  averageRatingByBook: any
+  averageRating= 0 
+  countRating = 0
+  getRatingAverageByBook(id: string) {
+    this.ratingService.getRatingAverage(id).subscribe((res) => {
+     this.averageRatingByBook = res;
+     if(!this.averageRatingByBook.status){
+          this.countRating = 0;
+          this.averageRating = 0;
+      } else {
+        for(let i = 0; i < (this.averageRatingByBook.ratings).length;i++){
+            this.sum += Number((this.averageRatingByBook.ratings)[i].star);
+        }
+        this.countRating = (this.averageRatingByBook.ratings).length;
+        this.averageRating = Math.round(2*(this.sum / (this.averageRatingByBook.ratings).length))/2;
+      }
+      console.log(this.sum)
     });
   }
   detailBook(book: Book) {
@@ -182,7 +249,8 @@ export class BookDetailComponent implements OnInit {
       this.getRatingsByBookID(id);
       window.scrollTo(0, 0)
       this.checkGetCountBookDetailEqual10(id);
-      this.linkRead = this.bookService.selectedBook.tryRead;
+      this.linkRead = this.bookService.selectedBook.tryRead + "&output=embed";
+      // this.getRatingAverageByBook(id);
     });
   }
   gettypeCategory(id) {
@@ -190,7 +258,7 @@ export class BookDetailComponent implements OnInit {
       .subscribe(resCategoryData => {
         // console.log(resCategoryData);
         this.books = resCategoryData as Book[];
-        console.log(this.books);
+        // console.log(this.books);
       });
   }
   account_social = [];
@@ -212,17 +280,17 @@ export class BookDetailComponent implements OnInit {
     this.statusLogin = localStorage.getItem('statusLogin');
      this.loginBy = localStorage.getItem('loginBy')
     if (this.statusLogin == null) {
-      console.log("not have access")
+      // console.log("not have access")
       // this._router.navigate(['/account']);
     } else if(this.loginBy == 'loginbt' && this.statusLogin == 'true'){
-      console.log(form.value)
+      // console.log(form.value)
       let book_id = this.route.snapshot.paramMap.get('id');
       form.value.bookID = book_id;
       let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
       form.value.userID = id_user;
       this.ratingService.postRating(form.value).subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
           this.statusRating = true;
           form.resetForm();
           this.ngOnInit();
@@ -236,14 +304,14 @@ export class BookDetailComponent implements OnInit {
       );
      }
    else if(this.loginBy == 'loginSocial' && this.statusLogin == 'true'){
-  console.log(form.value)
+  // console.log(form.value)
   let book_id = this.route.snapshot.paramMap.get('id');
   form.value.bookID = book_id;
   let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
   form.value.userID = id_user;
   this.ratingService.postRating(form.value).subscribe(
     data => {
-      console.log(data);
+      // console.log(data);
       this.statusRating = true;
       form.resetForm();
       this.ngOnInit();
@@ -428,16 +496,41 @@ export class BookDetailComponent implements OnInit {
   }
   clickGoToBookDetail(id)
   { 
-     //set độ dài cartBook
-    this.cartBookLength(this.CartBook);
-    //set value giỏ hàng trên thanh head 
-    this.getTotalCountAndPrice();
+       
+        this.cartBookLength(this.CartBook);
+        //set value giỏ hàng trên thanh head 
+        this.getTotalCountAndPrice();
 
-    this.getBookById(id);
-    this.getAllAccount();
-    this.getRatingsByBookID(id);
-    this.getAllUsers();
-    return this._router.navigate(["/bookDetail" + `/${id}`]);
+        this.getBookById(id);
+        this.getAllAccount();
+        this.getRatingsByBookID(id);
+        this.getAllUsers();
+       
+        this.ratingService.getRatingAverage(id).subscribe((res) => {
+         
+          this.averageRatingByBook = res;
+          if(!this.averageRatingByBook.status){
+               this.countRating = 0;
+               this.averageRating = 0;
+           } else {
+            this.countRating = 0;
+            this.averageRating = 0;
+            this.sum = 0;
+             for(let i = 0; i < (this.averageRatingByBook.ratings).length;i++){
+                 this.sum += Number((this.averageRatingByBook.ratings)[i].star);
+             }
+             this.countRating = (this.averageRatingByBook.ratings).length;
+             this.averageRating = Math.round(2*(this.sum / (this.averageRatingByBook.ratings).length))/2;
+           }
+           console.log(this.sum)
+         });
+        // this.getBookById(id);
+        // this.getAllAccount();
+        // this.getRatingsByBookID(id);
+        // this.getAllUsers();
+        // this.ngOnInit();
+
+    // return this._router.navigate(["/bookDetail" + '/' +id]);
   }
   postCartBookDB(selectedBook:Book)
   {

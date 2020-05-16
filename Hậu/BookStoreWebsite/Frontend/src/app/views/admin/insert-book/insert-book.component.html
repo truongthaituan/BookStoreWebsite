@@ -170,6 +170,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row" style="padding-bottom: 10px;">
+                          <div class="input-field col s12"style="padding: 0px;">
+                              <label>Link Đọc Thử</label>
+                              <input class="form-control" type="file" name="tryRead" #name="ngModel" [(ngModel)]="bookService.selectedBook.tryRead" placeholder="Nhập Tệp Đọc Thử" required>
+
+                          </div>
+                      </div>
                         <div class="row"style="padding-bottom: 10px;">
                             <div class="input-field col s12" style="padding: 0px;">
                                 <label>Chi Tiết Sách</label>
