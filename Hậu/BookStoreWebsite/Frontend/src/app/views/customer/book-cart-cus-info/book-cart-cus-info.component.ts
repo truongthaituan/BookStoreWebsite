@@ -559,10 +559,15 @@ calculateDistance(latTo, longTo) {
     this.CheckEmail=null;
     this.CheckPhone=false;
     this.ShowFormEdit=true;
+    $( "#formLocation" ).show();
+    $( "#GGMap" ).show();
   }
   //#region Event Click Customer 
   IsOpenMapEdit=false;
   ClickEditCustomer(customer: Customer) {
+    console.log('putCustomer');
+    $( "#formLocation" ).show();
+    $( "#GGMap" ).show();
     this.setCurrentLocation2(customer);
     // this.IsOpenMap=false; //Đóng GG Map VIew
     // this.IsOpenMapEdit=true;

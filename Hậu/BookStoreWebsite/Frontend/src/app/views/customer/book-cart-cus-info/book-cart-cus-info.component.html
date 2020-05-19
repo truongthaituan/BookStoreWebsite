@@ -431,12 +431,9 @@
                 <h5><b>2. Địa chỉ giao hàng</b></h5>
                 <p>Chọn địa chỉ giao hàng có sẵn bên dưới:</p>
                 <div class="row" id="infoAddress">
-                    <div  class="col-sm-6">
+                    <div id="GGMap" class="col-sm-6">
 
-                        <div class="form-group">
-                            <label>Nhập địa chỉ: </label>
-                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Tìm kiếm địa chỉ" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                        </div>
+
                         <div style="margin-top: 10px;">
                             <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
                                 <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
@@ -448,98 +445,95 @@
                         <div>Latitude: {{latitude}}</div>
                         <div>Longitude: {{longitude}}</div> -->
                     </div>
-                      <div class="row" *ngIf="!ShowFormEdit" id="formLocation" >
-                    <div class="col-sm-6" style="float: center; width:100%;height:500;">
-                      
-                    </div>
 
+                    <div class="row" id="formLocation">
+                        <div class="col-sm-6" style="float: center;">
+                            <div class="table-responsive" style="overflow-x:hidden;margin-top:10px;">
+                                <table class="table table-striped" style="color: black;">
 
-                </div>
-                <div class="row" *ngIf="ShowFormEdit" id="formLocation" >
-                    <div class="col-sm-6" style="float: center;">
-                        <div class="table-responsive" style="overflow-x:hidden;margin-top:35px;" >
-                            <table class="table table-striped" style="color: black;">
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}} style="width:400px;height: 35px;">
+                                            <span *ngIf="!CheckEmail" style="color: red;">{{statusEmailFailed}}</span>
+                                            <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: rgb(135, 243, 189);"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Họ tên</td>
+                                        <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}} style="width:400px;height: 35px;">
+                                            <span *ngIf="CheckUserName" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Điện thoại </td>
+                                        <td><input type="text" name="Phone" (input)="editPhone($event)" value={{phone}} style="width:400px;height: 35px;" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                            <span *ngIf="CheckPhone" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                        </td>
+                                    </tr>
 
-                                <tr>
-                                    <td>Email</td>
-                                    <td><input type="text" name="Email" (change)="editEmail($event)" value={{email}} style="width:400px;height: 35px;">
-                                        <span *ngIf="!CheckEmail" style="color: red;">{{statusEmailFailed}}</span>
-                                        <span *ngIf="CheckEmail" class="glyphicon glyphicon-ok" style="color: rgb(135, 243, 189);"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Họ tên</td>
-                                    <td><input type="text" name="Name" (change)="editUserName($event)" value={{username}} style="width:400px;height: 35px;">
-                                        <span *ngIf="CheckUserName" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Điện thoại </td>
-                                    <td><input type="text" name="Phone" (input)="editPhone($event)" value={{phone}} style="width:400px;height: 35px;" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
-                                        <span *ngIf="CheckPhone" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
-                                    </td>
-                                </tr>
-                         
-                                <tr>
-                                    <td>Địa chỉ</td>
-                                    <td> <input style="width:400px;height: 50px;" type="text" readonly name="detailBook" (change)="editAddress($event)" value={{address}}>
-                                        <span *ngIf="CheckAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td> <i>Để nhận hàng thuận tiện hơn, bạn vui lòng cho biết loại địa chỉ.</i></td>
-                                </tr>
+                                    <tr>
+                                        <td>Địa chỉ</td>
+                                        <td>
+                                            <!--<input style="width:400px;height: 50px;" type="text" name="detailBook" (change)="editAddress($event)" value={{address}}>
+                                            <span *ngIf="CheckAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                        -->
+                                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Tìm kiếm địa chỉ" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search value={{address}}>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td> <i>Để nhận hàng thuận tiện hơn, bạn vui lòng cho biết loại địa chỉ.</i></td>
+                                    </tr>
 
-                                <tr>
-                                    <td>Loại địa chỉ</td>
-                                    <td>
-                                        <label *ngIf="typeAddress=='Nhà riêng'" class="radio-inline"><input type="radio"
+                                    <tr>
+                                        <td>Loại địa chỉ</td>
+                                        <td>
+                                            <label *ngIf="typeAddress=='Nhà riêng'" class="radio-inline"><input type="radio"
                                             name="optradio" (change)="editTypeAddress()" checked>Nhà riêng / Trung cư
                                     </label>
-                                        <label *ngIf="typeAddress=='Nhà riêng'" class="radio-inline"><input type="radio"
+                                            <label *ngIf="typeAddress=='Nhà riêng'" class="radio-inline"><input type="radio"
                                             name="optradio" (change)="editTypeAddress2()">Cơ quan / Công ty</label>
-                                        <label *ngIf="typeAddress=='Cơ quan'" class="radio-inline"><input type="radio"
+                                            <label *ngIf="typeAddress=='Cơ quan'" class="radio-inline"><input type="radio"
                                             name="optradio" (change)="editTypeAddress()">Nhà riêng / Trung cư </label>
-                                        <label *ngIf="typeAddress=='Cơ quan'" class="radio-inline"><input type="radio"
+                                            <label *ngIf="typeAddress=='Cơ quan'" class="radio-inline"><input type="radio"
                                             name="optradio" (change)="editTypeAddress2()" checked>Cơ quan / Công
                                         ty</label>
-                                        <label *ngIf="typeAddress==''" class="radio-inline"><input type="radio"
+                                            <label *ngIf="typeAddress==''" class="radio-inline"><input type="radio"
                                             name="optradio" (change)="editTypeAddress()">Nhà riêng / Trung cư </label>
-                                        <label *ngIf="typeAddress==''" class="radio-inline"><input type="radio"
+                                            <label *ngIf="typeAddress==''" class="radio-inline"><input type="radio"
                                             name="optradio" (change)="editTypeAddress2()">Cơ quan / Công ty</label>
-                                        <span *ngIf="CheckTypeAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input type="checkbox">Sử dụng địa chỉ này làm mặc định</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="col mb-2">
-                                            <div class="row">
-                                                <div class="col-sm-12  col-md-6" id="btnHuyBo">
-                                                    <button class="btn btn-block" style="padding: 10px 16px;" (click)="CloseForm()">Hủy bỏ</button>
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 text-right">
-                                                    <button *ngIf="!IsUpdateCustomer" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="postCustomer()">Giao đến địa chỉ này</button>
-                                                    <button *ngIf="IsUpdateCustomer" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="putCustomer(customer_id)">Cập nhật</button>
-                                                </div>
+                                            <span *ngIf="CheckTypeAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><input type="checkbox">Sử dụng địa chỉ này làm mặc định</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="col mb-2">
+                                                <div class="row">
+                                                    <div class="col-sm-12  col-md-6" id="btnHuyBo">
+                                                        <button class="btn btn-block" style="padding: 10px 16px;" (click)="CloseForm()">Hủy bỏ</button>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 text-right">
+                                                        <button *ngIf="!IsUpdateCustomer" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="postCustomer()">Giao đến địa chỉ này</button>
+                                                        <button *ngIf="IsUpdateCustomer" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="putCustomer(customer_id)">Cập nhật</button>
+                                                    </div>
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
+
+
                     </div>
-
-
-                </div>
                     <div class="col-sm-6" *ngFor="let customer of allCustomer" style="padding: 10px;">
                         <div style="border-style: dotted ;border-width:2px; padding :10px;">
                             <b style="margin:0px;">{{customer.name}}</b>
@@ -569,7 +563,7 @@
 
                 <p>Bạn muốn giao hàng đến địa chỉ khác?<a style="color: cornflowerblue;" (click)="ClickAddCustomer()" id="addScroll2">Thêm địa chỉ giao hàng mới</a></p>
                 <br>
-      
+
             </div>
         </div>
 
