@@ -34,6 +34,8 @@ export class BookCartCusInfoComponent implements OnInit {
   @ViewChild('search', {static: false})
   public searchElementRef: ElementRef;
 
+
+
   //chứa thông tin giỏ hàng
   CartBook = [];
   customer: Customer = new Customer;
@@ -86,11 +88,16 @@ export class BookCartCusInfoComponent implements OnInit {
 
  //load Places Autocomplete
  this.mapsAPILoader.load().then(() => {
+  console.log("---------------->mapsAPILoader")
   this.setCurrentLocation();
   this.geoCoder = new google.maps.Geocoder;
+  console.log(this);
   let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+
+  console.log(autocomplete)
   autocomplete.addListener("place_changed", () => {
     this.ngZone.run(() => {
+    
       //get the place result
       let place: google.maps.places.PlaceResult = autocomplete.getPlace();
       //verify result
@@ -105,8 +112,13 @@ export class BookCartCusInfoComponent implements OnInit {
       this.calculateDistance( this.latitude, this.longitude );
       this.getDirection( this.latitude, this.longitude );
     });
-  });
-});
+  }); 
+}
+
+);
+
+  $( "#formLocation" ).hide();
+  $( "#GGMap" ).hide();
     this.script_Frontend();
     // if (this.accountSocial) {
     //   this.email = this.accountSocial.email;
@@ -191,7 +203,7 @@ getAddress(latitude, longitude) {
       if (results[0]) {
         this.zoom = 12;
         this.address = results[0].formatted_address;
-        this.CheckAddress=true;
+
       } else {
         window.alert('No results found');
       }
@@ -215,6 +227,7 @@ getAddress(latitude, longitude) {
 }
 feeShip: number
 calculateDistance(latTo, longTo) {
+  
   this.mapsAPILoader.load().then(() => {
   const from = new google.maps.LatLng(this.latStore, this.longStore);
   const to = new google.maps.LatLng(latTo, longTo);
@@ -236,7 +249,15 @@ calculateDistance(latTo, longTo) {
     let shipDefault50000 =  50000;
     this.feeShip = (Number(((distance - 50000) / 1000).toFixed(0)) * 5000) + shipDefault50000;
     console.log(this.feeShip)
+  }else{
+    this.feeShip=-1
+    this.CheckAddress=false;
+    this.alertFalse = true;
+    this.alertMessage="Địa chỉ bạn nhập không nằm trong khu vực giao hàng";
+    setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+    return
   }
+  this.CheckAddress=true;
   });
 }
 
@@ -329,6 +350,7 @@ calculateDistance(latTo, longTo) {
   }
 
   editAddress(event: any) {
+    this.feeShip=-1;
     this.address = event.target.value;
     this.CheckAddressInvalid();
   }
@@ -371,37 +393,15 @@ calculateDistance(latTo, longTo) {
     }
   }
   CheckPhoneInvalid() {
-    // var check = this.phone.trim();
-    // this.CheckPhone = false;
-    // if (check.length > 9 && check.length < 11) {
-    //   this.CheckPhone = true;
-    // }
     var re = /^[0-9]{10,11}$/;
     return re.test(String(this.phone).toLowerCase());
     
   }
-  // CheckCityInvalid() {
-  //   this.CheckCity = false;
-  //   if (this.city != "") {
-  //     this.CheckCity = true;
-  //   }
-  // }
-  // CheckDistricInvalid() {
-  //   this.CheckDistrict = false;
-  //   if (this.districts != "") {
-  //     this.CheckDistrict = true;
-  //   }
-  // }
-  // CheckWardInvalid() {
-  //   this.CheckWards = false;
-  //   if (this.wards != "") {
-  //     this.CheckWards = true;
-  //   }
-  // }
+ 
   CheckAddressInvalid() {
     this.CheckAddress = false;
     var temp = this.address.trim();
-    if (temp != "") {
+    if (temp != "" && this.feeShip>0) {
       this.CheckAddress = true;
     }
   }
@@ -415,9 +415,7 @@ calculateDistance(latTo, longTo) {
     this.CheckEmailInvalid();
     this.CheckUserNameInvalid();
     this.CheckPhoneInvalid();
-    // this.CheckCityInvalid();
-    // this.CheckDistricInvalid();
-    // this.CheckWardInvalid();
+
     this.CheckAddressInvalid();
     this.CheckTypeAddressInvalid();
   }
@@ -449,20 +447,7 @@ calculateDistance(latTo, longTo) {
           //message
           this.alertMessage = "Vui lòng kiểm tra lại số điện thoại của bạn";
         }
-        //  else
-        //   if (!this.CheckCity) {
-        //     this.CheckAll = false;
-        //     //message
-        //     this.alertMessage = "Vui lòng chọn Tỉnh/Thành phố";
-        //   } else
-        //     if (!this.CheckDistrict) {
-        //       this.CheckAll = false;
-        //       this.alertMessage = "Vui lòng chọn Quận/Huyện"
-        //     } else
-        //       if (!this.CheckWards) {
-        //         this.CheckAll = false;
-        //         this.alertMessage = "Vui lòng chọn Phường/Xã"
-        //       } 
+   
               else
                 if (!this.CheckAddress) {
                   this.CheckAll = false;
@@ -490,9 +475,6 @@ calculateDistance(latTo, longTo) {
       customer.latitude= this.latitude;
       customer.longitude= this.longitude;
       customer.feeShip = this.feeShip;
-      // customer.city = this.city;
-      // customer.districts = this.districts;
-      // customer.wards = this.wards;
       customer.address = this.address;
       customer.typeAddress = this.typeAddress;
       this._customerService.postCustomer(customer).subscribe(
@@ -507,7 +489,7 @@ calculateDistance(latTo, longTo) {
   }
   //put customer
   putCustomer(id) {
- 
+  
     this.checkAllInvalid();
     
     if (this.CheckAll == true) {
@@ -520,9 +502,6 @@ calculateDistance(latTo, longTo) {
       customer.latitude= this.latitude;
       customer.longitude= this.longitude;
       customer.feeShip = this.feeShip;
-      // customer.city = this.city;
-      // customer.districts = this.districts;
-      // customer.wards = this.wards;
       customer.address = this.address;
       customer.typeAddress = this.typeAddress;
       console.log(customer);
@@ -551,7 +530,7 @@ calculateDistance(latTo, longTo) {
   }
   ClickAddCustomer()
   {
-     this.CheckAddress=false;
+    this.CheckAddress=false;
     this.address="";
     this.CloseForm();
     this.IsOpenMap=false; //Đóng GG Map VIew
@@ -582,16 +561,8 @@ calculateDistance(latTo, longTo) {
     this.email = customer.email;
     this.username = customer.name;
     this.phone = customer.phone;
-   
-    // this.city = customer.city;
-    // this.districts = customer.districts;
-    // this.wards = customer.wards;
     this.address = customer.address;
     this.typeAddress = customer.typeAddress;
-    // this.getListDistricts(this.city);
-    // this.getListWards(this.city,this.districts);
-    // this.ngOnInit();
-    
   }
 
   ClickDeleteCustomer(id) {
@@ -612,18 +583,10 @@ calculateDistance(latTo, longTo) {
     this.email = "";
     this.username = "";
     this.phone = "";
-
-  
-    // this.city = "";
-    // this.districts = "";
-    // this.wards = "";
     this.address = "";
     this.typeAddress = "";
     this.IsUpdateCustomer=false;
     this.ShowFormEdit = false;
     this.ngOnInit();
   }
-
-
-
 }

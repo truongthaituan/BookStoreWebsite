@@ -38,12 +38,16 @@ const sendmail = require('./routes/E_payment/sendmail');
 //F_event
 const discountCode = require('./routes/F_event/discountCodeController');
 const promotion = require('./routes/F_event/promotionController');
+//G_statistic
+const statistic = require('./routes/G_statistic/statisticController');
+const dataset = require('./routes/G_statistic/datasetControleer');
 //G_recommentSys
 //H_tracking
 //end controller
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
+
 app.use(cors({
     origin: ['http://localhost:4200', 'http://192.168.1.16:4200'],
     credentials: true
@@ -125,6 +129,8 @@ app.use('/send', sendmail);
 app.use('/discountCodes', discountCode);
 app.use('/promotions', promotion);
 //G_recommentSys
+app.use('/statistic', statistic);
+app.use('/data', dataset);
 //H_tracking
 
 

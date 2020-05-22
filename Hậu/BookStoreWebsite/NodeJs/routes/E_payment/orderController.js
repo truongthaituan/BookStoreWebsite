@@ -109,12 +109,11 @@ router.get('/findByUserID/:userID', function(req, res) {
                 dataOrder.sort(function(a, b) {
                     return (Date.parse((b.orderDate).toString())) - (Date.parse((a.orderDate).toString()));
                 });
-                 res.json(dataOrder);
+                res.json(dataOrder);
             }
         }
     }
     run();
-
 })
 
 async function getAllCustomerByUserID(userID, res) {

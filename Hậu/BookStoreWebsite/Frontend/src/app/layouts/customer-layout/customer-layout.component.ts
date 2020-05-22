@@ -5,7 +5,7 @@ import { PointService } from 'src/app/app-services/point-service/point.service';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
 import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
-
+import swal from 'sweetalert';
 declare var $: any;
 declare let Winwheel: any
 
@@ -252,19 +252,21 @@ export class CustomerLayoutComponent implements OnInit {
         wheelSpinning = true;
         minusPoint();
       }}else{
-        alert('Bạn không đủ điều kiện để quay thưởng');
+        swal('Bạn không đủ điều kiện để quay thưởng');
       }
     });
     }
     //Result
     function alertPrize(indicatedSegment) {
       if (indicatedSegment.text == "Không có quà") {
-         alert("Chúc Bạn May Mắn Lần Sau");
+       
+        swal("Chúc Bạn May Mắn Lần Sau");
+     
       } else
         if (indicatedSegment.text[0] == "+") {
           var res = indicatedSegment.text.split(" điểm");
           var str = res[0].split("+");
-          alert("Bạn Được Cộng Thêm " + str[1] + " Điểm Vào Tài Khoản");
+          swal("Bạn Được Cộng Thêm " + str[1] + " Điểm Vào Tài Khoản");
           // chạy dòng này oke thì ngon  
           addPoint = str[1];
           $.ajax({
@@ -281,7 +283,7 @@ export class CustomerLayoutComponent implements OnInit {
             }
         });
         } else {
-          alert("Chúc Mừng Bạn Đã Trúng " + indicatedSegment.text + " Cho Toàn Bộ Đơn Hàng");
+          swal("Chúc Mừng Bạn Đã Trúng " + indicatedSegment.text + " Cho Toàn Bộ Đơn Hàng");
           var res = indicatedSegment.text.split("Mã giảm giá ");
           var str = res[1].split("%");
           console.log("Here--->>"+str[0]);

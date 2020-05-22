@@ -475,9 +475,9 @@
                                         <td>Địa chỉ</td>
                                         <td>
                                             <!--<input style="width:400px;height: 50px;" type="text" name="detailBook" (change)="editAddress($event)" value={{address}}>
-                                            <span *ngIf="CheckAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                         -->
-                                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Tìm kiếm địa chỉ" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search value={{address}}>
+                                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Tìm kiếm địa chỉ" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search value={{address}} (input)="editAddress($event)">
+                                            <span *ngIf="CheckAddress" class="glyphicon glyphicon-ok" style="color: springgreen;"></span>
                                         </td>
                                     </tr>
                                     <tr>
