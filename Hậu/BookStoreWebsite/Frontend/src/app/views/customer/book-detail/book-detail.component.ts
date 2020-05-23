@@ -75,12 +75,6 @@ export class BookDetailComponent implements OnInit {
         void a(".wc-tabs-wrapper, .woocommerce-tabs, #rating").trigger("init"))
     });
     //#endregion
-    $(function () {
-      $('.pop').click(function (e) {
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $('#imagemodal').modal('show');
-      });
-    });
   }
 	customOptions: any
   //chứa thông tin giỏ hàng
@@ -88,32 +82,39 @@ export class BookDetailComponent implements OnInit {
   TongTien = 0;
   TongCount = 0;
   lengthCartBook = 0;
+  myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
+  myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   ngOnInit() {
+
     this.customOptions = {
 			loop: false,
 			mouseDrag: false,
-			touchDrag: false,
-			pullDrag: false,
+      touchDrag: false,
+      autoHeight: false,
+      pullDrag: false,
+ 
 			dots: false,
-			navSpeed: 700,
-			navText: ['<img src = "../../assets/img/02/Previous.png" class = "btnNav"/>',
-				'<img src = "../../assets/img/02/Next.png" class = "btnNav"/>'],
+      navSpeed: 700,
+      rewind: true,
+      margin: 0,
+			navText: ['',''],
 			responsive: {
 				0: {
-					items: 1
+					items: 4
 				},
 				400: {
-					items: 2
+					items: 4
 				},
 				740: {
-					items: 3
+					items: 4
 				},
 				940: {
 					items: 4
 				}
 			},
 			nav: true
-		}
+    }
+    $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('#username').attr('style', 'font-size: 16px !important;background-color: transparent;border-color: transparent;color: green;');
     $(function () {
@@ -142,6 +143,14 @@ export class BookDetailComponent implements OnInit {
         $('.bar span').fadeIn('slow');
       }, 1000);
       
+      $('#imgFamiliar').click(function () {
+        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+        // $('#modalImgFamiliar').modal('show');   
+        alert($(this).find('img').attr('src'));
+      });		
+      $('#dislike').click(function () {
+        $('.fa').css('color','red')
+      });	
     });
     this.resetForm();
     let id = this.route.snapshot.paramMap.get('id');
@@ -155,7 +164,10 @@ export class BookDetailComponent implements OnInit {
     this.getRatingsByBookID(id);
     this.getAllUsers();
     this.getRatingAverageByBook(id);
+    
   }
+
+  
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
     if (CartBook == null) {
@@ -249,7 +261,7 @@ export class BookDetailComponent implements OnInit {
       this.getRatingsByBookID(id);
       window.scrollTo(0, 0)
       this.checkGetCountBookDetailEqual10(id);
-      this.linkRead = this.bookService.selectedBook.tryRead + "&output=embed";
+      this.linkRead = this.bookService.selectedBook.tryRead;
       // this.getRatingAverageByBook(id);
     });
   }
@@ -524,11 +536,6 @@ export class BookDetailComponent implements OnInit {
            }
            console.log(this.sum)
          });
-        // this.getBookById(id);
-        // this.getAllAccount();
-        // this.getRatingsByBookID(id);
-        // this.getAllUsers();
-        // this.ngOnInit();
 
     // return this._router.navigate(["/bookDetail" + '/' +id]);
   }

@@ -11,6 +11,22 @@
 @import '../../../../assets/plugins/js_composer/assets/css/js_composer.min20fd.css';
 @import '../../../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
+::ng-deep .owl-prev{
+    left: 0;
+    right: initial;
+    }
+::ng-deep  .owl-next {
+    right: 0;
+    left: initial;
+    }
+.test {
+    width:100%;
+    display:inline-block;
+    overflow: auto;
+    white-space: nowrap;
+    margin:0px auto;
+    border:1px red solid;
+  }
 
 .btnNav{
     background-repeat: no-repeat;

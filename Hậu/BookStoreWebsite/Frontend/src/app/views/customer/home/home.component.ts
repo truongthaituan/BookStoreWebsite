@@ -31,17 +31,7 @@ export class HomeComponent implements OnInit {
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
-		//set Tổng tiền và số lượng trên header
-		// if (localStorage.getItem('TongTien') == null) {
-		// 	localStorage.setItem("TongTien", "0");
-		// 	localStorage.setItem("TongCount", "0");
-		// 	$('#tongtien').html("&nbsp;" + localStorage.getItem('TongTien') + " đ");
-		// 	$('.cart_items').html(localStorage.getItem('TongCount'));
-		// } else {
-		// 	$('#tongtien').html("&nbsp;" + localStorage.getItem('TongTien') + " đ");
-		// 	$('.cart_items').html(localStorage.getItem('TongCount'));
-		// }
-		//
+
 		this.checkCartBookDBAndLocalStorage();
 
 	}
@@ -53,8 +43,8 @@ export class HomeComponent implements OnInit {
 			pullDrag: false,
 			dots: false,
 			navSpeed: 700,
-			navText: ['<img src = "../../assets/img/02/Previous.png" class = "btnNav"/>',
-				'<img src = "../../assets/img/02/Next.png" class = "btnNav"/>'],
+			navText: ['<img src = "../../assets/img/02/Previous.png" id = "btnNavLeft"/>',
+				'<img src = "../../assets/img/02/Next.png" id = "btnNavRight"/>'],
 			responsive: {
 				0: {
 					items: 1

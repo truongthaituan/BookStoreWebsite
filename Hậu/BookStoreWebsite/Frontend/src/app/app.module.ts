@@ -40,7 +40,8 @@ let config = new AuthServiceConfig([
     provider: new FacebookLoginProvider('498895894399247')
   }
 ], false);
-
+// Import the library
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 export function provideConfig() {
   return config;
@@ -70,6 +71,7 @@ export function provideConfig() {
       apiKey: 'AIzaSyBQ0quGzcr4DdR5kip1FaZudNOzAGQ0xmc',
       libraries: ['places']
     }),
+    NgxImageZoomModule,
     AgmDirectionModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },

@@ -27,7 +27,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmDirectionModule } from 'agm-direction'; 
 import { SafePipeModule } from 'safe-pipe';
-
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
   imports: [
@@ -40,12 +40,13 @@ import { SafePipeModule } from 'safe-pipe';
     NgxPaginationModule,
     NpnSliderModule,
     CarouselModule,
+    NgxImageZoomModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBQ0quGzcr4DdR5kip1FaZudNOzAGQ0xmc',
       libraries: ['places']
     }),
     AgmDirectionModule
-  ],
+    ],
   declarations: [
     HomeComponent,
     BookCategoryComponent,

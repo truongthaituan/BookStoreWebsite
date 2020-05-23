@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link rel='stylesheet' href='https://icodefy.com/Tools/iZoom/js/Vendor/fancybox/helpers/jquery.fancybox-thumbs.css'>
-<link rel='stylesheet' href='https://icodefy.com/Tools/iZoom/css/zoom.css'>
+<!-- <link rel='stylesheet' href='https://icodefy.com/Tools/iZoom/js/Vendor/fancybox/helpers/jquery.fancybox-thumbs.css'>
+<link rel='stylesheet' href='https://icodefy.com/Tools/iZoom/css/zoom.css'> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"> -->
 
 
@@ -30,189 +30,189 @@
                                 <img width="350" id="zoom_03" height="450" src="{{bookService.selectedBook?.imgBook}}"
                                     class="attachment-shop_single size-shop_single wp-post-image" alt="book7"
                                     title="book7" /></a> -->
+                            <!-- <div class="pdp-image-gallery-block">
+                                <div class="gallery_pdp_container">
+                                    <div id="gallery_pdp"> -->
+                         
+                                        <div class="col-sm-12 " >
+                                            <!-- <img id="zoom_10" src="{{bookService.selectedBook?.imgBook}}"  style="width: 350px;margin: 0 auto;"    
+                                            href="https://icodefy.com/Tools/iZoom/images/large/image1.jpg" /> -->
+                                            <ngx-image-zoom
+                                                [thumbImage]=bookService.selectedBook?.imgBook 
+                                                [fullImage]=bookService.selectedBook?.imgBook
+                                                [magnification]="2"
+                                                [enableScrollZoom]="true"
+                                                [enableLens]="true"
+                                                [circularLens] = "true"
+                                                [lensWidth]="280"
+                                                [lensHeight] = "280"></ngx-image-zoom>
+                                                <div class="col-sm-12" style="text-align: center;">
+                                                    <i class="icon-zoom-in"></i> Rê chuột lên hình để phóng to
+                                                </div>
+                                        </div>
+                                     
+                                        <div class="col-sm-12 smallProduct"  style="margin: 0 auto;">
+                                            <div class="row">
+                                            <div class="col-sm-1">
+                                                
+                                            </div>
+                                            <div class="col-sm-10" style="margin: 0 auto;">
+                                                <div class="col-sm-1">
+                                                    <a type="button" (click)="owlCar.prev()"> 
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-10" style="margin: 0 auto;">
+                                                <owl-carousel-o [options]="customOptions" #owlCar id ="imgFamiliar">
+                                              
+                                                    <ng-template carouselSlide>
+                                                        <a  type="button" >
+                                                            <img id="" style="width: 100px;height: 75px;"  
+                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/29/86/7b/d8cf003fa67446227e502b9fff302588.jpg" />
+                                                        </a>
+                                                    </ng-template>
+                                                    <ng-template carouselSlide >
+                                                        <a type="button">
+                                                            <img id="" style="width: 100px;height: 75px;"
+                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
+                                                        </a>
+                                                    </ng-template>
+                                                    <ng-template carouselSlide>
+                                                        <a type="button"
+                                                            data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg">
+                                                            <img id="" style="width: 100px;height: 75px;"
+                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg" />
+                                                        </a>
+                                                    </ng-template>
+                                                    <ng-template carouselSlide>
+                                                        <a type="button"
+                                                            data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg">
+                                                            <img id="" style="width: 100px;height: 75px;"
+                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg" />
+                                                        </a>
+                                                    </ng-template>
+                                                    <ng-template carouselSlide>
+                                                        <a type="button"
+                                                            data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg">
+                                                            <img id="" style="width: 100px;height: 75px;"
+                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
+                                                        </a>
+                                                    </ng-template>
+                                                   
+                                                </owl-carousel-o>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <a type="button" (click)="owlCar.next()" >
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>
+                                              
+                                            </div>
+                                            <div class="col-sm-1">                                        
+                                          
+                                            </div>
+                                        </div>
+                                        </div>
                                     
-                                    <div class="pdp-image-gallery-block">
-                                        <!-- Gallery -->
-                                        <div class="gallery_pdp_container">
-                                            <div id="gallery_pdp">
-                                                <a href="#" data-image="https://icodefy.com/Tools/iZoom/images/small/image1.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image1.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image1.jpg" />
-                                                </a>
-                                                <a href="#" data-image="https://icodefy.com/Tools/iZoom/images/small/image2.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image2.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image2.jpg" />
-                                                </a>
-                                                <a href="#" data-image="https://icodefy.com/Tools/iZoom/images/small/image3.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image3.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image3.jpg" />
-                                                </a>
-                                                <a href="#" data-image="https://icodefy.com/Tools/iZoom/images/small/image4.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image4.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image4.jpg" />
-                                                </a>
-                                                <a href="#" data-image="https://icodefy.com/Tools/iZoom/images/small/image1.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image1.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image1.jpg" />
-                                                </a>
-                                                <a href="#" data-image="https://icodefy.com/Tools/iZoom/images/small/image2.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image2.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image2.jpg" />
-                                                </a>
-                                                <a href="#" data-image="images/small/image3.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image3.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image3.jpg" />
-                                                </a>
-                                                <a href="#" data-image="images/small/image4.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image4.jpg">
-                                                    <img id="" src="https://icodefy.com/Tools/iZoom/images/thumb/image4.jpg" />
-                                                </a>
-                                            </div> 
-                                            <!-- Up and down button for vertical carousel -->
-                                            <a href="#" id="ui-carousel-next" style="display: inline;"></a>
-                                            <a href="#" id="ui-carousel-prev" style="display: inline;"></a>
-                                        </div>
-                                        <!-- Gallery -->
-                                
-                                        <!-- gallery Viewer -->
-                                        <div class="gallery-viewer">
-                                            <img id="zoom_10" src="https://icodefy.com/Tools/iZoom/images/small/image1.png" data-zoom-image="https://icodefy.com/Tools/iZoom/images/large/image1.jpg" href="https://icodefy.com/Tools/iZoom/images/large/image1.jpg" />
-                                        </div>
-                                    </div>
+                                    <!-- </div> -->
+                                    <!-- Up and down button for vertical carousel -->
+                                    <!-- <a type="button" (click)="owlCar.next()" id="ui-carousel-next" style="display: inline;"></a> -->
+                                    <!-- <a type="button" (click)="owlCar.prev()" id="ui-carousel-prev" style="display: inline;"></a> -->
+                                <!-- </div> -->
+                                <!-- Gallery -->
+
+                                <!-- gallery Viewer -->
+
+                            <!-- </div> -->
                         </div>
                         <div class="summary entry-summary col-sm-4 col-xl-4  md-col-4 mr-3">
 
-                            <h2 itemprop="name" class="product_title entry-title">{{bookService.selectedBook?.nameBook}}</h2>
+                            <h2 itemprop="name" class="product_title entry-title">{{bookService.selectedBook?.nameBook}}
+                            </h2>
                             <div itemprop="offers">
                                 <div class="row">
                                     <div *ngIf="averageRating == 0" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 0.5" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-half-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 1" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 1.5" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-half-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 2" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 2.5" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-half-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 3" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 3.5" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-half-o"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 4" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 4.5" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star-half-o"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
                                     </div>
                                     <div *ngIf="averageRating == 5" class="col-sm-4">
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i
-                                                class="text-warning fa fa-star"></i></span>
-                                             
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+
                                     </div>
-                                  <div class="col-sm-4" id = "moreRating" >
-                                    <a type="button" class="btn btn-link" *ngIf="countRating > 0">(Xem thêm {{countRating}} đánh giá)</a>
-                                  </div>
+                                    <div class="col-sm-4" id="moreRating">
+                                        <a type="button" class="btn btn-link" *ngIf="countRating > 0">(Xem thêm
+                                            {{countRating}} đánh giá)</a>
+                                    </div>
                                 </div>
                                 <p class="price"><span class="woocommerce-Price-amount amount">
                                         <span class="woocommerce-Price-currencySymbol">
@@ -244,15 +244,11 @@
                                     class="single_add_to_cart_button button alt" data-toggle="modal"
                                     data-target="#myModal" style=" text-transform: uppercase;">Chọn Mua</button>
                                 <button *ngIf="!checkedAddBook" type="submit"
-                                    class="single_add_to_cart_button button alt"  style=" text-transform: uppercase;">Chọn Mua</button>
+                                    class="single_add_to_cart_button button alt"
+                                    style=" text-transform: uppercase;">Chọn Mua</button>
                             </form>
-
-
-
                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-76">
                                 <div class="yith-wcwl-add-button show" style="display:block">
-
-
                                     <a href="index39a4.html?add_to_wishlist=76" rel="nofollow" data-product-id="76"
                                         data-product-type="simple" class="add_to_wishlist">
                                         Add to Wishlist</a>
@@ -263,8 +259,9 @@
                             </div>
 
                             <div class="clear"></div>
-                            <button href="#" data-toggle="modal" data-value='' id="TryRead"
-						data-target="#modalTryRead" class="single_add_to_cart_button button alt" style="text-transform: uppercase;">Đọc thử</button>
+                            <button href="#" data-toggle="modal" data-value='' id="TryRead" data-target="#modalTryRead"
+                                class="single_add_to_cart_button button alt" style="text-transform: uppercase;">Đọc
+                                thử</button>
                             <!-- <button class="single_add_to_cart_button button alt">Đọc thử</button> -->
                             <div class="product_meta">
                                 <span class="posted_in">Categories: <a href="#" rel="tag">Budgeting and Finance</a>,
@@ -278,8 +275,6 @@
                                         href="../../product-category/romance/index.html" rel="tag">Romance</a>, <a
                                         href="../../product-category/science-fiction/index.html" rel="tag">Science
                                         Fiction</a></span>
-
-
                             </div>
 
 
@@ -314,54 +309,62 @@
                                             <div id="respond" class="comment-respond">
                                                 <form #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)"
                                                     style="color: #555555;">
-                                                    <label for="rating">Your Rating</label>
-                                                    <br>
-                                                    <fieldset class="rating">
-                                                        <input type="radio" id="star5" name="star" value="5"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="full" for="star5"
-                                                            title="Awesome - 5 stars"></label>
-                                                        <input type="radio" id="star4half" name="star" value="4.5"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="half" for="star4half"
-                                                            title="Pretty good - 4.5 stars"></label>
-                                                        <input type="radio" id="star4" name="star" value="4"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="full" for="star4"
-                                                            title="Pretty good - 4 stars"></label>
-                                                        <input type="radio" id="star3half" name="star" value="3.5"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="half" for="star3half"
-                                                            title="Meh - 3.5 stars"></label>
-                                                        <input type="radio" id="star3" name="star" value="3"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="full" for="star3" title="Meh - 3 stars"></label>
-                                                        <input type="radio" id="star2half" name="star" value="2.5"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="half" for="star2half"
-                                                            title="Kinda bad - 2.5 stars"></label>
-                                                        <input type="radio" id="star2" name="star" value="2"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="full" for="star2"
-                                                            title="Kinda bad - 2 stars"></label>
-                                                        <input type="radio" id="star1half" name="star" value="1.5"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="half" for="star1half"
-                                                            title="Meh - 1.5 stars"></label>
-                                                        <input type="radio" id="star1" name="star" value="1"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="full" for="star1"
-                                                            title="Sucks big time - 1 star"></label>
-                                                        <input type="radio" id="starhalf" name="star" value="0.5"
-                                                            #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                        <label class="half" for="starhalf"
-                                                            title="Sucks big time - 0.5 stars"></label>
-                                                    </fieldset>
-
-                                                    <p class="comment-form-comment"><br>
-                                                        <label for="comment" style="margin-left: -138px;">Your Review
-                                                            <span class="required">*</span>
-                                                        </label>
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-4">
+                                                                <label for="rating">Your Rating</label>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <fieldset class="rating">
+                                                                    <input type="radio" id="star5" name="star" value="5"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="full" for="star5"
+                                                                        title="Awesome - 5 stars"></label>
+                                                                    <input type="radio" id="star4half" name="star" value="4.5"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="half" for="star4half"
+                                                                        title="Pretty good - 4.5 stars"></label>
+                                                                    <input type="radio" id="star4" name="star" value="4"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="full" for="star4"
+                                                                        title="Pretty good - 4 stars"></label>
+                                                                    <input type="radio" id="star3half" name="star" value="3.5"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="half" for="star3half"
+                                                                        title="Meh - 3.5 stars"></label>
+                                                                    <input type="radio" id="star3" name="star" value="3"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="full" for="star3" title="Meh - 3 stars"></label>
+                                                                    <input type="radio" id="star2half" name="star" value="2.5"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="half" for="star2half"
+                                                                        title="Kinda bad - 2.5 stars"></label>
+                                                                    <input type="radio" id="star2" name="star" value="2"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="full" for="star2"
+                                                                        title="Kinda bad - 2 stars"></label>
+                                                                    <input type="radio" id="star1half" name="star" value="1.5"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="half" for="star1half"
+                                                                        title="Meh - 1.5 stars"></label>
+                                                                    <input type="radio" id="star1" name="star" value="1"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="full" for="star1"
+                                                                        title="Sucks big time - 1 star"></label>
+                                                                    <input type="radio" id="starhalf" name="star" value="0.5"
+                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                    <label class="half" for="starhalf"
+                                                                        title="Sucks big time - 0.5 stars"></label>
+                                                                </fieldset>
+                                                            </div>
+                                                           </div>
+                                                           <div class="col-sm-12">
+                                                            <label for="comment" style="margin-left: 16px;">Your Review
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                           </div>
+                                                          
+                                                    <p class="comment-form-comment">
+                                                       
                                                         <textarea #name="ngModel"
                                                             [(ngModel)]="ratingService.rating.review" name="review"
                                                             cols="45" rows="8" aria-required="true" required>
@@ -383,83 +386,84 @@
                             </div>
                         </div>
 
-                        <div class="container" id = "ratingList">
+                        <div class="container" id="ratingList">
                             <h2 class="text-center">KHÁCH HÀNG NHẬN XÉT</h2>
-                                <div class="inner">
-                                    <div class="col-sm-3">
-                                        <div class="rating">
-                                            <span class="rating-num">4.0/5</span>
-                                            <div class="rating-stars">
-                                              <span><i class="active icon-star"></i></span>
-                                              <span><i class="active icon-star"></i></span>
-                                              <span><i class="active icon-star"></i></span>
-                                              <span><i class="active icon-star"></i></span>
-                                              <span><i class="icon-star"></i></span>
-                                            </div>
-                                            <div class="rating-users">
-                                                ({{countRating}} nhận xét)
-                                            </div>
-                                          </div>
+                            <div class="inner">
+                                <div class="col-sm-3">
+                                    <div class="rating">
+                                        <span class="rating-num">4.0/5</span>
+                                        <div class="rating-stars">
+                                            <span><i class="active icon-star"></i></span>
+                                            <span><i class="active icon-star"></i></span>
+                                            <span><i class="active icon-star"></i></span>
+                                            <span><i class="active icon-star"></i></span>
+                                            <span><i class="icon-star"></i></span>
+                                        </div>
+                                        <div class="rating-users">
+                                            ({{countRating}} nhận xét)
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="histo">
-                                            <div class="five histo-rate">
-                                              <span class="histo-star">
-                                                <i class="active icon-star"></i> 5           </span>
-                                              <span class="bar-block">
-                                                <span id="bar-five" class="bar">
-                                                  <span>566,784</span>&nbsp;
-                                                </span> 
-                                              </span>
-                                            </div>
-                                            
-                                            <div class="four histo-rate">
-                                              <span class="histo-star">
-                                                <i class="active icon-star"></i> 4           </span>
-                                              <span class="bar-block">
-                                                <span id="bar-four" class="bar">
-                                                  <span>171,298</span>&nbsp;
-                                                </span> 
-                                              </span>
-                                            </div> 
-                                            
-                                            <div class="three histo-rate">
-                                              <span class="histo-star">
-                                                <i class="active icon-star"></i> 3           </span>
-                                              <span class="bar-block">
-                                                <span id="bar-three" class="bar">
-                                                  <span>94,940</span>&nbsp;
-                                                </span> 
-                                              </span>
-                                            </div>
-                                            
-                                            <div class="two histo-rate">
-                                              <span class="histo-star">
-                                                <i class="active icon-star"></i> 2           </span>
-                                              <span class="bar-block">
-                                                <span id="bar-two" class="bar">
-                                                  <span>44,525</span>&nbsp;
-                                                </span> 
-                                              </span>
-                                            </div>
-                                            
-                                            <div class="one histo-rate">
-                                              <span class="histo-star">
-                                                <i class="active icon-star"></i> 1           </span>
-                                              <span class="bar-block">
-                                                <span id="bar-one" class="bar">
-                                                  <span>136,457</span>&nbsp;
-                                                </span> 
-                                              </span>
-                                            </div>
-                                          </div>
-                                    </div>
-                                    <div class="col-sm-3" style="margin: 0 auto;">
-                                        <p>Nhận xét về sản phẩm</p>
-                                        <button type="submit" class="single_add_to_cart_button button alt" style="border-radius: 10px;">Viết nhận xét của bạn</button>
-                                    </div>                            
                                 </div>
-                              
+                                <div class="col-sm-6">
+                                    <div class="histo">
+                                        <div class="five histo-rate">
+                                            <span class="histo-star">
+                                                <i class="active icon-star"></i> 5 </span>
+                                            <span class="bar-block">
+                                                <span id="bar-five" class="bar">
+                                                    <span>566,784</span>&nbsp;
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="four histo-rate">
+                                            <span class="histo-star">
+                                                <i class="active icon-star"></i> 4 </span>
+                                            <span class="bar-block">
+                                                <span id="bar-four" class="bar">
+                                                    <span>171,298</span>&nbsp;
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="three histo-rate">
+                                            <span class="histo-star">
+                                                <i class="active icon-star"></i> 3 </span>
+                                            <span class="bar-block">
+                                                <span id="bar-three" class="bar">
+                                                    <span>94,940</span>&nbsp;
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="two histo-rate">
+                                            <span class="histo-star">
+                                                <i class="active icon-star"></i> 2 </span>
+                                            <span class="bar-block">
+                                                <span id="bar-two" class="bar">
+                                                    <span>44,525</span>&nbsp;
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="one histo-rate">
+                                            <span class="histo-star">
+                                                <i class="active icon-star"></i> 1 </span>
+                                            <span class="bar-block">
+                                                <span id="bar-one" class="bar">
+                                                    <span>136,457</span>&nbsp;
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" style="margin: 0 auto;">
+                                    <p>Nhận xét về sản phẩm</p>
+                                    <button type="submit" class="single_add_to_cart_button button alt"
+                                        style="border-radius: 10px;">Viết nhận xét của bạn</button>
+                                </div>
+                            </div>
+
                             <div class="card">
                                 <div class="card-body" *ngFor="let rating of ratingService.ratings">
                                     <div *ngFor="let account of accountSocialService.socialAccounts">
@@ -607,10 +611,10 @@
                                                 <div class="clearfix"></div>
                                                 <p>{{rating.review}}</p>
                                                 <p>
-                                                    <a class="float-right btn btn-outline-primary ml-2"> <i
-                                                            class="fa fa-reply"></i> Reply</a>
-                                                    <a class="float-right btn text-white btn-danger"> <i
-                                                            class="fa fa-heart"></i> Like</a>
+                                                    <a class="float-right btn text-white btn-danger" id = "dislike">
+                                                        <i class="fa fa-thumbs-down"></i> Không Thích <span class="number_dislike">0</span></a>&nbsp;
+                                                    <a class="float-right btn text-white btn-danger" id = "like">
+                                                        <i class="fa fa-thumbs-up"></i> Thích <span class="number_dislike">0</span></a>
                                                 </p>
                                             </div>
                                         </div>
@@ -760,14 +764,14 @@
                                                 </div>
                                                 <div class="clearfix"></div>
                                                 <p>{{rating.review}}</p>
-                                                <p>
-                                                    <a class="float-right btn btn-outline-primary ml-2"> <i
-                                                            class="fa fa-reply"></i> Reply</a>
-                                                    <a class="float-right btn text-white btn-danger"> <i
-                                                            class="fa fa-heart"></i> Like</a>
+                                                <p >
+                                                    <a class="float-right btn text-white btn-danger"  id = "dislike">
+                                                        <i class="fa fa-thumbs-down"></i> Không Thích  <span class="number_dislike">0</span></a>&nbsp;
+                                                    <a class="float-right btn text-white btn-danger"  id = "like">
+                                                        <i class="fa fa-thumbs-up"></i> Thích  <span class="number_like">0</span></a>
                                                 </p>
                                             </div>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
@@ -980,7 +984,8 @@
                                 <img class="logo-img" src="../../../../assets/img/01/logo_green.png" alt="Book Store" />
                             </div>
                             <div class="col-sm-4">
-                                <h3 class="modal-title" id="exampleModalCenterTitle" style="text-align: center;font-weight: 800;">ĐỌC THỬ</h3>
+                                <h3 class="modal-title" id="exampleModalCenterTitle"
+                                    style="text-align: center;font-weight: 800;">ĐỌC THỬ</h3>
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -990,14 +995,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-body" >
+                <div class="modal-body">
                     <div id="mydiv">
-                        <iframe id="frame" [src]="linkRead | safe: 'resourceUrl'" width="100%" height="400" > </iframe>
+                        <iframe id="frame" [src]="linkRead | safe: 'resourceUrl'" width="100%" height="400"> </iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal image familiar-->
+    <div class="modal fade" id="modalImgFamiliar" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="margin-top: 55px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width: 100%;height: 100%;">
+            <div class="modal-header" style="height: 66px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img class="logo-img" src="../../../../assets/img/01/logo_green.png" alt="Book Store" />
+                        </div>
+                        <div class="col-sm-4">
+                            <h3 class="modal-title" id="exampleModalCenterTitle"
+                                style="text-align: center;font-weight: 800;">ĐỌC THỬ</h3>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- <div id="mydiv">
+                    <iframe id="frame" [src]="linkRead | safe: 'resourceUrl'" width="100%" height="400"> </iframe>
+                </div> -->
+                <img src="" class="imagepreview" style="width: 100%;" >
+            </div>
+        </div>
+    </div>
+</div>
     <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert"
         style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1000001;">
         {{alertMessage}}
@@ -1016,9 +1054,10 @@
     #yith-quick-view-close:hover {
         color: #ff0000
     }
+
     .wrapper a img {
-    border: 1px solid transparent !important; 
-}
+        border: 1px solid transparent !important;
+    }
 </style>
 
 <style>
