@@ -134,7 +134,7 @@ router.post('/', function(req, res) {
 
         // true for 465, false for other ports
         auth: {
-            user: 'nguyenduchau210998@gmail.com', // generated ethereal user
+            user: 'bookstorepremium@gmail.com', // generated ethereal user
             pass: 'ham26062015' // generated ethereal password
         },
         tls: {
@@ -144,7 +144,7 @@ router.post('/', function(req, res) {
 
     // setup email data with unicode symbols
     var mailOptions = {
-        from: 'nguyenduchau210998mail.com', // sender address
+        from: 'bookstorepremium@gmail.com', // sender address
         to: req.body.email, // list of receivers
         subject: 'Node Contact Request', // Subject line
         text: 'Hello world?', // plain text body
@@ -294,7 +294,7 @@ router.post('/PayPal', function(req, res) {
 
         // true for 465, false for other ports
         auth: {
-            user: 'nguyenduchau210998@gmail.com', // generated ethereal user
+            user: 'bookstorepremium@gmail.com', // generated ethereal user
             pass: 'ham26062015' // generated ethereal password
         },
         tls: {
@@ -304,7 +304,7 @@ router.post('/PayPal', function(req, res) {
 
     // setup email data with unicode symbols
     var mailOptions = {
-        from: 'nguyenduchau210998mail.com', // sender address
+        from: 'bookstorepremium@gmail.com', // sender address
         to: req.body.email, // list of receivers
         subject: 'Node Contact Request', // Subject line
         text: 'Hello world?', // plain text body
