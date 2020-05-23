@@ -41,8 +41,11 @@ const promotion = require('./routes/F_event/promotionController');
 //G_statistic
 const statistic = require('./routes/G_statistic/statisticController');
 const dataset = require('./routes/G_statistic/datasetControleer');
-//G_recommentSys
-//H_tracking
+//H_recommend
+const author_recommend = require('./routes/H_recommend/author_Recommend');
+// const category_recommend = require('./routes/H_recommend/category_Recommend');
+// const rate_recommend = require('./routes/H_recommend/rate_Recommend');
+// const favorite_recommend = require('./routes/H_recommend/favorite_Recommend');
 //end controller
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -128,11 +131,14 @@ app.use('/send', sendmail);
 //F_event
 app.use('/discountCodes', discountCode);
 app.use('/promotions', promotion);
-//G_recommentSys
+//G_statistic
 app.use('/statistic', statistic);
 app.use('/data', dataset);
-//H_tracking
-
+//H_recommend
+app.use('/author_recommend', author_recommend)
+    // app.use('/category_recommend', category_recommend)
+    // app.use('/rate_recommend', rate_recommend)
+    // app.use('/favorite_recommend', favorite_recommend)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
