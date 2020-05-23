@@ -3,6 +3,9 @@ const router = express.Router();
 const order = require('../../models/E_payment/order');
 const orderDetail = require('../../models/E_payment/orderDetail');
 const book = require('../../models/A_store/book');
+const acountSocial = require('../../models/C_permission/accountsocials');
+const user = require('../../models/C_permission/user');
+const customer = require('../../models/B_profile/customer');
 //thống kê Danh sách sách mua nhiều
 async function getAllOrder(req, res) {
     try {
@@ -31,25 +34,33 @@ async function getBookByID(req, res) {
         return res.status(501).json(err);
     }
 }
+//get userID by Customer ID
+async function getUserIDByCusID(req, res) {
+    try {
+        const aUser = await customer.findById(req);
+        return aUser;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+}
+
 //Đếm Tác giả trong từng OrderDetail của User
-async function CreateDataAuthorCount(data, orderDetail, order) {
+function CreateDataAuthorCount(data, orderDetail, user) {
 
-    let isExist1 = (data2, orderDetailCheck, orderCheck) => {
-
+    let isExist1 = (data2, orderDetailCheck, userCheck) => {
         for (var key in data2) {
-            if (data2[key].userID == orderCheck.customerID) { //check UserID
-                if (data2[key].bookID == orderDetailCheck.bookID) { //check BookID
-                    data2[key].count += orderDetailCheck.count;
-                    return data2;
-                }
+            if (data2[key].userID == userCheck.userID) { //check UserID
+                data2[key].count += orderDetailCheck.count;
+                return data2;
             }
         }
         var dataReturn = {}
-        dataReturn = { "userID": orderCheck.customerID, "bookID": orderDetailCheck.bookID, "count": orderDetailCheck.count }
+        dataReturn = { "userID": userCheck.userID, "count": orderDetailCheck.count }
+        console.log(dataReturn)
         data2.push(dataReturn);
         return data2;
     }
-    return isExist1(data, orderDetail, order);
+    return isExist1(data, orderDetail, user);
 }
 
 router.get('/Data', function(req, res) {
@@ -57,20 +68,23 @@ router.get('/Data', function(req, res) {
         let DataAuthor = []
         let temp = 0
         const orderArray = await getAllOrder(req, res);
+
         for (var index in orderArray) {
+            const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
+
             const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
             for (var index2 in orderDetailArray) {
+                console.log(userInOrder.userID);
                 // DataAuthor.push(orderDetailArray[index2]);
                 //kiểm tra xem id sách có tồn tại trong danh sách
                 //nếu chưa thì thêm , có rồi thì cộng
+                DataAuthor = CreateDataAuthorCount(DataAuthor, orderDetailArray[index2], userInOrder)
 
-                DataAuthor = await CreateDataAuthorCount(DataAuthor, orderDetailArray[index2], orderArray[index])
             }
         }
         DataAuthor.sort(function(a, b) {
             return b.count - a.count;
         });
-
         res.json(DataAuthor);
     }
     run();
