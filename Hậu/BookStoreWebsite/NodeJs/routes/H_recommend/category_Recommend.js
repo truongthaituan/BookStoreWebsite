@@ -44,7 +44,7 @@ async function getUserIDByCusID(req, res) {
     }
 }
 //Đếm Tác giả trong từng OrderDetail của User
-async function CreateDataAuthorCount(data, orderDetail, user, category) {
+async function CreateDataCategoryCount(data, orderDetail, user, category) {
     let isExist1 = (data2, orderDetailCheck, userCheck, bookCategory) => {
         for (var key in data2) {
             if (data2[key].userID == userCheck.userID) { //check UserID
@@ -65,7 +65,7 @@ async function CreateDataAuthorCount(data, orderDetail, user, category) {
 
 router.get('/Data', function(req, res) {
     async function run() {
-        let DataAuthor = []
+        let DataCategory = []
         let temp = 0
         const orderArray = await getAllOrder(req, res);
 
@@ -75,17 +75,17 @@ router.get('/Data', function(req, res) {
             for (var index2 in orderDetailArray) {
                 const bookCategory = await getCategoryBookByBookID(orderDetailArray[index2].bookID, res);
 
-                // DataAuthor.push(orderDetailArray[index2]);
+                // DataCategory.push(orderDetailArray[index2]);
                 //kiểm tra xem id sách có tồn tại trong danh sách
                 //nếu chưa thì thêm , có rồi thì cộng
-                DataAuthor = await CreateDataAuthorCount(DataAuthor, orderDetailArray[index2], userInOrder, bookCategory)
+                DataCategory = await CreateDataCategoryCount(DataCategory, orderDetailArray[index2], userInOrder, bookCategory)
             }
         }
-        DataAuthor.sort(function(a, b) {
+        DataCategory.sort(function(a, b) {
             return b.count - a.count;
         });
         // id user
-        var s = await recommendation_eng(DataAuthor, "5eb5804d583fc710fc965457", pearson_correlation);
+        var s = await recommendation_eng(DataCategory, "5eb5804d583fc710fc965457", pearson_correlation);
 
         res.json(s);
     }
