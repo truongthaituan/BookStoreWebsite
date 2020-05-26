@@ -130,6 +130,47 @@ td.pw3 {
     right: 60px;
 }
 
+#InputSearch {
+    position: absolute;
+    top: 19px;
+    left: 600px;
+    height: 50px;
+    width: 45%;
+}
+
+#InputSearch .inputicon {
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 15px;
+    color: #999999;
+    z-index: 1;
+}
+
+#InputSearch .searchHeader {
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: black;
+    border-color: lightslategrey;
+    height: 50px;
+    font-style: italic;
+    width: 100%;
+}
+
+#InputSearch .buttonSearch {
+    position: absolute;
+    background-color: #C1C1C1;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    width: 12%;
+    font-weight: bold;
+    top: 1px;
+    right: 1px;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+}
+
 @media only screen and (max-width:768px) {
     #wheelSpinnerImg {
         width: 30px;
