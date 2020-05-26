@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
-
 		this.checkCartBookDBAndLocalStorage();
 
 	}
@@ -43,8 +42,10 @@ export class HomeComponent implements OnInit {
 			pullDrag: false,
 			dots: false,
 			navSpeed: 700,
-			navText: ['<img src = "../../assets/img/02/Previous.png" id = "btnNavLeft"/>',
+			nav: true,
+			navText: ['<img src = "../../assets/img/02/Previous.png" />',
 				'<img src = "../../assets/img/02/Next.png" id = "btnNavRight"/>'],
+			navClass:['owl-prev','owl-next'],
 			responsive: {
 				0: {
 					items: 1
@@ -57,9 +58,11 @@ export class HomeComponent implements OnInit {
 				},
 				940: {
 					items: 4
+				},
+				1100: {
+					items: 5
 				}
-			},
-			nav: true
+			}
 		}
 		$(function () {
 			$("#scrollToTopButton").click(function () {
