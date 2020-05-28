@@ -5,8 +5,7 @@
 
 
 
-<body
-    class="single single-product postid-76 woocommerce woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
+<body class="single single-product postid-76 woocommerce woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
     <div class="wrapper">
         <!-- //MAIN NAVIGATION -->
         <div class="product-header bks-breadcrumb">
@@ -33,95 +32,79 @@
                             <!-- <div class="pdp-image-gallery-block">
                                 <div class="gallery_pdp_container">
                                     <div id="gallery_pdp"> -->
-                         
-                                        <div class="col-sm-12 " >
-                                            <!-- <img id="zoom_10" src="{{bookService.selectedBook?.imgBook}}"  style="width: 350px;margin: 0 auto;"    
-                                            href="https://icodefy.com/Tools/iZoom/images/large/image1.jpg" /> -->
-                                            <ngx-image-zoom
-                                                [thumbImage]=bookService.selectedBook?.imgBook 
-                                                [fullImage]=bookService.selectedBook?.imgBook
-                                                [magnification]="2"
-                                                [enableScrollZoom]="true"
-                                                [enableLens]="true"
-                                                [circularLens] = "true"
-                                                [lensWidth]="280"
-                                                [lensHeight] = "280"></ngx-image-zoom>
-                                                <div class="col-sm-12" style="text-align: center;">
-                                                    <i class="icon-zoom-in"></i> Rê chuột lên hình để phóng to
-                                                </div>
-                                        </div>
-                                     
-                                        <div class="col-sm-12 smallProduct"  style="margin: 0 auto;">
-                                            <div class="row">
-                                            <div class="col-sm-1">
-                                                
-                                            </div>
-                                            <div class="col-sm-10" style="margin: 0 auto;">
-                                                <div class="col-sm-1">
-                                                    <a type="button" (click)="owlCar.prev()"> 
-                                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                                    </a>
-                                                </div>
-                                                <div class="col-sm-10" style="margin: 0 auto;">
-                                                <owl-carousel-o [options]="customOptions" #owlCar id ="imgFamiliar">
-                                              
-                                                    <ng-template carouselSlide>
-                                                        <a  type="button" >
-                                                            <img id="" style="width: 100px;height: 75px;"  
-                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/29/86/7b/d8cf003fa67446227e502b9fff302588.jpg" />
-                                                        </a>
-                                                    </ng-template>
-                                                    <ng-template carouselSlide >
-                                                        <a type="button">
-                                                            <img id="" style="width: 100px;height: 75px;"
-                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
-                                                        </a>
-                                                    </ng-template>
-                                                    <ng-template carouselSlide>
-                                                        <a type="button"
-                                                            data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg">
-                                                            <img id="" style="width: 100px;height: 75px;"
-                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg" />
-                                                        </a>
-                                                    </ng-template>
-                                                    <ng-template carouselSlide>
-                                                        <a type="button"
-                                                            data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg">
-                                                            <img id="" style="width: 100px;height: 75px;"
-                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg" />
-                                                        </a>
-                                                    </ng-template>
-                                                    <ng-template carouselSlide>
-                                                        <a type="button"
-                                                            data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg">
-                                                            <img id="" style="width: 100px;height: 75px;"
-                                                                src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
-                                                        </a>
-                                                    </ng-template>
-                                                   
-                                                </owl-carousel-o>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <a type="button" (click)="owlCar.next()" >
-                                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                                    </a>
-                                                </div>
-                                              
-                                            </div>
-                                            <div class="col-sm-1">                                        
-                                          
-                                            </div>
-                                        </div>
-                                        </div>
-                                    
-                                    <!-- </div> -->
-                                    <!-- Up and down button for vertical carousel -->
-                                    <!-- <a type="button" (click)="owlCar.next()" id="ui-carousel-next" style="display: inline;"></a> -->
-                                    <!-- <a type="button" (click)="owlCar.prev()" id="ui-carousel-prev" style="display: inline;"></a> -->
-                                <!-- </div> -->
-                                <!-- Gallery -->
 
-                                <!-- gallery Viewer -->
+                            <div class="col-sm-12 ">
+                                <!-- <img id="zoom_10" src="{{bookService.selectedBook?.imgBook}}"  style="width: 350px;margin: 0 auto;"    
+                                            href="https://icodefy.com/Tools/iZoom/images/large/image1.jpg" /> -->
+                                <ngx-image-zoom [thumbImage]=bookService.selectedBook?.imgBook [fullImage]=bookService.selectedBook?.imgBook [magnification]="2" [enableScrollZoom]="true" [enableLens]="true" [circularLens]="true" [lensWidth]="280" [lensHeight]="280"></ngx-image-zoom>
+                                <div class="col-sm-12" style="text-align: center;">
+                                    <i class="icon-zoom-in"></i> Rê chuột lên hình để phóng to
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 smallProduct" style="margin: 0 auto;">
+                                <div class="row">
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-10" style="margin: 0 auto;">
+                                        <div class="col-sm-1">
+                                            <a type="button" (click)="owlCar.prev()">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-10" style="margin: 0 auto;">
+                                            <owl-carousel-o [options]="customOptions" #owlCar id="imgFamiliar">
+
+                                                <ng-template carouselSlide>
+                                                    <a type="button">
+                                                        <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/29/86/7b/d8cf003fa67446227e502b9fff302588.jpg" />
+                                                    </a>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                    <a type="button">
+                                                        <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
+                                                    </a>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                    <a type="button" data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg">
+                                                        <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg" />
+                                                    </a>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                    <a type="button" data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg">
+                                                        <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg" />
+                                                    </a>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                    <a type="button" data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg">
+                                                        <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
+                                                    </a>
+                                                </ng-template>
+
+                                            </owl-carousel-o>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <a type="button" (click)="owlCar.next()">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- </div> -->
+                            <!-- Up and down button for vertical carousel -->
+                            <!-- <a type="button" (click)="owlCar.next()" id="ui-carousel-next" style="display: inline;"></a> -->
+                            <!-- <a type="button" (click)="owlCar.prev()" id="ui-carousel-prev" style="display: inline;"></a> -->
+                            <!-- </div> -->
+                            <!-- Gallery -->
+
+                            <!-- gallery Viewer -->
 
                             <!-- </div> -->
                         </div>
@@ -231,26 +214,19 @@
                                 <p></p>
                             </div>
 
-                            <form class="cart" method="post" enctype='multipart/form-data' #form="ngForm"
-                                (ngSubmit)="addToCart(bookService.selectedBook,form.value)">
+                            <form class="cart" method="post" enctype='multipart/form-data' #form="ngForm" (ngSubmit)="addToCart(bookService.selectedBook,form.value)">
                                 <div class="quantity">
-                                    <input type="number" min="1" max="10" placeholder="1" required id="count"
-                                        name="count" (change)="getcountDetail(bookService.selectedBook,$event)" ngModel
-                                        onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                                    <input type="number" min="1" max="10" placeholder="1" required id="count" name="count" (change)="getcountDetail(bookService.selectedBook,$event)" ngModel onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    />
 
                                 </div>
                                 <input type="hidden" name="add-to-cart" value="76" />
-                                <button *ngIf="checkedAddBook" type="submit"
-                                    class="single_add_to_cart_button button alt" data-toggle="modal"
-                                    data-target="#myModal" style=" text-transform: uppercase;">Chọn Mua</button>
-                                <button *ngIf="!checkedAddBook" type="submit"
-                                    class="single_add_to_cart_button button alt"
-                                    style=" text-transform: uppercase;">Chọn Mua</button>
+                                <button *ngIf="checkedAddBook" type="submit" class="single_add_to_cart_button button alt" data-toggle="modal" data-target="#myModal" style=" text-transform: uppercase;">Chọn Mua</button>
+                                <button *ngIf="!checkedAddBook" type="submit" class="single_add_to_cart_button button alt" style=" text-transform: uppercase;">Chọn Mua</button>
                             </form>
                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-76">
                                 <div class="yith-wcwl-add-button show" style="display:block">
-                                    <a href="index39a4.html?add_to_wishlist=76" rel="nofollow" data-product-id="76"
-                                        data-product-type="simple" class="add_to_wishlist">
+                                    <a rel="follow" data-product-id="76" data-product-type="simple" class="add_to_wishlist">
                                         Add to Wishlist</a>
                                 </div>
                                 <div style="clear:both"></div>
@@ -259,8 +235,7 @@
                             </div>
 
                             <div class="clear"></div>
-                            <button href="#" data-toggle="modal" data-value='' id="TryRead" data-target="#modalTryRead"
-                                class="single_add_to_cart_button button alt" style="text-transform: uppercase;">Đọc
+                            <button href="#" data-toggle="modal" data-value='' id="TryRead" data-target="#modalTryRead" class="single_add_to_cart_button button alt" style="text-transform: uppercase;">Đọc
                                 thử</button>
                             <!-- <button class="single_add_to_cart_button button alt">Đọc thử</button> -->
                             <div class="product_meta">
@@ -301,78 +276,54 @@
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title">Reviews</h2>
-                                        <div id="successReview" *ngIf="statusRating == true"
-                                            style="color: green;text-align: center;">Đánh giá thành công!</div>
+                                        <div id="successReview" *ngIf="statusRating == true" style="color: green;text-align: center;">Đánh giá thành công!</div>
                                     </div>
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
                                             <div id="respond" class="comment-respond">
-                                                <form #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)"
-                                                    style="color: #555555;">
-                                                        <div class="col-sm-6">
-                                                            <div class="col-sm-4">
-                                                                <label for="rating">Your Rating</label>
-                                                            </div>
-                                                            <div class="col-sm-8">
-                                                                <fieldset class="rating">
-                                                                    <input type="radio" id="star5" name="star" value="5"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="full" for="star5"
-                                                                        title="Awesome - 5 stars"></label>
-                                                                    <input type="radio" id="star4half" name="star" value="4.5"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="half" for="star4half"
-                                                                        title="Pretty good - 4.5 stars"></label>
-                                                                    <input type="radio" id="star4" name="star" value="4"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="full" for="star4"
-                                                                        title="Pretty good - 4 stars"></label>
-                                                                    <input type="radio" id="star3half" name="star" value="3.5"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="half" for="star3half"
-                                                                        title="Meh - 3.5 stars"></label>
-                                                                    <input type="radio" id="star3" name="star" value="3"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="full" for="star3" title="Meh - 3 stars"></label>
-                                                                    <input type="radio" id="star2half" name="star" value="2.5"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="half" for="star2half"
-                                                                        title="Kinda bad - 2.5 stars"></label>
-                                                                    <input type="radio" id="star2" name="star" value="2"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="full" for="star2"
-                                                                        title="Kinda bad - 2 stars"></label>
-                                                                    <input type="radio" id="star1half" name="star" value="1.5"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="half" for="star1half"
-                                                                        title="Meh - 1.5 stars"></label>
-                                                                    <input type="radio" id="star1" name="star" value="1"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="full" for="star1"
-                                                                        title="Sucks big time - 1 star"></label>
-                                                                    <input type="radio" id="starhalf" name="star" value="0.5"
-                                                                        #name="ngModel" [(ngModel)]="ratingService.rating.star" />
-                                                                    <label class="half" for="starhalf"
-                                                                        title="Sucks big time - 0.5 stars"></label>
-                                                                </fieldset>
-                                                            </div>
-                                                           </div>
-                                                           <div class="col-sm-12">
-                                                            <label for="comment" style="margin-left: 16px;">Your Review
+                                                <form #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)" style="color: #555555;">
+                                                    <div class="col-sm-6">
+                                                        <div class="col-sm-4">
+                                                            <label for="rating">Your Rating</label>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <fieldset class="rating">
+                                                                <input type="radio" id="star5" name="star" value="5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="full" for="star5" title="Awesome - 5 stars"></label>
+                                                                <input type="radio" id="star4half" name="star" value="4.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                                                <input type="radio" id="star4" name="star" value="4" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                                                <input type="radio" id="star3half" name="star" value="3.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                                                <input type="radio" id="star3" name="star" value="3" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="full" for="star3" title="Meh - 3 stars"></label>
+                                                                <input type="radio" id="star2half" name="star" value="2.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                                                <input type="radio" id="star2" name="star" value="2" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                                                                <input type="radio" id="star1half" name="star" value="1.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                                                <input type="radio" id="star1" name="star" value="1" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                                                                <input type="radio" id="starhalf" name="star" value="0.5" #name="ngModel" [(ngModel)]="ratingService.rating.star" />
+                                                                <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label for="comment" style="margin-left: 16px;">Your Review
                                                                 <span class="required">*</span>
                                                             </label>
-                                                           </div>
-                                                          
+                                                    </div>
+
                                                     <p class="comment-form-comment">
-                                                       
-                                                        <textarea #name="ngModel"
-                                                            [(ngModel)]="ratingService.rating.review" name="review"
-                                                            cols="45" rows="8" aria-required="true" required>
+
+                                                        <textarea #name="ngModel" [(ngModel)]="ratingService.rating.review" name="review" cols="45" rows="8" aria-required="true" required>
                                                         </textarea></p>
                                                     <input type="hidden" name="bookID" required />
                                                     <input type='hidden' name='userID' />
-                                                    <p lass="form-submit"><input name="submit" type="submit" id="submit"
-                                                            class="submit" value="Submit" />
+                                                    <p lass="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit" />
                                                     </p>
                                                 </form>
                                             </div>
@@ -412,7 +363,7 @@
                                             <span class="bar-block">
                                                 <span id="bar-five" class="bar">
                                                     <span>566,784</span>&nbsp;
-                                                </span>
+                                            </span>
                                             </span>
                                         </div>
 
@@ -422,7 +373,7 @@
                                             <span class="bar-block">
                                                 <span id="bar-four" class="bar">
                                                     <span>171,298</span>&nbsp;
-                                                </span>
+                                            </span>
                                             </span>
                                         </div>
 
@@ -432,7 +383,7 @@
                                             <span class="bar-block">
                                                 <span id="bar-three" class="bar">
                                                     <span>94,940</span>&nbsp;
-                                                </span>
+                                            </span>
                                             </span>
                                         </div>
 
@@ -442,7 +393,7 @@
                                             <span class="bar-block">
                                                 <span id="bar-two" class="bar">
                                                     <span>44,525</span>&nbsp;
-                                                </span>
+                                            </span>
                                             </span>
                                         </div>
 
@@ -452,15 +403,14 @@
                                             <span class="bar-block">
                                                 <span id="bar-one" class="bar">
                                                     <span>136,457</span>&nbsp;
-                                                </span>
+                                            </span>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3" style="margin: 0 auto;">
                                     <p>Nhận xét về sản phẩm</p>
-                                    <button type="submit" class="single_add_to_cart_button button alt"
-                                        style="border-radius: 10px;">Viết nhận xét của bạn</button>
+                                    <button type="submit" class="single_add_to_cart_button button alt" style="border-radius: 10px;">Viết nhận xét của bạn</button>
                                 </div>
                             </div>
 
@@ -472,8 +422,7 @@
                                                 <img src="{{account.imageUrl}}" class="img img-rounded img-fluid" />
                                             </div>
                                             <div class="col-md-10">
-                                                <a class="float-left"
-                                                    href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
                                                     <strong>{{account.username}}</strong></a>
                                                 &nbsp;
                                                 <div *ngIf="rating.star == 0">
@@ -611,9 +560,9 @@
                                                 <div class="clearfix"></div>
                                                 <p>{{rating.review}}</p>
                                                 <p>
-                                                    <a class="float-right btn text-white btn-danger" id = "dislike">
+                                                    <a class="float-right btn text-white btn-danger" id="dislike">
                                                         <i class="fa fa-thumbs-down"></i> Không Thích <span class="number_dislike">0</span></a>&nbsp;
-                                                    <a class="float-right btn text-white btn-danger" id = "like">
+                                                    <a class="float-right btn text-white btn-danger" id="like">
                                                         <i class="fa fa-thumbs-up"></i> Thích <span class="number_dislike">0</span></a>
                                                 </p>
                                             </div>
@@ -622,12 +571,10 @@
                                     <div *ngFor="let user of userService.users">
                                         <div class="row" *ngIf="rating.userID == user._id">
                                             <div class="col-md-2">
-                                                <img src="{{user.imageUrl}}" class="img img-rounded img-fluid"
-                                                    style="width: 100px;height: 100px;border-radius: 30px;" />
+                                                <img src="{{user.imageUrl}}" class="img img-rounded img-fluid" style="width: 100px;height: 100px;border-radius: 30px;" />
                                             </div>
                                             <div class="col-md-10">
-                                                <a class="float-left"
-                                                    href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
                                                     <strong>{{user.username}}</strong></a>
                                                 &nbsp;
                                                 <div *ngIf="rating.star == 0">
@@ -764,14 +711,14 @@
                                                 </div>
                                                 <div class="clearfix"></div>
                                                 <p>{{rating.review}}</p>
-                                                <p >
-                                                    <a class="float-right btn text-white btn-danger"  id = "dislike">
-                                                        <i class="fa fa-thumbs-down"></i> Không Thích  <span class="number_dislike">0</span></a>&nbsp;
-                                                    <a class="float-right btn text-white btn-danger"  id = "like">
-                                                        <i class="fa fa-thumbs-up"></i> Thích  <span class="number_like">0</span></a>
+                                                <p>
+                                                    <a class="float-right btn text-white btn-danger" id="dislike">
+                                                        <i class="fa fa-thumbs-down"></i> Không Thích <span class="number_dislike">0</span></a>&nbsp;
+                                                    <a class="float-right btn text-white btn-danger" id="like">
+                                                        <i class="fa fa-thumbs-up"></i> Thích <span class="number_like">0</span></a>
                                                 </p>
                                             </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -787,8 +734,7 @@
                                     <div class="product-wrap">
                                         <div class="product-image">
                                             <div class="catalog-image">
-                                                <button (click)="clickGoToBookDetail(item._id);"
-                                                    style="background-color: transparent;border-color: transparent;">
+                                                <button (click)="clickGoToBookDetail(item._id);" style="background-color: transparent;border-color: transparent;">
                                                     <img width="207" height="265" src="{{item.imgBook}}"
                                                         class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
                                                         alt="book6" sizes="(max-width: 207px) 100vw, 207px" />
@@ -799,28 +745,18 @@
                                             </div>
 
                                             <div class="product-buttons">
-                                                <div *ngIf="checkedAddBook" class="add-to-cart-btn"><a rel="nofollow"
-                                                        data-product_id="78" data-product_sku="" data-quantity="1"
-                                                        class="button"
-                                                        (mouseenter)="checkGetCountBookDetailEqual10(item._id)"
-                                                        (click)="clickAddBookOnModel(item)" data-toggle="modal"
+                                                <div *ngIf="checkedAddBook" class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (mouseenter)="checkGetCountBookDetailEqual10(item._id)" (click)="clickAddBookOnModel(item)" data-toggle="modal"
                                                         data-target="#myModal">Add to cart</a>
                                                 </div>
-                                                <div *ngIf="!checkedAddBook" class="add-to-cart-btn"><a rel="nofollow"
-                                                        data-product_id="78" data-product_sku="" data-quantity="1"
-                                                        class="button"
-                                                        (mouseenter)="checkGetCountBookDetailEqual10(item._id)"
-                                                        (click)="clickAddBookOnModel(item)">Add to cart</a>
+                                                <div *ngIf="!checkedAddBook" class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (mouseenter)="checkGetCountBookDetailEqual10(item._id)" (click)="clickAddBookOnModel(item)">Add to cart</a>
                                                 </div>
                                                 <div class="yith_compare_btn">
                                                     <div class="woocommerce product compare-button">
-                                                        <a href="#" class="compare button" data-product_id="78"
-                                                            rel="nofollow">Compare</a></div>
+                                                        <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
                                                 </div>
                                                 <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                                     <div class="yith-wcwl-add-button show" style="display:block">
-                                                        <a href="#" rel="nofollow" data-product-id="78"
-                                                            data-product-type="simple" class="add_to_wishlist">
+                                                        <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
                                                             Add to Wishlist</a>
                                                     </div>
                                                     <div style="clear:both"></div>
@@ -833,8 +769,7 @@
                                         <div class="product-content">
 
                                             <h4 class="product_title">
-                                                <a class="bks_product_t itle_link"
-                                                    href="bookDetail">{{item.nameBook}}</a></h4>
+                                                <a class="bks_product_t itle_link" href="bookDetail">{{item.nameBook}}</a></h4>
 
                                             <span class="price">
                                                 <span class="woocommerce-Price-amount amount" id="priceBook">
@@ -867,8 +802,7 @@
     <!-- Back to Top -->
 
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="z-index: 1000000;">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
@@ -885,19 +819,16 @@
 
                     <div class="d-flex justify-content-end" style="font-size: 15px;">
                         <h5>Bạn có <b>{{TongCount}}</b> quốn sách trong giỏ hàng</h5>
-                        <h5 style="margin-top: -5px;">Tổng tiền : <b
-                                style="color :#FE2E9A;font-size: 21px;">{{TongTien|currency:"VND"}}</b></h5>
+                        <h5 style="margin-top: -5px;">Tổng tiền : <b style="color :#FE2E9A;font-size: 21px;">{{TongTien|currency:"VND"}}</b></h5>
                     </div>
 
                     <div class="col mb-2">
                         <div class="row">
                             <div class="col-sm-12  col-md-6">
-                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;"
-                                    data-dismiss="modal" (click)="goToBookCategory()">Continue Shopping</button>
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToBookCategory()">Continue Shopping</button>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button"
-                                    data-dismiss="modal" (click)="goToCartBook()">Cart Book</button>
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Cart Book</button>
                             </div>
 
                         </div>
@@ -913,8 +844,7 @@
                                 <div class="product-wrap" style="height: 270px;">
                                     <div class="product-image">
                                         <div class="catalog-image">
-                                            <button (click)="clickGoToBookDetail(item._id);" data-dismiss="modal"
-                                                style="background-color: transparent;border-color: transparent;">
+                                            <button (click)="clickGoToBookDetail(item._id);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">
                                                 <img width="207" height="265" src="{{item.imgBook}}"
                                                     class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
                                                     alt="book6" sizes="(max-width: 207px) 100vw, 207px" />
@@ -925,19 +855,15 @@
                                         </div>
 
                                         <div class="product-buttons">
-                                            <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78"
-                                                    data-product_sku="" data-quantity="1" class="button"
-                                                    (click)="clickAddBookOnModel(item)">Add to cart</a>
+                                            <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (click)="clickAddBookOnModel(item)">Add to cart</a>
                                             </div>
                                             <div class="yith_compare_btn">
                                                 <div class="woocommerce product compare-button">
-                                                    <a href="#" class="compare button" data-product_id="78"
-                                                        rel="nofollow">Compare</a></div>
+                                                    <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
                                             </div>
                                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                                 <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="#" rel="nofollow" data-product-id="78"
-                                                        data-product-type="simple" class="add_to_wishlist">
+                                                    <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
                                                         Add to Wishlist</a>
                                                 </div>
                                                 <div style="clear:both"></div>
@@ -950,8 +876,7 @@
                                     <div class="product-content">
 
                                         <h4 class="product_title">
-                                            <a class="bks_product_t itle_link" href="bookDetail"
-                                                style="font-size: 15px;">{{item.nameBook}}</a></h4>
+                                            <a class="bks_product_t itle_link" href="bookDetail" style="font-size: 15px;">{{item.nameBook}}</a></h4>
 
                                         <span class="price">
                                             <span class="woocommerce-Price-amount amount" id="priceBook">
@@ -973,8 +898,7 @@
         </div>
     </div>
     <!-- The Modal Doc Thu-->
-    <div class="modal fade" id="modalTryRead" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" style="margin-top: 55px;">
+    <div class="modal fade" id="modalTryRead" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="margin-top: 55px;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="width: 100%;height: 100%;">
                 <div class="modal-header" style="height: 66px;">
@@ -984,8 +908,7 @@
                                 <img class="logo-img" src="../../../../assets/img/01/logo_green.png" alt="Book Store" />
                             </div>
                             <div class="col-sm-4">
-                                <h3 class="modal-title" id="exampleModalCenterTitle"
-                                    style="text-align: center;font-weight: 800;">ĐỌC THỬ</h3>
+                                <h3 class="modal-title" id="exampleModalCenterTitle" style="text-align: center;font-weight: 800;">ĐỌC THỬ</h3>
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1005,39 +928,36 @@
     </div>
 
     <!-- Modal image familiar-->
-    <div class="modal fade" id="modalImgFamiliar" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" style="margin-top: 55px;">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="width: 100%;height: 100%;">
-            <div class="modal-header" style="height: 66px;">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <img class="logo-img" src="../../../../assets/img/01/logo_green.png" alt="Book Store" />
-                        </div>
-                        <div class="col-sm-4">
-                            <h3 class="modal-title" id="exampleModalCenterTitle"
-                                style="text-align: center;font-weight: 800;">ĐỌC THỬ</h3>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal fade" id="modalImgFamiliar" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="margin-top: 55px;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="width: 100%;height: 100%;">
+                <div class="modal-header" style="height: 66px;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img class="logo-img" src="../../../../assets/img/01/logo_green.png" alt="Book Store" />
+                            </div>
+                            <div class="col-sm-4">
+                                <h3 class="modal-title" id="exampleModalCenterTitle" style="text-align: center;font-weight: 800;">ĐỌC THỬ</h3>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-body">
-                <!-- <div id="mydiv">
+                <div class="modal-body">
+                    <!-- <div id="mydiv">
                     <iframe id="frame" [src]="linkRead | safe: 'resourceUrl'" width="100%" height="400"> </iframe>
                 </div> -->
-                <img src="" class="imagepreview" style="width: 100%;" >
+                    <img src="" class="imagepreview" style="width: 100%;">
+                </div>
             </div>
         </div>
     </div>
-</div>
-    <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert"
-        style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1000001;">
+    <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1000001;">
         {{alertMessage}}
     </div>
     <!--  message alert -->
@@ -1046,15 +966,15 @@
     #yith-quick-view-modal .yith-wcqv-main {
         background: #ffffff
     }
-
+    
     #yith-quick-view-close {
         color: #cdcdcd
     }
-
+    
     #yith-quick-view-close:hover {
         color: #ff0000
     }
-
+    
     .wrapper a img {
         border: 1px solid transparent !important;
     }
@@ -1090,19 +1010,19 @@
         font-weight: 400;
         line-height: 30px;
     }
-
+    
     .read-more {
         color: #27ae61 !important;
     }
-
+    
     .read-more:hover {
         color: #229955 !important;
     }
-
+    
     .btn-link:after {
         background: #229955 !important;
     }
-
+    
     h1,
     h2,
     h3,
@@ -1112,68 +1032,68 @@
         color: #323232;
         font-family: Roboto Slab;
     }
-
+    
     .topbar {
         background-color: #F5F5F5;
         color: #999999;
     }
-
+    
     .topbar .nav>li.current_page_item a,
     .topbar .nav>li.current-menu-item a {
         color: #27ae61;
     }
-
+    
     .topbar .nav>li a:hover {
         color: #27ae61;
     }
-
+    
     .topbar .nav>li a {
         color: #999999;
         border-color: #27ae61;
     }
-
+    
     .topbar i {
         color: #27ae61;
     }
-
+    
     .header {
         background-color: #ffffff;
     }
-
+    
     .bks-cart-widget .currency-switcher .dd-select {
         background: #ffffff !important;
     }
-
+    
     .bks-cart-widget .currency-switcher,
     .bks-cart-widget .minicart-button {
         border-color: #e4e4e4;
     }
-
+    
     .bks-cart-widget .currency-switcher a,
     .bks-cart-widget .minicart-button .cart-item-info a {
         color: #323232;
     }
-
+    
     .bks-cart-widget .dd-pointer-down {
         border-top-color: #323232;
     }
-
+    
     .bks-cart-widget .currency-switcher .dd-options {
         background: #ffffff;
     }
-
+    
     .bks-cart-widget .currency-switcher ul.dd-options li:hover {
         background: #27ae61;
     }
-
+    
     .bks-cart-widget .currency-switcher ul.dd-options a {
         color: #323232;
     }
-
+    
     .bks-cart-widget .currency-switcher ul.dd-options li:hover a {
         color: #ffffff;
     }
-
+    
     .main-menu,
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a {
         background: #27ae61;
@@ -1181,50 +1101,50 @@
         font-family: Roboto Slab;
         font-size: 13px;
     }
-
+    
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a:hover {
         color: #ffffff;
     }
-
+    
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-ancestor>a,
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-parent>a,
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-page-item>a {
         color: #ffffff;
     }
-
+    
     .main-menu .vc-nav-on-desktop>li:hover>a.nav-link {
         background: #229955;
     }
-
+    
     .main-menu .vc-nav-on-desktop>li.current-menu-item>a.nav-link,
     .main-menu vc-nav-on-desktop>li.current_page_item>a.nav-link {
         background: #229955;
     }
-
+    
     .main-menu .vc-mm-mega-cont,
     .main-menu .sub-menu,
     .main-menu .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont-inner {
         background-color: #ffffff !important;
     }
-
+    
     .main-menu .vc-mm-mega-cont li a,
     .sub-menu-inner li a.nav-link,
     .vc-mm-menu a,
     .vc-mm-menu li a {
         color: #262626;
     }
-
+    
     .main-menu .vc-mm-mega-cont li a:hover,
     .main-menu ul.sub-menu-inner li a:hover,
     .main-menu .vc-mm-mega-cont li a:hover,
     .main-menu .vc-mm-mega-cont-inner li.current-menu-parent a {
         color: #27ae61 !important;
     }
-
+    
     .main-menu .vc-mm-mega-cont ul li {
         border-color: #e5e5e5 !important;
     }
-
+    
     body.boxed-layout {
         background-color: #e5e5e5;
         background-image: url();
@@ -1232,14 +1152,14 @@
         background-position: 0 0;
         background-size: cover;
     }
-
+    
     .btn-primary,
     #back-to-top .btn {
         background-color: #27ae61 !important;
         border-color: #27ae61 !important;
         color: #ffffff !important;
     }
-
+    
     .btn-primary:hover,
     .btn-primary:focus,
     .btn-primary:active:focus,
@@ -1251,7 +1171,7 @@
         border-color: #229955;
         color: #ffffff !important;
     }
-
+    
     .product-wrap .add-to-cart-btn a,
     .product-wrap .yith_compare_btn a,
     .product-wrap .yith-wcwl-add-to-wishlist a,
@@ -1280,7 +1200,7 @@
         background-color: #27ae61 !important;
         color: #ffffff !important;
     }
-
+    
     .product-wrap .add-to-cart-btn a:hover,
     .woocommerce button.single_add_to_cart_button:hover,
     .product-wrap .add-to-cart-btn a.added,
@@ -1297,7 +1217,7 @@
         background-color: #229955 !important;
         color: #ffffff !important;
     }
-
+    
     .woocommerce #content div.product div.thumbnails a:hover,
     .woocommerce div.product div.thumbnails a:hover,
     .woocommerce-page #content div.product div.thumbnails a:hover,
@@ -1312,33 +1232,33 @@
     .main-menu .vc-mm-mega-cont .wpb_wrapper h3 {
         border-color: #27ae61;
     }
-
+    
     .woocommerce div.product .woocommerce-tabs ul.tabs li.active {
         border: 2px solid #27ae61;
     }
-
+    
     #bks-products-slider .vc_tta-tabs-container ul li.vc_active:after {
         border-color: #27ae61 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     }
-
+    
     .woocommerce .widget_price_filter .ui-slider .ui-slider-range,
     .bks-post-slider .post-grid .post-content .post-date {
         background-color: #27ae61 !important;
     }
-
+    
     .woocommerce .widget_price_filter .ui-slider .ui-slider-handle {
         border: 2px solid #27ae61;
     }
-
+    
     .gridlist-toggle a {
         color: #27ae61;
         border: 2px solid #27ae61;
     }
-
+    
     .bks-post-slider .post-grid .post-content .post-date:after {
         border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #27ae61 rgba(0, 0, 0, 0);
     }
-
+    
     .woocommerce .woocommerce-info:before,
     .single .post-meta .author a,
     .woocommerce .woocommerce-message:before,
@@ -1348,11 +1268,11 @@
     .product-wrap span.price {
         color: #27ae61 !important;
     }
-
+    
     ul.post-categories li a:after {
         border-right-color: #27ae61;
     }
-
+    
     .pagination>.active>a,
     .pagination>.active>span,
     .pagination>.active>a,
@@ -1365,23 +1285,20 @@
         border: 2px solid #27ae61 !important;
         color: #ffffff !important;
     }
-
+    
     @media only screen and (max-width:768px) {
-
         .vc-mm-menu-h .vc-nav-on-desktop,
         .vc-mm-menu-v .vc-nav-on-desktop,
         .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont,
         .vc-mm-menu-v .vc-nav-on-desktop .vc-mm-mega-cont {}
     }
-
+    
     @media only screen and (max-width:768px) {
-
         .vc-mm-menu-h .vc-nav-on-desktop>li:hover>a,
         .vc-mm-menu-v .vc-nav-on-desktop>li:hover>a {
             background-color: #229955 !important;
             color: #ffffff !important;
         }
-
         .vc-mm-menu-h .vc-nav-on-desktop .vc-d-0>.nav-link,
         .vc-mm-menu-v .vc-nav-on-desktop .vc-d-0>.nav-link,
         .vc-mm-menu-h .vc-mm-child-title,
@@ -1389,37 +1306,37 @@
             border-color: #229955 !important;
         }
     }
-
+    
     .read-more:hover {
         color: #229955;
     }
-
+    
     .woocommerce div.product .woocommerce-tabs ul.tabs li {
         background-color: #ffffff !important;
         color: #333333 !important;
     }
-
+    
     .bks-cart-widget .minicart-button {
         border-top-left-radius: 0px !important;
         border-bottom-left-radius: 0px !important;
         border-left: 0px;
     }
-
+    
     .bks-promo {
         background-color: #B7A930;
     }
-
+    
     body .social-links li a .social-icon {
         background: #24a9e2;
         color: #ffffff;
     }
-
+    
     body .social-links li a .social-icon:hover,
     body .social-links li a .social-icon:focus {
         background: #1e73be;
         color: #ffffff;
     }
-
+    
     body .social-links li .social-icon,
     .social-icon:after {
         -webkit-border-radius: 50%;
@@ -1435,12 +1352,12 @@
         padding-top: 30px !important;
         padding-bottom: 30px !important;
     }
-
+    
     .vc_custom_1454597513538 {
         padding-top: 40px !important;
         padding-bottom: 40px !important;
     }
-
+    
     .vc_custom_1454683539961 {
         margin-top: 0px !important;
         margin-right: 0px !important;
@@ -1450,23 +1367,23 @@
         padding-bottom: 10px !important;
         background-color: #27ae61 !important;
     }
-
+    
     .vc_custom_1454754526304 {
         padding-top: 60px !important;
         padding-bottom: 30px !important;
     }
-
+    
     .vc_custom_1454685996679 {
         padding-top: 60px !important;
         padding-bottom: 60px !important;
         background: #424242 url(../../assets/img/01/ada9a09acea936d776a6f55c82778c43_XLf41b.jpg?id=10) !important;
     }
-
+    
     .vc_custom_1454679052819 {
         padding-top: 60px !important;
         padding-bottom: 60px !important;
     }
-
+    
     .vc_custom_1454597724991 {
         margin-top: 0px !important;
         margin-right: 0px !important;
@@ -1476,7 +1393,7 @@
         padding-bottom: 60px !important;
         background-color: #f5f5f5 !important;
     }
-
+    
     .vc_custom_1456470598040 {
         margin-top: 0px !important;
         margin-right: 0px !important;
@@ -1488,29 +1405,29 @@
         padding-left: 30px !important;
         background-color: #27ae61 !important;
     }
-
+    
     .vc_custom_1454686431101 {
         margin-top: 0px !important;
         margin-bottom: 0px !important;
     }
-
+    
     .vc_custom_1454686645519 {
         margin-top: 30px !important;
         border-bottom-width: 30px !important;
     }
-
+    
     .vc_custom_1454829417282 {
         margin-top: 0px !important;
         margin-bottom: 0px !important;
         padding-top: 0px !important;
     }
-
+    
     .vc_custom_1454830425190 {
         margin-top: 0px !important;
         margin-bottom: 0px !important;
         padding-right: 150px !important;
     }
-
+    
     .vc_custom_1454830469549 {
         padding-top: 30px !important;
         padding-left: 90px !important;
@@ -1520,11 +1437,11 @@
     #yith-quick-view-modal .yith-wcqv-main {
         background: #ffffff
     }
-
+    
     #yith-quick-view-close {
         color: #cdcdcd
     }
-
+    
     #yith-quick-view-close:hover {
         color: #ff0000
     }
@@ -1561,19 +1478,19 @@
         font-weight: 400;
         line-height: 30px;
     }
-
+    
     .read-more {
         color: #27ae61 !important;
     }
-
+    
     .read-more:hover {
         color: #229955 !important;
     }
-
+    
     .btn-link:after {
         background: #229955 !important;
     }
-
+    
     h1,
     h2,
     h3,
@@ -1583,68 +1500,68 @@
         color: #323232;
         font-family: Roboto Slab;
     }
-
+    
     .topbar {
         background-color: #F5F5F5;
         color: #999999;
     }
-
+    
     .topbar .nav>li.current_page_item a,
     .topbar .nav>li.current-menu-item a {
         color: #27ae61;
     }
-
+    
     .topbar .nav>li a:hover {
         color: #27ae61;
     }
-
+    
     .topbar .nav>li a {
         color: #999999;
         border-color: #27ae61;
     }
-
+    
     .topbar i {
         color: #27ae61;
     }
-
+    
     .header {
         background-color: #ffffff;
     }
-
+    
     .bks-cart-widget .currency-switcher .dd-select {
         background: #ffffff !important;
     }
-
+    
     .bks-cart-widget .currency-switcher,
     .bks-cart-widget .minicart-button {
         border-color: #e4e4e4;
     }
-
+    
     .bks-cart-widget .currency-switcher a,
     .bks-cart-widget .minicart-button .cart-item-info a {
         color: #323232;
     }
-
+    
     .bks-cart-widget .dd-pointer-down {
         border-top-color: #323232;
     }
-
+    
     .bks-cart-widget .currency-switcher .dd-options {
         background: #ffffff;
     }
-
+    
     .bks-cart-widget .currency-switcher ul.dd-options li:hover {
         background: #27ae61;
     }
-
+    
     .bks-cart-widget .currency-switcher ul.dd-options a {
         color: #323232;
     }
-
+    
     .bks-cart-widget .currency-switcher ul.dd-options li:hover a {
         color: #ffffff;
     }
-
+    
     .main-menu,
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a {
         background: #27ae61;
@@ -1652,50 +1569,50 @@
         font-family: Roboto Slab;
         font-size: 13px;
     }
-
+    
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop>li>a:hover {
         color: #ffffff;
     }
-
+    
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-ancestor>a,
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-menu-parent>a,
     .main-menu .vc-mm-menu-h>ul.vc-nav-on-desktop li.current-page-item>a {
         color: #ffffff;
     }
-
+    
     .main-menu .vc-nav-on-desktop>li:hover>a.nav-link {
         background: #229955;
     }
-
+    
     .main-menu .vc-nav-on-desktop>li.current-menu-item>a.nav-link,
     .main-menu vc-nav-on-desktop>li.current_page_item>a.nav-link {
         background: #229955;
     }
-
+    
     .main-menu .vc-mm-mega-cont,
     .main-menu .sub-menu,
     .main-menu .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont-inner {
         background-color: #ffffff !important;
     }
-
+    
     .main-menu .vc-mm-mega-cont li a,
     .sub-menu-inner li a.nav-link,
     .vc-mm-menu a,
     .vc-mm-menu li a {
         color: #262626;
     }
-
+    
     .main-menu .vc-mm-mega-cont li a:hover,
     .main-menu ul.sub-menu-inner li a:hover,
     .main-menu .vc-mm-mega-cont li a:hover,
     .main-menu .vc-mm-mega-cont-inner li.current-menu-parent a {
         color: #27ae61 !important;
     }
-
+    
     .main-menu .vc-mm-mega-cont ul li {
         border-color: #e5e5e5 !important;
     }
-
+    
     body.boxed-layout {
         background-color: #e5e5e5;
         background-image: url();
@@ -1703,24 +1620,24 @@
         background-position: 0 0;
         background-size: cover;
     }
-
+    
     .product-header {
         background: url(../../assets/img/01/title.jpg);
         background-color: #e5e5e5;
     }
-
+    
     .page-header {
         background: url(http://wp.acmeedesign.com/bookstore/wp-content/uploads/2016/02/Bookshelf-1200.jpg);
         background-color: #555555;
     }
-
+    
     .btn-primary,
     #back-to-top .btn {
         background-color: #27ae61 !important;
         border-color: #27ae61 !important;
         color: #ffffff !important;
     }
-
+    
     .btn-primary:hover,
     .btn-primary:focus,
     .btn-primary:active:focus,
@@ -1732,7 +1649,7 @@
         border-color: #229955;
         color: #ffffff !important;
     }
-
+    
     .product-wrap .add-to-cart-btn a,
     .product-wrap .yith_compare_btn a,
     .product-wrap .yith-wcwl-add-to-wishlist a,
@@ -1761,7 +1678,7 @@
         background-color: #27ae61 !important;
         color: #ffffff !important;
     }
-
+    
     .product-wrap .add-to-cart-btn a:hover,
     .woocommerce button.single_add_to_cart_button:hover,
     .product-wrap .add-to-cart-btn a.added,
@@ -1778,7 +1695,7 @@
         background-color: #229955 !important;
         color: #ffffff !important;
     }
-
+    
     .woocommerce #content div.product div.thumbnails a:hover,
     .woocommerce div.product div.thumbnails a:hover,
     .woocommerce-page #content div.product div.thumbnails a:hover,
@@ -1793,33 +1710,33 @@
     .main-menu .vc-mm-mega-cont .wpb_wrapper h3 {
         border-color: #27ae61;
     }
-
+    
     .woocommerce div.product .woocommerce-tabs ul.tabs li.active {
         border: 2px solid #27ae61;
     }
-
+    
     #bks-products-slider .vc_tta-tabs-container ul li.vc_active:after {
         border-color: #27ae61 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     }
-
+    
     .woocommerce .widget_price_filter .ui-slider .ui-slider-range,
     .bks-post-slider .post-grid .post-content .post-date {
         background-color: #27ae61 !important;
     }
-
+    
     .woocommerce .widget_price_filter .ui-slider .ui-slider-handle {
         border: 2px solid #27ae61;
     }
-
+    
     .gridlist-toggle a {
         color: #27ae61;
         border: 2px solid #27ae61;
     }
-
+    
     .bks-post-slider .post-grid .post-content .post-date:after {
         border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #27ae61 rgba(0, 0, 0, 0);
     }
-
+    
     .woocommerce .woocommerce-info:before,
     .single .post-meta .author a,
     .woocommerce .woocommerce-message:before,
@@ -1829,11 +1746,11 @@
     .product-wrap span.price {
         color: #27ae61 !important;
     }
-
+    
     ul.post-categories li a:after {
         border-right-color: #27ae61;
     }
-
+    
     .pagination>.active>a,
     .pagination>.active>span,
     .pagination>.active>a,
@@ -1846,23 +1763,20 @@
         border: 2px solid #27ae61 !important;
         color: #ffffff !important;
     }
-
+    
     @media only screen and (max-width:768px) {
-
         .vc-mm-menu-h .vc-nav-on-desktop,
         .vc-mm-menu-v .vc-nav-on-desktop,
         .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont,
         .vc-mm-menu-v .vc-nav-on-desktop .vc-mm-mega-cont {}
     }
-
+    
     @media only screen and (max-width:768px) {
-
         .vc-mm-menu-h .vc-nav-on-desktop>li:hover>a,
         .vc-mm-menu-v .vc-nav-on-desktop>li:hover>a {
             background-color: #229955 !important;
             color: #ffffff !important;
         }
-
         .vc-mm-menu-h .vc-nav-on-desktop .vc-d-0>.nav-link,
         .vc-mm-menu-v .vc-nav-on-desktop .vc-d-0>.nav-link,
         .vc-mm-menu-h .vc-mm-child-title,
@@ -1870,37 +1784,37 @@
             border-color: #229955 !important;
         }
     }
-
+    
     .read-more:hover {
         color: #229955;
     }
-
+    
     .woocommerce div.product .woocommerce-tabs ul.tabs li {
         background-color: #ffffff !important;
         color: #333333 !important;
     }
-
+    
     .bks-cart-widget .minicart-button {
         border-top-left-radius: 0px !important;
         border-bottom-left-radius: 0px !important;
         border-left: 0px;
     }
-
+    
     .bks-promo {
         background-color: #B7A930;
     }
-
+    
     body .social-links li a .social-icon {
         background: #24a9e2;
         color: #ffffff;
     }
-
+    
     body .social-links li a .social-icon:hover,
     body .social-links li a .social-icon:focus {
         background: #1e73be;
         color: #ffffff;
     }
-
+    
     body .social-links li .social-icon,
     .social-icon:after {
         -webkit-border-radius: 50%;

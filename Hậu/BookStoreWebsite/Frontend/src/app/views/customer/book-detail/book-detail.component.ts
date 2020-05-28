@@ -18,6 +18,7 @@ import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FavoriteService } from '../../../app-services/favorite-service/favorite.service'
 declare var $: any
 
 @Component({
@@ -40,7 +41,8 @@ export class BookDetailComponent implements OnInit {
   constructor(private _router: Router, private route: ActivatedRoute,private sanitizer: DomSanitizer,
     private authorService: AuthorService, private bookService: BookService,
     private ratingService: RatingService, private accountSocialService: SocialaccountService,
-    private userService: UserService, private _cartBookDB: CartBookService) {
+    private userService: UserService, private _cartBookDB: CartBookService,
+    private _favoriteService : FavoriteService) {
     //#region js for star
     var wc_single_product_params = { "i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes" };
     $(function (a) {
@@ -85,7 +87,7 @@ export class BookDetailComponent implements OnInit {
   myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   ngOnInit() {
-
+ //#region carousel
     this.customOptions = {
 			loop: false,
 			mouseDrag: false,
@@ -114,6 +116,7 @@ export class BookDetailComponent implements OnInit {
 			},
 			nav: true
     }
+   
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('#username').attr('style', 'font-size: 16px !important;background-color: transparent;border-color: transparent;color: green;');
@@ -152,6 +155,7 @@ export class BookDetailComponent implements OnInit {
         $('.fa').css('color','red')
       });	
     });
+    //#endregion
     this.resetForm();
     let id = this.route.snapshot.paramMap.get('id');
     //set độ dài cartBook

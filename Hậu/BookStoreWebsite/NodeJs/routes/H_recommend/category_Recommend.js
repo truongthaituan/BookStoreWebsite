@@ -87,7 +87,7 @@ router.get('/Data', function(req, res) {
         // id user
         var s = await recommendation_eng(DataCategory, "5eb5804d583fc710fc965457", pearson_correlation);
 
-        res.json(s);
+        res.json(DataCategory);
     }
     run();
 })
