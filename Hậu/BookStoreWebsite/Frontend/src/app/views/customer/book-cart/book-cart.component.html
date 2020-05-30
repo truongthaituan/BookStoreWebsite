@@ -20,6 +20,7 @@
         color: #229955;
     }
 </style>
+
 <body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
     <div class="wrapper">
         <!-- //MAIN NAVIGATION -->
@@ -57,7 +58,7 @@
                                     <tbody>
                                         <tr *ngFor="let cartbook of CartBook">
 
-                                            <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id)/> </td>
+                                            <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id) style="cursor: pointer;" /> </td>
                                             <td colspan="2">{{cartbook.nameBook}}</td>
                                             <td>{{cartbook.priceBook|currency:"VND"}}</td>
 
@@ -167,4 +168,3 @@
         </div>
     </div>
 </body>
-

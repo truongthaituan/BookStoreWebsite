@@ -515,7 +515,7 @@
                     <!-- LOGO -->
                     <div class="col-xs-12 col-sm-6 col-lg-8 col-md-6 logo">
                         <div class="site-logo">
-                            <a (click)="moveToHome();" title="Book Store">
+                            <a (click)="moveToHome();" title="Book Store" style="cursor: pointer;">
                                 <img class="logo-img" src="../../assets/img/01/logo_green.png" alt="Book Store" />
                             </a>
                         </div>
@@ -531,7 +531,7 @@
                                     <label>Tổng Tiền : </label> <label id="tongtien">&nbsp; {{ tongTien|currency:"VND" }}</label>
                                 </form>
                             </div>
-                            <div class="mini-cart pull-right">
+                            <div class="mini-cart pull-right" style="cursor: pointer;">
                                 <div class="minicart-button">
                                     <span class="cart-item-info jb-cart-section">                                        
                                      <a (click) = "moveToCart();"><label style="color: #666666;">Cart</label><i class="fa fa-shopping-bag"></i></a>

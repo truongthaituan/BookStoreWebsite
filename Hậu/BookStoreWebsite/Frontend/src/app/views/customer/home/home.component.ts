@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 	}
 	script_Frontend() {
 		this.customOptions = {
-			loop: false,
+			loop: true,
 			mouseDrag: false,
 			touchDrag: false,
 			pullDrag: false,
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
 					items: 4
 				},
 				1100: {
-					items: 5
+					items: 6
 				}
 			}
 		}
@@ -244,5 +244,107 @@ export class HomeComponent implements OnInit {
 			this.getTotalCountAndPrice();
 		}
 		this.deleteAllCartBookDBByUserID(this.accountSocial._id);
+	
+	
 	}
+
+
+	//#region go To Book Detail
+	clickGoToBookDetail(id)
+  { 
+	return this._router.navigate(['/bookDetail/'+id]);
+  }
+  //#endregion
+//#region  Add Book Cart
+
+putCartBookDB(selectedBook:Book){
+    if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
+      this.cartBookDB.userID=this.accountSocial._id;
+      this.cartBookDB.bookID=selectedBook._id;
+      this.cartBookDB.count=selectedBook.count;
+      this._cartBookDBService.putCartBook(this.cartBookDB).subscribe(
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
+    }
+  }
+  // check count cart before add (hover )
+  checkCountMax10=true;
+  checkCountCartBeforeAdd(selectedBook: Book) {
+    this.checkCountMax10=true;
+    for (var i = 0; i < this.lengthCartBook; i++) {
+      if (this.CartBook[i]._id == selectedBook._id) {
+          //kiểm tra số lượng 
+          if(this.CartBook[i].count==10)
+          {
+            this.checkCountMax10=false;
+          }
+          console.log(this.CartBook[i].count);
+      }
+	}
+}
+addABook = "";
+alertMessage = "";
+alertSucess = false;
+alertFalse = false;
+ //add to cart (BookDetail,CountSelect)
+  // số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
+
+  checkedAddBook = true;
+  addToCart(selectedBook: Book) {
+    this.addABook = selectedBook.nameBook;
+    var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
+    var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
+    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
+    // nếu localStorage "CartBook" không rỗng
+
+    if (localStorage.getItem('CartBook') != null) {
+      //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
+
+      for (var i = 0; i < JSON.parse(localStorage.getItem("CartBook")).length; i++) {
+        CartBook[i] = JSON.parse(localStorage.getItem("CartBook"))[i];
+        // nếu id book đã tồn tại trong  localStorage "CartBook" 
+        if (CartBook[i]._id == selectedBook._id) {
+          temp = 1;  //đặt biến temp
+          // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
+          if (parseInt(CartBook[i].count) + 1 <= 10) {
+            CartBook[i].count = parseInt(CartBook[i].count) + 1;  //tăng giá trị count
+             //cập nhật cartbook vào db
+             this.putCartBookDB(CartBook[i]);
+          }
+          else {
+            //show alert
+            this.checkedAddBook = false;
+            //update lại số lượng 
+
+
+            this.alertMessage = "Đã tồn tại 10 quốn sách " + CartBook[i].nameBook + " trong giỏ hàng";
+            this.alertFalse = true;
+            setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+          }
+        }
+        dem++;  // đẩy vị trí gán tiếp theo
+      }
+    }
+
+    if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
+      selectedBook.count = 1;  // set count cho sách
+      CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
+       //lưu cartbook vào db
+       this.postCartBookDB(selectedBook);
+    }
+    // đổ mảng vào localStorage "CartBook"
+    localStorage.setItem("CartBook", JSON.stringify(CartBook));
+
+    this.getTotalCountAndPrice();
+    //  //show alert
+    //  this.alertMessage="Thêm thành công sách "+ selectedBook.nameBook +" vào giỏ hàng";
+    //  this.alertSucess=true;
+    //  setTimeout(() => {this.alertMessage="";this.alertSucess=false}, 6000); 
+
+  }
+//#endregion
+
 }

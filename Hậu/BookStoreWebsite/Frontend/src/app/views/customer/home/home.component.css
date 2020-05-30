@@ -13,14 +13,28 @@
 @import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
 ::ng-deep .owl-prev {
     position: absolute !important;
-    top: 70px !important;
-    left: -20px !important;
+    top: 0px !important;
+    left: 0px !important;
+    padding-top: 133px !important;
+    padding-bottom: 133px !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    color: #333333 !important;
+    margin: 0px !important;
 }
 
 ::ng-deep .owl-next {
     position: absolute !important;
-    right: -20px !important;
-    top: 70px !important;
+    right: 0px !important;
+    top: 0px !important;
+    padding-top: 133px !important;
+    padding-bottom: 133px !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    color: #333333 !important;
+    margin: 0px !important;
+}
+
+.product-wrap {
+    background-color: white !important;
 }
 
 .test {

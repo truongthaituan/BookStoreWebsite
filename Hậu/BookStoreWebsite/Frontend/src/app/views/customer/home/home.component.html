@@ -522,7 +522,7 @@
                                             <h2 style='color:#27ae61'>Văn học<br> nghệ thuật</h2>
                                             <a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>Mua Hàng Ngay
                                                          <em class='fa fa-long-arrow-right'></em>
-                </a></div>
+                                             </a></div>
                                     </div>
                                 </div>
                             </div>
@@ -569,78 +569,13 @@
             </div>
         </div>
     </div>
-    <!-- <style>
-                .carousel-inner .active.left {
-                    left: -33%;
-                }
-                
-                .carousel-inner .next {
-                    left: 33%;
-                }
-                
-                .carousel-inner .prev {
-                    left: -33%;
-                }
-                
-                .carousel-control.left,
-                .carousel-control.right {
-                    background-image: none;
-                }
-                
-                .carousel-multi .carousel-inner>.item {
-                    transition: 500ms ease-in-out left;
-                }
-                
-                .carousel-multi .carousel-inner>.item>.media-card {
-                    background: transparent;
-                    border-right: 10px solid #fff;
-                    display: table-cell;
-                    width: 1%;
-                }
-                
-                .carousel-multi .carousel-inner>.item>.media-card:last-of-type {
-                    border-right: none;
-                }
-                
-                .carousel-multi .carousel-inner .active {
-                    display: table;
-                }
-                
-                .carousel-multi .carousel-inner .active.left {
-                    left: -33%;
-                }
-                
-                .carousel-multi .carousel-inner .active.right {
-                    left: 33%;
-                }
-                
-                .carousel-multi .carousel-inner .next {
-                    left: 33%;
-                }
-                
-                .carousel-multi .carousel-inner .prev {
-                    left: -33%;
-                }
-                
-                @media all and (transform-3d),
-                (-webkit-transform-3d) {
-                    .carousel-multi .carousel-inner>.item {
-                        transition: 300ms ease-in-out all;
-                        backface-visibility: visible;
-                        transform: translate3d()!important;
-                    }
-                }
-            </style> -->
+
     <div id="bks-products-slider" class="vc_row wpb_row vc_row-fluid vc_custom_1454597513538">
         <div class="page-container">
 
             <div class="vc_general vc_tta vc_tta-tabs vc_tta-color-grey vc_tta-style-classic vc_tta-shape-rounded
    vc_tta-spacing-1 vc_tta-tabs-position-top vc_tta-controls-align-left">
-                <!-- <div class="vc_tta-tabs-container" style="text-align: center;margin-bottom: 20px;">
-        <ul class="vc_tta-tabs-list"><li class="vc_tta-tab vc_active" data-vc-tab><a href="#1454667686571-2f652472-e206" 
-           data-vc-tabs data-vc-container=".vc_tta" >
-                 </a></li>
-                 </ul></div> -->
+
                 <div class='bks-heading '>
                     <h3 class='bks-title'>
                         <span style='font-size:18px;color:#333333;line-height:21px'>Một vài mẫu sách được người dùng ưa thích</span>
@@ -652,34 +587,65 @@
 
                     <div>Danh Mục Thể Loại</div>
                     <owl-carousel-o [options]="customOptions">
-                        <ng-template *ngFor="let books of  bookService.book" carouselSlide>
+                        <ng-template *ngFor="let item of  bookService.book" carouselSlide>
                             <div class="item">
                                 <div class="media media-card">
 
-                                    <div class="product-wrap">
-                                        <!-- <span class="on-sale">Sale!</span> -->
-                                        <div class="product-image">
-                                            <div class="catalog-image">
-                                                <button (click)="detailBook(books);" style="background-color: transparent;border-color: transparent;">
-                                                                <img  src="{{books.imgBook}}"/>                  
-                                                                            <div class="button yith-wcqv-button" data-product_id="74">
-                                                                 <i class="fa fa-search"></i>
-                                                            </div>
-                                                            </button>
+
+                                    <div class=" product type-product
+                                        status-publish has-post-thumbnail product_cat-budgeting-and-finance 
+                                        product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
+                                         instock sale featured shipping-taxable purchasable product-type-simple">
+                                        <div class="product-wrap">
+                                            <div class="product-image">
+                                                <div class="catalog-image">
+                                                    <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
+                                                       <img src="{{item.imgBook}}"
+                                                        class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
+                                                         alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
+                                                            <div class="button yith-wcqv-button" data-product_id="78">
+                                                            <i class="fa fa-search"></i>
+                                                       </div>
+                                                               </button>
+                                                </div>
+
+                                                <div class="product-buttons">
+                                                    <div class="add-to-cart-btn">
+                                                        <a *ngIf="checkCountMax10" rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" data-toggle="modal" data-target="#myModal" (mouseenter)="checkCountCartBeforeAdd(item)" (click)="addToCart(item)">Add to cart</a>
+                                                        <a *ngIf="!checkCountMax10" rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (mouseenter)="checkCountCartBeforeAdd(item)" (click)="addToCart(item)">Add to cart</a>
+
+                                                    </div>
+                                                    <div class="yith_compare_btn">
+                                                        <div class="woocommerce product compare-button">
+                                                            <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                                    </div>
+                                                    <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                                        <div class="yith-wcwl-add-button show" style="display:block">
+                                                            <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+                                       Add to Wishlist</a>
+                                                        </div>
+                                                        <div style="clear:both"></div>
+                                                        <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
                                             </div>
 
-                                        </div>
-                                        <!-- end product-image -->
-                                        <div class="product-content">
 
-                                            <h4 class="product_title">
-                                                <button class="bks_product_title_link" (click)="moveToBookDetail();" style="border-color: transparent;background-color: transparent;">{{books.nameBook}}</button>
-                                            </h4>
-                                            <span class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>{{ books.priceBook| currency:'VND' }} </span>
-                                            </span>
+                                            <!-- end product-image -->
+                                            <div class="product-content">
+
+                                                <h4 class="product_title">
+                                                    <a class="bks_product_t itle_link" href="bookDetail">{{item.nameBook}}</a></h4>
+
+                                                <span class="price">
+                                                        <span class="woocommerce-Price-amount amount" id="priceBook">
+                                                            {{item.priceBook | currency:"VND"}}</span></span>
+                                            </div>
+                                            <!-- end product-content -->
                                         </div>
-                                        <!-- end product-content -->
                                     </div>
+
 
                                 </div>
                             </div>
@@ -1147,7 +1113,14 @@
         </div>
     </div>
 
-
+    <!--  message alert -->
+    <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;z-index: 1000001;">
+        {{alertMessage}}
+    </div>
+    <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;z-index: 1000001;">
+        {{alertMessage}}
+    </div>
+    <!--  message alert -->
 </div>
 <!-- Back to Top -->
 <div id="back-to-top" data-spy="affix" data-offset-top="300" class="back-to-top hidden-xs hidden-sm affix">
@@ -1156,3 +1129,98 @@
 <!-- Back to Top -->
 
 <!-- modal thong bao -->
+<!-- modal add book -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000000;">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #2EFE64;font-size: 15px;">
+                    <b>Sách <span style="color: #FA58F4;">{{addABook}}</span> đã được thêm vào giỏ hàng của bạn</b>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                </h5>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="d-flex justify-content-end" style="font-size: 15px;">
+                    <h5>Bạn có <b>{{TongCount}}</b> quốn sách trong giỏ hàng</h5>
+                    <h5 style="margin-top: -5px;">Tổng tiền : <b style="color :#FE2E9A;font-size: 21px;">{{TongTien|currency:"VND"}}</b></h5>
+                </div>
+
+                <div class="col mb-2">
+                    <div class="row">
+                        <div class="col-sm-12  col-md-6">
+                            <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal">Continue Shopping</button>
+                        </div>
+                        <div class="col-sm-12 col-md-6 text-right">
+                            <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Cart Book   </button>
+                        </div>
+
+                    </div>
+                </div>
+                <h4>Có thể bạn sẽ thích</h4>
+                <div class="modal-footer border-top-0 d-flex justify-content-between" id="scroll">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-3 product type-product
+                        status-publish has-post-thumbnail product_cat-budgeting-and-finance 
+                        product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
+                         instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
+                        paginate: { itemsPerPage: 4,currentPage: p }">
+                            <div class="product-wrap" style="height: 270px;">
+                                <div class="product-image">
+                                    <div class="catalog-image">
+                                        <button (click)="detailBook(item);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">
+                               <img width="207" height="265" src="{{item.imgBook}}"
+                                class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
+                                 alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
+                                    <div class="button yith-wcqv-button" data-product_id="78">
+                                    <i class="fa fa-search"></i>
+                               </div>
+                                       </button>
+                                    </div>
+
+                                    <div class="product-buttons">
+                                        <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (click)="addToCart(item)">Add to cart</a>
+                                        </div>
+                                        <div class="yith_compare_btn">
+                                            <div class="woocommerce product compare-button">
+                                                <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
+                                        </div>
+                                        <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                            <div class="yith-wcwl-add-button show" style="display:block">
+                                                <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
+               Add to Wishlist</a>
+                                            </div>
+                                            <div style="clear:both"></div>
+                                            <div class="yith-wcwl-wishlistaddresponse"></div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <!-- end product-image -->
+                                <div class="product-content">
+
+                                    <h4 class="product_title">
+                                        <a class="bks_product_t itle_link" href="bookDetail" style="font-size: 15px;">{{item.nameBook}}</a></h4>
+
+                                    <span class="price">
+                   <span class="woocommerce-Price-amount amount" id="priceBook" >
+                       {{item.priceBook | currency:"VND"}}</span></span>
+                                </div>
+                                <!-- end product-content -->
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

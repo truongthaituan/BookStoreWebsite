@@ -28,43 +28,47 @@ js-comp-ver-4.9.2 vc_responsive ">
                             </div>
                             <!-- new (Cash)-->
                             <div class="row" id="order-history">
-                                <div *ngFor="let order of list_Order">
-                                    <div class="order-container" *ngIf="order.status=='New'&&order.paymentOption=='Cash'">
+                                <div *ngFor="let order of list_Order; let $index=index;">
 
-                                        <div class="header">
-                                            <div class="row">
-                                                <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
-                                                <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
-                                                <div *ngFor="let cus of list_all_customer">
-                                                    <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
-                                                </div>
+                                    <div class="order-container" *ngIf="order.status=='New'&&order.paymentOption=='Cash'" style="cursor: pointer;">
+                                        <div (click)="expandRow($index)">
+                                            <div class="header">
+                                                <div class="row">
+                                                    <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
+                                                    <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                    <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
+                                                    <div *ngFor="let cus of list_all_customer">
+                                                        <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
+                                                    </div>
 
-                                                <div class="col-sm-2"><span>Trạng thái</span><span>Chờ xác nhận </span></div>
-                                                <div class="col-sm-2">
-                                                    <div class="box">
-                                                        <a class="btn-default" (click)="ClickDeleteOrder(order)">Cancel</a>
+                                                    <div class="col-sm-2"><span>Trạng thái</span><span>Chờ xác nhận </span></div>
+                                                    <div class="col-sm-2">
+                                                        <div class="box">
+                                                            <a class="btn-default" (click)="ClickDeleteOrder(order)">Cancel</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngFor="let orderDetail of list_OrderDetail">
-                                            <div class="box" *ngIf="orderDetail.orderID==order._id">
-                                                <div *ngFor="let book of list_Book">
-                                                    <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                        <div class="col-sm-3">
-                                                            <img style="border:0px" src={{book.imgBook}} alt="" />
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <p>{{book.nameBook}}</p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <p>{{orderDetail.price|currency:"VND"}}</p>
-                                                        </div>
-                                                        <div class="col-sm-1">
-                                                            <p>x {{orderDetail.count}}</p>
-                                                        </div>
+                                        <div *ngIf="$index === expandedIndex">
+                                            <div *ngFor="let orderDetail of list_OrderDetail">
+                                                <div class="box" *ngIf="orderDetail.orderID==order._id">
+                                                    <div *ngFor="let book of list_Book">
+                                                        <div class="row" *ngIf="book._id==orderDetail.bookID">
+                                                            <div class="col-sm-3">
+                                                                <img style="border:0px" src={{book.imgBook}} alt="" />
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <p>{{book.nameBook}}</p>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <p>{{orderDetail.price|currency:"VND"}}</p>
+                                                            </div>
+                                                            <div class="col-sm-1">
+                                                                <p>x {{orderDetail.count}}</p>
+                                                            </div>
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

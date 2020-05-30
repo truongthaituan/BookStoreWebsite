@@ -521,28 +521,12 @@ export class BookDetailComponent implements OnInit {
         this.getAllAccount();
         this.getRatingsByBookID(id);
         this.getAllUsers();
+        this.getRatinng(id);
        
-        this.ratingService.getRatingAverage(id).subscribe((res) => {
-         
-          this.averageRatingByBook = res;
-          if(!this.averageRatingByBook.status){
-               this.countRating = 0;
-               this.averageRating = 0;
-           } else {
-            this.countRating = 0;
-            this.averageRating = 0;
-            this.sum = 0;
-             for(let i = 0; i < (this.averageRatingByBook.ratings).length;i++){
-                 this.sum += Number((this.averageRatingByBook.ratings)[i].star);
-             }
-             this.countRating = (this.averageRatingByBook.ratings).length;
-             this.averageRating = Math.round(2*(this.sum / (this.averageRatingByBook.ratings).length))/2;
-           }
-           console.log(this.sum)
-         });
 
     // return this._router.navigate(["/bookDetail" + '/' +id]);
   }
+
   postCartBookDB(selectedBook:Book)
   {
     if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
@@ -569,6 +553,26 @@ export class BookDetailComponent implements OnInit {
         error => console.log(error)
       );
     }
+  }
+  getRatinng(id){
+    this.ratingService.getRatingAverage(id).subscribe((res) => {
+         
+      this.averageRatingByBook = res;
+      if(!this.averageRatingByBook.status){
+           this.countRating = 0;
+           this.averageRating = 0;
+       } else {
+        this.countRating = 0;
+        this.averageRating = 0;
+        this.sum = 0;
+         for(let i = 0; i < (this.averageRatingByBook.ratings).length;i++){
+             this.sum += Number((this.averageRatingByBook.ratings)[i].star);
+         }
+         this.countRating = (this.averageRatingByBook.ratings).length;
+         this.averageRating = Math.round(2*(this.sum / (this.averageRatingByBook.ratings).length))/2;
+       }
+       console.log(this.sum)
+     });
   }
 
 }

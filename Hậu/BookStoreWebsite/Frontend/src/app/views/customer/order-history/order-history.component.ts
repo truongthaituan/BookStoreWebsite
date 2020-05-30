@@ -16,7 +16,8 @@ declare var $: any;
 })
 export class OrderHistoryComponent implements OnInit {
 
-  constructor(private _router: Router, private _order: OrderService, private _customer: CustomerService, private _orderDetail: OrderDetailService, private _book:BookService) { }
+  constructor(private _router: Router, private _order: OrderService, private _customer: CustomerService, 
+    private _orderDetail: OrderDetailService, private _book:BookService) { }
   //chứa thông tin giỏ hàng
   CartBook = [];
   list_Orders_CusName = [];
@@ -27,6 +28,7 @@ export class OrderHistoryComponent implements OnInit {
   TongTien = 0;
   TongCount = 0;
   lengthCartBook = 0;
+  expandedIndex=-1
   //thông tin login
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin = localStorage.getItem('statusLogin');
@@ -171,5 +173,7 @@ export class OrderHistoryComponent implements OnInit {
       }
     )
   }
-  
+  expandRow(index: number): void {
+    this.expandedIndex = index === this.expandedIndex ? -1 : index;
+  }
 }
