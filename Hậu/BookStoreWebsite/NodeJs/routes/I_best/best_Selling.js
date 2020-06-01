@@ -97,41 +97,43 @@ async function getCategoryBookByBookID(req, res) {
         return res.status(501).json(err);
     }
 }
-//lấy tổng trong toàn bộ order Detail
+//Show sách bán chạy nhất
 router.get('/Book', function(req, res) {
-    async function run() {
-        let BookList = []
-        let DataBook = []
-        const orderArray = await getAllOrder(req, res);
+        async function run() {
+            let BookList = []
+            let DataBook = []
+            const orderArray = await getAllOrder(req, res);
+            console.log("DataBook")
+            for (var index in orderArray) {
+                const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
+                const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
+                for (var index2 in orderDetailArray) {
+                    // DataBook.push(orderDetailArray[index2]);
+                    //kiểm tra xem id sách có tồn tại trong danh sách
+                    //nếu chưa thì thêm , có rồi thì cộng
+                    DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], userInOrder, orderDetailArray[index2].bookID)
 
-        for (var index in orderArray) {
-            const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
-            const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
-            for (var index2 in orderDetailArray) {
-                // DataBook.push(orderDetailArray[index2]);
-                //kiểm tra xem id sách có tồn tại trong danh sách
-                //nếu chưa thì thêm , có rồi thì cộng
-                DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], userInOrder, orderDetailArray[index2].bookID)
+                }
             }
-        }
-        DataBook.sort(function(a, b) {
-            return b.count - a.count;
-        });
-        //get book by Databook
-        for (var index in DataBook) {
-            console.log(DataBook[index].bookID)
-            const abook = await getBookByBookID(DataBook[index].bookID, res);
-            console.log(abook)
-            BookList.push(abook);
-            if (index > 10) {
-                break;
+            DataBook.sort(function(a, b) {
+                return b.count - a.count;
+            });
+            //get book by Databook
+            for (var index in DataBook) {
+                console.log(DataBook[index].bookID)
+                const abook = await getBookByBookID(DataBook[index].bookID, res);
+                console.log(abook)
+                BookList.push(abook);
+                if (index > 10) {
+                    break;
+                }
             }
+            // id user
+            res.json(BookList);
         }
-        // id user
-        res.json(BookList);
-    }
-    run();
-})
+        run();
+    })
+    //show những sách người dùng mua nhiều nhất trong thể loại 
 router.get('/BookByCategory/:UserID', function(req, res) {
     async function run() {
         let BookList = []

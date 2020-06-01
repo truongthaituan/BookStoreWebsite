@@ -43,23 +43,11 @@ router.post('/', function(req, res) {
 
 //update
 router.put('/:id', function(req, res) {
-        rating.findByIdAndUpdate(req.params.id, {
-                $set: {
-                    bookID: req.body.bookID,
-                    userID: req.body.userID,
-                    star: req.body.star,
-                    review: req.body.review
-                }
-            }, {
-                new: true
-            },
-            function(err, updatedrating) {
-                if (err) {
-                    res.send("err Update");
-                } else {
-                    res.json(updatedrating);
-                }
-            })
+        async function run() {
+            const update = putRate(req.params.id, req, res)
+            res.json(update);
+        }
+        run();
     })
     //delete
 router.delete('/:id', function(req, res) {
@@ -71,29 +59,85 @@ router.delete('/:id', function(req, res) {
         }
     });
 });
+//find all rating by bookID
 router.get('/findbooks/:book_id', function(req, res) {
-    rating.find({
-            bookID: req.params.book_id
-        })
-        .exec(function(err, ratings) {
-            if (err) console.log("Error retrieving rating");
-            else 
-                res.json(ratings);
-        });
-})
+        rating.find({
+                bookID: req.params.book_id
+            })
+            .exec(function(err, ratings) {
+                if (err) console.log("Error retrieving rating");
+                else
+                    res.json(ratings);
+            });
+    })
+    //Average Rating By bookID
 router.get('/averageRating/:book_id', function(req, res) {
     rating.find({
             bookID: req.params.book_id
         })
         .exec(function(err, ratings) {
             if (err) console.log("Error retrieving rating");
-            else 
-            if(ratings.length == 0){
-                res.json({'ratings': null, 'status': false});
-            }else{
-                res.json({'ratings': ratings, 'status': true});
+            else
+            if (ratings.length == 0) {
+                res.json({ 'ratings': null, 'status': false });
+            } else {
+                res.json({ 'ratings': ratings, 'status': true });
             }
         });
+})
+router.post('/RatingBookByUserID', function(req, res) {
+    async function run() {
+        const rateFind = await findRatingByUserIDAndBookID(req, res);
+        res.json(rateFind);
+    }
+    run();
+})
+async function findRatingByUserIDAndBookID(req, res) {
+
+    try {
+        const rate = await rating.find({
+            userID: req.body.userID,
+            bookID: req.body.bookID
+        });
+        // console.log(customerArray)
+        return rate;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+};
+async function putRate(idRate, req, res) {
+
+    try {
+        const rateUpdate = await rating.findByIdAndUpdate(idRate, {
+            $set: {
+                bookID: req.body.bookID,
+                userID: req.body.userID,
+                star: req.body.star,
+                review: req.body.review
+            }
+        }, {
+            new: true
+        });
+        // console.log(customerArray)
+        return rateUpdate;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+}
+//update rating by UserID
+router.post('/UpdateRating', function(req, res) {
+    async function run() {
+        console.log("UpdateRat2ing")
+        const rateFind = await findRatingByUserIDAndBookID(req, res);
+        console.log(rateFind)
+        console.log(rateFind[0]._id)
+
+        console.log("vaoo")
+        const update = await putRate(rateFind[0]._id, req, res)
+        res.json(update)
+
+    }
+    run();
 })
 
 

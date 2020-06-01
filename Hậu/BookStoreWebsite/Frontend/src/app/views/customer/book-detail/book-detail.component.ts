@@ -37,12 +37,12 @@ export class BookDetailComponent implements OnInit {
   loginBy: String = ""
   statusLogin: String = ""
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
-  cartBookDB : CartBook= new CartBook;
-  constructor(private _router: Router, private route: ActivatedRoute,private sanitizer: DomSanitizer,
+  cartBookDB: CartBook = new CartBook;
+  constructor(private _router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer,
     private authorService: AuthorService, private bookService: BookService,
     private ratingService: RatingService, private accountSocialService: SocialaccountService,
     private userService: UserService, private _cartBookDB: CartBookService,
-    private _favoriteService : FavoriteService) {
+    private _favoriteService: FavoriteService) {
     //#region js for star
     var wc_single_product_params = { "i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes" };
     $(function (a) {
@@ -78,45 +78,47 @@ export class BookDetailComponent implements OnInit {
     });
     //#endregion
   }
-	customOptions: any
+  customOptions: any
   //chứa thông tin giỏ hàng
   CartBook = [];
   TongTien = 0;
   TongCount = 0;
   lengthCartBook = 0;
-  myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
-  myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
+  myThumbnail = "https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
+  myFullresImage = "https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
+  userID_bookID = { userID: "", bookID: "" }
+  IsRate = false
   ngOnInit() {
- //#region carousel
+    //#region carousel
     this.customOptions = {
-			loop: false,
-			mouseDrag: false,
+      loop: false,
+      mouseDrag: false,
       touchDrag: false,
       autoHeight: false,
       pullDrag: false,
- 
-			dots: false,
+
+      dots: false,
       navSpeed: 700,
       rewind: true,
       margin: 0,
-			navText: ['',''],
-			responsive: {
-				0: {
-					items: 4
-				},
-				400: {
-					items: 4
-				},
-				740: {
-					items: 4
-				},
-				940: {
-					items: 4
-				}
-			},
-			nav: true
+      navText: ['', ''],
+      responsive: {
+        0: {
+          items: 4
+        },
+        400: {
+          items: 4
+        },
+        740: {
+          items: 4
+        },
+        940: {
+          items: 4
+        }
+      },
+      nav: true
     }
-   
+
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('#username').attr('style', 'font-size: 16px !important;background-color: transparent;border-color: transparent;color: green;');
@@ -124,36 +126,42 @@ export class BookDetailComponent implements OnInit {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
-      $('#moreRating').click(function(){
+      $('#moreRating').click(function () {
         $('html,body').animate({
-          scrollTop: $("#ratingList").offset().top},
+          scrollTop: $("#ratingList").offset().top
+        },
           'slow');
       });
 
       $('.bar span').hide();
       $('#bar-five').animate({
-        width: '75%'}, 1000);
+        width: '75%'
+      }, 1000);
       $('#bar-four').animate({
-        width: '35%'}, 1000);
+        width: '35%'
+      }, 1000);
       $('#bar-three').animate({
-        width: '20%'}, 1000);
+        width: '20%'
+      }, 1000);
       $('#bar-two').animate({
-        width: '15%'}, 1000);
+        width: '15%'
+      }, 1000);
       $('#bar-one').animate({
-        width: '30%'}, 1000);
-      
-      setTimeout(function() {
+        width: '30%'
+      }, 1000);
+
+      setTimeout(function () {
         $('.bar span').fadeIn('slow');
       }, 1000);
-      
+
       $('#imgFamiliar').click(function () {
         $('.imagepreview').attr('src', $(this).find('img').attr('src'));
         // $('#modalImgFamiliar').modal('show');   
         alert($(this).find('img').attr('src'));
-      });		
+      });
       $('#dislike').click(function () {
-        $('.fa').css('color','red')
-      });	
+        $('.fa').css('color', 'red')
+      });
     });
     //#endregion
     this.resetForm();
@@ -168,10 +176,11 @@ export class BookDetailComponent implements OnInit {
     this.getRatingsByBookID(id);
     this.getAllUsers();
     this.getRatingAverageByBook(id);
-    
+
+
   }
 
-  
+
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
     if (CartBook == null) {
@@ -208,11 +217,11 @@ export class BookDetailComponent implements OnInit {
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
   //#endregion
-   formatCurrency(number){
+  formatCurrency(number) {
     var n = number.split('').reverse().join("");
-    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
-    return  n2.split('').reverse().join('') + 'VNĐ';
-}
+    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+    return n2.split('').reverse().join('') + 'VNĐ';
+  }
 
   resetForm(form?: NgForm) {
     if (form)
@@ -232,24 +241,26 @@ export class BookDetailComponent implements OnInit {
     });
   }
   sum: number = 0.0
-  averageRatingByBook: any
-  averageRating= 0 
+  getRatingByBook: any
+  averageRating = 0
   countRating = 0
   getRatingAverageByBook(id: string) {
     this.ratingService.getRatingAverage(id).subscribe((res) => {
-     this.averageRatingByBook = res;
-     if(!this.averageRatingByBook.status){
-          this.countRating = 0;
-          this.averageRating = 0;
+      this.getRatingByBook = res;
+      if (!this.getRatingByBook.status) {
+        this.countRating = 0;
+        this.averageRating = 0;
       } else {
-        for(let i = 0; i < (this.averageRatingByBook.ratings).length;i++){
-            this.sum += Number((this.averageRatingByBook.ratings)[i].star);
+        for (let i = 0; i < (this.getRatingByBook.ratings).length; i++) {
+          this.sum += Number((this.getRatingByBook.ratings)[i].star);
         }
-        this.countRating = (this.averageRatingByBook.ratings).length;
-        this.averageRating = Math.round(2*(this.sum / (this.averageRatingByBook.ratings).length))/2;
+        this.countRating = (this.getRatingByBook.ratings).length;
+        this.averageRating = Math.round(2 * (this.sum / (this.getRatingByBook.ratings).length)) / 2;
       }
-      console.log(this.sum)
     });
+  }
+  getRatingPersion(idUser: string, idBook: string) {
+
   }
   detailBook(book: Book) {
     return this._router.navigate(["/bookDetail" + `/${book._id}`]);
@@ -267,6 +278,20 @@ export class BookDetailComponent implements OnInit {
       this.checkGetCountBookDetailEqual10(id);
       this.linkRead = this.bookService.selectedBook.tryRead;
       // this.getRatingAverageByBook(id);
+      this.userID_bookID.bookID = this.bookService.selectedBook._id;
+      this.userID_bookID.userID = JSON.parse(localStorage.getItem('accountSocial'))._id;
+
+      this.ratingService.getRatingByUserIDBookID(this.userID_bookID).subscribe(
+        data => {
+          console.log(data)
+          this.ratingService.rating = Object.values(data)[0];
+          $(".description_tab").addClass("active")
+          $(".reviews_tab").removeClass("active")
+          $("#tab-description").css("display","block")
+          $("#tab-reviews").css("display","none")
+        },
+        error => console.log(error)
+      );
     });
   }
   gettypeCategory(id) {
@@ -293,53 +318,65 @@ export class BookDetailComponent implements OnInit {
   statusRating: boolean = false;
 
   onSubmit(form: NgForm) {
+
     this.statusLogin = localStorage.getItem('statusLogin');
-     this.loginBy = localStorage.getItem('loginBy')
-    if (this.statusLogin == null) {
-      // console.log("not have access")
-      // this._router.navigate(['/account']);
-    } else if(this.loginBy == 'loginbt' && this.statusLogin == 'true'){
-      // console.log(form.value)
+    this.loginBy = localStorage.getItem('loginBy')
+    if (this.statusLogin != null) {
       let book_id = this.route.snapshot.paramMap.get('id');
       form.value.bookID = book_id;
       let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
       form.value.userID = id_user;
-      this.ratingService.postRating(form.value).subscribe(
+
+      this.ratingService.getRatingByUserIDBookID(form.value).subscribe(
         data => {
-          // console.log(data);
-          this.statusRating = true;
-          form.resetForm();
-          this.ngOnInit();
-          this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
-          this.subscription = this.timer.subscribe(() => {
-            // set showloader to false to hide loading div from view after 5 seconds
-            this.statusRating = false;
-          });
+
+          //nếu có rồi thì update
+          if (Object.keys(data).length > 0) { //
+            this.UpdateRating(form);
+
+          } else { //chưa có thì insert
+            this.PostRating(form);
+          }
         },
         error => console.log(error)
       );
-     }
-   else if(this.loginBy == 'loginSocial' && this.statusLogin == 'true'){
-  // console.log(form.value)
-  let book_id = this.route.snapshot.paramMap.get('id');
-  form.value.bookID = book_id;
-  let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
-  form.value.userID = id_user;
-  this.ratingService.postRating(form.value).subscribe(
-    data => {
-      // console.log(data);
-      this.statusRating = true;
-      form.resetForm();
-      this.ngOnInit();
-      this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
-      this.subscription = this.timer.subscribe(() => {
-        // set showloader to false to hide loading div from view after 5 seconds
-        this.statusRating = false;
-      });
-    },
-    error => console.log(error)
-  );
+
+    }
   }
+  UpdateRating(form) {
+    this.ratingService.UpdateRating(form.value).subscribe(
+      dataUpdate => {
+        console.log("-------------------2")
+        console.log(dataUpdate)
+        this.statusRating = true;
+        form.resetForm();
+        this.ngOnInit();
+        this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
+        this.subscription = this.timer.subscribe(() => {
+          // set showloader to false to hide loading div from view after 5 seconds
+          this.statusRating = false;
+        });
+      },
+      error => console.log(error)
+    );
+  }
+  PostRating(form) {
+    this.ratingService.postRating(form.value).subscribe(
+      dataPost => {
+        // console.log(data);
+        console.log("-------------------3")
+        console.log(dataPost)
+        this.statusRating = true;
+        form.resetForm();
+        this.ngOnInit();
+        this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
+        this.subscription = this.timer.subscribe(() => {
+          // set showloader to false to hide loading div from view after 5 seconds
+          this.statusRating = false;
+        });
+      },
+      error => console.log(error)
+    );
   }
   // số lượng add tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
   //##1 sự kiện change input
@@ -394,7 +431,7 @@ export class BookDetailComponent implements OnInit {
     for (var i = 0; i < this.lengthCartBook; i++) {
       if (this.CartBook[i]._id == id) {
         this.countBookDetailCur = this.CartBook[i].count;
-   
+
         if (this.CartBook[i].count == 10) {
           //show alert
           this.checkedAddBook = false;
@@ -402,19 +439,19 @@ export class BookDetailComponent implements OnInit {
         }
       }
     }
-  
+
   }
 
   //add to cart (BookDetail,CountSelect)
-  nameBookShowOnModel=""
+  nameBookShowOnModel = ""
   addToCart(selectedBook: Book, form: Book) {
-    this.nameBookShowOnModel=selectedBook.nameBook;
+    this.nameBookShowOnModel = selectedBook.nameBook;
     this.checkedAddBook = true;
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
     var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
     var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
     // nếu localStorage "CartBook" không rỗng
-    if (!form.count || form.count +this.countBookDetailCur >10) form.count = 1;
+    if (!form.count || form.count + this.countBookDetailCur > 10) form.count = 1;
     // nếu số lượng nhập vào <=10 thì oke 
     if (form.count <= 10) {
       if (localStorage.getItem('CartBook') != null) {
@@ -428,15 +465,15 @@ export class BookDetailComponent implements OnInit {
             // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
             if (parseInt(CartBook[i].count) + form.count <= 10) {
               CartBook[i].count = parseInt(CartBook[i].count) + form.count;  //tăng giá trị count
-               //cập nhật cartbook vào db
+              //cập nhật cartbook vào db
               this.putCartBookDB(CartBook[i]);
             }
             else {
-              if (  this.countBookDetailCur==10) {
+              if (this.countBookDetailCur == 10) {
                 //show alert
                 this.checkedAddBook = false;
                 //update lại số lượng 
-                this.alertMessage = "Đã tồn tại 10 quốn sách "+ CartBook[i].nameBook +" trong giỏ hàng" ;
+                this.alertMessage = "Đã tồn tại 10 quốn sách " + CartBook[i].nameBook + " trong giỏ hàng";
                 this.alertFalse = true;
                 setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
               }
@@ -451,10 +488,10 @@ export class BookDetailComponent implements OnInit {
         CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
         //lưu cartbook vào db
         this.postCartBookDB(selectedBook);
-     
+
       }
       localStorage.setItem("CartBook", JSON.stringify(CartBook));
-    } 
+    }
     this.ngOnInit();
   }
   //continueShopping
@@ -465,8 +502,8 @@ export class BookDetailComponent implements OnInit {
   goToCartBook() {
     this._router.navigate(['/cartBook']);
   }
-  clickAddBookOnModel(selectedBook: Book){
-    this.nameBookShowOnModel=selectedBook.nameBook;
+  clickAddBookOnModel(selectedBook: Book) {
+    this.nameBookShowOnModel = selectedBook.nameBook;
     var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
     var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
     var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
@@ -502,50 +539,44 @@ export class BookDetailComponent implements OnInit {
     if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
       selectedBook.count = 1;  // set count cho sách
       CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
-        //lưu cartbook vào db
-        this.postCartBookDB(selectedBook);
+      //lưu cartbook vào db
+      this.postCartBookDB(selectedBook);
     }
     // đổ mảng vào localStorage "CartBook"
     localStorage.setItem("CartBook", JSON.stringify(CartBook));
 
     this.getTotalCountAndPrice();
   }
-  clickGoToBookDetail(id)
-  { 
-       
-        this.cartBookLength(this.CartBook);
-        //set value giỏ hàng trên thanh head 
-        this.getTotalCountAndPrice();
-
-        this.getBookById(id);
-        this.getAllAccount();
-        this.getRatingsByBookID(id);
-        this.getAllUsers();
-        this.getRatinng(id);
-       
-
+  clickGoToBookDetail(id) {
+    this.cartBookLength(this.CartBook);
+    //set value giỏ hàng trên thanh head 
+    this.getTotalCountAndPrice();
+    this.getBookById(id);
+    this.getAllAccount();
+    this.getRatingsByBookID(id);
+    this.getAllUsers();
+    this.getRatinng(id);
     // return this._router.navigate(["/bookDetail" + '/' +id]);
   }
 
-  postCartBookDB(selectedBook:Book)
-  {
-    if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
-      this.cartBookDB.userID= this.accountSocial._id;
-      this.cartBookDB.bookID=selectedBook._id;
-      this.cartBookDB.count=selectedBook.count;
+  postCartBookDB(selectedBook: Book) {
+    if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+      this.cartBookDB.userID = this.accountSocial._id;
+      this.cartBookDB.bookID = selectedBook._id;
+      this.cartBookDB.count = selectedBook.count;
       this._cartBookDB.postCartBook(this.cartBookDB).subscribe(
-      req => {
-        console.log(req);
-      },
-      error => console.log(error)
-    );
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
     }
   }
-  putCartBookDB(selectedBook:Book){
-    if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
-      this.cartBookDB.userID=this.accountSocial._id;
-      this.cartBookDB.bookID=selectedBook._id;
-      this.cartBookDB.count=selectedBook.count;
+  putCartBookDB(selectedBook: Book) {
+    if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+      this.cartBookDB.userID = this.accountSocial._id;
+      this.cartBookDB.bookID = selectedBook._id;
+      this.cartBookDB.count = selectedBook.count;
       this._cartBookDB.putCartBook(this.cartBookDB).subscribe(
         req => {
           console.log(req);
@@ -554,25 +585,25 @@ export class BookDetailComponent implements OnInit {
       );
     }
   }
-  getRatinng(id){
+  getRatinng(id) {
     this.ratingService.getRatingAverage(id).subscribe((res) => {
-         
-      this.averageRatingByBook = res;
-      if(!this.averageRatingByBook.status){
-           this.countRating = 0;
-           this.averageRating = 0;
-       } else {
+
+      this.getRatingByBook = res;
+      if (!this.getRatingByBook.status) {
+        this.countRating = 0;
+        this.averageRating = 0;
+      } else {
         this.countRating = 0;
         this.averageRating = 0;
         this.sum = 0;
-         for(let i = 0; i < (this.averageRatingByBook.ratings).length;i++){
-             this.sum += Number((this.averageRatingByBook.ratings)[i].star);
-         }
-         this.countRating = (this.averageRatingByBook.ratings).length;
-         this.averageRating = Math.round(2*(this.sum / (this.averageRatingByBook.ratings).length))/2;
-       }
-       console.log(this.sum)
-     });
+        for (let i = 0; i < (this.getRatingByBook.ratings).length; i++) {
+          this.sum += Number((this.getRatingByBook.ratings)[i].star);
+        }
+        this.countRating = (this.getRatingByBook.ratings).length;
+        this.averageRating = Math.round(2 * (this.sum / (this.getRatingByBook.ratings).length)) / 2;
+      }
+      console.log(this.sum)
+    });
   }
 
 }

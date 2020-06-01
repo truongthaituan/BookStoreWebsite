@@ -33,4 +33,12 @@ export class RatingService {
   getRatingAverage(id_book: string){
     return this._http.get(this.baseURL+'/averageRating'+`/${id_book}`)
   }
+  //Update truyền tham số vào
+  UpdateRating(rating:Rating){
+    return this._http.post(this.baseURL+'/UpdateRating',rating);
+  }
+  getRatingByUserIDBookID(userID_bookID){
+    return this._http.post(this.baseURL+'/RatingBookByUserID',userID_bookID);
+    
+  }
 }

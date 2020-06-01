@@ -149,27 +149,6 @@ js-comp-ver-4.9.2 vc_responsive ">
                         Thu Gọn
                        </a>
                 </div>
-
-                <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
-                    <h3 class="widget-title">Tác Giả</h3>
-                    <ul class="product-categories" *ngFor="let author of authorService.authors | slice: startPage:paginationLimit;">
-                        <li *ngIf="bookFilter.author_id==author._id" class="cat-item cat-item-11">
-                            <a style="background-color: red;" (click)="getBookByAuthorId(author._id);">{{author.nameAuthor}}</a>
-                        </li>
-                        <li *ngIf="bookFilter.author_id!=author._id" class="cat-item cat-item-11">
-                            <a (click)="getBookByAuthorId(author._id);">{{author.nameAuthor}}</a>
-                        </li>
-                    </ul>
-                    <a class="myButton" *ngIf="paginationLimit < authorService.authors?.length" (click)="showMoreItems()">
-                        Xem Thêm
-                    </a>
-                    <a class="myButton" *ngIf="paginationLimit == authorService.authors?.length" (click)="showLessItems()">
-                        Thu Gọn
-                       </a>
-
-                </div>
-
-
             </div>
         </div>
 
