@@ -7,7 +7,8 @@ import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { PointService } from 'src/app/app-services/point-service/point.service';
 //recommend
-import { BestService } from 'src/app/app-services/best-service/best.service';
+import { BestService } from '../../../app-services/best-service/best.service';
+import { Recommend } from '../../../app-services/recommendSys-service/recommendSys.service';
 declare var $: any;
 @Component({
 	selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
 	customOptions: any
 	constructor(private _router: Router, private bookService: BookService,
 		private _cartBookDBService: CartBookService, private _pointService: PointService
-		, private _bestService: BestService) {
+		, private _bestService: BestService,private _recommendSyS:Recommend) {
 
 	}
 	//chứa thông tin giỏ hàng
@@ -48,6 +49,9 @@ export class HomeComponent implements OnInit {
 	theloai2:any
 	ListBookCategory1:any
 	ListBookCategory2:any
+	IsRecommend = false
+	ListrateRecommend:any
+	IsRateRecommend=false
 	getBestBookAndRecommend() {
 		//get sách được mua nhiều nhất
 		this._bestService.getBookBestSelling().subscribe(
@@ -56,15 +60,34 @@ export class HomeComponent implements OnInit {
 				
 			});
 		//get 2 thể loại mà người dùng thích nhất để show sách theo thể loại
+		
 		this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
 			listBestBookOnCategory => {
+		
 				this.BookByListCategoryBest = listBestBookOnCategory as Book
-				this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]
-				this.theloai2=Object.keys(this.BookByListCategoryBest[1])[0]
-				this.ListBookCategory1=Object.values(this.BookByListCategoryBest[0])[0]
-				this.ListBookCategory2=Object.values(this.BookByListCategoryBest[1])[0]
+				if(this.BookByListCategoryBest.length>1)
+				{
+					this.IsRecommend = true
+					this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]
+					this.theloai2=Object.keys(this.BookByListCategoryBest[1])[0]
+					this.ListBookCategory1=Object.values(this.BookByListCategoryBest[0])[0]
+					this.ListBookCategory2=Object.values(this.BookByListCategoryBest[1])[0]
+				}else{
+					this.IsRecommend = false
+				}
 		
 			});
+		this._recommendSyS.getRateRecommendByUserID(this.accountSocial._id).subscribe(
+			listRateRecommend =>{
+				this.ListrateRecommend = listRateRecommend as Book
+				if(this.ListrateRecommend.length>0)
+				{
+					this.IsRateRecommend=true
+				}else{
+					this.IsRateRecommend=false
+				}
+			}
+		)
 	}
 	script_Frontend() {
 		this.customOptions = {

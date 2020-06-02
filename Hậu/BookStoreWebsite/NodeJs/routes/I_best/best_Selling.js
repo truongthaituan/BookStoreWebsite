@@ -75,9 +75,9 @@ async function CreateDataCategoryCount(data, orderDetail, user, category) {
     let isExist1 = (data2, orderDetailCheck, userCheck, bookCategory) => {
         for (var key in data2) {
             if (data2[key].userID == userCheck.userID) { //check UserID
-                console.log(data2[key].categoryID + "-------------" + bookCategory._id)
+                // console.log(data2[key].categoryID + "-------------" + bookCategory._id)
                 if (data2[key].categoryID.equals(bookCategory._id)) {
-                    console.log("oke")
+                    // console.log("oke")
                     data2[key].count += orderDetailCheck.count;
                     return data2;
                 }
@@ -107,7 +107,7 @@ router.get('/Book', function(req, res) {
             let BookList = []
             let DataBook = []
             const orderArray = await getAllOrder(req, res);
-            console.log("DataBook")
+            // console.log("DataBook")
             for (var index in orderArray) {
                 const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
                 const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
@@ -127,9 +127,9 @@ router.get('/Book', function(req, res) {
                 if (index > 10) {
                     break;
                 }
-                console.log(DataBook[index].bookID)
+                // console.log(DataBook[index].bookID)
                 const abook = await getBookByBookID(DataBook[index].bookID, res);
-                console.log(abook)
+                // console.log(abook)
                 BookList.push(abook);
 
             }
