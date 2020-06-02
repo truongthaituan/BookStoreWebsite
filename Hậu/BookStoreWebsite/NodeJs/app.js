@@ -90,6 +90,7 @@ app.use(expressJWT({ secret: superSecret })
             /^\/cartBooks.*/,
             /^\/points.*/,
             /^\/discountCodes.*/,
+            /^\/best_selling.*/,
             '/socials/google',
             '/socials/facebook',
             '/addAccount',
