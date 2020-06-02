@@ -13,6 +13,7 @@ export class AccountProfileComponent implements OnInit {
   constructor(private _router: Router, private location: Location) { }
   loginBy: String = ""
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     this.loginBy = localStorage.getItem('loginBy');
 
   }

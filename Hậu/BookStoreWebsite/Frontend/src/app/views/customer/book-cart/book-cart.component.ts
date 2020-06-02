@@ -41,6 +41,7 @@ export class BookCartComponent implements OnInit {
   discountCode: DiscountCode = new DiscountCode;
 
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     if (localStorage.getItem('DiscountCode') != null) {
       this.discountCode = JSON.parse(localStorage.getItem('DiscountCode'));
     } else {

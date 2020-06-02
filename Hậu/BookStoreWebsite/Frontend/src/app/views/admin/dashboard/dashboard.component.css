@@ -20,3 +20,18 @@
       ,
      url('../../../../assets/css_admin/img/sidebar-1.jpg');
 }
+::ng-deep .mat-form-field-infix{
+    width: 100px !important;
+}
+#selectOption{
+    padding-left: 17px;
+    width: 100%;
+}
+.readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+    color: #A8A8A8;
+}

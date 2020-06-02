@@ -3,6 +3,7 @@ const router = express.Router();
 const order = require('../../models/E_payment/order');
 const orderDetail = require('../../models/E_payment/orderDetail');
 const book = require('../../models/A_store/book');
+const customer = require('../../models/B_profile/customer')
 //thống kê Danh sách sách mua nhiều
 async function getAllOrder(req, res) {
     try {
@@ -22,6 +23,16 @@ async function getOrderDetailByOrderID(req, res) {
         return res.status(501).json(err);
     }
 }
+
+async function getAllOrder(req, res) {
+    try {
+        const aOrder = await order.find({});
+        return aOrder;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+}
+
 //get book by ID
 async function getBookByID(req, res) {
     try {
@@ -70,7 +81,7 @@ async function getBookByID(req, res) {
 //check theo week
 async function checkWeek(dateNow, dateCheck) { //theo tuần
     let run = (now, check) => {
-        date = { "Mon": 2, "Tue": 3, "Wes": 4, "Thu": 5, "Fri": 6, "Sat": 7, "Sun": 8 } //thứ 2 là đầu tuần
+        date = { "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7, "Sun": 8 } //thứ 2 là đầu tuần
         month = { "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "June": 6, "July": 7, "Aug": 8, "Sept": 9, "Oct": 10, "Nov": 11, "Dec": 12 }
         var nowSplit = now.split(" ");
         var checkSplit = check.split(" ");
@@ -89,31 +100,32 @@ async function checkWeek(dateNow, dateCheck) { //theo tuần
     return run(dateNow, dateCheck);
 }
 //check theo month
-async function checkMonth(dateNow, dateCheck) { //theo tuần
-    let run = (now, check) => {
-        month = { "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "June": 6, "July": 7, "Aug": 8, "Sept": 9, "Oct": 10, "Nov": 11, "Dec": 12 }
-        var nowSplit = now.split(" ");
-        var checkSplit = check.split(" ");
-        if (nowSplit[3] == checkSplit[3]) { //năm =
-            if (month[nowSplit[1]] == month[checkSplit[1]]) { //tháng =
+async function checkMonth(yearCheck, monthCheck, dateOrder) { 
+    let run = (yearCheck,monthCheck, dateOrder) => {
+        month = { "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "June": 6, 
+        "July": 7, "Aug": 8, "Sept": 9, "Oct": 10, "Nov": 11, "Dec": 12 }
+        var checkSplit = dateOrder.split(" ");
+        if (yearCheck == checkSplit[3]) { //năm =
+          
+            if (month[monthCheck] == month[checkSplit[1]]) { //tháng =
+                console.log(month[checkSplit[1]])
                 return true;
             }
         }
         return false;
     }
-    return run(dateNow, dateCheck);
+    return run(yearCheck,monthCheck, dateOrder);
 }
 //check theo year
-async function checkYear(dateNow, dateCheck) { //theo tuần
-    let run = (now, check) => {
-        var nowSplit = now.split(" ");
-        var checkSplit = check.split(" ");
-        if (nowSplit[3] == checkSplit[3]) { //năm =
+async function checkYear(yearCheck, dateOrder) { //theo tuần
+    let run = (yearCheck, dateOrder) => {
+        var checkSplit = dateOrder.split(" ");
+        if (yearCheck == checkSplit[3]) { //năm =
             return true;
         }
         return false;
     }
-    return run(dateNow, dateCheck);
+    return run(yearCheck, dateOrder);
 }
 //Đếm sách trong từng OrderDetail
 async function CreateListBookBuyMost(data, element) {
@@ -133,6 +145,63 @@ async function CreateListBookBuyMost(data, element) {
     }
     return isExist1(data, element);
 }
+async function ShowPriceTotal(data) {
+        var totalPrice = 0.0
+           totalPrice += (data.totalPrice - ((data.totalPrice * data.discountCode) / 100));
+             return totalPrice;
+}
+
+router.get('/TotalPriceOnWeek', function(req, res) {
+    async function run() {
+        var totalPriceOnWeek = 0.0
+        var today = new Date();
+        today = today.toString().substring(0, 24);
+        const orderArray = await getAllOrder(req, res);
+        for (var index in orderArray) {
+              if (await checkWeek(today, orderArray[index].orderDate) == true) {
+                console.log(index)
+                totalPriceOnWeek = await ShowPriceTotal(orderArray[index])
+              }
+        }
+        res.json(totalPriceOnWeek);
+    }
+    run();
+})
+
+router.post('/TotalPriceOnMonth', function(req, res) {
+    async function run() {
+        var totalPriceOnMonth = 0.0
+        var yearCheck = req.body.yearCheck
+        var monthCheck = req.body.monthCheck
+        // today = today.toString().substring(0, 24);
+        const orderArray = await getAllOrder(req, res);
+        // console.log(yearCheck + " "+monthCheck)
+        for (var index in orderArray) {
+              if (await checkMonth(yearCheck, monthCheck, orderArray[index].orderDate) == true) {
+                totalPriceOnMonth += orderArray[index].totalPrice;
+              }
+        }
+        res.json(totalPriceOnMonth);
+    }
+    run();
+})
+
+
+router.get('/TotalPriceOnYear/:year', function(req, res) {
+    async function run() {
+        var totalPriceOnYear = 0.0
+        var yearCheck = req.params.year
+        const orderArray = await getAllOrder(req, res);
+        for (var index in orderArray) {
+              if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
+                totalPriceOnYear += orderArray[index].totalPrice
+              }
+        }
+        res.json(totalPriceOnYear);
+    }
+    run();
+})
+
 router.get('/BuyTheMost', function(req, res) {
     async function run() {
         let arrayBookBuyTheMost = []
@@ -158,11 +227,11 @@ router.get('/BuyTheMost', function(req, res) {
             arrayBookMost.push(aBook);
             if (index >= 10) break;
         }
-        res.json(arrayBookMost);
+        res.json(arrayBookBuyTheMost);
     }
     run();
 })
-
+ 
 //Buy the most By week
 router.get('/BookBuyTheMostOnWeek', function(req, res) {
         async function run() {
@@ -193,7 +262,7 @@ router.get('/BookBuyTheMostOnWeek', function(req, res) {
                 arrayBookMost.push(aBook);
                 if (index >= 10) break;
             }
-            res.json(arrayBookMost);
+            res.json(arrayBookBuyTheMost);
         }
         run();
     })
@@ -227,7 +296,7 @@ router.get('/BookBuyTheMostOnMonth', function(req, res) {
                 arrayBookMost.push(aBook);
                 if (index >= 10) break;
             }
-            res.json(arrayBookMost);
+            res.json(arrayBookBuyTheMost);
         }
         run();
     })
@@ -261,8 +330,64 @@ router.get('/BookBuyTheMostOnYear', function(req, res) {
             arrayBookMost.push(aBook);
             if (index >= 10) break;
         }
-        res.json(arrayBookMost);
+        res.json(arrayBookBuyTheMost);
     }
     run();
 })
+// Khách hàng tiềm năng
+async function getUserIDByCusID(req, res) {
+    try {
+        const aUser = await customer.findById(req);
+        return aUser;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+}
+//
+async function BestUser(data, order, userInOrder) {
+    let isExist1 = (data2, orderCheck, userInOrderCheck) => {
+
+        for (var key in data2) {
+            if (data2[key].userID == userInOrderCheck.userID) {
+                data2[key].totalPrice += orderCheck.totalPrice;
+                return data2;
+            }
+        } {
+            var book = {}
+            book = { "userID": userInOrderCheck.userID, "totalPrice": orderCheck.totalPrice }
+            data2.push(book);
+            return data2;
+        }
+    }
+    return isExist1(data, order, userInOrder);
+}
+//
+router.get('/BestUser', function(req, res) {
+    async function run() {
+        let arrayUserBuyBest = []
+        let temp = 0
+        const orderArray = await getAllOrder(req, res);
+        for (var index in orderArray) {
+            if(orderArray[index].status == 'Done'){
+                console.log(orderArray[index])
+                const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
+    
+                // const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
+                // for (var index2 in orderDetailArray) {
+                // arrayUserBuyBest.push(orderDetailArray[index2]);
+                //kiểm tra xem id sách có tồn tại trong danh sách
+                //nếu chưa thì thêm , có rồi thì cộng
+                arrayUserBuyBest = await BestUser(arrayUserBuyBest, orderArray[index], userInOrder)
+            }
+        }
+        arrayUserBuyBest.sort(function(a, b) {
+            return b.count - a.count;
+        });
+        //show 10 book most 
+
+        res.json(arrayUserBuyBest);
+        return
+    }
+    run();
+});
 module.exports = router;

@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
 	accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
 	cartBookDB: CartBook = new CartBook;
 	ngOnInit() {
+		$('.searchHeader').attr('style', 'font-size: 1.6rem !important');
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();

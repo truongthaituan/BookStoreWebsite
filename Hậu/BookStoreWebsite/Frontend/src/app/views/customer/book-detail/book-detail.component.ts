@@ -117,6 +117,7 @@ export class BookDetailComponent implements OnInit {
 			nav: true
     }
    
+    $('.searchHeader').attr('style', 'font-size: 1rem !important');
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');
     $('#username').attr('style', 'font-size: 16px !important;background-color: transparent;border-color: transparent;color: green;');

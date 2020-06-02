@@ -5,6 +5,7 @@ import { User } from '../../../app-services/user-service/user.model';
 import { NgForm, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Response } from '../../../app-services/response/response.model';
+declare var $:any;
 @Component({
   selector: 'app-profile-change-password',
   templateUrl: './profile-change-password.component.html',
@@ -22,6 +23,7 @@ export class ProfileChangePasswordComponent implements OnInit {
   constructor(private _router: Router, private route: ActivatedRoute,private userService: UserService, private location: Location) { }
 
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     let id = this.route.snapshot.paramMap.get('id');
     this.getUserById(id);
   }

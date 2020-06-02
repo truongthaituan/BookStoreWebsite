@@ -11,6 +11,7 @@ export class AboutUsComponent implements OnInit {
   
   constructor(private router:Router) { }
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });

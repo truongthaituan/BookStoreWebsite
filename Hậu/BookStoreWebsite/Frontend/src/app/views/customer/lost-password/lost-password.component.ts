@@ -12,6 +12,7 @@ export class LostPasswordComponent implements OnInit {
    }
 
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
