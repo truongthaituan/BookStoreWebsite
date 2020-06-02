@@ -331,6 +331,7 @@ router.get('/BookBuyTheMostOnYear', function(req, res) {
             if (index >= 10) break;
         }
         res.json(arrayBookBuyTheMost);
+        
     }
     run();
 })
