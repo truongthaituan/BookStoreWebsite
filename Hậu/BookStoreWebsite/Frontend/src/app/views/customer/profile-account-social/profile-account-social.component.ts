@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SocialaccountService } from 'src/app/app-services/socialAccount-service/socialaccount.service';
 import { Location } from '@angular/common';
 import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
-
+declare var $:any;
 @Component({
   selector: 'app-profile-account-social',
   templateUrl: './profile-account-social.component.html',
@@ -14,6 +14,7 @@ export class ProfileAccountSocialComponent implements OnInit {
   constructor(private _router: Router, private socialAccountService: SocialaccountService,
      private location: Location, private route: ActivatedRoute) { }
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     let googleID = JSON.parse(localStorage.getItem("accountSocial")).google_id;
     this.getSocialAccountByGoogleID(googleID);
   }

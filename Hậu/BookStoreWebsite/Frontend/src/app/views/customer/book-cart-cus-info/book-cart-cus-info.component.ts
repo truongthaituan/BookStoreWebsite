@@ -84,6 +84,7 @@ export class BookCartCusInfoComponent implements OnInit {
   destination: any;
   addressgg="";
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     this.showAddressStore();
 
  //load Places Autocomplete

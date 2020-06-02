@@ -365,3 +365,6 @@ select::-ms-expand {
 .order-container .box a.btn-default:hover {
     background: #eee;
 }
+.btn-default{
+    cursor: pointer;
+}

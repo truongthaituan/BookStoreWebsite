@@ -19,7 +19,7 @@ export class DiscountCodeComponent implements OnInit {
   statusLogin = localStorage.getItem('statusLogin');
 
   ngOnInit() {
-
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
     this.getDisCountCodeByUserID();
   }

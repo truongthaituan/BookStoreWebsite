@@ -4,7 +4,7 @@ import { UserService } from '../../../app-services/user-service/user.service';
 import { User } from '../../../app-services/user-service/user.model';
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
-
+declare var $:any;
 @Component({
   selector: 'app-profile-detail-edit',
   templateUrl: './profile-detail-edit.component.html',
@@ -15,6 +15,7 @@ export class ProfileDetailEditComponent implements OnInit {
   constructor(private _router: Router, private route: ActivatedRoute,private userService: UserService, private location: Location) { }
 
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     let id = this.route.snapshot.paramMap.get('id');
     this.getUserById(id);
   }

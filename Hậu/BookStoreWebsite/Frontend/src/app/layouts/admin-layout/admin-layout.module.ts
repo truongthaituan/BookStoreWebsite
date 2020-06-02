@@ -63,6 +63,8 @@ import { UserDetailsEditComponent } from 'src/app/views/admin/user-details-edit/
 import { InsertUserComponent } from 'src/app/views/admin/insert-user/insert-user.component';
 import { ManageOrderComponent } from 'src/app/views/admin/manage-order/manage-order.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @NgModule({
   imports: [
@@ -123,7 +125,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     UserDetailsComponent,
     UserDetailsEditComponent,
     InsertUserComponent,
-    ManageOrderComponent
+    ManageOrderComponent,
+    FooterComponent,
+    HeaderComponent
   ]
 })
 

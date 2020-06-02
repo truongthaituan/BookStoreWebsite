@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
 	bestBookList: Book = new Book;
 	BookByListCategoryBest:any
 	ngOnInit() {
+		$('.searchHeader').attr('style', 'font-size: 1.6rem !important');
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();

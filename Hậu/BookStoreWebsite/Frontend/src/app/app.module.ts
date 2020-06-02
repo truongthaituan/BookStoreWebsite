@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdminPageComponent } from './views/admin/admin-page/admin-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NpnSliderModule } from "npn-slider";
@@ -49,7 +48,6 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
-    AdminPageComponent,
     CustomerLayoutComponent,
     AdminLayoutComponent,
           ],

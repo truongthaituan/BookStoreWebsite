@@ -24,7 +24,6 @@ import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-ac
 import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/discount-code.component';
 import { AgmCoreModule } from '@agm/core';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmDirectionModule } from 'agm-direction'; 
 import { SafePipeModule } from 'safe-pipe';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
@@ -35,7 +34,6 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     CommonModule,
     RouterModule.forChild(CustomerLayoutRoutes),
     FormsModule,
-    NgbModule,
     ReactiveFormsModule,
     NgxPaginationModule,
     NpnSliderModule,

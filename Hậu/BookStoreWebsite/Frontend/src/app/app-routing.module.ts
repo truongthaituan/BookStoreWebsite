@@ -6,7 +6,6 @@ import { BookDetailComponent } from './views/customer/book-detail/book-detail.co
 import { MyAccountComponent } from './auth/my-account/my-account.component';
 import { LostPasswordComponent } from './views/customer/lost-password/lost-password.component';
 import { BookCartComponent } from './views/customer/book-cart/book-cart.component';
-import { AdminPageComponent } from './views/admin/admin-page/admin-page.component';
 import { InsertBookComponent } from './views/admin/insert-book/insert-book.component';
 import { UpdateBookComponent } from './views/admin/update-book/update-book.component';
 import { AboutUsComponent } from './views/customer/about-us/about-us.component';
@@ -25,19 +24,6 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 const routes: Routes = [
-  // {path:'', component: HomeComponent},
-  // {path: 'adminPage',component: AdminPageComponent},
-  // {path: 'insertPage',component: InsertBookComponent},
-  // {path: 'updatePage/:id',component: UpdateBookComponent},
-  // {path: 'profile', component: AccountProfileComponent},
-  // {path: 'accountProfile', component: ProfileDetailComponent},
-  // {path: 'accountProfileSocial', component: ProfileAccountSocialComponent},
-  // {path: 'accountProfileEdit/:id', component: ProfileDetailEditComponent},
-  // {path: 'changePassword/:id', component: ProfileChangePasswordComponent},
-  // {path: 'orderHistory',component: OrderHistoryComponent},
-  // {path: 'shipping',component:BookCartCusInfoComponent},
-  // {path:'payment/:customer_id',component:BookCartPaymentComponent},
-  // {path:'manageOrder',component:ManageOrderComponent},
   {
     path: '',
     redirectTo: 'homePage',

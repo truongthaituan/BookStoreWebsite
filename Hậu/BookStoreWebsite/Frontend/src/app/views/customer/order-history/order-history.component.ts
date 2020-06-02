@@ -48,6 +48,7 @@ export class OrderHistoryComponent implements OnInit {
 
   }
   script_Frontend() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     $('#future-orders').css('display', 'none');
     $('#done-orders').css('display', 'none');
 

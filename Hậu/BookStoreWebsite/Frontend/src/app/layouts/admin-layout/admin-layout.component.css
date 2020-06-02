@@ -19,3 +19,10 @@
       ,
      url('../../../assets/css_admin/img/sidebar-1.jpg');
 }
+.dropdown-menu{
+    display: none; 
+    will-change: transform ;
+     position: absolute ;
+      transform: translate3d(0, 0, 0) !important; 
+      top: 0px ; left: 0px ;
+}

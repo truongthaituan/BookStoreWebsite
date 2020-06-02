@@ -72,6 +72,7 @@ export class BookCategoryComponent implements OnInit {
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin: string = ""
   ngOnInit() {
+    $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);

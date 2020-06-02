@@ -1,6 +1,4 @@
 
-	<!DOCTYPE html>
-	<html lang="en">
 
 	<head>
 	<meta charset="utf-8" />
@@ -16,89 +14,119 @@
 		
 		<div class="main-panel" style="font-size: 13px;">
 		<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-			<div class="container-fluid">
-			<div class="navbar-wrapper" >
-				<a class="navbar-brand" href="javascript:;" style="font-size: 20px;">Màn Hình Chính</a>
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-			 aria-expanded="false" aria-label="Toggle navigation">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="navbar-toggler-icon icon-bar"></span>
-				<span class="navbar-toggler-icon icon-bar"></span>
-				<span class="navbar-toggler-icon icon-bar"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end">
-				<form class="navbar-form">
-				<div class="input-group no-border">
-					<input type="text" value="" class="form-control" placeholder="Search...">
-					<button type="submit" class="btn btn-white btn-round btn-just-icon">
-					<i class="material-icons">search</i>
-					<div class="ripple-container"></div>
-					</button>
-				</div>
-				</form>
-				<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="javascript:;">
-					<i class="material-icons">dashboard</i>
-					<p class="d-lg-none d-md-block">
-						Stats
-					</p>
-					</a>
-				</li>
-				<li class="nav-item dropdown" >
-					<a  class="nav-link" href="http://example.com" id="navbarDropdownMenuLink"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="material-icons" style="font-size:18px;">notifications</i>
-					<span class="notification" >5</span>
-					<p class="d-lg-none d-md-block">
-						Some Actions
-					</p>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
-					<a class="dropdown-item" href="#">Mike John responded to your email</a>
-					<a class="dropdown-item" href="#">You have 5 new tasks</a>
-					<a class="dropdown-item" href="#">You're now friend with Andrew</a>
-					<a class="dropdown-item" href="#">Another Notification</a>
-					<a class="dropdown-item" href="#">Another One</a>
-					</div>
-				</li>
-				<p style="font-weight: bold;">Welcome {{accountSocial.username}}</p>
-				<li class="nav-item dropdown">
-					<a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" 
-					aria-haspopup="true" aria-expanded="false">
-					<i class="material-icons" style=" font-size: 18px;">person</i>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-					<a class="dropdown-item" href="#">Tài Khoản</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" (click) = "logout();">Đăng Xuất</a>
-					</div>
-				</li>
-				</ul>
-			</div>
-			</div>
-		</nav>
+	<app-header></app-header>>
 		<!-- End Navbar -->
+		<style>
+			fieldset {
+			  /* background-color: #eeeeee; */
+			  border: 1px solid gray;
+			}
+			
+			legend {
+			  background-color: gray;
+			  color: white;
+			  padding: 5px 10px;
+			}
+		
+			</style>
 		<div class="content" style="background-color: #EEEEEE;">
 			<div class="container-fluid">
+			
+				<fieldset style="color: black;">
+					<legend style="width: 150px;font-weight: 700;font-size: 18px;margin-left: 15px;">Lọc Thông Tin</legend>
+					<div class="row" id = "selectOption">
+						<div class="col-lg-2 col-md-6 col-sm-6">
+							<div class="form-check">	
+							<label class="form-check-label">
+								<input class="form-check-input" type="checkbox" name="year" id="year" value="" checked>
+								<span class="form-check-sign">
+									<span class="check"></span>
+								</span>
+								</label>	
+							  <mat-form-field style="color: black;">
+								<mat-label style="font-size: 15px;">Theo Năm</mat-label>
+								<select matNativeControl (change)="changeYear($event.target.value)">
+									<option value="2016">2016</option>
+									<option value="2017">2017</option>
+									<option value="2018">2018</option>
+									<option value="2019">2019</option>
+									<option value="2020">2020</option>
+								</select>
+							  </mat-form-field>
+							  </div>
+						</div>
+						<div class="col-lg-2 col-md-6 col-sm-6">
+							<div class="form-check">	
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox" name="month" [(ngModel)]="isChecked" (change)="checkValue(isChecked)" id="month" value="" >
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+									</label>		
+							  <mat-form-field style="color: black;" id = "field_month">
+								<mat-label style="font-size: 15px;">Theo Tháng</mat-label>
+								<select matNativeControl (change)="changeMonth($event.target.value)" id = "select_month">
+									<option value="Jan" style="margin: 0 auto;" >1</option>
+									<option value="Feb" >2</option>
+									<option value="Mar">3</option>
+									<option value="Apr" >4</option>
+									<option value="May">5</option>
+									<option value="Jun" >6</option>
+									<option value="Jul">7</option>
+									<option value="Aug" >8</option>
+									<option value="Sep">9</option>
+									<option value="Oct" >10</option>
+									<option value="Nov">11</option>
+									<option value="Dec" >12</option>
+								</select>
+							  </mat-form-field>
+							  </div>
+						</div>
+						<div class="col-lg-2 col-md-6 col-sm-6">
+							<div class="form-check">				
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox"  id="week" value="" >
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+									</label>		
+							  <mat-form-field style="color: black;">
+								<mat-label>Theo Tuần</mat-label>
+								<input matInput readonly>
+							  </mat-form-field>
+							  </div>
+						</div>
+						<!-- <div class="col-lg-2 col-md-6 col-sm-6"> -->
+							<!-- <a mat-mini-fab style="border-radius: 20px;border-color: transparent;background-color: #4caf50;">
+								<mat-icon>search</mat-icon>
+							  </a>  -->
+						<!-- </div> -->
+					
+					</div>
+				   </fieldset>
+				  
+			
+			
+			
+					
+				
 			<div class="row">
+				
 				<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="card card-stats">
 					<div class="card-header card-header-warning card-header-icon" >
 					<div class="card-icon">
 						<i class="material-icons">face</i>
 					</div>
-					<p class="card-category" >Used Space</p>
+					<p class="card-category" >Khách Hàng</p>
 					<h3 class="card-title">49/50
 						<small>GB</small>
 					</h3>
 					</div>
 					<div class="card-footer">
 					<div class="stats">
-						<i class="material-icons text-danger">warning</i>
-						<a href="javascript:;">Get More Space...</a>
+						<i class="material-icons text-danger">face</i>
+						<a href="javascript:;">Khách Hàng Tiềm Năng</a>
 					</div>
 					</div>
 				</div>
@@ -109,13 +137,37 @@
 					<div class="card-icon">
 						<i class="material-icons">store</i>
 					</div>
-					<p class="card-category">Revenue</p>
-					<h3 class="card-title">$34,245</h3>
+					<p class="card-category">Doanh Thu</p>
+					<h3 *ngIf="onYear && !onMonth" class="card-title">{{ totalYear | currency:'VND' }}</h3>
+					<h3 *ngIf="onYear && onMonth" class="card-title">{{ totalYear | currency:'VND' }}</h3>
 					</div>
 					<div class="card-footer">
 					<div class="stats">
-						<i class="material-icons">date_range</i> Last 24 Hours
-					</div>
+						<i class="material-icons text-danger">store</i>
+						<a href="javascript:;">Doanh Thu Cửa Hàng</a>
+					<!-- 	<form class="woocommerce-ordering" method="get">
+							<select name="orderby" class="orderby">
+				<option value="menu_order"  selected='selected'>Default sorting</option>
+				<option value="popularity" >Sort by popularity</option>
+				<option value="rating" >Sort by average rating</option>
+				<option value="date" >Sort by newness</option>
+				<option value="price" >Sort by price: low to high</option>
+				<option value="price-desc" >Sort by price: high to low</option>
+		</select>
+						</form>-->
+						<!-- <mat-form-field>
+							<mat-select [(ngModel)]="selectedValue" name="food">
+								<mat-option *ngFor="let food of foods" [value]="food.value">
+								  {{food.viewValue}}
+								</mat-option>
+							  </mat-select>
+							
+						  </mat-form-field>
+							<a mat-mini-fab style="border-radius: 20px;border-color: transparent;background-color: #4caf50;">
+							  <mat-icon>search</mat-icon>
+							</a> -->
+					</div> 
+				
 					</div>
 				</div>
 				</div>
@@ -123,14 +175,15 @@
 				<div class="card card-stats">
 					<div class="card-header card-header-danger card-header-icon">
 					<div class="card-icon">
-						<i class="material-icons">info_outline</i>
+						<i class="material-icons">book</i>
 					</div>
-					<p class="card-category">Fixed Issues</p>
+					<p class="card-category">Số Lượng Sách Đã Bán</p>
 					<h3 class="card-title">75</h3>
 					</div>
 					<div class="card-footer">
 					<div class="stats">
-						<i class="material-icons">local_offer</i> Tracked from Github
+						<i class="material-icons text-danger">book</i>
+						<a href="javascript:;">Số Lượng Sách Đã Bán</a>
 					</div>
 					</div>
 				</div>
@@ -153,7 +206,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="card card-chart">
 								<canvas baseChart
 										[data]="doughnutChartData"
@@ -171,7 +224,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="card card-chart">
 						<canvas baseChart
 						[datasets]="barChartData"
@@ -190,7 +243,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<div class="card card-chart">
 						<canvas baseChart
 						[datasets]="radarChartData"
@@ -501,45 +554,10 @@
 			</div>
 			</div>
 		</div>
-		<footer class="footer">
-			<div class="container-fluid">
-			<nav class="float-left">
-				<ul>
-				<li>
-					<a href="https://www.creative-tim.com">
-					Creative Tim
-					</a>
-				</li>
-				<li>
-					<a href="https://creative-tim.com/presentation">
-					About Us
-					</a>
-				</li>
-				<li>
-					<a href="http://blog.creative-tim.com">
-					Blog
-					</a>
-				</li>
-				<li>
-					<a href="https://www.creative-tim.com/license">
-					Licenses
-					</a>
-				</li>
-				</ul>
-			</nav>
-			<div class="copyright float-right">
-				&copy;
-				<script>
-				document.write(new Date().getFullYear())
-				</script>, made with <i class="material-icons">favorite</i> by
-				<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-			</div>
-			</div>
-		</footer>
-		</div>
+		<app-footer></app-footer>
+	</div>
 	</div>
 	
 
 	</body>
 
-	</html>
