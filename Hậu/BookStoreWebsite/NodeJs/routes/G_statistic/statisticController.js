@@ -210,8 +210,10 @@ router.get('/TotalPriceOnYear/:year', function(req, res) {
         var yearCheck = req.params.year
         const orderArray = await getAllOrder(req, res);
         for (var index in orderArray) {
-            if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
-                totalPriceOnYear += orderArray[index].totalPrice
+            if (orderArray[index].status == 'Done') {
+                if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
+                    totalPriceOnYear += orderArray[index].totalPrice
+                }
             }
         }
         res.json(totalPriceOnYear);
