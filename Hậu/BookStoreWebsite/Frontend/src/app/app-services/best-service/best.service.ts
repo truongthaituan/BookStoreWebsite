@@ -6,21 +6,24 @@ import { HostService } from '../aHost/Host.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CartBookService {
+export class BestService {
   selectedBook: Book;
   Book: Book[];
 
   constructor(private _http: HttpClient ,private _host:HostService) { }
   readonly baseURL = this._host.host()+':3000/best_selling';
-  getCartBookList() { 
-    return this._http.get(this.baseURL);
+  getBookBestSelling() { 
+    return this._http.get(this.baseURL+'/Book');
+  }
+  getBookOnCategoryBuyMostByUserID(userID) { 
+    return this._http.get(this.baseURL+'/BookByCategory/'+userID);
   }
 //   putCartBook(cartBook: CartBook) {
 //     return this._http.post(this.baseURL+"/updateCartBook",cartBook);
 //   }
-  getCartBookById(_id: String) {
-    return this._http.get(this.baseURL + "/" + _id);
-  }
+  // getCartBookById(_id: String) {
+  //   return this._http.get(this.baseURL + "/" + _id);
+  // }
 //   postCartBook(cartBook: CartBook) {
 //     return this._http.post(this.baseURL, cartBook);
 //   }

@@ -6,6 +6,8 @@ import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { PointService } from 'src/app/app-services/point-service/point.service';
+//recommend
+import { BestService } from 'src/app/app-services/best-service/best.service';
 declare var $: any;
 @Component({
 	selector: 'app-home',
@@ -16,7 +18,9 @@ export class HomeComponent implements OnInit {
 	success: Boolean = false;
 	//
 	customOptions: any
-	constructor(private _router: Router, private bookService: BookService, private _cartBookDBService: CartBookService, private _pointService: PointService) {
+	constructor(private _router: Router, private bookService: BookService,
+		private _cartBookDBService: CartBookService, private _pointService: PointService
+		, private _bestService: BestService) {
 
 	}
 	//chứa thông tin giỏ hàng
@@ -27,12 +31,39 @@ export class HomeComponent implements OnInit {
 	lengthCartBook = 0;
 	accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
 	cartBookDB: CartBook = new CartBook;
+
+	//recommend
+	bestBookList: Book = new Book;
+	BookByListCategoryBest:any
 	ngOnInit() {
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
 		this.checkCartBookDBAndLocalStorage();
-
+		this.getBestBookAndRecommend();
+	}
+	//recommend
+	theloai1:any
+	theloai2:any
+	ListBookCategory1:any
+	ListBookCategory2:any
+	getBestBookAndRecommend() {
+		//get sách được mua nhiều nhất
+		this._bestService.getBookBestSelling().subscribe(
+			listBestBook => {
+				this.bestBookList = listBestBook as Book
+				
+			});
+		//get 2 thể loại mà người dùng thích nhất để show sách theo thể loại
+		this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
+			listBestBookOnCategory => {
+				this.BookByListCategoryBest = listBestBookOnCategory as Book
+				this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]
+				this.theloai2=Object.keys(this.BookByListCategoryBest[1])[0]
+				this.ListBookCategory1=Object.values(this.BookByListCategoryBest[0])[0]
+				this.ListBookCategory2=Object.values(this.BookByListCategoryBest[1])[0]
+		
+			});
 	}
 	script_Frontend() {
 		this.customOptions = {
@@ -45,7 +76,7 @@ export class HomeComponent implements OnInit {
 			nav: true,
 			navText: ['<img src = "../../assets/img/02/Previous.png" />',
 				'<img src = "../../assets/img/02/Next.png" id = "btnNavRight"/>'],
-			navClass:['owl-prev','owl-next'],
+			navClass: ['owl-prev', 'owl-next'],
 			responsive: {
 				0: {
 					items: 1
@@ -95,12 +126,12 @@ export class HomeComponent implements OnInit {
 		$('.cart_items').html(this.TongCount.toString());
 		localStorage.setItem("TongTien", this.TongTien.toString());
 		localStorage.setItem("TongCount", this.TongCount.toString());
-	  }
-	  //#endregion
-	   formatCurrency(number){
+	}
+	//#endregion
+	formatCurrency(number) {
 		var n = number.split('').reverse().join("");
-		var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
-		return  n2.split('').reverse().join('') + 'VNĐ';
+		var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+		return n2.split('').reverse().join('') + 'VNĐ';
 	}
 	moveToShop() {
 		return this._router.navigate(['/booksCategory']);
@@ -143,7 +174,7 @@ export class HomeComponent implements OnInit {
 					else if (Object.keys(cartBookDB).length != this.lengthCartBook) {
 						//xóa hết db user // lưu lại mới theo localstorage
 						this.mergeCartBookAndCartBookDB(cartBookDB);
-						
+
 					} else {
 						var temp = 0
 						// kiểm tra các value bên trong
@@ -168,17 +199,17 @@ export class HomeComponent implements OnInit {
 			//get point user by userID
 			this._pointService.getPointByUserID(this.accountSocial._id).subscribe(
 				Point => {
-				
+
 					//nếu chưa tạo Point thì set = 0
-					if( Object.keys(Point).length == 0 ){
-						this.point.userID=this.accountSocial._id;
-						this.point.point=0;
+					if (Object.keys(Point).length == 0) {
+						this.point.userID = this.accountSocial._id;
+						this.point.point = 0;
 						this._pointService.postPoint(this.point).subscribe(
-							pointNew=>{
+							pointNew => {
 								localStorage.setItem("Point", Object.values(pointNew)[0].point);
 							}
 						);
-					}else{
+					} else {
 						console.log(Object.values(Point)[0].point);
 						localStorage.setItem("Point", Object.values(Point)[0].point);
 					}
@@ -221,7 +252,7 @@ export class HomeComponent implements OnInit {
 		});
 	}
 	//Xóa hết DB lưu lại theo giỏ hàng
-	mergeCartBookAndCartBookDB(cartBookDB: Object){
+	mergeCartBookAndCartBookDB(cartBookDB: Object) {
 		var setconfirm = confirm('Giỏ hàng cũ của bạn chưa được thanh toán ,bạn có muốn gộp giỏ hàng cũ vào không ?')
 		if (setconfirm == true) {
 			//gộp cartbook
@@ -244,107 +275,105 @@ export class HomeComponent implements OnInit {
 			this.getTotalCountAndPrice();
 		}
 		this.deleteAllCartBookDBByUserID(this.accountSocial._id);
-	
-	
+
+
 	}
 
 
 	//#region go To Book Detail
-	clickGoToBookDetail(id)
-  { 
-	return this._router.navigate(['/bookDetail/'+id]);
-  }
-  //#endregion
-//#region  Add Book Cart
-
-putCartBookDB(selectedBook:Book){
-    if(JSON.parse(localStorage.getItem('accountSocial'))!=null){
-      this.cartBookDB.userID=this.accountSocial._id;
-      this.cartBookDB.bookID=selectedBook._id;
-      this.cartBookDB.count=selectedBook.count;
-      this._cartBookDBService.putCartBook(this.cartBookDB).subscribe(
-        req => {
-          console.log(req);
-        },
-        error => console.log(error)
-      );
-    }
-  }
-  // check count cart before add (hover )
-  checkCountMax10=true;
-  checkCountCartBeforeAdd(selectedBook: Book) {
-    this.checkCountMax10=true;
-    for (var i = 0; i < this.lengthCartBook; i++) {
-      if (this.CartBook[i]._id == selectedBook._id) {
-          //kiểm tra số lượng 
-          if(this.CartBook[i].count==10)
-          {
-            this.checkCountMax10=false;
-          }
-          console.log(this.CartBook[i].count);
-      }
+	clickGoToBookDetail(id) {
+		return this._router.navigate(['/bookDetail/' + id]);
 	}
-}
-addABook = "";
-alertMessage = "";
-alertSucess = false;
-alertFalse = false;
- //add to cart (BookDetail,CountSelect)
-  // số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
+	//#endregion
+	//#region  Add Book Cart
 
-  checkedAddBook = true;
-  addToCart(selectedBook: Book) {
-    this.addABook = selectedBook.nameBook;
-    var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
-    var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
-    var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
-    // nếu localStorage "CartBook" không rỗng
+	putCartBookDB(selectedBook: Book) {
+		if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+			this.cartBookDB.userID = this.accountSocial._id;
+			this.cartBookDB.bookID = selectedBook._id;
+			this.cartBookDB.count = selectedBook.count;
+			this._cartBookDBService.putCartBook(this.cartBookDB).subscribe(
+				req => {
+					console.log(req);
+				},
+				error => console.log(error)
+			);
+		}
+	}
+	// check count cart before add (hover )
+	checkCountMax10 = true;
+	checkCountCartBeforeAdd(selectedBook: Book) {
+		this.checkCountMax10 = true;
+		for (var i = 0; i < this.lengthCartBook; i++) {
+			if (this.CartBook[i]._id == selectedBook._id) {
+				//kiểm tra số lượng 
+				if (this.CartBook[i].count == 10) {
+					this.checkCountMax10 = false;
+				}
+				console.log(this.CartBook[i].count);
+			}
+		}
+	}
+	addABook = "";
+	alertMessage = "";
+	alertSucess = false;
+	alertFalse = false;
+	//add to cart (BookDetail,CountSelect)
+	// số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
 
-    if (localStorage.getItem('CartBook') != null) {
-      //chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
+	checkedAddBook = true;
+	addToCart(selectedBook: Book) {
+		this.addABook = selectedBook.nameBook;
+		var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
+		var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
+		var temp = 0;           // đánh dấu nếu đã tồn tại sách trong localStorage "CartBook" --> count ++
+		// nếu localStorage "CartBook" không rỗng
 
-      for (var i = 0; i < JSON.parse(localStorage.getItem("CartBook")).length; i++) {
-        CartBook[i] = JSON.parse(localStorage.getItem("CartBook"))[i];
-        // nếu id book đã tồn tại trong  localStorage "CartBook" 
-        if (CartBook[i]._id == selectedBook._id) {
-          temp = 1;  //đặt biến temp
-          // nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
-          if (parseInt(CartBook[i].count) + 1 <= 10) {
-            CartBook[i].count = parseInt(CartBook[i].count) + 1;  //tăng giá trị count
-             //cập nhật cartbook vào db
-             this.putCartBookDB(CartBook[i]);
-          }
-          else {
-            //show alert
-            this.checkedAddBook = false;
-            //update lại số lượng 
+		if (localStorage.getItem('CartBook') != null) {
+			//chạy vòng lặp để lưu vào bộ nhớ tạm ( tạo mảng cho Object)
+
+			for (var i = 0; i < JSON.parse(localStorage.getItem("CartBook")).length; i++) {
+				CartBook[i] = JSON.parse(localStorage.getItem("CartBook"))[i];
+				// nếu id book đã tồn tại trong  localStorage "CartBook" 
+				if (CartBook[i]._id == selectedBook._id) {
+					temp = 1;  //đặt biến temp
+					// nếu số lượng tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ thì oke
+					if (parseInt(CartBook[i].count) + 1 <= 10) {
+						CartBook[i].count = parseInt(CartBook[i].count) + 1;  //tăng giá trị count
+						//cập nhật cartbook vào db
+						this.putCartBookDB(CartBook[i]);
+					}
+					else {
+						//show alert
+						this.checkedAddBook = false;
+						//update lại số lượng 
 
 
-            this.alertMessage = "Đã tồn tại 10 quốn sách " + CartBook[i].nameBook + " trong giỏ hàng";
-            this.alertFalse = true;
-            setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
-          }
-        }
-        dem++;  // đẩy vị trí gán tiếp theo
-      }
-    }
+						this.alertMessage = "Đã tồn tại 10 quốn sách " + CartBook[i].nameBook + " trong giỏ hàng";
+						this.alertFalse = true;
+						setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+					}
+				}
+				dem++;  // đẩy vị trí gán tiếp theo
+			}
+		}
 
-    if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
-      selectedBook.count = 1;  // set count cho sách
-      CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
-       //lưu cartbook vào db
-       this.postCartBookDB(selectedBook);
-    }
-    // đổ mảng vào localStorage "CartBook"
-    localStorage.setItem("CartBook", JSON.stringify(CartBook));
+		if (temp != 1) {      // nếu sách chưa có ( temp =0 ) thì thêm sách vào
+			selectedBook.count = 1;  // set count cho sách
+			CartBook[dem] = selectedBook; // thêm sách vào vị trí "dem" ( vị trí cuối) 
+			//lưu cartbook vào db
+			this.postCartBookDB(selectedBook);
+		}
+		// đổ mảng vào localStorage "CartBook"
+		localStorage.setItem("CartBook", JSON.stringify(CartBook));
 
-    this.getTotalCountAndPrice();
-    //  //show alert
-    //  this.alertMessage="Thêm thành công sách "+ selectedBook.nameBook +" vào giỏ hàng";
-    //  this.alertSucess=true;
-    //  setTimeout(() => {this.alertMessage="";this.alertSucess=false}, 6000); 
+		this.getTotalCountAndPrice();
+		//  //show alert
+		//  this.alertMessage="Thêm thành công sách "+ selectedBook.nameBook +" vào giỏ hàng";
+		//  this.alertSucess=true;
+		//  setTimeout(() => {this.alertMessage="";this.alertSucess=false}, 6000); 
 
-  }
-//#endregion
+	}
+	//#endregion
 
 }
