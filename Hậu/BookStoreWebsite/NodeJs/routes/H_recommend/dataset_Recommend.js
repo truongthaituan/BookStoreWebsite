@@ -71,12 +71,12 @@ router.post('/', function(req, res) {
             const newData = await postDataset(req, res)
             res.json(newData)
         } else {
-            ``
+
             //Cộng dồn các thuộc tính
             req.body.click = parseInt(CheckData[0].click) + parseInt(req.body.click)
             req.body.buy = parseInt(CheckData[0].buy) + parseInt(req.body.buy)
                 //riêng rate chỉ update không cộng dồn
-            if (req.body.rate == 0) { req.body.rate = parseInt(CheckData[0].rate) }
+            if (req.body.rate == 0) { req.body.rate = parseFloat(CheckData[0].rate) }
 
 
             const updateData = await putDataset(req, res, CheckData[0]._id)
