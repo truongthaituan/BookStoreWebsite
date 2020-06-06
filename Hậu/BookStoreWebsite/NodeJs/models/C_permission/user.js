@@ -8,7 +8,8 @@ var UserSchema = new Schema({
     password: { type: String, required: true },
     username: { type: String },
     imageUrl: { type: String },
-    role: { type: String }
+    role: { type: String },
+    status: {type: Boolean}
 });
 // hash the password before the user is saved 
 UserSchema.pre('save', function(next) {

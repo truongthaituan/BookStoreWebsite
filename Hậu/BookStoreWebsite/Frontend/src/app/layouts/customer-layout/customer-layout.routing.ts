@@ -16,6 +16,7 @@ import { ProfileChangePasswordComponent } from 'src/app/views/customer/profile-c
 import { ManageOrderComponent } from 'src/app/views/admin/manage-order/manage-order.component';
 import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-account-social/profile-account-social.component';
 import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/discount-code.component';
+import { ConfirmEmailComponent } from 'src/app/views/customer/confirm-email/confirm-email.component';
 export const CustomerLayoutRoutes: Routes = [
     { path: 'homePage', component: HomeComponent },
     { path: 'booksCategory', component: BookCategoryComponent },
@@ -33,5 +34,6 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'payment/:customer_id', component: BookCartPaymentComponent },
     // { path: 'manageOrder', component: ManageOrderComponent },
     { path: 'profile', component: AccountProfileComponent },
-    { path: 'discountCode', component: DiscountCodeComponent }
+    { path: 'discountCode', component: DiscountCodeComponent },
+    { path: 'confirm-account/:token', component: ConfirmEmailComponent }
 ];

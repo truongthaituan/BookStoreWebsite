@@ -14,6 +14,7 @@ import { Response } from '../../app-services/response/response.model';
 import { User } from '../../app-services/user-service/user.model';
 import { SocialaccountService } from '../../app-services/socialAccount-service/socialaccount.service';
 import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 declare var $: any;
@@ -44,7 +45,7 @@ export class MyAccountComponent implements OnInit {
     email: new FormControl(null, [Validators.email, Validators.required]),
     password: new FormControl(null, Validators.required)
   });
-  constructor(private _router: Router, private _userService: UserService,
+  constructor(private _router: Router, private _userService: UserService,private spinnerService: Ng4LoadingSpinnerService,
     private socialAuthService: AuthService, private socialAccountService: SocialaccountService) {
     $(function () {
       $("#scrollToTopButton").click(function () {
@@ -123,31 +124,36 @@ export class MyAccountComponent implements OnInit {
       }
       else {
         this.registerForm.value.role = "CUSTOMER";
-        console.log(JSON.stringify(this.registerForm.value)); 
-
+        // console.log(JSON.stringify(this.registerForm.value)); 
+        this.spinnerService.show();
+        setTimeout(()=>this.spinnerService.hide(),3300)
         this._userService.register(JSON.stringify(this.registerForm.value))
           .subscribe(
             data => {
-              const response: Response = data as Response;
-            if (response.status == false) {
-              console.log(response.message)
-              this.errRegister = "Email đã tồn tại! Vui lòng chọn email khác!";
-              setTimeout(() => {  this.errRegister = null; }, 3000);
-            }
-            else {
-              // console.log(data);
-              this.statusRegister = true;
-              setTimeout(() => {  this.statusRegister = false; }, 3000);
-              this.registerForm.reset();
-              console.log("Add User Successfully!");
+            //   const response: Response = data as Response;
+            // if (response.status == false) {
+            //   console.log(response.message)
+            //   this.errRegister = "Email đã tồn tại! Vui lòng chọn email khác!";
+            //   setTimeout(() => {  this.errRegister = null; }, 3000);
+            // }
+            // else {
+            //   // console.log(data);
+            //   this.statusRegister = true;
+            //   setTimeout(() => {  this.statusRegister = false; }, 3000);
+            //   this.registerForm.reset();
+            //   console.log("Add User Successfully!");
+            //   }
+           
+              if(data == "Email has been sent--Please confirm"){
+                this.statusRegister = true;
+                  setTimeout(() => {  this.statusRegister = false; }, 3000);
+                  this.registerForm.reset();
+                  // console.log("Add User Successfully!");
               }
-            },
-            error => {
-              console.log(error);
-              this.errRegister = "Email có thể đã tồn tại! Mời đăng ký bằng email khác!";
-            })
-      }
+            });
+          }
   }
+
   login() {
     if (!this.loginForm.valid) {
       alert("Mời nhập đầy đủ thông tin và nhập email theo cú pháp ***@***.***");
@@ -160,8 +166,8 @@ export class MyAccountComponent implements OnInit {
         //gọi object response
         const response: Response = res as Response;
         if (response.status == false) {
-          console.log(response.message)
-          this.errStringLogin = "Email hoặc password không đúng!";
+          // console.log(response.message)
+          this.errStringLogin = response.message
         }
         else {
           localStorage.setItem("token", response.token)

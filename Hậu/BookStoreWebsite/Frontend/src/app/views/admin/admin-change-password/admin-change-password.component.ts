@@ -38,7 +38,8 @@ export class AdminChangePasswordComponent implements OnInit {
       username: '',
       password: '',
       imageUrl: '',
-      role: ''
+      role: '',
+      status: null
     });
   }
   alertMessage: string = ""

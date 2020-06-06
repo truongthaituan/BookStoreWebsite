@@ -41,7 +41,8 @@ export class ProfileChangePasswordComponent implements OnInit {
       username: '',
       password: '',
       imageUrl: '',
-      role: ''
+      role: '',
+      status: null
     });
   }
 

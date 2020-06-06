@@ -5,7 +5,12 @@ var passport = require('passport');
 // var SocialAccount = require('../../models/C_permission/accountsocials');
 var jwt = require('jsonwebtoken');
 var superSecret = 'toihocmean';
+const nodemailer = require('nodemailer');
 //user
+
+router.post('/confirm-email', function(req, res) {
+
+});
 //get all
 router.get('/', function(req, res) {
     console.log('get request for all users');
@@ -41,13 +46,13 @@ router.get('/email/:email', function(req, res) {
 
 //register
 router.post('/signup', function(req, res) {
-
     var newuser = new user();
     newuser.email = String(req.body.email).trim()
     newuser.password = req.body.password;
     newuser.username = String(req.body.username).trim()
     newuser.imageUrl = "https://nulm.gov.in/images/user.png";
     newuser.role = req.body.role;
+    newuser.status = false;
     try {
         user.findOne({ email: String(req.body.email).trim() }, function(err, existingUser) {
             if (existingUser == null) {
@@ -55,11 +60,58 @@ router.post('/signup', function(req, res) {
                     if (err) {
                         res.send('Err Saving user');
                     } else {
-                        res.send({
-                            status: true,
-                            message: "Register Successfully!",
-                            obj: inserteduser,
-                            token: null
+                        // res.send({
+                        //     status: true,
+                        //     message: "Register Successfully!",
+                        //     obj: inserteduser,
+                        //     token: null
+                        // });
+                        var token = jwt.sign({
+                            email: inserteduser.email,
+                            username: inserteduser.username
+                        }, superSecret, {
+                            expiresIn: '24h' // expires in 24 hours
+                        });
+                      
+                        var output = `
+                        To confirm your account, please click here : http://localhost:4200/confirm-account/${token}
+                        `
+                        console.log(output)
+                       
+                        // create reusable transporter object using the default SMTP transport
+                        var transporter = nodemailer.createTransport({
+                            host: 'smtp.gmail.com',
+                            port: 587,
+                            secure: false,
+                    
+                            // true for 465, false for other ports
+                            auth: {
+                                user: 'bookstorepremium@gmail.com', // generated ethereal user
+                                pass: 'm2505446' // generated ethereal password
+                            },
+                            tls: {
+                                rejectUnauthorized: false
+                            }
+                        });
+                    
+                        // setup email data with unicode symbols
+                        var mailOptions = {
+                            from: 'bookstorepremium@gmail.com', // sender address
+                            to: inserteduser.email, // list of receivers
+                            subject: 'Confirm Your Email', // Subject line
+                            text: 'Hello world?', // plain text body
+                            html: output // html body
+                        };
+                    
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                res.json('Please check your email');
+                            } else {
+                                console.log('Message sent: %s', info.messageId);
+                                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                                res.json('Email has been sent--Please confirm');
+                            }
                         });
                     }
                 });
@@ -87,7 +139,8 @@ router.put('/:id', function(req, res) {
                 password: req.body.password,
                 username: req.body.username,
                 imageUrl: req.body.imageUrl,
-                role: req.body.role
+                role: req.body.role,
+                status: req.body.status
             }
         }, {
             new: true
@@ -164,7 +217,13 @@ router.post('/login', function(req, res, next) {
         if (!user) {
             return res.send({
                 status: false,
-                message: "fail"
+                message: "Tài khoản email hoặc mật khẩu không chính xác!"
+            });
+        }
+        if(!user.status){
+            return res.send({
+                status: false,
+                message: "Tài khoản chưa được xác nhận! Vui lòng xác nhận!"
             });
         }
         req.logIn(user, function(err) {

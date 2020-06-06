@@ -27,9 +27,12 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction'; 
 import { SafePipeModule } from 'safe-pipe';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { ConfirmEmailComponent } from 'src/app/views/customer/confirm-email/confirm-email.component';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 @NgModule({
   imports: [
+    Ng4LoadingSpinnerModule,
     SafePipeModule,
     CommonModule,
     RouterModule.forChild(CustomerLayoutRoutes),
@@ -61,7 +64,8 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     ProfileDetailEditComponent,
     ProfileChangePasswordComponent,
     ProfileAccountSocialComponent,
-    DiscountCodeComponent
+    DiscountCodeComponent,
+    ConfirmEmailComponent
   ]
 })
 
