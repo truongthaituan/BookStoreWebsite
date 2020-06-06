@@ -18,26 +18,6 @@ export class BestService {
   getBookOnCategoryBuyMostByUserID(userID) { 
     return this._http.get(this.baseURL+'/BookByCategory/'+userID);
   }
-//   putCartBook(cartBook: CartBook) {
-//     return this._http.post(this.baseURL+"/updateCartBook",cartBook);
-//   }
-  // getCartBookById(_id: String) {
-  //   return this._http.get(this.baseURL + "/" + _id);
-  // }
-//   postCartBook(cartBook: CartBook) {
-//     return this._http.post(this.baseURL, cartBook);
-//   }
-//   //delete One CartBook
-//   deleteOneCartBook(cartBook: CartBook) {
-//     return this._http.post(this.baseURL +"/deleteOneCartBook",cartBook);
-//   }
-//   //delete all by userID
-//   deleteAllCartBookByUserID(_id: string) {
-//     return this._http.delete(this.baseURL+ "/deleteByUserID" + `/${_id}`);
-//   }
-//   //get all cartbookDB by userID
-//   getAllCartBookDBByUserID(_id: string){
-//     return this._http.get(this.baseURL+ "/getAllCartBookByUserID" + `/${_id}`);
-//   }
+
   
 }

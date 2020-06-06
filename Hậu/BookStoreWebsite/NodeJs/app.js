@@ -46,7 +46,8 @@ const author_recommend = require('./routes/H_recommend/author_Recommend');
 const category_recommend = require('./routes/H_recommend/category_Recommend');
 const rate_recommend = require('./routes/H_recommend/rate_Recommend');
 const favorite_recommend = require('./routes/H_recommend/favorite_Recommend');
-//I_best
+const dataset_recommend = require('./routes/H_recommend/dataset_Recommend')
+    //I_best
 const best_selling = require('./routes/I_best/best_Selling');
 //end controller
 // view engine setup
@@ -142,6 +143,7 @@ app.use('/author_recommend', author_recommend)
 app.use('/category_recommend', category_recommend)
 app.use('/rate_recommend', rate_recommend)
 app.use('/favorite_recommend', favorite_recommend)
+app.use('/dataset_recommend', dataset_recommend)
     //I_best
 
 app.use('/best_selling', best_selling)

@@ -19,6 +19,10 @@ import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FavoriteService } from '../../../app-services/favorite-service/favorite.service'
+//dataset Recommend
+import { datasetRecommend } from '../../../app-services/recommendSys-service/dataRecommend-service/dataRecommend.model'
+import { DatasetRecommendService } from 'src/app/app-services/recommendSys-service/dataRecommend-service/dataRecommend.service';
+
 declare var $: any
 
 @Component({
@@ -38,11 +42,12 @@ export class BookDetailComponent implements OnInit {
   statusLogin: String = ""
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   cartBookDB: CartBook = new CartBook;
+  datasetRecommend : datasetRecommend = new datasetRecommend;
   constructor(private _router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer,
     private authorService: AuthorService, private bookService: BookService,
     private ratingService: RatingService, private accountSocialService: SocialaccountService,
     private userService: UserService, private _cartBookDB: CartBookService,
-    private _favoriteService: FavoriteService) {
+    private _favoriteService: FavoriteService, private _datasetRecommend : DatasetRecommendService) {
     //#region js for star
     var wc_single_product_params = { "i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes" };
     $(function (a) {
@@ -172,13 +177,14 @@ export class BookDetailComponent implements OnInit {
     this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
-
+    this.DataSetRecommend(id,0,0,1);  
+    console.log(123)
     this.getBookById(id);
     this.getAllAccount();
     this.getRatingsByBookID(id);
     this.getAllUsers();
     this.getRatingAverageByBook(id);
-
+  
 
   }
 
@@ -329,6 +335,7 @@ export class BookDetailComponent implements OnInit {
       let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
       form.value.userID = id_user;
 
+      this.DataSetRecommend(book_id,0, form.value.star,0);
       this.ratingService.getRatingByUserIDBookID(form.value).subscribe(
         data => {
 
@@ -558,7 +565,10 @@ export class BookDetailComponent implements OnInit {
     this.getRatingsByBookID(id);
     this.getAllUsers();
     this.getRatinng(id);
-    // return this._router.navigate(["/bookDetail" + '/' +id]);
+    this.DataSetRecommend(id,0,0,1);
+    return this._router.navigate(["/bookDetail" + '/' +id]);
+    
+
   }
 
   postCartBookDB(selectedBook: Book) {
@@ -607,5 +617,21 @@ export class BookDetailComponent implements OnInit {
       console.log(this.sum)
     });
   }
-
+  DataSetRecommend(bookId,buy,rate,view){
+    if(this.accountSocial._id){
+      this.datasetRecommend.userID = this.accountSocial._id;
+      this.datasetRecommend.bookID = bookId;
+      //các value == 0 trừ click xem = 1  ...--> vào trong backend sẽ tự cộng
+      this.datasetRecommend.buy =buy ; 
+      this.datasetRecommend.rate=rate;
+      this.datasetRecommend.click=view;
+      console.log(this.datasetRecommend)
+      this._datasetRecommend.putOrPostDatasetRecommend(this.datasetRecommend).subscribe(
+        req => {
+          console.log(req);
+        },
+        error => console.log(error)
+      );
+    }
+  }
 }

@@ -20,6 +20,9 @@ import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/d
 import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
 declare var $: any;
 declare let paypal: any;
+//dataset Recommend
+import { datasetRecommend } from '../../../app-services/recommendSys-service/dataRecommend-service/dataRecommend.model'
+import { DatasetRecommendService } from 'src/app/app-services/recommendSys-service/dataRecommend-service/dataRecommend.service';
 
 @Component({
   selector: 'app-book-cart-payment',
@@ -29,7 +32,7 @@ declare let paypal: any;
 export class BookCartPaymentComponent implements OnInit {
   constructor(private _router: Router, private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService
-    , private _pointService: PointService,private _discountCode : DiscountCodeService) {
+    , private _pointService: PointService,private _discountCode : DiscountCodeService, private _datasetRecommend : DatasetRecommendService) {
 
   }
   //chứa thông tin giỏ hàng
@@ -57,6 +60,7 @@ export class BookCartPaymentComponent implements OnInit {
   public loading: boolean = true;
   discountCode: DiscountCode = new DiscountCode;
   paymentLoading=false;
+  datasetRecommend : datasetRecommend = new datasetRecommend;
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     if(localStorage.getItem('DiscountCode')!=null){
@@ -269,6 +273,7 @@ export class BookCartPaymentComponent implements OnInit {
   }
   //post order Detail
   postOrderDetail(orderDetails: OrderDetail) {
+    this.DataSetRecommend(orderDetails.bookID,orderDetails.count,0,0)
     this._orderDetailService.postOrderDetail(orderDetails).subscribe(
       orderDetaildata => {
         localStorage.removeItem('CartBook');
@@ -393,5 +398,21 @@ export class BookCartPaymentComponent implements OnInit {
         error => console.log(error)
       );
     }
-  
+    DataSetRecommend(bookId,buy,rate,view){
+      if(this.accountSocial._id){
+        this.datasetRecommend.userID = this.accountSocial._id;
+        this.datasetRecommend.bookID = bookId;
+        //các value == 0 trừ click xem = 1  ...--> vào trong backend sẽ tự cộng
+        this.datasetRecommend.buy =buy ; 
+        this.datasetRecommend.rate=rate;
+        this.datasetRecommend.click=view;
+        console.log(this.datasetRecommend)
+        this._datasetRecommend.putOrPostDatasetRecommend(this.datasetRecommend).subscribe(
+          req => {
+            console.log(req);
+          },
+          error => console.log(error)
+        );
+      }
+    }
 }
