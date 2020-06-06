@@ -24,7 +24,6 @@ export class ConfirmEmailComponent implements OnInit {
       this.alertMessage = "Token sai!"
     }
   }
-
   // getUserByEmail(email) {
   //   var flag = this.userService.getUserByEmail(email).subscribe(data => {
 
