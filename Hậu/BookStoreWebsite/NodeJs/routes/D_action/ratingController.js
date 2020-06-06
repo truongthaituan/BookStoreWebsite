@@ -26,6 +26,7 @@ router.get('/:ratingID', function(req, res) {
 
 //post
 router.post('/', function(req, res) {
+    
     var newrating = new rating();
     newrating.bookID = req.body.bookID;
     newrating.userID = req.body.userID;
