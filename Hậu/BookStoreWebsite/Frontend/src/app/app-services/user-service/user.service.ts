@@ -28,14 +28,6 @@ export class UserService {
     });
   }
 
-  user(){
-    return this._http.get(this.baseURL,{
-      observe:'body',
-      withCredentials:true,
-      headers:new HttpHeaders().append('Content-Type','application/json')
-    });
-  }
-
   logout(){
     return this._http.get(this.baseURL +'/logout',{
       observe:'body',

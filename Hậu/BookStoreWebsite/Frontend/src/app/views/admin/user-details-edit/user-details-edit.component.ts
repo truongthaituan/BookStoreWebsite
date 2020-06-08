@@ -35,7 +35,8 @@ export class UserDetailsEditComponent implements OnInit {
       username: "",
       role: null,
       password: null,
-      imageUrl: null
+      imageUrl: null,
+      status: null
     }
   }
   alertMessage: string = ""
