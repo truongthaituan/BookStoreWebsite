@@ -61,30 +61,16 @@ router.delete('/:id', function(req, res) {
 });
 //find all rating by bookID
 router.get('/findbooks/:book_id', function(req, res) {
-        rating.find({
-                bookID: req.params.book_id
-            })
-            .exec(function(err, ratings) {
-                if (err) console.log("Error retrieving rating");
-                else
-                    res.json(ratings);
-            });
-    })
-    //Average Rating By bookID
-router.get('/averageRating/:book_id', function(req, res) {
     rating.find({
             bookID: req.params.book_id
         })
         .exec(function(err, ratings) {
             if (err) console.log("Error retrieving rating");
             else
-            if (ratings.length == 0) {
-                res.json({ 'ratings': null, 'status': false });
-            } else {
-                res.json({ 'ratings': ratings, 'status': true });
-            }
+                res.json(ratings);
         });
 })
+
 router.post('/RatingBookByUserID', function(req, res) {
     async function run() {
         const rateFind = await findRatingByUserIDAndBookID(req, res);
@@ -139,6 +125,31 @@ router.post('/UpdateRating', function(req, res) {
     }
     run();
 })
+
+//Average Rating By bookID
+router.get('/averageRating/:book_id', function(req, res) {
+    async function run() {
+        const listRate = await getRateByBookID(req, res)
+        let total = parseFloat(0)
+        for (let index in listRate) {
+            total = total + parseFloat(listRate[index].star)
+        }
+        let average = Math.round(2 * (total / listRate.length)) / 2;
+        res.json({ average: average, count: listRate.length })
+    }
+    run()
+})
+
+async function getRateByBookID(req, res) {
+    try {
+        const listRate = await rating.find({
+            bookID: req.params.book_id
+        })
+        return listRate
+    } catch (error) {
+        return res.status(501).json(err);
+    }
+}
 
 
 module.exports = router;

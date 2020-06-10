@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
 	}
 	script_Frontend() {
 		this.customOptions = {
-			loop: true,
+			loop: false,
 			mouseDrag: false,
 			touchDrag: false,
 			pullDrag: false,

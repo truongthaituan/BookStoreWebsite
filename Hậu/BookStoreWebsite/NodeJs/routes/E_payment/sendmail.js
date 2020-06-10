@@ -135,7 +135,7 @@ router.post('/', function(req, res) {
         // true for 465, false for other ports
         auth: {
             user: 'bookstorepremium@gmail.com', // generated ethereal user
-            pass: 'ham26062015' // generated ethereal password
+            pass: 'm2505446' // generated ethereal password
         },
         tls: {
             rejectUnauthorized: false
@@ -295,7 +295,7 @@ router.post('/PayPal', function(req, res) {
         // true for 465, false for other ports
         auth: {
             user: 'bookstorepremium@gmail.com', // generated ethereal user
-            pass: 'ham26062015' // generated ethereal password
+            pass: 'm2505446' // generated ethereal password
         },
         tls: {
             rejectUnauthorized: false

@@ -14,8 +14,7 @@ export class DatasetRecommendService {
   readonly baseURL = this._host.host()+':3000/dataset_recommend';
  
   putOrPostDatasetRecommend(datasetRecommend: datasetRecommend) {
-    console.log(datasetRecommend)
-    console.log("hêrrrrrrrrrrrrrrrrrr")
+
     return this._http.post(this.baseURL,datasetRecommend)
   }
   

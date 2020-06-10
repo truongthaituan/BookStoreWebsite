@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const datasetRecommend = require('../../models/D_action/datasetRecommend');
-//datasetRecommend
-//get all
+const book = require('../../models/A_store/book')
+    //datasetRecommend
+    //get all
 router.get('/', function(req, res) {
     console.log('get request for all datasetRecommends');
     datasetRecommend.find({})
@@ -36,7 +37,12 @@ async function postDataset(req, res) {
         newdataset.rate = req.body.rate;
         newdataset.buy = req.body.buy;
         newdataset.click = req.body.click;
-        console.log(newdataset.rate)
+
+        newdataset.categoryID = req.body.categoryID;
+        newdataset.authorID = req.body.authorID;
+        newdataset.seriID = req.body.seriID;
+        newdataset.priceBook = req.body.priceBook;
+        newdataset.sale = req.body.sale;
         const newdata = await newdataset.save();
         return newdata;
     } catch (error) {
@@ -62,12 +68,28 @@ async function putDataset(req, res, id) {
         return res.status(501).json(err);
     }
 }
+async function getBookByID(req, res) {
+    try {
+        const aBook = await book.findById(req.body.bookID)
+        return aBook
+    } catch (error) {
+
+    }
+}
 //post
 router.post('/', function(req, res) {
     async function run() {
 
         const CheckData = await getDatasetByUserIDAndBookID(req, res)
         if (CheckData.length == 0) {
+            const aBook = await getBookByID(req, res)
+            console.log((aBook.priceBook))
+            req.body.categoryID = aBook.categoryID
+            req.body.authorID = aBook.authorID
+            req.body.seriID = aBook.seriID
+            req.body.priceBook = aBook.priceBook
+            req.body.sale = aBook.sale
+            console.log(req.body)
             const newData = await postDataset(req, res)
             res.json(newData)
         } else {

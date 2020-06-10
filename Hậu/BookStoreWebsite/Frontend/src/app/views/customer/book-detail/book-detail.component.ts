@@ -93,6 +93,7 @@ export class BookDetailComponent implements OnInit {
   myFullresImage = "https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   userID_bookID = { userID: "", bookID: "" }
   IsRate = false
+  idBook = this.route.snapshot.paramMap.get('id');
   ngOnInit() {
     //#region carousel
     this.customOptions = {
@@ -172,18 +173,19 @@ export class BookDetailComponent implements OnInit {
     });
     //#endregion
     this.resetForm();
-    let id = this.route.snapshot.paramMap.get('id');
+    this.averageRating = 0
+  this.countRating = 0
     //set độ dài cartBook
     this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
-    this.DataSetRecommend(id,0,0,1);  
-    console.log(123)
-    this.getBookById(id);
+    this.DataSetRecommend(this.idBook,0,0,1);  
+
+    this.getBookById(this.idBook);
     this.getAllAccount();
-    this.getRatingsByBookID(id);
+    this.getRatingsByBookID(this.idBook);
     this.getAllUsers();
-    this.getRatingAverageByBook(id);
+    this.getRatinngAverage(this.idBook);  
   
 
   }
@@ -248,28 +250,7 @@ export class BookDetailComponent implements OnInit {
       // console.log(res);
     });
   }
-  sum: number = 0.0
-  getRatingByBook: any
-  averageRating = 0
-  countRating = 0
-  getRatingAverageByBook(id: string) {
-    this.ratingService.getRatingAverage(id).subscribe((res) => {
-      this.getRatingByBook = res;
-      if (!this.getRatingByBook.status) {
-        this.countRating = 0;
-        this.averageRating = 0;
-      } else {
-        for (let i = 0; i < (this.getRatingByBook.ratings).length; i++) {
-          this.sum += Number((this.getRatingByBook.ratings)[i].star);
-        }
-        this.countRating = (this.getRatingByBook.ratings).length;
-        this.averageRating = Math.round(2 * (this.sum / (this.getRatingByBook.ratings).length)) / 2;
-      }
-    });
-  }
-  getRatingPersion(idUser: string, idBook: string) {
 
-  }
   detailBook(book: Book) {
     return this._router.navigate(["/bookDetail" + `/${book._id}`]);
   }
@@ -564,8 +545,10 @@ export class BookDetailComponent implements OnInit {
     this.getAllAccount();
     this.getRatingsByBookID(id);
     this.getAllUsers();
-    this.getRatinng(id);
-    this.DataSetRecommend(id,0,0,1);
+    // this.getRatinng(id);
+    // this.DataSetRecommend(id,0,0,1);
+    this.idBook= id
+    this.ngOnInit()
     return this._router.navigate(["/bookDetail" + '/' +id]);
     
 
@@ -597,26 +580,18 @@ export class BookDetailComponent implements OnInit {
       );
     }
   }
-  getRatinng(id) {
+  getRatingByBook: any
+  averageRating = 0
+  countRating = 0
+  getRatinngAverage(id){
     this.ratingService.getRatingAverage(id).subscribe((res) => {
-
-      this.getRatingByBook = res;
-      if (!this.getRatingByBook.status) {
-        this.countRating = 0;
-        this.averageRating = 0;
-      } else {
-        this.countRating = 0;
-        this.averageRating = 0;
-        this.sum = 0;
-        for (let i = 0; i < (this.getRatingByBook.ratings).length; i++) {
-          this.sum += Number((this.getRatingByBook.ratings)[i].star);
-        }
-        this.countRating = (this.getRatingByBook.ratings).length;
-        this.averageRating = Math.round(2 * (this.sum / (this.getRatingByBook.ratings).length)) / 2;
+      if(Object.values(res)[1]!=0){
+      this.averageRating = Object.values(res)[0];
+      this.countRating = Object.values(res)[1];
       }
-      console.log(this.sum)
-    });
+    })
   }
+
   DataSetRecommend(bookId,buy,rate,view){
     if(this.accountSocial._id){
       this.datasetRecommend.userID = this.accountSocial._id;
