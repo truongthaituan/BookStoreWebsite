@@ -273,6 +273,7 @@ export class BookDetailComponent implements OnInit {
       this.ratingService.getRatingByUserIDBookID(this.userID_bookID).subscribe(
         data => {
           console.log(data)
+ 
           this.ratingService.rating = Object.values(data)[0];
           $(".description_tab").addClass("active")
           $(".reviews_tab").removeClass("active")
@@ -319,9 +320,9 @@ export class BookDetailComponent implements OnInit {
       this.DataSetRecommend(book_id,0, form.value.star,0);
       this.ratingService.getRatingByUserIDBookID(form.value).subscribe(
         data => {
-
+          console.log((Object.values(data)[0] +"------"))
           //nếu có rồi thì update
-          if (Object.keys(data).length > 0) { //
+          if (Object.keys(data).length > 0 && Object.values(data)[0].star !=0 ) { //
             this.UpdateRating(form);
 
           } else { //chưa có thì insert

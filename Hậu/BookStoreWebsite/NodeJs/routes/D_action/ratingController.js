@@ -74,7 +74,17 @@ router.get('/findbooks/:book_id', function(req, res) {
 router.post('/RatingBookByUserID', function(req, res) {
     async function run() {
         const rateFind = await findRatingByUserIDAndBookID(req, res);
-        res.json(rateFind);
+
+        if (rateFind.length == 0) {
+            res.json([{
+                _id: "000000000",
+                bookID: req.body.userID,
+                userID: req.body.bookID,
+                star: '0',
+                review: ''
+            }]);
+        } else
+            res.json(rateFind);
     }
     run();
 })
@@ -113,12 +123,7 @@ async function putRate(idRate, req, res) {
 //update rating by UserID
 router.post('/UpdateRating', function(req, res) {
     async function run() {
-        console.log("UpdateRat2ing")
         const rateFind = await findRatingByUserIDAndBookID(req, res);
-        console.log(rateFind)
-        console.log(rateFind[0]._id)
-
-        console.log("vaoo")
         const update = await putRate(rateFind[0]._id, req, res)
         res.json(update)
 
