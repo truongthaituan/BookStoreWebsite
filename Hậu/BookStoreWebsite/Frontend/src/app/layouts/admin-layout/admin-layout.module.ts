@@ -8,14 +8,23 @@ import { ChartsModule } from 'ng2-charts';
 import { AdminProfileComponent } from 'src/app/views/admin/admin-profile/admin-profile.component';
 import { AdminProfileEditComponent } from 'src/app/views/admin/admin-profile-edit/admin-profile-edit.component';
 import { AdminChangePasswordComponent } from 'src/app/views/admin/admin-change-password/admin-change-password.component';
-import { AdminManageBookComponent } from 'src/app/views/admin/admin-manage-book/admin-manage-book.component';
-// import { UserProfileComponent } from '../../user-profile/user-profile.component';
-// import { TableListComponent } from '../../table-list/table-list.component';
-// import { TypographyComponent } from '../../typography/typography.component';
-// import { IconsComponent } from '../../icons/icons.component';
-// import { MapsComponent } from '../../maps/maps.component';
-// import { NotificationsComponent } from '../../notifications/notifications.component';
-// import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { AdminManageBookComponent } from 'src/app/views/admin/manage-book/admin-manage-book/admin-manage-book.component';
+//author
+import { AdminManageAuthorComponent } from 'src/app/views/admin/manage-author/admin-manage-author/admin-manage-author.component';
+import { AdminAuthorDetailComponent } from 'src/app//views/admin/manage-author/admin-author-detail/admin-author-detail.component';
+import { InsertAuthorComponent } from 'src/app//views/admin/manage-author/insert-author/insert-author.component';
+import { UpdateAuthorComponent } from 'src/app//views/admin/manage-author/update-author/update-author.component';
+//category
+import { AdminManageCategoryComponent } from 'src/app/views/admin/manage-category/admin-manage-category/admin-manage-category.component';
+import { AdminCategoryDetailComponent } from 'src/app/views/admin/manage-category/admin-category-detail/admin-category-detail.component';
+import { InsertCategoryComponent } from 'src/app/views/admin/manage-category/insert-category/insert-category.component';
+import { UpdateCategoryComponent } from 'src/app/views/admin/manage-category/update-category/update-category.component';
+//seri
+import { AdminManageSeriComponent } from 'src/app/views/admin/manage-seri/admin-manage-seri/admin-manage-seri.component';
+import { AdminSeriDetailComponent } from 'src/app/views/admin/manage-seri/admin-seri-detail/admin-seri-detail.component';
+import { InsertSeriComponent } from 'src/app/views/admin/manage-seri/insert-seri/insert-seri.component';
+import { UpdateSeriComponent } from 'src/app/views/admin/manage-seri/update-seri/update-seri.component';
+
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -50,9 +59,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
-import { InsertBookComponent } from 'src/app/views/admin/insert-book/insert-book.component';
-import { AdminBookDetailsComponent } from 'src/app/views/admin/admin-book-details/admin-book-details.component';
-import { UpdateBookComponent } from 'src/app/views/admin/update-book/update-book.component';
+import { InsertBookComponent } from 'src/app/views/admin/manage-book/insert-book/insert-book.component';
+import { AdminBookDetailsComponent } from 'src/app/views/admin/manage-book/admin-book-details/admin-book-details.component';
+import { UpdateBookComponent } from 'src/app/views/admin/manage-book/update-book/update-book.component';
 import { MapsComponent } from 'src/app/views/admin/maps/maps.component';
 import {
   AgmCoreModule
@@ -116,10 +125,27 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
     AdminProfileComponent,
     AdminProfileEditComponent,
     AdminChangePasswordComponent,
+    //manageBook
     AdminManageBookComponent,
     InsertBookComponent,
     AdminBookDetailsComponent,
     UpdateBookComponent,
+    //manageAuthor
+    AdminManageAuthorComponent,
+    AdminAuthorDetailComponent,
+    InsertAuthorComponent,
+    UpdateAuthorComponent,
+    //manageCategory
+    AdminManageCategoryComponent,
+    AdminCategoryDetailComponent,
+    InsertCategoryComponent,
+    UpdateCategoryComponent,
+    //manageSeri
+    AdminManageSeriComponent,
+    AdminSeriDetailComponent,
+    InsertSeriComponent,
+    UpdateSeriComponent,
+
     MapsComponent,
     AdminManageUserComponent,
     UserDetailsComponent,

@@ -43,6 +43,9 @@ let config = new AuthServiceConfig([
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
+
+
+
 export function provideConfig() {
   return config;
 }
@@ -50,7 +53,9 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     CustomerLayoutComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+  
+
             ],
   imports: [
     Ng4LoadingSpinnerModule.forRoot(),

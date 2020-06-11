@@ -6,8 +6,8 @@ import { BookDetailComponent } from './views/customer/book-detail/book-detail.co
 import { MyAccountComponent } from './auth/my-account/my-account.component';
 import { LostPasswordComponent } from './views/customer/lost-password/lost-password.component';
 import { BookCartComponent } from './views/customer/book-cart/book-cart.component';
-import { InsertBookComponent } from './views/admin/insert-book/insert-book.component';
-import { UpdateBookComponent } from './views/admin/update-book/update-book.component';
+import { InsertBookComponent } from './views/admin/manage-book/insert-book/insert-book.component';
+import { UpdateBookComponent } from './views/admin/manage-book/update-book/update-book.component';
 import { AboutUsComponent } from './views/customer/about-us/about-us.component';
 import { AccountProfileComponent } from './views/customer/account-profile/account-profile.component';
 import { OrderHistoryComponent } from './views/customer/order-history/order-history.component';

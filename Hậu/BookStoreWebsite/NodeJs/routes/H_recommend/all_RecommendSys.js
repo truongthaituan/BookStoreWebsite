@@ -71,6 +71,21 @@ async function DeleteCheckZero(data, value) {
     }
     return isExist1(data)
 }
+//Kiểm tra sản phẩm xem người dùng đã mua hay chưa
+async function CheckIsBuy(data, element) {
+    let isExist1 = (data2, x) => {
+        for (var key in data2) {
+
+            if (data2[key].bookID == x) {
+                if (data2[key].buy != 0)
+                    return true;
+                return false;
+            }
+        }
+        return false;
+    }
+    return isExist1(data, element);
+}
 //compare 2 person by BookID  ---> value check (rate)
 async function pearson_correlation(dataset, p1, p2, dataInit, value) {
     try {
@@ -188,8 +203,12 @@ async function recommendation_eng(dataset, person, pearson_correlation, dataInit
             1 : b.val >= a.val ? 0 : NaN;
     });
     var recommend = []
+    console.log(Person2Get)
     for (var i in rank_lst) {
-        recommend.push(rank_lst[i].items);
+
+        if (!(await CheckIsBuy(Person2Get, rank_lst[i].items))) {
+            recommend.push(rank_lst[i].items);
+        }
     }
     // console.log([rank_lst, recommend]);
     return recommend;
@@ -212,8 +231,26 @@ async function recommendation_eng(dataset, person, pearson_correlation, dataInit
 router.post('/Data', function(req, res) {
     async function run() {
         const datasets = await getAllDataRecommend();
+        //recommend Book
         var book_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'bookID', 'rate');
-        res.json((book_rate));
+        var book_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'bookID', 'click');
+        var book_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'bookID', 'buy');
+        //recommend category
+        var category_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'rate');
+        var category_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'click');
+        var category_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'buy');
+        //recommend author
+        var author_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'atuhorID', 'rate');
+        var author_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'authorID', 'click');
+        var author_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'authorID', 'buy');
+        //recommend seri
+        //recommend sale
+        //recommend priceBook
+        res.json({
+            book: { click: book_click, rate: book_rate, buy: book_buy },
+            category: { click: category_click, rate: category_rate, buy: category_buy },
+            author: { click: author_click, rate: author_rate, buy: author_buy }
+        });
     }
     run();
 })
