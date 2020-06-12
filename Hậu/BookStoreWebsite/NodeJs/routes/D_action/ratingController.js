@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const rating = require('../../models/D_action/rating');
+const userAccount = require('../../models/C_permission/user');
+const accountsocials = require('../../models/C_permission/accountsocials');
 //rating
 //get all
 router.get('/', function(req, res) {
@@ -155,6 +157,33 @@ async function getRateByBookID(req, res) {
         return res.status(501).json(err);
     }
 }
+
+
+// lấy các bình luận đánh giá theo bookID
+async function getSosialAccountByOrUserAccountID(req) {
+    try {
+        const accountUser = await userAccount.findById(req)
+        const accountSosial = await accountsocials.findById(req)
+        if (accountUser != null) {
+            return accountUser
+        }
+        return accountSosial
+    } catch (error) {
+
+    }
+}
+router.get('/getListRatingAccount/:book_id', function(req, res) {
+    async function run() {
+        const listRate = await getRateByBookID(req, res);
+        const listAccountRate = []
+        for (var index in listRate) {
+            const user = await getSosialAccountByOrUserAccountID(listRate[index].userID)
+            listAccountRate.push({ username: user.username, imageUrl: user.imageUrl, star: listRate[index].star, review: listRate[index].review })
+        }
+        res.json(listAccountRate)
+    }
+    run();
+})
 
 
 module.exports = router;

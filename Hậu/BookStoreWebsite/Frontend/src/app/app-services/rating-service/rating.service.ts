@@ -39,6 +39,10 @@ export class RatingService {
   }
   getRatingByUserIDBookID(userID_bookID){
     return this._http.post(this.baseURL+'/RatingBookByUserID',userID_bookID);
-    
+  }
+
+  //lấy danh sách người dùng đánh giá
+  getListRatingAccount(_id:string){
+    return this._http.get(this.baseURL+"/getListRatingAccount" + `/${_id}`)
   }
 }

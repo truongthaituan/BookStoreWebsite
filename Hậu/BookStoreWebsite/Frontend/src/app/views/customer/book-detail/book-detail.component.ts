@@ -94,6 +94,7 @@ export class BookDetailComponent implements OnInit {
   userID_bookID = { userID: "", bookID: "" }
   IsRate = false
   idBook = this.route.snapshot.paramMap.get('id');
+  ListRatingAccount:any
   ngOnInit() {
     //#region carousel
     this.customOptions = {
@@ -180,7 +181,7 @@ export class BookDetailComponent implements OnInit {
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
     this.DataSetRecommend(this.idBook,0,0,1);  
-
+    this.getListRatingAccount(this.idBook)
     this.getBookById(this.idBook);
     this.getAllAccount();
     this.getRatingsByBookID(this.idBook);
@@ -296,6 +297,15 @@ export class BookDetailComponent implements OnInit {
   getRatingsByBookID(id: string) {
     this.ratingService.getRatingsByBook(id).subscribe((res) => {
       this.ratingService.ratings = res as Rating[];
+      //console.log("Books By Id");
+      //console.log(res)
+    });
+  }
+  
+  getListRatingAccount(id:string){
+    this.ratingService.getListRatingAccount(id).subscribe((res) => {
+      this.ListRatingAccount = res
+      console.log(this.ListRatingAccount)
       //console.log("Books By Id");
       //console.log(res)
     });

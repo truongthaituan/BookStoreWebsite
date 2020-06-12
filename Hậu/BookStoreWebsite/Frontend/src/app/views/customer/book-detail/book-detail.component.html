@@ -420,17 +420,16 @@
                             </div>
 
                             <div class="card">
-                                <div class="card-body" *ngFor="let rating of ratingService.ratings">
-                                    <div *ngFor="let account of accountSocialService.socialAccounts">
-                                        <div class="row" *ngIf="rating.userID == account._id">
+                                <div class="card-body" *ngFor="let rating of ListRatingAccount">
+                                        <div class="row" >       
                                             <div class="col-md-2">
-                                                <img src="{{account.imageUrl}}" class="img img-rounded img-fluid" />
+                                                <img src="{{rating.imageUrl}}" style="width:96px" class="img img-rounded img-fluid" />
                                             </div>
                                             <div class="col-md-10">
-                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
-                                                    <strong>{{account.username}}</strong></a>
+                                                <a class="float-left">
+                                                    <strong>{{rating.username}}</strong></a>
                                                 &nbsp;
-                                                <div *ngIf="rating.star == 0">
+                                                <span *ngIf="rating.star == 0">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
@@ -441,8 +440,8 @@
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 0.5">
+                                                </span>
+                                                <span *ngIf="rating.star == 0.5">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-half-o"></i></span>
                                                     <span class="float-right"><i
@@ -453,8 +452,8 @@
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 1">
+                                                </span>
+                                                <span *ngIf="rating.star == 1">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -465,8 +464,8 @@
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 1.5">
+                                                </span>
+                                                <span *ngIf="rating.star == 1.5">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -477,8 +476,8 @@
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 2">
+                                                </span>
+                                                <span *ngIf="rating.star == 2">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -489,8 +488,8 @@
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 2.5">
+                                                </span>
+                                                <span *ngIf="rating.star == 2.5">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -501,8 +500,8 @@
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 3">
+                                                </span>
+                                                <span *ngIf="rating.star == 3">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -513,8 +512,8 @@
                                                             class="text-warning fa fa-star-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 3.5">
+                                                </span>
+                                                <span *ngIf="rating.star == 3.5">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -525,8 +524,8 @@
                                                             class="text-warning fa fa-star-half-o"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 4">
+                                                </span>
+                                                <span *ngIf="rating.star == 4">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -537,8 +536,8 @@
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 4.5">
+                                                </span>
+                                                <span *ngIf="rating.star == 4.5">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -549,8 +548,8 @@
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star-half-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 5">
+                                                </span>
+                                                <span *ngIf="rating.star == 5">
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
@@ -561,170 +560,18 @@
                                                             class="text-warning fa fa-star"></i></span>
                                                     <span class="float-right"><i
                                                             class="text-warning fa fa-star"></i></span>
-                                                </div>
+                                                </span>
                                                 <div class="clearfix"></div>
                                                 <p>{{rating.review}}</p>
                                                 <p>
                                                     <a class="float-right btn text-white btn-danger" id="dislike">
-                                                        <i class="fa fa-thumbs-down"></i> Không Thích <span class="number_dislike">0</span></a>&nbsp;
+                                                        <i class="fa fa-thumbs-down"></i>  <span class="number_dislike"> &nbsp;0</span></a>&nbsp;
                                                     <a class="float-right btn text-white btn-danger" id="like">
-                                                        <i class="fa fa-thumbs-up"></i> Thích <span class="number_dislike">0</span></a>
+                                                        <i class="fa fa-thumbs-up"></i> <span class="number_dislike"> &nbsp;0</span></a>
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div *ngFor="let user of userService.users">
-                                        <div class="row" *ngIf="rating.userID == user._id">
-                                            <div class="col-md-2">
-                                                <img src="{{user.imageUrl}}" class="img img-rounded img-fluid" style="width: 100px;height: 100px;border-radius: 30px;" />
-                                            </div>
-                                            <div class="col-md-10">
-                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
-                                                    <strong>{{user.username}}</strong></a>
-                                                &nbsp;
-                                                <div *ngIf="rating.star == 0">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 0.5">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-half-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 1">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 1.5">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-half-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 2">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 2.5">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-half-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 3">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 3.5">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-half-o"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 4">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 4.5">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star-half-o"></i></span>
-                                                </div>
-                                                <div *ngIf="rating.star == 5">
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                    <span class="float-right"><i
-                                                            class="text-warning fa fa-star"></i></span>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                                <p>{{rating.review}}</p>
-                                                <p>
-                                                    <a class="float-right btn text-white btn-danger" id="dislike">
-                                                        <i class="fa fa-thumbs-down"></i> Không Thích <span class="number_dislike">0</span></a>&nbsp;
-                                                    <a class="float-right btn text-white btn-danger" id="like">
-                                                        <i class="fa fa-thumbs-up"></i> Thích <span class="number_like">0</span></a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
