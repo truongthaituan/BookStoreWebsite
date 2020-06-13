@@ -105,7 +105,7 @@ export class BookCartPaymentComponent implements OnInit {
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
       for (var i = 0; i < this.lengthCartBook; i++) {
-        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+        this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100;
         this.TongCount += parseInt(this.CartBook[i].count);
 
       }
@@ -157,7 +157,7 @@ export class BookCartPaymentComponent implements OnInit {
       this.sendMail.email = this.customer.email;
       this.sendMail.phone = this.customer.phone;
       this.sendMail.orderDate = this.orders.orderDate;
-
+      this.sendMail.sale= "";
       this.sendMail.imgBook = "";
       this.sendMail.nameBook = "";
       this.sendMail.count = "";
@@ -171,14 +171,16 @@ export class BookCartPaymentComponent implements OnInit {
         this.sendMail.count += this.CartBook[i].count + "next";
         if (this.IsPaypal) {
           this.sendMail.price += (this.CartBook[i].priceBook / 23632).toFixed(2) + "next";
-
+          this.sendMail.feeShip =  parseFloat((this.customer.feeShip/23632).toFixed(2));
         } else {
           this.sendMail.price += this.CartBook[i].priceBook + "next";
+          this.sendMail.feeShip =  this.customer.feeShip;
         }
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
             this.sendMail.imgBook += getBook['imgBook'] + "next";
             this.sendMail.nameBook += getBook['nameBook'] + "next";
+            this.sendMail.sale += getBook['sale'] + "next";
             //nếu chạy tới cuốn sách cuối 
             if (this.CartBook[this.lengthCartBook - 1]._id == getBook['_id']) {
               //sendmail -->thực hiện lưu db (order - orderDetail - customer )
@@ -203,7 +205,7 @@ export class BookCartPaymentComponent implements OnInit {
       this.putDiscountCode(this.discountCode);
     }
     this.sendMail.discountCode =  this.discountCode.discountCode;
-    this.sendMail.feeShip =  this.customer.feeShip;
+    
     if (this.IsPaypal) {
       this.sendMail.totalPrice = this.TongTienPayPal.toString();
       this._sendMail.postsendMailPayPal(sendMail).subscribe(

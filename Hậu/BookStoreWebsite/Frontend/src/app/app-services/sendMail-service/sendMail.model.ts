@@ -12,4 +12,5 @@ export class SendMail{
    paymentOption: String;
    discountCode:Number;
    feeShip:Number;
+   sale:String;
 }

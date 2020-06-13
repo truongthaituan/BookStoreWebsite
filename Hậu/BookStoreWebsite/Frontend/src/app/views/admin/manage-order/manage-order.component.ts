@@ -104,7 +104,7 @@ export class ManageOrderComponent implements OnInit {
 		this.cartBookLength(this.CartBook);
 		if (this.CartBook != null) {
 			for (var i = 0; i < this.lengthCartBook; i++) {
-				this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count);
+				this.TongTien += parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100;
 				this.TongCount += parseInt(this.CartBook[i].count);
 			}
 		}

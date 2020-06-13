@@ -49,7 +49,7 @@
                                             <th scope="col"> </th>
                                             <th scope="col">Tên Sách</th>
                                             <th></th>
-                                            <th scope="col">Đơn Giá</th>
+                                            <th scope="col" style="padding-left: 40px;">Đơn Giá</th>
                                             <th scope="col" class="text-center">Số Lượng</th>
                                             <th scope="col" class="text-right">Tổng Tiền</th>
                                             <th> </th>
@@ -60,8 +60,18 @@
 
                                             <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id) style="cursor: pointer;" /> </td>
                                             <td colspan="2">{{cartbook.nameBook}}</td>
-                                            <td>{{cartbook.priceBook|currency:"VND"}}</td>
-
+                                            <!-- Sale -->
+                                            <td *ngIf="cartbook.sale!=0" style="padding-left: 40px;">{{cartbook.priceBook*(100-cartbook.sale)/100|currency:"VND"}}
+                                                <br>
+                                                <span style="font-size: 12px;">
+                                                    <span style="text-decoration: line-through;color:darkgrey;">
+                                                        {{cartbook.priceBook|currency:"VND"}}
+                                                    </span><b style="color:red;"> | -{{cartbook.sale}}%</b>
+                                                </span>
+                                            </td>
+                                            <!-- don't Sale -->
+                                            <td *ngIf="cartbook.sale==0" style="padding-left: 40px;">{{cartbook.priceBook|currency:"VND"}}
+                                            </td>
                                             <td>
                                                 <div class="input-group">
                                                     <div class="input-group-btn">
@@ -74,7 +84,8 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
+                                            <td *ngIf="cartbook.sale!=0" class="text-right">{{cartbook.priceBook*(100-cartbook.sale)/100*cartbook.count|currency:"VND"}}</td>
+                                            <td *ngIf="cartbook.sale==0" class="text-right">{{cartbook.priceBook*cartbook.count|currency:"VND"}}</td>
                                             <td class="text-center"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartBook(cartbook._id)"><i class="fa fa-trash"></i> 
                                 </button> </td>
                                             <!-- <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartBook(cartbook._id)"><i class="fa fa-edit"></i> 
