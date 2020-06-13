@@ -793,7 +793,7 @@ box-shadow: 0 0 0 0 rgba(0,0,0,0.07);
 }
 
 .woocommerce .products.list .product .product-content {
-    float: left;
+    /* float: left; */
     width: 67%;
     padding: 0 0 0 30px;
     text-align: left;
@@ -1318,7 +1318,7 @@ bottom: 0;
     line-height: 52px;
     color: #fff;
     font-size: 14px;
-    float: left;
+    /* float: left; */
     text-align: center;
 }
 
@@ -1528,7 +1528,7 @@ div.product .summary .yith-wcwl-add-to-wishlist, div.product .summary .compare {
 }
 
 .product-wrap .yith_compare_btn a, .product-wrap .yith-wcwl-add-to-wishlist a {
-    width: 100% !important;
+    width: 200% !important;
 }
 
 
