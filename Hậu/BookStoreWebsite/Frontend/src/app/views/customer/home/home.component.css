@@ -85,3 +85,16 @@
     margin-left: 15px;
     background-image: none;
 }
+
+#OverFlowNameBook {
+    width: 190px;
+    height: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#OverFlowNameBook:hover {
+    height: auto;
+    overflow: visible;
+    color: #27AE61;
+}

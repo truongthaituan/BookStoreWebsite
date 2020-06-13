@@ -203,7 +203,7 @@ async function recommendation_eng(dataset, person, pearson_correlation, dataInit
             1 : b.val >= a.val ? 0 : NaN;
     });
     var recommend = []
-    console.log(Person2Get)
+        // console.log(Person2Get)
     for (var i in rank_lst) {
 
         if (!(await CheckIsBuy(Person2Get, rank_lst[i].items))) {
@@ -246,6 +246,8 @@ router.post('/Data', function(req, res) {
         //recommend seri
         //recommend sale
         //recommend priceBook
+        const test = await getPerson(req.body.userID)
+        console.log(test)
         res.json({
             book: { click: book_click, rate: book_rate, buy: book_buy },
             category: { click: category_click, rate: category_rate, buy: category_buy },
@@ -254,4 +256,7 @@ router.post('/Data', function(req, res) {
     }
     run();
 })
+
+
+
 module.exports = router;
