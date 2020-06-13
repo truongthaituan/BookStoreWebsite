@@ -30,6 +30,7 @@ router.get('/:bookID', function(req, res) {
 
 //post
 router.post('/', function(req, res) {
+    if (req.body.sale == null || req.body.sale == "") req.body.sale = 0
     var newbook = new book();
     newbook.nameBook = req.body.nameBook;
     newbook.categoryID = req.body.categoryID;
@@ -52,7 +53,9 @@ router.post('/', function(req, res) {
 
 //update
 router.put('/:id', function(req, res) {
+        if (req.body.sale == null || req.body.sale == "") req.body.sale = 0
         book.findByIdAndUpdate(req.params.id, {
+
                 $set: {
                     nameBook: req.body.nameBook,
                     categoryID: req.body.categoryID,

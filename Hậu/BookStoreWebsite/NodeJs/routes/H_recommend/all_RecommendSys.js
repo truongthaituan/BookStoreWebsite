@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const datasetRecommend = require('../../models/D_action/datasetRecommend')
+const book = require('../../models/A_store/book')
     //#region Get bộ data recommend
 async function getAllDataRecommend() {
     try {
@@ -230,6 +231,7 @@ async function recommendation_eng(dataset, person, pearson_correlation, dataInit
 // (3,4,5) ---> value
 router.post('/Data', function(req, res) {
     async function run() {
+
         const datasets = await getAllDataRecommend();
         //recommend Book
         var book_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'bookID', 'rate');
@@ -246,8 +248,14 @@ router.post('/Data', function(req, res) {
         //recommend seri
         //recommend sale
         //recommend priceBook
-        const test = await getPerson(req.body.userID)
-        console.log(test)
+        // const test = await getPerson(req.body.userID)
+        // const test = await getAllBook();
+        // for (var index in test) {
+
+        //     const testUpdate = await UpdateBookSaleByBookID(test[index]._id)
+        //     console.log(testUpdate)
+        // }
+
         res.json({
             book: { click: book_click, rate: book_rate, buy: book_buy },
             category: { click: category_click, rate: category_rate, buy: category_buy },
@@ -258,5 +266,27 @@ router.post('/Data', function(req, res) {
 })
 
 
+// async function getAllBook(req, res) {
+//     try {
+//         const getall = book.find({})
 
+//         return getall
+//     } catch (error) {
+
+//     }
+// }
+// async function UpdateBookSaleByBookID(req) {
+//     try {
+//         const update = await book.findByIdAndUpdate(req, {
+//             $set: {
+//                 sale: 0
+//             }
+//         }, {
+//             new: true
+//         })
+//         return update
+//     } catch (error) {
+
+//     }
+// }
 module.exports = router;

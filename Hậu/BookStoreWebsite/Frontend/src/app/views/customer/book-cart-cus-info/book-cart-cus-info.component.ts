@@ -236,20 +236,18 @@ calculateDistance(latTo, longTo) {
   console.log(distance)
   if(distance <= 1000){
     this.feeShip = 0;
-  }
+  }else
   if(1000 <= distance && distance <= 10000){
     this.feeShip = Number((distance / 1000).toFixed(0)) * 2000;
-    console.log(this.feeShip)
   }else
   if(10000 <= distance && distance <= 50000){
     let shipDefault10000 =  20000;
     this.feeShip = (Number(((distance - 10000) / 1000).toFixed(0))  * 3000) + shipDefault10000;
-    console.log(this.feeShip)
   }else
   if(50000 <= distance && distance <= 100000){
     let shipDefault50000 =  50000;
     this.feeShip = (Number(((distance - 50000) / 1000).toFixed(0)) * 5000) + shipDefault50000;
-    console.log(this.feeShip)
+
   }else{
     this.feeShip=-1
     this.CheckAddress=false;
