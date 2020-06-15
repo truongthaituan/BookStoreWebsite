@@ -11,10 +11,11 @@
 @import '../../../../assets/plugins/js_composer/assets/css/js_composer.min20fd.css';
 @import '../../../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
-#btnAddToCart{
+#btnAddToCart {
     padding: 18px 26px !important;
     cursor: pointer;
 }
+
 ::ng-deep .owl-prev {
     position: absolute !important;
     top: 0px !important;
@@ -98,6 +99,7 @@
     text-align: center;
     padding: 0px 10px;
     font-size: 14px;
+    font-weight: bold;
 }
 
 #OverFlowNameBook:hover {

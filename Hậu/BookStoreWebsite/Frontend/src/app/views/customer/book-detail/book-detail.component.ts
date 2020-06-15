@@ -97,34 +97,34 @@ export class BookDetailComponent implements OnInit {
   ListRatingAccount:any
   ngOnInit() {
     //#region carousel
-    this.customOptions = {
-      loop: false,
-      mouseDrag: false,
-      touchDrag: false,
-      autoHeight: false,
-      pullDrag: false,
+    // this.customOptions = {
+    //   loop: false,
+    //   mouseDrag: false,
+    //   touchDrag: false,
+    //   autoHeight: false,
+    //   pullDrag: false,
 
-      dots: false,
-      navSpeed: 700,
-      rewind: true,
-      margin: 0,
-      navText: ['', ''],
-      responsive: {
-        0: {
-          items: 4
-        },
-        400: {
-          items: 4
-        },
-        740: {
-          items: 4
-        },
-        940: {
-          items: 4
-        }
-      },
-      nav: true
-    }
+    //   dots: false,
+    //   navSpeed: 700,
+    //   rewind: true,
+    //   margin: 0,
+    //   navText: ['', ''],
+    //   responsive: {
+    //     0: {
+    //       items: 4
+    //     },
+    //     400: {
+    //       items: 4
+    //     },
+    //     740: {
+    //       items: 4
+    //     },
+    //     940: {
+    //       items: 4
+    //     }
+    //   },
+    //   nav: true
+    // }
 
    
     $('.searchHeader').attr('style', 'font-size: 1rem !important');

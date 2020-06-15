@@ -132,7 +132,7 @@ td.pw3 {
 
 #InputSearch {
     position: absolute;
-    top: 19px;
+    top: 9px;
     left: 600px;
     height: 50px;
     width: 45%;
@@ -140,19 +140,19 @@ td.pw3 {
 
 #InputSearch .inputicon {
     position: absolute;
-    margin-top: 15px;
-    margin-left: 15px;
+    margin-top: 10px;
+    margin-left: 10px;
     color: #999999;
     z-index: 1;
 }
 
 #InputSearch .searchHeader {
     padding-left: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     color: black;
     border-color: lightslategrey;
-    height: 50px;
+    height: 40px;
     font-style: italic;
     width: 100%;
 }
@@ -160,8 +160,8 @@ td.pw3 {
 #InputSearch .buttonSearch {
     position: absolute;
     background-color: #C1C1C1;
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 9px;
+    padding-bottom: 9px;
     width: 12%;
     font-weight: bold;
     top: 1px;
@@ -179,4 +179,12 @@ td.pw3 {
         top: 15px;
         right: 60px;
     }
+}
+
+#headSet {
+    padding: 0px 15px !important;
+}
+
+#headSet2 {
+    top: 58px !important;
 }

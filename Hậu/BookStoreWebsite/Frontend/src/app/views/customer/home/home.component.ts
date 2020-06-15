@@ -144,7 +144,7 @@ export class HomeComponent implements OnInit {
 			for (var i = 0; i < this.lengthCartBook; i++) {
 				this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100).toFixed(0));
 				this.TongCount += parseInt(this.CartBook[i].count);
-			}
+			} 
 		}
 		$('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
 		$('.cart_items').html(this.TongCount.toString());

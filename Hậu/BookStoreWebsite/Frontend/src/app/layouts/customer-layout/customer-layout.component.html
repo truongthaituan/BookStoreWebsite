@@ -548,10 +548,10 @@
         </header>
         <!-- //HEADER -->
         <!-- MAIN NAVIGATION -->
-        <nav class="main-menu affix-top" data-spy="affix" data-offset-top="133" style="z-index: 1040;">
+        <nav class="main-menu affix-top" data-spy="affix" data-offset-top="133.31" style="z-index: 1040;">
             <div class="container">
                 <div id="vc-nav-id-16-wrapper" class=" vc-mm-menu-h  vc-mm-h-layout-5 vc-mm-container  vc-transparent ">
-                    <ul id="vc-nav-id-16-mobile" class="vc-nav-on-mobile vc-mm-menu">
+                    <ul id="vc-nav-id-16-mobile" class="vc-nav-on-mobile vc-mm-m    enu">
                         <li class="vc-menu-item  mobile-btn"><a class="nav-link" href="../../index.html"><i class="fa fa-home"></i></a> </li>
                         <li class="vc-menu-item vc-mm-mobile-toggle">
                             <a href="#" class="nav-link vc-mm-mobile-toggle-btn"><i class="fa fa-bars"></i></a>
@@ -569,12 +569,12 @@
                                 <a class="vc-close" href="#"></a>
                             </h3>
                         </li>
-                        <li id="menu-item-30" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-30 vc-menu-item vc-d-0 vc-mm-layout-full"><a style="cursor: pointer;" (click)="moveToHome()" class="nav-link"><span class="vc-label">Trang Chủ</span></a>
+                        <li id="menu-item-30" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-30 vc-menu-item vc-d-0 vc-mm-layout-full"><a style="cursor: pointer;" (click)="moveToHome()" class="nav-link" id="headSet"><span class="vc-label">Trang Chủ</span></a>
 
                         </li>
                         <li id="menu-item-118" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-118 vc-menu-item vc-d-0 vc-mm-mega vc-mm-align-default vc-mm-layout-full" data-mm-settings="{&quot;layout&quot;:&quot;full&quot;,&quot;width&quot;:&quot;&quot;}">
-                            <a href="#" class="nav-link"><span class="vc-label">Khuyến Mãi</span></a>
-                            <div class="vc-mm-mega-cont">
+                            <a href="#" class="nav-link" id="headSet"><span class="vc-label">Khuyến Mãi</span></a>
+                            <div class="vc-mm-mega-cont" id="headSet2">
                                 <div class="vc-mm-mega-cont-inner">
                                     <div class="vc_row wpb_row vc_row-fluid">
                                         <div class="page-container">
@@ -641,8 +641,8 @@
                             </div>
                         </li>
                         <li id="menu-item-136" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-136 vc-menu-item vc-d-0 vc-mm-mega vc-mm-align-default vc-mm-layout-full" data-mm-settings="{&quot;layout&quot;:&quot;full&quot;,&quot;width&quot;:&quot;&quot;}">
-                            <a href="#" class="nav-link"><span class="vc-label">Tin Tức</span></a>
-                            <div class="vc-mm-mega-cont">
+                            <a href="#" class="nav-link" id="headSet"><span class="vc-label">Tin Tức</span></a>
+                            <div class="vc-mm-mega-cont" id="headSet2">
                                 <div class="vc-mm-mega-cont-inner">
                                     <div class="vc_row wpb_row vc_row-fluid">
                                         <div class="page-container">
@@ -726,7 +726,7 @@
                 </div>
             </div>
             <a *ngIf="!accountSocial" (click)="moveToAccount()" style="cursor: pointer;"><img id="wheelSpinnerImg" src="../../../assets/spinner/img_spin/spinner.png"></a>
-            <a *ngIf="accountSocial" (click)="getPointByUserID()" style="cursor: pointer;" data-toggle="modal" data-target="#myModal1"><img id="wheelSpinnerImg" src="../../../assets/spinner/img_spin/spinner.png"></a>
+            <a *ngIf="accountSocial" (click)="getPointByUserID()" style="cursor: pointer;" data-toggle="modal" data-target="#myModal1"><img id="wheelSpinnerImg" style="top:4px;" src="../../../assets/spinner/img_spin/spinner.png"></a>
         </nav>
         <router-outlet></router-outlet>
 
@@ -830,11 +830,11 @@
                             </div>
                         </div>
                         <!-- Footer Right Content -->
-                        <div class="col-md-6 col-sm-6 col-xs-11">
+                        <!-- <div class="col-md-6 col-sm-6 col-xs-11">
                             <div class="right">
                                 <img class="alignnone size-full wp-image-327" src="../../assets/img/02/payments_logos.png" alt="payments_logos" width="222" height="18" /> </div>
-                            <!-- Footer Right Content -->
-                        </div>
+                         
+                        </div> -->
                     </div>
                 </div>
             </div>
