@@ -561,3 +561,20 @@ a.add_to_wishlist.button.alt {
 .modal-footer {
     padding-top: 0rem;
 }
+
+#OverFlowNameBook {
+    width: auto;
+    height: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    padding: 0px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#OverFlowNameBook:hover {
+    height: auto;
+    overflow: visible;
+    color: #27AE61;
+}

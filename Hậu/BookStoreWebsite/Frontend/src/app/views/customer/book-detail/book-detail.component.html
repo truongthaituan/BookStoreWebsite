@@ -593,7 +593,7 @@
                                 status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                                 product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                  instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
-                                  paginate: { itemsPerPage: 3,currentPage: p }">
+                                  paginate: { id: '1',itemsPerPage: 3,currentPage: p }">
                                     <div class="product-wrap">
                                         <div class="product-image">
                                             <div class="catalog-image">
@@ -632,7 +632,7 @@
                                         <div class="product-content">
 
                                             <h4 class="product_title">
-                                                <a class="bks_product_t itle_link" href="bookDetail">{{item.nameBook}}</a></h4>
+                                                <div  id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div></h4>
 
                                             <span class="price">
                                                 <span class="woocommerce-Price-amount amount" id="priceBook">
@@ -647,7 +647,7 @@
                             </div>
                             <!-- #product-76 -->
                             <div>
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                <pagination-controls id='1' (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -703,7 +703,7 @@
                             status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                             product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                              instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
-                            paginate: { itemsPerPage: 4,currentPage: p }">
+                            paginate: { id: '2',itemsPerPage: 4,currentPage: p1 }">
                                 <div class="product-wrap" style="height: 270px;">
                                     <div class="product-image">
                                         <div class="catalog-image">
@@ -739,7 +739,7 @@
 
                                         <h4 class="product_title">
                                             <a class="bks_product_t itle_link" href="bookDetail" style="font-size: 15px;">{{item.nameBook}}</a></h4>
-
+                         
                                         <span class="price">
                                             <span class="woocommerce-Price-amount amount" id="priceBook">
                                                 {{item.priceBook | currency:"VND"}}</span></span>
@@ -751,7 +751,7 @@
 
                         </div>
                         <div>
-                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            <pagination-controls id="2" (pageChange)="p1 = $event"></pagination-controls>
                         </div>
                     </div>
 

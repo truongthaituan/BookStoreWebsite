@@ -1375,6 +1375,7 @@
                          instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
                         paginate: { itemsPerPage: 4,currentPage: p }">
                             <div class="product-wrap" style="height: 270px;">
+                                <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                 <div class="product-image">
                                     <div class="catalog-image">
                                         <button (click)="detailBook(item);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">

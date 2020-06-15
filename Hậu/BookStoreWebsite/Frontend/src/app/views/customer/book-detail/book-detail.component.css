@@ -326,3 +326,20 @@ h1 {
     color: Red;
     background-color: white;
 }
+
+#OverFlowNameBook {
+    width: auto;
+    height: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    padding: 0px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#OverFlowNameBook:hover {
+    height: auto;
+    overflow: visible;
+    color: #27AE61;
+}
