@@ -202,10 +202,21 @@
                                             {{countRating}} đánh giá)</a>
                                     </div>
                                 </div>
-                                <p class="price"><span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-cu   rrencySymbol">
-                                        </span>{{ bookService.selectedBook?.priceBook | currency:'VND' }}</span>
-                                </p>
+                                <!-- Sale -->
+                                <span *ngIf="bookService.selectedBook?.sale!=0">
+                                    <b style="color:red;font-size: 18px;">
+                                        {{ bookService.selectedBook?.priceBook*(100-bookService.selectedBook?.sale)/100 | currency:'VND' }}
+                                    </b>
+                                    <span style="font-size: 12px;">
+                                        <span style="text-decoration: line-through;color:darkgrey;">
+                                            {{bookService.selectedBook?.priceBook|currency:"VND"}}
+                                        </span><b style="color:red;"> | -{{bookService.selectedBook?.sale}}%</b>
+                                </span>
+                                </span>
+                                <!-- Don't Sale -->
+                                <b *ngIf="bookService.selectedBook?.sale==0" style="color:red;font-size: 18px;">
+                                        {{ bookService.selectedBook?.priceBook | currency:'VND' }}
+                                </b>
 
                                 <meta itemprop="price" content="200" />
                                 <meta itemprop="priceCurrency" content="USD" />
@@ -677,7 +688,7 @@
                     <div class="col mb-2">
                         <div class="row">
                             <div class="col-sm-12  col-md-6">
-                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToBookCategory()">Continue Shopping</button>
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToHome()">Continue Shopping</button>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
                                 <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Cart Book</button>

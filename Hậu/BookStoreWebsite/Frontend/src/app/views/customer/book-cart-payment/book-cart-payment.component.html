@@ -481,7 +481,15 @@
                                         {{book.count}} x <span style="color: blue;">{{book.nameBook}}</span>
                                     </div>
                                     <div class="col-sm-1"></div>
-                                    <div class="col-sm-3">
+                                    <!-- sale -->
+                                    <div *ngIf="book.sale!=0" class="col-sm-3">
+                                        <span style="float:right;
+                                        padding-right:10px;">
+                                        {{book.priceBook*book.count*(100-book.sale)/100|currency:"VND"}}
+                                        </span>
+                                    </div>
+                                    <!-- don't Sale -->
+                                    <div *ngIf="book.sale==0" class="col-sm-3">
                                         <span style="float:right;
                                         padding-right:10px;">
                                         {{book.priceBook*book.count|currency:"VND"}}
@@ -519,10 +527,10 @@
                                     </div>
                                 </div>
                             </h5>
-                               <h5 style=" border-top: 1px solid gainsboro;">
+                            <h5 style=" border-top: 1px solid gainsboro;">
                                 <div class="row" style="margin-top : 10px;">
                                     <div class="col-sm-8">
-                                       Phí Vận Chuyển
+                                        Phí Vận Chuyển
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-3">

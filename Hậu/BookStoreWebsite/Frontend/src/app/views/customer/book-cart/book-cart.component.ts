@@ -207,11 +207,11 @@ export class BookCartComponent implements OnInit {
   checkoutWhenNull() {
     var setconfirm = confirm('Giỏ hàng của bạn đang trống , bạn có muốn dạo mua một vòng không ?')
     if (setconfirm == true) {
-      this.goToBookCategory();
+      this.goToHome();
     }
   }
-  goToBookCategory() {
-    this._router.navigate(['/booksCategory']);
+  goToHome() {
+    this._router.navigate(['/homePage']);
   }
   goToShipping() {
 

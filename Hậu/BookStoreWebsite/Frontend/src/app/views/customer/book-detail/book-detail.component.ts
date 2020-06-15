@@ -496,8 +496,8 @@ export class BookDetailComponent implements OnInit {
     this.ngOnInit();
   }
   //continueShopping
-  goToBookCategory() {
-    this._router.navigate(['/booksCategory']);
+  goToHome() {
+    this._router.navigate(['/homePage']);
   }
   // go to cart book
   goToCartBook() {
