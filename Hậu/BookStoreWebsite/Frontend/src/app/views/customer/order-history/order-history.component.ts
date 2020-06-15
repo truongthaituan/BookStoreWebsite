@@ -121,6 +121,8 @@ export class OrderHistoryComponent implements OnInit {
     this._order.getOrderByUserId(id).subscribe(
       listOrder => {
         this.list_Order = listOrder as Order[];
+        console.log(id)
+        console.log(this.list_Order)
       },
       error => console.log(error)
     );

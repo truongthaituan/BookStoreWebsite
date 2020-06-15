@@ -95,23 +95,22 @@ router.get('/findByCustomerID/:customerID', function(req, res) {
 
 //get order by customerID
 router.get('/findByUserID/:userID', function(req, res) {
-
     async function run() {
         let arrayOrder = []
         const data = await getAllCustomerByUserID(req.params.userID, res);
-        for (let index = 0; index < data.length; index++) {
-            console.log(data[index]._id);
+        for (let index in data) {
             const dataOrder = await getAllOrderByCustomerID(data[index]._id, res);
-            for (let index2 = 0; index2 < dataOrder.length; index2++) {
+            for (let index2 in dataOrder) {
                 arrayOrder.push(dataOrder[index2]);
             }
-            if (index == data.length - 1) {
-                dataOrder.sort(function(a, b) {
-                    return (Date.parse((b.orderDate).toString())) - (Date.parse((a.orderDate).toString()));
-                });
-                res.json(dataOrder);
-            }
         }
+        console.log(arrayOrder);
+        arrayOrder.sort(function(a, b) {
+            return (Date.parse((b.orderDate).toString())) - (Date.parse((a.orderDate).toString()));
+        });
+
+        res.json(arrayOrder);
+
     }
     run();
 })
