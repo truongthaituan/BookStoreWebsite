@@ -42,10 +42,6 @@ const promotion = require('./routes/F_event/promotionController');
 const statistic = require('./routes/G_statistic/statisticController');
 const dataset = require('./routes/G_statistic/datasetControleer');
 //H_recommend
-const author_recommend = require('./routes/H_recommend/author_Recommend');
-const category_recommend = require('./routes/H_recommend/category_Recommend');
-const rate_recommend = require('./routes/H_recommend/rate_Recommend');
-const favorite_recommend = require('./routes/H_recommend/favorite_Recommend');
 const dataset_recommend = require('./routes/H_recommend/dataset_Recommend')
 const datasetRecommend = require('./routes/H_recommend/all_RecommendSys')
     //I_best
@@ -140,10 +136,6 @@ app.use('/promotions', promotion);
 app.use('/statistic', statistic);
 app.use('/data', dataset);
 //H_recommend
-app.use('/author_recommend', author_recommend)
-app.use('/category_recommend', category_recommend)
-app.use('/rate_recommend', rate_recommend)
-app.use('/favorite_recommend', favorite_recommend)
 app.use('/dataset_recommend', dataset_recommend)
 app.use('/datasetRecommend', datasetRecommend)
     //I_best
