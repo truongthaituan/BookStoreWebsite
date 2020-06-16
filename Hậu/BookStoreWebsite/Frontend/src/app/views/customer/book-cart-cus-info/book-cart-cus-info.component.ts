@@ -164,6 +164,7 @@ private setCurrentLocation() {
 }
 IsOpenMap=false;
 private setCurrentLocation2(customer:Customer) {
+  $( "#GGMap" ).show();
   this.IsOpenMap=true;
   this.mapsAPILoader.load().then(() => {
   console.log(customer);
@@ -227,13 +228,14 @@ getAddress(latitude, longitude) {
   });
 }
 feeShip: number
+distanceShow: number
 calculateDistance(latTo, longTo) {
   
   this.mapsAPILoader.load().then(() => {
   const from = new google.maps.LatLng(this.latStore, this.longStore);
   const to = new google.maps.LatLng(latTo, longTo);
   const distance = Number((google.maps.geometry.spherical.computeDistanceBetween(from, to)).toFixed(0));
-  console.log(distance)
+  this.distanceShow=distance
   if(distance <= 1000){
     this.feeShip = 0;
   }else
@@ -545,7 +547,7 @@ calculateDistance(latTo, longTo) {
   ClickEditCustomer(customer: Customer) {
     console.log('putCustomer');
     $( "#formLocation" ).show();
-    $( "#GGMap" ).show();
+  
     this.setCurrentLocation2(customer);
     // this.IsOpenMap=false; //Đóng GG Map VIew
     // this.IsOpenMapEdit=true;

@@ -63,8 +63,13 @@ async function DeleteCheckZero(data, value) {
         const dataNew = []
         for (var key in data2) {
             if ((data2[key])[value] != 0) {
-
-                dataNew.push(data2[key])
+                if (value == "click") {
+                    if ((data2[key])[value] > 0) {
+                        dataNew.push(data2[key])
+                    }
+                } else {
+                    dataNew.push(data2[key])
+                }
             }
         }
 
@@ -229,22 +234,22 @@ async function recommendation_eng(dataset, person, pearson_correlation, dataInit
 // 10: sale
 // (1,6,7,8,9,10) ---> dataInit
 // (3,4,5) ---> value
-router.post('/Data', function(req, res) {
+router.get('/Data/:userID', function(req, res) {
     async function run() {
 
         const datasets = await getAllDataRecommend();
         //recommend Book
-        var book_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'bookID', 'rate');
-        var book_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'bookID', 'click');
-        var book_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'bookID', 'buy');
+        var book_rate = await recommendation_eng(datasets, req.params.userID, pearson_correlation, 'bookID', 'rate');
+        var book_click = await recommendation_eng(datasets, req.params.userID, pearson_correlation, 'bookID', 'click');
+        var book_buy = await recommendation_eng(datasets, req.params.userID, pearson_correlation, 'bookID', 'buy');
         //recommend category
-        var category_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'rate');
-        var category_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'click');
-        var category_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'buy');
+        // var category_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'rate');
+        // var category_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'click');
+        // var category_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'categoryID', 'buy');
         //recommend author
-        var author_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'atuhorID', 'rate');
-        var author_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'authorID', 'click');
-        var author_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'authorID', 'buy');
+        // var author_rate = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'atuhorID', 'rate');
+        // var author_click = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'authorID', 'click');
+        // var author_buy = await recommendation_eng(datasets, req.body.userID, pearson_correlation, 'authorID', 'buy');
         //recommend seri
         //recommend sale
         //recommend priceBook
@@ -256,15 +261,35 @@ router.post('/Data', function(req, res) {
         //     console.log(testUpdate)
         // }
 
+        //test data
+        // const a = await getPerson(req.body.userID)
+        // console.log(DeleteCheckZero(a, "click"))
+        const listbook_click = await getBookByListID(book_click)
+        const listbook_rate = await getBookByListID(book_rate)
+        const listbook_buy = await getBookByListID(book_buy)
         res.json({
-            book: { click: book_click, rate: book_rate, buy: book_buy },
-            category: { click: category_click, rate: category_rate, buy: category_buy },
-            author: { click: author_click, rate: author_rate, buy: author_buy }
+            click: listbook_click,
+            rate: listbook_rate,
+            buy: listbook_buy
+                // ,
+                // category: { click: category_click, rate: category_rate, buy: category_buy },
+                // author: { click: author_click, rate: author_rate, buy: author_buy }
         });
     }
     run();
 })
+async function getBookByListID(req) {
+    try {
+        var listBook = []
+        for (let index in req) {
+            const aBook = await book.findById(req[index])
+            listBook.push(aBook)
+        }
+        return listBook
+    } catch (error) {
 
+    }
+}
 
 // async function getAllBook(req, res) {
 //     try {

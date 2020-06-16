@@ -107,7 +107,6 @@ export class BookCartPaymentComponent implements OnInit {
       for (var i = 0; i < this.lengthCartBook; i++) {
         this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100).toFixed(0));
         this.TongCount += parseInt(this.CartBook[i].count);
-
       }
     }
     $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
@@ -170,8 +169,8 @@ export class BookCartPaymentComponent implements OnInit {
 
         this.sendMail.count += this.CartBook[i].count + "next";
         if (this.IsPaypal) {
-          this.sendMail.price += (this.CartBook[i].priceBook / 23632).toFixed(2) + "next";
-          this.sendMail.feeShip =  parseFloat((this.customer.feeShip/23632).toFixed(2));
+          this.sendMail.price += (this.CartBook[i].priceBook / 23632*(100-this.CartBook[i].sale)/100).toFixed(2) + "next";
+          this.sendMail.feeShip =  parseFloat((this.customer.feeShip/23632*(100-this.CartBook[i].sale)/100).toFixed(2));
         } else {
           this.sendMail.price += this.CartBook[i].priceBook + "next";
           this.sendMail.feeShip =  this.customer.feeShip;
@@ -304,23 +303,30 @@ export class BookCartPaymentComponent implements OnInit {
   CartBook2 = []
   TongTienPayPal: any
   IsPaypal = false
+
   createJson(CartBook: any) {
     this.TongTienPayPal = 0;
+    //lưu tạm số tiền bị thừa khi chuyển đổi
+    let moneyExcess=0.00;
     for (var i = 0; i < this.lengthCartBook; i++) {
+      // var TienDu =(parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2))-(CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100))
+      // moneyExcess = moneyExcess + TienDu*CartBook[i].count
       var infoCart = {
-        name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632).toFixed(2)),
+        name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2)),
         currency: "USD", quantity: CartBook[i].count
       };
+  
       this.CartBook2.push(infoCart);
-      this.TongTienPayPal += CartBook[i].count * parseFloat((CartBook[i].priceBook / 23632).toFixed(2));
-
+      this.TongTienPayPal += CartBook[i].count * parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2));
+      // console.log(infoCart.price+"======"+ this.TongTienPayPal+ "==========="+(this.TongTien/23632).toFixed(2)+"======="+moneyExcess.toFixed(4) +"======="+CartBook[i].count*TienDu)
     }
     this.TongTienPayPal = this.TongTienPayPal.toFixed(2);
-    console.log("--------->");
-    console.log(this.CartBook2);
-
-    console.log(this.TongTienPayPal);
-    console.log("--------->");
+    // if(this.TongTienPayPal==(this.TongTien/23632).toFixed(2)){
+    //   console.log( this.TongTienPayPal+ "==========="+(this.TongTien/23632).toFixed(2))
+    // }
+    // else{
+    //   console.log( this.TongTienPayPal+ "!="+(this.TongTien/23632).toFixed(2))
+    // }
   }
   title = 'app';
   public didPaypalScriptLoad: boolean = false;
@@ -340,17 +346,27 @@ export class BookCartPaymentComponent implements OnInit {
             [{
               "item_list": {
                 "items": this.CartBook2
+                // ,"shipping_address": {
+                //   "recipient_name": "Hannah Lu",
+                //   "line1": "1602 Crane ct",
+                //   "line2": "",
+                //   "city": "San Jose",
+                //   "state": "CA",
+                //   "phone": "4084217591",
+                //   "postal_code": "95052",
+                //   "country_code": "US"
+                // }
               },
               "amount": {
                 "currency": "USD",
                 "total": this.TongTienPayPal,
                 "details": {
                   "subtotal": this.TongTienPayPal
-
                 }
               },
               "description": "This is the payment description."
-            }]
+            }
+          ]
 
           // [
           //   { amount: { total: this.paymentAmount, currency: 'USD' } }

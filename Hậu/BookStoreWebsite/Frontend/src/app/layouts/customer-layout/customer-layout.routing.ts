@@ -19,7 +19,7 @@ import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/disc
 import { ConfirmEmailComponent } from 'src/app/views/customer/confirm-email/confirm-email.component';
 export const CustomerLayoutRoutes: Routes = [
     { path: 'homePage', component: HomeComponent },
-    { path: 'booksCategory', component: BookCategoryComponent },
+    { path: 'booksCategory/:id', component: BookCategoryComponent },
     { path: 'bookDetail/:id', component: BookDetailComponent },
     { path: 'account', component: MyAccountComponent },
     { path: 'lostPassword', component: LostPasswordComponent },

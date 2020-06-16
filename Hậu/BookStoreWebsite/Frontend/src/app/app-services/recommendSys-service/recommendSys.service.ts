@@ -13,7 +13,8 @@ export class Recommend {
   constructor(private _http: HttpClient ,private _host:HostService) { }
   readonly baseURL = this._host.host()+':3000';
 
-  getRateRecommendByUserID(userID) { 
-    return this._http.get(this.baseURL+'/rate_recommend/Data/'+userID);
+  getAllRecommendByUserID(userID) { 
+    console.log(11321312)
+    return this._http.get(this.baseURL+'/datasetRecommend/Data/'+userID);
   }  
 }

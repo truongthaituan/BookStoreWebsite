@@ -50,8 +50,15 @@ export class HomeComponent implements OnInit {
 	ListBookCategory1:any
 	ListBookCategory2:any
 	IsRecommend = false
+
 	ListrateRecommend:any
 	IsRateRecommend=false
+
+	ListClickRecommend:any
+	IsClickRecommend=false
+
+	ListBuyRecommend:any
+	IsBuyRecommend=false
 	getBestBookAndRecommend() {
 		//get sách được mua nhiều nhất
 		this._bestService.getBookBestSelling().subscribe(
@@ -77,14 +84,32 @@ export class HomeComponent implements OnInit {
 				}
 		
 			});
-		this._recommendSyS.getRateRecommendByUserID(this.accountSocial._id).subscribe(
-			listRateRecommend =>{
-				this.ListrateRecommend = listRateRecommend as Book
-				if(this.ListrateRecommend.length>0)
+		this._recommendSyS.getAllRecommendByUserID(this.accountSocial._id).subscribe(
+			listAllRecommend =>{
+				console.log(listAllRecommend['click'])
+				this.ListClickRecommend = listAllRecommend['click'] as Book
+				this.ListrateRecommend = listAllRecommend['rate'] as Book
+				this.ListBuyRecommend = listAllRecommend['buy'] as Book
+				
+				if(this.ListClickRecommend.length>6)
+				{
+					this.IsClickRecommend=true
+				}else{
+					this.IsClickRecommend=false
+				}
+
+				if(this.ListrateRecommend.length>6)
 				{
 					this.IsRateRecommend=true
 				}else{
 					this.IsRateRecommend=false
+				}
+
+				if(this.ListBuyRecommend.length>6)
+				{
+					this.IsBuyRecommend=true
+				}else{
+					this.IsBuyRecommend=false
 				}
 			}
 		)

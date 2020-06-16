@@ -132,13 +132,9 @@ router.post('/filter', function(req, res) {
                     books = books.filter(book => book.categoryID == req.body.category_id);
 
                 }
-                if (req.body.author_id != null) {
-                    books = books.filter(book => book.authorID == req.body.author_id);
-                }
                 if (req.body.price1 != null && req.body.price2 != null) {
                     books = books.filter(book => (book.priceBook >= req.body.price1 && book.priceBook <= req.body.price2));
                 }
-
                 if (req.body.nameBook != null) {
                     books = books.filter(book => (book.nameBook.toLowerCase().indexOf(req.body.nameBook) != -1));
                     console.log(books)
@@ -147,18 +143,18 @@ router.post('/filter', function(req, res) {
                     books.sort(function(a, b) {
                         return (a.priceBook) - (b.priceBook);
                     });
-                    books = books.filter((element, index) => {
-                        return index === 0 || element.priceBook !== books[index - 1].priceBook;
-                    });
-                    console.log(books)
+                    // books = books.filter((element, index) => {
+                    //     return index === 0 || element.priceBook !== books[index - 1].priceBook;
+                    // });
+                    // console.log(books)
                 }
                 if (req.body.sortByPrice == "sortDescending") {
                     books.sort(function(a, b) {
                         return (b.priceBook) - (a.priceBook);
                     });
-                    books = books.filter((element, index) => {
-                        return index === 0 || element.priceBook !== books[index - 1].priceBook;
-                    });
+                    // books = books.filter((element, index) => {
+                    //     return index === 0 || element.priceBook !== books[index - 1].priceBook;
+                    // });
                     console.log(books)
                 }
                 res.json(books);

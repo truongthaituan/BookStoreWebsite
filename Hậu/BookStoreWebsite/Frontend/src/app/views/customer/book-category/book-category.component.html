@@ -12,9 +12,11 @@ js-comp-ver-4.9.2 vc_responsive ">
         </div> -->
         <div class="container padding-40-v">
             <div id="main-content" class="col-xs-12 col-sm-9 right">
-                <div id="container">
-                    <div id="content" role="main">
 
+                <div id="container">
+
+                    <div id="content" role="main">
+                        <div style="font-size:22px;padding:15px ;">Kết quả tìm kiếm cho <b>'{{bookFilter.nameBook}}'</b></div>
                         <div class="before-shop-loop">
                             <p class="woocommerce-result-count">
                                 Chọn lọc sắp xếp</p>
@@ -23,9 +25,9 @@ js-comp-ver-4.9.2 vc_responsive ">
 					<option selected='selected'>Sắp xếp</option>
 					<option value="sortAscending" >Sắp xếp theo giá tiền (Tăng Dần)</option>
 					<option  value="sortDescending" >Sắp xếp theo giá tiền (Giảm Dần)</option>
-					<option value="date" >Sort by newness</option>
+					<!-- <option value="date" >Sort by newness</option>
 					<option value="price" >Sort by price: low to high</option>
-					<option value="price-desc" >Sort by price: high to low</option>
+					<option value="price-desc" >Sort by price: high to low</option> -->
                     </select>
                                 <nav class="gridlist-toggle">
                                     <a type="submit" (click)="sort();"><span class="fa fa-filter"></span> <em>Filter</em></a>
@@ -106,7 +108,6 @@ js-comp-ver-4.9.2 vc_responsive ">
             <div id="shop-sidebar" class="sidebar col-xs-12 col-sm-3 left">
                 <div id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
                     <h3 class="widget-title">Giá</h3>
-                    <!-- <form method="post" [formGroup]="filterPriceForm"> -->
                     <div id="price-slider">
                         <p>
                             <label for="amount">Khoảng giá từ :</label>
@@ -116,20 +117,16 @@ js-comp-ver-4.9.2 vc_responsive ">
                         <npn-slider [min]="10000" [max]="500000" [minSelected]="40000" [maxSelected]="300000" [step]="10000" [showStepIndicator]="true" (onChange)="onSliderChange($event)">
                         </npn-slider>
                     </div>
-                    <!-- <a class="btnFilterPrice" type="submit" (click)="getBooksByPrice()">
-                        Lọc theo giá
-                    </a> -->
-                    <!-- </form> -->
                 </div>
 
 
                 <div id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
                     <h3 class="widget-title">Loại Sách</h3>
-                    <ul class="product-categories">
+                    <!-- <ul class="product-categories">
                         <li class="cat-item cat-item-11">
                             <a (click)="refreshBookList();">Tất Cả Sách</a>
                         </li>
-                    </ul>
+                    </ul> -->
                     <ul class="product-categories" *ngFor="let category of bookCategoryService.categories
                      | slice: startPageCategories:paginationLimitCategories;">
                         <li *ngIf="category._id==bookFilter.category_id" class="cat-item cat-item-11">

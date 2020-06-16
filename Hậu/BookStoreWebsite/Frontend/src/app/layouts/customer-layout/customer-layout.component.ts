@@ -352,5 +352,15 @@ export class CustomerLayoutComponent implements OnInit {
     this.ngOnInit();
   }
 
-
+  //search
+  InputSearch = "";
+  getInputSearch(event) {
+    this.InputSearch = event.target.value;
+    console.log(this.InputSearch)
+  }
+  Search(){
+    if(this.InputSearch!=""){
+      return this._router.navigate(['/booksCategory/' + `/${this.InputSearch}`]);
+    }
+  }
 }

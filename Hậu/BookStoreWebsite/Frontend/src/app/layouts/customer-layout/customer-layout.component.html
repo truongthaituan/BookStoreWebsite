@@ -712,8 +712,8 @@
                             <span class="inputicon">
                                 <i class="fa fa-search"  aria-hidden="true" style="font-size: 16px;"></i>
                             </span>
-                            <input class="searchHeader" placeholder="Tìm kiếm trên Book Store" type="text">
-                            <a class="buttonSearch" type="button">Tìm Kiếm</a>
+                            <input class="searchHeader" placeholder="Tìm kiếm trên Book Store" type="text" (change)="getInputSearch($event)">
+                            <a class="buttonSearch" type="button" (click)="Search()">Tìm Kiếm</a>
                         </div>
                         <!-- <li id="menu-item-29" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-29 vc-menu-item vc-d-0 vc-mm-layout-full"><a href="../../shop/index.html" class="nav-link"><span class="vc-label">Cửa Hàng</span></a></li>
                         <li id="menu-item-151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-151 vc-menu-item vc-d-0 vc-mm-layout-full"><a href="#" class="nav-link"><span class="vc-label">Liên Hệ</span></a>
