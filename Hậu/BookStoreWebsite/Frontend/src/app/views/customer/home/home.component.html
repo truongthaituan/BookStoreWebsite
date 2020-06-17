@@ -543,6 +543,7 @@
                                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                          instock sale featured shipping-taxable purchasable product-type-simple">
                                         <div class="product-wrap">
+                                         <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                             <div class="product-image">
                                                 <div class="catalog-image">
                                                     <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -579,15 +580,38 @@
 
 
                                             <!-- end product-image -->
-                                            <div class="product-content">
+                                             <!-- Sale -->
+                                                <div *ngIf="item.sale!=0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
 
-                                                <h4 class="product_title">
-                                                    <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                </h4>
-                                                <span class="price">
-                                                        <span class="woocommerce-Price-amount amount" id="priceBook">
-                                                            {{item.priceBook | currency:"VND"}}</span></span>
-                                            </div>
+                                                    <del style="font-size: 12px">
+                                                        <span class="woocommerce-Price-amount amount" >
+                                                            {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </del>
+                                                    </span>
+                                                </div>
+                                                <!-- Don't Sale -->
+                                                <div *ngIf="item.sale==0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+                                                    </span>
+                                                </div>
                                             <!-- end product-content -->
                                         </div>
                                     </div>
@@ -709,6 +733,7 @@
                                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                          instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
+                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -745,15 +770,37 @@
 
 
                                                 <!-- end product-image -->
-                                                <div class="product-content">
-
+                                                 <!-- Sale -->
+                                                <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
-
                                                     <span class="price">
-                                                        <span class="woocommerce-Price-amount amount" id="priceBook">
-                                                            {{item.priceBook | currency:"VND"}}</span></span>
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+
+                                                    <del style="font-size: 12px">
+                                                        <span class="woocommerce-Price-amount amount" >
+                                                            {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </del>
+                                                    </span>
+                                                </div>
+                                                <!-- Don't Sale -->
+                                                <div *ngIf="item.sale==0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+                                                    </span>
                                                 </div>
                                                 <!-- end product-content -->
                                             </div>
@@ -783,6 +830,7 @@
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
+                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -819,15 +867,37 @@
 
 
                                                 <!-- end product-image -->
-                                                <div class="product-content">
-
+                                                 <!-- Sale -->
+                                                <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
-
                                                     <span class="price">
-                                                    <span class="woocommerce-Price-amount amount" id="priceBook">
-                                                        {{item.priceBook | currency:"VND"}}</span></span>
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+
+                                                    <del style="font-size: 12px">
+                                                        <span class="woocommerce-Price-amount amount" >
+                                                            {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </del>
+                                                    </span>
+                                                </div>
+                                                <!-- Don't Sale -->
+                                                <div *ngIf="item.sale==0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+                                                    </span>
                                                 </div>
                                                 <!-- end product-content -->
                                             </div>
@@ -857,6 +927,7 @@
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
+                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -893,15 +964,37 @@
 
 
                                                 <!-- end product-image -->
-                                                <div class="product-content">
-
+                                                 <!-- Sale -->
+                                                <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
-
                                                     <span class="price">
-                                                    <span class="woocommerce-Price-amount amount" id="priceBook">
-                                                        {{item.priceBook | currency:"VND"}}</span></span>
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+
+                                                    <del style="font-size: 12px">
+                                                        <span class="woocommerce-Price-amount amount" >
+                                                            {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </del>
+                                                    </span>
+                                                </div>
+                                                <!-- Don't Sale -->
+                                                <div *ngIf="item.sale==0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+                                                    </span>
                                                 </div>
                                                 <!-- end product-content -->
                                             </div>
@@ -931,6 +1024,7 @@
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
+                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -967,15 +1061,37 @@
 
 
                                                 <!-- end product-image -->
-                                                <div class="product-content">
-
+                                                 <!-- Sale -->
+                                                <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
-
                                                     <span class="price">
-                                                    <span class="woocommerce-Price-amount amount" id="priceBook">
-                                                        {{item.priceBook | currency:"VND"}}</span></span>
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+
+                                                    <del style="font-size: 12px">
+                                                        <span class="woocommerce-Price-amount amount" >
+                                                            {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </del>
+                                                    </span>
+                                                </div>
+                                                <!-- Don't Sale -->
+                                                <div *ngIf="item.sale==0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+                                                    </span>
                                                 </div>
                                                 <!-- end product-content -->
                                             </div>
@@ -1464,14 +1580,14 @@
                         <div class="col-12 col-md-6 col-lg-3 product type-product
                         status-publish has-post-thumbnail product_cat-budgeting-and-finance 
                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
-                         instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
+                         instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of BookByCategory  |
                         paginate: { itemsPerPage: 4,currentPage: p }">
-                            <div class="product-wrap" style="height: 270px;">
+                            <div class="product-wrap" >
                                 <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                 <div class="product-image">
                                     <div class="catalog-image">
                                         <button (click)="detailBook(item);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">
-                               <img width="207" height="265" src="{{item.imgBook}}"
+                               <img width="169" height="169" src="{{item.imgBook}}"
                                 class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
                                  alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
                                     <div class="button yith-wcqv-button" data-product_id="78">
@@ -1483,10 +1599,7 @@
                                     <div class="product-buttons">
                                         <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" id="btnAddToCart" data-quantity="1" class="button" (click)="addToCart(item)">Add to cart</a>
                                         </div>
-                                        <!-- <div class="yith_compare_btn">
-                                            <div class="woocommerce product compare-button">
-                                                <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
-                                        </div> -->
+                                 
                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                             <div class="yith-wcwl-add-button show" style="display:block">
                                                 <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
@@ -1499,15 +1612,38 @@
                                     </div>
                                 </div>
                                 <!-- end product-image -->
-                                <div class="product-content">
+                            <!-- Sale -->
+                                                <div *ngIf="item.sale!=0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
 
-                                    <h4 class="product_title">
-                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                    </h4>
-                                    <span class="price">
-                   <span class="woocommerce-Price-amount amount" id="priceBook" >
-                       {{item.priceBook | currency:"VND"}}</span></span>
-                                </div>
+                                                    <del style="font-size: 12px">
+                                                        <span class="woocommerce-Price-amount amount" >
+                                                            {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </del>
+                                                    </span>
+                                                </div>
+                                                <!-- Don't Sale -->
+                                                <div *ngIf="item.sale==0" class="product-content">
+                                                    <h4 class="product_title">
+                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                    </h4>
+                                                    <span class="price">
+                                                        <ins>
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                {{item.priceBook | currency:"VND"}}
+                                                    </span>
+                                                    </ins>
+                                                    </span>
+                                                </div>
                                 <!-- end product-content -->
                             </div>
 

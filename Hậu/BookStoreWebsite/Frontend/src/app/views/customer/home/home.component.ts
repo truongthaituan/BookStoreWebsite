@@ -372,6 +372,7 @@ export class HomeComponent implements OnInit {
 
 	checkedAddBook = true;
 	addToCart(selectedBook: Book) {
+		this.getBookByCategory(selectedBook.categoryID)
 		this.addABook = selectedBook.nameBook;
 		var CartBook = [];    //lưu trữ bộ nhớ tạm cho localStorage "CartBook"
 		var dem = 0;            //Vị trí thêm sách mới vào localStorage "CartBook" (nếu sách chưa tồn tại)
@@ -428,4 +429,15 @@ export class HomeComponent implements OnInit {
 	goToCartBook(){
 		return this._router.navigate(['/cartBook']);
 	}
+	BookByCategory:any
+	getBookByCategory(idCategory){
+		this.bookService.getBookByCategoryId(idCategory)
+		.subscribe(resCategoryData => {
+
+		  this.BookByCategory = resCategoryData as Book[];
+
+		});
+	}
 }
+
+

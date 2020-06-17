@@ -54,22 +54,22 @@ async function getUserIDByCusID(req, res) {
     }
 }
 //Đếm sách trong từng OrderDetail của User
-async function CreateDataBookCount(data, orderDetail, user, book) {
-    let isExist1 = (data2, orderDetailCheck, userCheck, bookBook) => {
+async function CreateDataBookCount(data, orderDetail, book) {
+    let isExist1 = (data2, orderDetailCheck, bookBook) => {
         for (var key in data2) {
-            if (data2[key].userID == userCheck.userID) { //check UserID
+    
                 if (data2[key].bookID == bookBook) {
                     data2[key].count += orderDetailCheck.count;
                     return data2;
                 }
-            }
+            
         }
         var dataReturn = {}
-        dataReturn = { "userID": userCheck.userID, "bookID": bookBook, "count": orderDetailCheck.count }
+        dataReturn = { "bookID": bookBook, "count": orderDetailCheck.count }
         data2.push(dataReturn);
         return data2;
     }
-    return isExist1(data, orderDetail, user, book);
+    return isExist1(data, orderDetail, book);
 }
 async function CreateDataCategoryCount(data, orderDetail, user, category) {
     let isExist1 = (data2, orderDetailCheck, userCheck, bookCategory) => {
@@ -109,13 +109,14 @@ router.get('/Book', function(req, res) {
             const orderArray = await getAllOrder(req, res);
             // console.log("DataBook")
             for (var index in orderArray) {
-                const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
+                // const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
                 const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
                 for (var index2 in orderDetailArray) {
                     // DataBook.push(orderDetailArray[index2]);
                     //kiểm tra xem id sách có tồn tại trong danh sách
                     //nếu chưa thì thêm , có rồi thì cộng
-                    DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], userInOrder, orderDetailArray[index2].bookID)
+                    // DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], userInOrder, orderDetailArray[index2].bookID)
+DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], orderDetailArray[index2].bookID)
 
                 }
             }
@@ -131,7 +132,6 @@ router.get('/Book', function(req, res) {
                 const abook = await getBookByBookID(DataBook[index].bookID, res);
                 // console.log(abook)
                 BookList.push(abook);
-
             }
             // id user
             res.json(BookList);
