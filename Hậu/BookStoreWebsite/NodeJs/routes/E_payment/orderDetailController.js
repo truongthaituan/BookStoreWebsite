@@ -31,7 +31,7 @@ router.post('/', function(req, res) {
     neworderDetail.bookID = req.body.bookID;
     neworderDetail.count = req.body.count;
     neworderDetail.price = req.body.price;
-
+    neworderDetail.sale = req.body.sale;
     neworderDetail.save(function(err, insertedorderDetail) {
         if (err) {
             console.log('Err Saving orderDetail');
@@ -50,7 +50,7 @@ router.put('/:id', function(req, res) {
                     bookID: req.body.bookID,
                     count: req.body.count,
                     price: req.body.price,
-
+                    sale: req.body.sale,
                 }
             }, {
                 new: true

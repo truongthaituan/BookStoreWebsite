@@ -117,12 +117,32 @@ export class OrderHistoryComponent implements OnInit {
     return  n2.split('').reverse().join('') + 'VNĐ';
 }
   // get order by userID
+  IsCheckNew=false;
+  IsCheckInprogress=false;
+  IsCheckDone=false;
   getOrderByUserID(id) {
     this._order.getOrderByUserId(id).subscribe(
       listOrder => {
         this.list_Order = listOrder as Order[];
-        console.log(id)
-        console.log(this.list_Order)
+
+        for(let index in this.list_Order){
+          if(this.list_Order[index].status=="New"&& this.list_Order[index].paymentOption=="Cash")
+          {
+            this.IsCheckNew=true;
+            continue;
+          }
+          if((this.list_Order[index].status=='New'&&this.list_Order[index].paymentOption=='Online')||this.list_Order[index].status=='Inprogress'){
+            this.IsCheckInprogress=true;
+            continue;
+          }
+          if(this.list_Order[index].status=='Done')
+          {
+            this.IsCheckDone=true;
+            continue;
+          }
+        
+        }
+  
       },
       error => console.log(error)
     );

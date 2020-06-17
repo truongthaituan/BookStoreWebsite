@@ -5,7 +5,7 @@ const orderDetailSchema = mongoose.Schema({
     bookID: String,
     count: Number,
     price: Number,
-
+    sale: Number,
 });
 
 module.exports = mongoose.model('orderDetails', orderDetailSchema);

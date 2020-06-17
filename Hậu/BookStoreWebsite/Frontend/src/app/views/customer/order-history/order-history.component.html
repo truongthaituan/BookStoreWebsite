@@ -28,6 +28,10 @@ js-comp-ver-4.9.2 vc_responsive ">
                             </div>
                             <!-- new (Cash)-->
                             <div class="row" id="order-history">
+
+                                <div *ngIf="!IsCheckNew" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
+                                    <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Chờ Xác Nhận </b>
+                                </div>
                                 <div *ngFor="let order of list_Order; let $index=index;">
 
                                     <div class="order-container" *ngIf="order.status=='New'&&order.paymentOption=='Cash'" style="cursor: pointer;">
@@ -62,7 +66,14 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                                 <p>{{book.nameBook}}</p>
                                                             </div>
                                                             <div class="col-sm-2">
-                                                                <p>{{orderDetail.price|currency:"VND"}}</p>
+                                                                <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
+                                                                    <br>
+                                                                    <span *ngIf="orderDetail.sale!=0" style="top:-10px;position: relative;font-size: 14px;">
+                                                                    <span style="text-decoration: line-through;color:darkgrey;">
+                                                                        {{orderDetail.price|currency:"VND"}}
+                                                                    </span><b style="color:red;"> | -{{orderDetail.sale}}%</b>
+                                                                    </span>
+                                                                </p>
                                                             </div>
                                                             <div class="col-sm-1">
                                                                 <p>x {{orderDetail.count}}</p>
@@ -73,8 +84,8 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
+
                                 </div>
                                 <!-- end of order-container -->
 
@@ -84,6 +95,10 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <!-- inprogress -->
 
                             <div id="future-orders">
+
+                                <div *ngIf="!IsCheckInprogress" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
+                                    <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đang Giao </b>
+                                </div>
                                 <div *ngFor="let order of list_Order; let $index=index;">
                                     <div class="order-container" *ngIf="(order.status=='New'&&order.paymentOption=='Online')||order.status=='Inprogress'">
                                         <div (click)="expandRow($index)">
@@ -112,7 +127,14 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                                 <p>{{book.nameBook}}</p>
                                                             </div>
                                                             <div class="col-sm-2">
-                                                                <p>{{orderDetail.price|currency:"VND"}}</p>
+                                                                <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
+                                                                    <br>
+                                                                    <span *ngIf="orderDetail.sale!=0" style="top:-10px;position: relative;font-size: 14px;">
+                                                                    <span style="text-decoration: line-through;color:darkgrey;">
+                                                                        {{orderDetail.price|currency:"VND"}}
+                                                                    </span><b style="color:red;"> | -{{orderDetail.sale}}%</b>
+                                                                    </span>
+                                                                </p>
                                                             </div>
                                                             <div class="col-sm-1">
                                                                 <p>x {{orderDetail.count}}</p>
@@ -129,6 +151,9 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <!-- end of future-orders -->
                             <!-- done    -->
                             <div id="done-orders">
+                                <div *ngIf="!IsCheckDone" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
+                                    <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đã Giao </b>
+                                </div>
                                 <div *ngFor="let order of list_Order; let $index=index;">
                                     <div class="order-container" *ngIf="order.status=='Done'">
                                         <div (click)="expandRow($index)">
@@ -157,7 +182,14 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                                 <p>{{book.nameBook}}</p>
                                                             </div>
                                                             <div class="col-sm-2">
-                                                                <p>{{orderDetail.price|currency:"VND"}}</p>
+                                                                <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
+                                                                    <br>
+                                                                    <span *ngIf="orderDetail.sale!=0" style="top:-10px;position: relative;font-size: 14px;">
+                                                                    <span style="text-decoration: line-through;color:darkgrey;">
+                                                                        {{orderDetail.price|currency:"VND"}}
+                                                                    </span><b style="color:red;"> | -{{orderDetail.sale}}%</b>
+                                                                    </span>
+                                                                </p>
                                                             </div>
                                                             <div class="col-sm-1">
                                                                 <p>x {{orderDetail.count}}</p>

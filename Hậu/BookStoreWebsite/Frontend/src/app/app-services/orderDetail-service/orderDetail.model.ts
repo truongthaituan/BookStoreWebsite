@@ -5,4 +5,5 @@ export class OrderDetail {
     bookID: String;
     count: Number;
     price: Number;
+    sale:Number;
 }

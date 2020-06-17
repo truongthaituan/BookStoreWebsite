@@ -262,7 +262,7 @@ export class BookCartPaymentComponent implements OnInit {
           this.orderDetails.count = this.CartBook[i].count;
           this.orderDetails.orderID = orderdata['_id'];
           this.orderDetails.price = this.CartBook[i].priceBook;
-        
+          this.orderDetails.sale =  this.CartBook[i].sale;
           //post order Detail
           this.postOrderDetail(this.orderDetails);
 
