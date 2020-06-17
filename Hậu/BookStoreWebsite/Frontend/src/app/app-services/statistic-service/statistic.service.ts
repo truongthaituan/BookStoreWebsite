@@ -30,4 +30,11 @@ export class StatisticService {
   TotalPriceOnYear(yearCheck){
     return this._http.get(this.baseURL+'/TotalPriceOnYear/'+yearCheck);
   }
+  BestUserOnYear(yearCheck){
+    return this._http.get(this.baseURL+'/BestUser/'+yearCheck);
+  }
+  BestUserOnMonth(body: any){
+    return this._http.post(this.baseURL+'/BestUserOnMonth', body);
+  }
+
 }

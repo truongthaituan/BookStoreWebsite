@@ -189,8 +189,6 @@ router.post('/TotalPriceOnMonth', function(req, res) {
         console.log(req.body.yearCheck + " " + monthCheck)
             // today = today.toString().substring(0, 24);
         const orderArray = await getAllOrder(req, res);
-
-
         for (var index in orderArray) {
             if (orderArray[index].status == 'Done') {
                 if (await checkMonth(yearCheck, monthCheck, orderArray[index].orderDate) == true) {
@@ -382,28 +380,61 @@ async function BestUser(data, order, userInOrder) {
     }
     return isExist1(data, order, userInOrder);
 }
-//
-router.get('/BestUser', function(req, res) {
+//khách hàng tiềm năng theo năm
+router.get('/BestUser/:year', function(req, res) {
     async function run() {
         let arrayUserBuyBest = []
         let temp = 0
         const orderArray = await getAllOrder(req, res);
+        var yearCheck = req.params.year
         for (var index in orderArray) {
+            if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
             if (orderArray[index].status == 'Done') {
-                console.log(orderArray[index])
                 const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
-
                 arrayUserBuyBest = await BestUser(arrayUserBuyBest, orderArray[index], userInOrder)
             }
+        }else{
+            var book = {}
+            book = { "userID": "not found", "totalPrice": 0.0 }
+            arrayUserBuyBest.push(book);
         }
+    }
         arrayUserBuyBest.sort(function(a, b) {
-            return b.count - a.count;
+            return b.totalPrice - a.totalPrice;
         });
-        //show 10 book most 
-
-        res.json(arrayUserBuyBest);
+        //show khách hàng tiềm năng
+        res.json(arrayUserBuyBest[0]);
         return
     }
     run();
 });
+//Month Example: Jul Jun ....
+router.post('/BestUserOnMonth', function(req, res) {
+    async function run() {
+        let arrayUserBuyBest = []
+        var yearCheck = req.body.yearCheck
+        var monthCheck = req.body.monthCheck
+        console.log(req.body.yearCheck + " " + monthCheck)
+        const orderArray = await getAllOrder(req, res);
+        for (var index in orderArray) {
+                if (await checkMonth(yearCheck, monthCheck, orderArray[index].orderDate) == true) {
+                    if (orderArray[index].status == 'Done') {
+                        const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
+                        arrayUserBuyBest = await BestUser(arrayUserBuyBest, orderArray[index], userInOrder)
+                    }
+                }else{
+                    var book = {}
+                    book = { "userID": "not found", "totalPrice": 0.0 }
+                    arrayUserBuyBest.push(book);
+                }
+        }
+        arrayUserBuyBest.sort(function(a, b) {
+            return b.totalPrice - a.totalPrice;
+        });
+        //show khách hàng tiềm năng
+        res.json(arrayUserBuyBest[0]);
+        return
+    }
+    run();
+})
 module.exports = router;

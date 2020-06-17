@@ -79,7 +79,7 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-6 col-sm-6">
+                            <!-- <div class="col-lg-2 col-md-6 col-sm-6">
                                 <div class="form-check">
                                     <label class="form-check-label">
 									<input class="form-check-input" type="checkbox"  id="week" value="" >
@@ -92,7 +92,7 @@
                                         <input matInput readonly>
                                     </mat-form-field>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="col-lg-2 col-md-6 col-sm-6"> -->
                             <!-- <a mat-mini-fab style="border-radius: 20px;border-color: transparent;background-color: #4caf50;">
 								<mat-icon>search</mat-icon>
@@ -103,10 +103,6 @@
                     </fieldset>
 
 
-
-
-
-
                     <div class="row">
 
                         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -115,9 +111,8 @@
                                     <div class="card-icon">
                                         <i class="material-icons">face</i>
                                     </div>
-                                    <p class="card-category">Khách Hàng</p>
-                                    <h3 class="card-title">49/50
-                                        <small>GB</small>
+                                    <p *ngIf = "bestUserName != ''" class="card-category">{{ bestUserName }}</p>
+                                    <h3 class="card-title">{{ totalYearOfCustomer | currency:'VND' }}      
                                     </h3>
                                 </div>
                                 <div class="card-footer">
@@ -135,34 +130,13 @@
                                         <i class="material-icons">store</i>
                                     </div>
                                     <p class="card-category">Doanh Thu</p>
-                                    <h3 *ngIf="onYear && !onMonth" class="card-title">{{ totalYear | currency:'VND' }}</h3>
-                                    <h3 *ngIf="onYear && onMonth" class="card-title">{{ totalYear | currency:'VND' }}</h3>
+                                    <h3 class="card-title">{{ totalYear | currency:'VND' }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons text-danger">store</i>
                                         <a href="javascript:;">Doanh Thu Cửa Hàng</a>
-                                        <!-- 	<form class="woocommerce-ordering" method="get">
-							<select name="orderby" class="orderby">
-				<option value="menu_order"  selected='selected'>Default sorting</option>
-				<option value="popularity" >Sort by popularity</option>
-				<option value="rating" >Sort by average rating</option>
-				<option value="date" >Sort by newness</option>
-				<option value="price" >Sort by price: low to high</option>
-				<option value="price-desc" >Sort by price: high to low</option>
-		</select>
-						</form>-->
-                                        <!-- <mat-form-field>
-							<mat-select [(ngModel)]="selectedValue" name="food">
-								<mat-option *ngFor="let food of foods" [value]="food.value">
-								  {{food.viewValue}}
-								</mat-option>
-							  </mat-select>
-							
-						  </mat-form-field>
-							<a mat-mini-fab style="border-radius: 20px;border-color: transparent;background-color: #4caf50;">
-							  <mat-icon>search</mat-icon>
-							</a> -->
+                                    
                                     </div>
 
                                 </div>
