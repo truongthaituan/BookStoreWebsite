@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatisticService } from 'src/app/app-services/statistic-service/statistic.service';
+import { UserService } from 'src/app/app-services/user-service/user.service';
+import { SocialaccountService } from 'src/app/app-services/socialAccount-service/socialaccount.service';
 declare var $:any;       
 class TotalMonth{
   yearCheck: string;
@@ -43,7 +45,8 @@ export class DashboardComponent implements OnInit {
    radarChartType = 'radar';
 
  
-  constructor(private _router: Router, private statisticService: StatisticService) { }
+  constructor(private _router: Router, private statisticService: StatisticService,
+     private userService: UserService, private accountSocialService: SocialaccountService) { }
 
     ngOnInit() {
     this.doughnutChartLabels =  ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
@@ -67,8 +70,30 @@ export class DashboardComponent implements OnInit {
     //   $('#field_month').addClass("readonly-wrapper");
     //   $('#select_month').addClass("readonly-block");
     // }
+    this.statisticService.TotalPriceOnYear(2016).subscribe(total => {
+      console.log(total)
+      this.totalYear = total
+    }) 
+    this.statisticService.BestUserOnYear(2016).subscribe(total => {
+      console.log(total)
+      this.bestUser = total
+      this.totalYearOfCustomer =  this.bestUser.totalPrice
+      if(this.bestUser.userID == 'not found'){
+        this.bestUserName = ""
+      }else{
+        this.userService.getUserById(this.bestUser.userID).subscribe(res => {
+          console.log(res)
+          this.bestUserShow = res
+          this.bestUserName = this.bestUserShow.username
+        })
+      }
+    })
   }
   totalYear: any = 0.0
+  bestUser: any
+  bestUserShow: any
+  bestUserName : any
+  totalYearOfCustomer: any = 0.0
   onYear: boolean = false;
   onMonth: boolean = false;
   selectedYear: any
@@ -78,8 +103,27 @@ export class DashboardComponent implements OnInit {
     // alert("selected --->"+year);
     this.selectedYear = year
     this.statisticService.TotalPriceOnYear(year).subscribe(total => {
-      console.log(total)
       this.totalYear = total
+     
+    })
+
+    this.statisticService.BestUserOnYear(year).subscribe(total => {
+      this.bestUser = total
+      this.totalYearOfCustomer =  this.bestUser.totalPrice
+      if(this.bestUser.userID == 'not found'){
+        this.bestUserName = ""
+      }else{
+        this.userService.getUserById(this.bestUser.userID).subscribe(res => {
+          console.log(res)
+          this.bestUserShow = res
+          this.bestUserName = this.bestUserShow.username
+        })
+         this.accountSocialService.getUserByID(this.bestUser.userID).subscribe(res => {
+              console.log(res)
+              this.bestUserShow = res
+              this.bestUserName = this.bestUserShow.username
+            })
+      }
     })
   }
   checkValue(event: any){
@@ -90,11 +134,49 @@ export class DashboardComponent implements OnInit {
         console.log(total)
         this.totalYear = total
       }) 
+      this.statisticService.BestUserOnMonth(this.totalMonth).subscribe(total => {
+        console.log(total)
+        this.bestUser = total
+        this.totalYearOfCustomer =  this.bestUser.totalPrice
+        if(this.bestUser.userID == 'not found'){
+          this.bestUserName = ""
+        }else{
+          this.userService.getUserById(this.bestUser.userID).subscribe(res => {
+            console.log(res)
+            this.bestUserShow = res
+            this.bestUserName = this.bestUserShow.username
+          })
+           this.accountSocialService.getUserByID(this.bestUser.userID).subscribe(res => {
+                console.log(res)
+                this.bestUserShow = res
+                this.bestUserName = this.bestUserShow.username
+              })
+        }
+      })
     }else{
       this.onMonth = false
       this.statisticService.TotalPriceOnYear(this.selectedYear).subscribe(total => {
         console.log(total)
         this.totalYear = total
+      })
+      this.statisticService.BestUserOnYear(this.selectedYear).subscribe(total => {
+        console.log(total)
+        this.bestUser = total
+         this.totalYearOfCustomer =  this.bestUser.totalPrice
+         if(this.bestUser.userID == 'not found'){
+          this.bestUserName = ""
+        }else{
+          this.userService.getUserById(this.bestUser.userID).subscribe(res => {
+            console.log(res)
+            this.bestUserShow = res
+            this.bestUserName = this.bestUserShow.username
+          })
+           this.accountSocialService.getUserByID(this.bestUser.userID).subscribe(res => {
+                console.log(res)
+                this.bestUserShow = res
+                this.bestUserName = this.bestUserShow.username
+              })
+        }
       })
     }
  }
@@ -104,9 +186,28 @@ export class DashboardComponent implements OnInit {
     console.log(this.selectedYear)
     this.totalMonth.yearCheck = this.selectedYear
     this.totalMonth.monthCheck = month
+    //TotalMonth include yearCheck and monthCheck
     this.statisticService.TotalPriceOnMonth(this.totalMonth).subscribe(total => {
       console.log(total)
       this.totalYear = total
+    })
+    this.statisticService.BestUserOnMonth(this.totalMonth).subscribe(total => {
+      this.bestUser = total
+      this.totalYearOfCustomer =  this.bestUser.totalPrice
+      if(this.bestUser.userID == 'not found'){
+        this.bestUserName = ""
+      }else{
+        this.userService.getUserById(this.bestUser.userID).subscribe(res => {
+          console.log(res)
+          this.bestUserShow = res
+          this.bestUserName = this.bestUserShow.username
+        })
+         this.accountSocialService.getUserByID(this.bestUser.userID).subscribe(res => {
+              console.log(res)
+              this.bestUserShow = res
+              this.bestUserName = this.bestUserShow.username
+            })
+      }
     })
   }
 
