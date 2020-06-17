@@ -31,7 +31,9 @@ js-comp-ver-4.9.2 vc_responsive ">
 
                                 <td colspan="2" style="float: center;"><button class="btn btn-sm btn-info" type="button" (click)="goToBookCart(discountCode)">Dùng Mã <i class="fa fa-ticket"></i> </button></td>
                             </tr>
-
+                            <tr *ngIf="!IsDisCount" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
+                                <td colspan="6" style="top:15px;position: relative;text-align: center;">Bạn Không Còn Mã Khuyến Mãi Nào </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -82,9 +84,8 @@ js-comp-ver-4.9.2 vc_responsive ">
                     <h3 class="widget-title">Tài Khoản</h3>
                     <ul class="product-categories">
                         <li class="cat-item cat-item-11">
-                            <a href="#">Thông Tin Tài Khoản</a>
-                            <a href="#">Thông Tin Liên Hệ</a>
-                            <a href="#">Phương Thức Thanh Toán</a>
+                            <a *ngIf="loginBy == 'loginbt'" (click)="moveToProfileDetail();">Thông Tin Tài Khoản</a>
+                            <a *ngIf="loginBy == 'loginSocial'" (click)="moveToProfileAccountSocial();">Thông Tin Tài Khoản</a>
                             <a href="#">Sách Yêu Thích</a>
                         </li>
                     </ul>

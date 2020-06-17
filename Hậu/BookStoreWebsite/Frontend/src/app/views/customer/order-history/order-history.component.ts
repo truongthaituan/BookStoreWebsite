@@ -32,7 +32,7 @@ export class OrderHistoryComponent implements OnInit {
   //thông tin login
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin = localStorage.getItem('statusLogin');
-
+  loginBy: String = ""
   ngOnInit() {
     this.script_Frontend();
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
@@ -40,7 +40,7 @@ export class OrderHistoryComponent implements OnInit {
     this.getAllCustomer();
     this.getAllOrderDetail();
     this.getAllBook();
-    
+    this.loginBy = localStorage.getItem('loginBy');
     //set value giỏ hàng trên thanh head 
     this.getTotalCountAndPrice();
     // this.sortByDate();
@@ -198,5 +198,11 @@ export class OrderHistoryComponent implements OnInit {
   }
   expandRow(index: number): void {
     this.expandedIndex = index === this.expandedIndex ? -1 : index;
+  }
+  moveToProfileDetail(){
+    this._router.navigate(['/accountProfile'])
+  }
+  moveToProfileAccountSocial(){
+    this._router.navigate(['/accountProfileSocial'])
   }
 }

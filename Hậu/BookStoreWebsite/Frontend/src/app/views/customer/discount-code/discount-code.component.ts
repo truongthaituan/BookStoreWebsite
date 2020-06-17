@@ -17,10 +17,11 @@ export class DiscountCodeComponent implements OnInit {
   //thông tin login
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin = localStorage.getItem('statusLogin');
-
+  loginBy: String = ""
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
+    this.loginBy = localStorage.getItem('loginBy');
     this.getDisCountCodeByUserID();
   }
  
@@ -36,13 +37,24 @@ export class DiscountCodeComponent implements OnInit {
     localStorage.setItem("DiscountCode",JSON.stringify(Object));
     this._router.navigate(['/cartBook'])
   }
+  IsDisCount=true
   getDisCountCodeByUserID(){
     this._discountCode.getDiscountCodeByUserIDAndStatus(this.accountSocial._id).subscribe(
       listDiscountCode => {
         this.discountCodes = listDiscountCode as DiscountCode[]
-        console.log(this.discountCodes);
+        console.log(this.discountCodes.length)
+        if(this.discountCodes.length==0)
+        {
+          this.IsDisCount=false
+        }
       },
       error => console.log(error)
     );
+  }
+  moveToProfileDetail(){
+    this._router.navigate(['/accountProfile'])
+  }
+  moveToProfileAccountSocial(){
+    this._router.navigate(['/accountProfileSocial'])
   }
 }
