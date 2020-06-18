@@ -346,16 +346,16 @@ export class BookCartPaymentComponent implements OnInit {
             [{
               "item_list": {
                 "items": this.CartBook2
-                // ,"shipping_address": {
-                //   "recipient_name": "Hannah Lu",
-                //   "line1": "1602 Crane ct",
-                //   "line2": "",
-                //   "city": "San Jose",
-                //   "state": "CA",
-                //   "phone": "4084217591",
-                //   "postal_code": "95052",
-                //   "country_code": "US"
-                // }
+                ,"shipping_address": {
+                  "recipient_name": this.customer.name,
+                  "line1": this.customer.address,
+                  "line2": "",
+                  "city": ".",
+               
+                  "phone": this.customer.phone,
+                  "postal_code": ".",
+                  "country_code": "VN"
+                }
               },
               "amount": {
                 "currency": "USD",
