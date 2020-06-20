@@ -255,12 +255,12 @@ router.get('/Data/:userID', function(req, res) {
         //recommend sale
         //recommend priceBook
         // const test = await getPerson(req.body.userID)
-        const test = await getAllBook();
-        for (var index in test) {
+        // const test = await getAllBook();
+        // for (var index in test) {
 
-            const testUpdate = await UpdateBookSaleByBookID(test[index]._id)
-                // console.log(testUpdate)
-        }
+        //     const testUpdate = await UpdateBookSaleByBookID(test[index]._id)
+        //         // console.log(testUpdate)
+        // }
 
         //test data
         // const a = await getPerson(req.body.userID)
@@ -292,54 +292,54 @@ async function getBookByListID(req) {
     }
 }
 
-async function getAllBook(req, res) {
-    try {
-        const getall = book.find({})
+// async function getAllBook(req, res) {
+//     try {
+//         const getall = book.find({})
 
-        return getall
-    } catch (error) {
+//         return getall
+//     } catch (error) {
 
-    }
-}
-async function UpdateBookSaleByBookID(req) {
-    try {
-        const testUpdate = await averageRating(req)
-        console.log(testUpdate)
-        const update = await book.findByIdAndUpdate(req, {
-            $set: {
-                rate: testUpdate
-            }
-        }, {
-            new: true
-        })
-        return update
-    } catch (error) {
-        console.log(error)
-    }
-}
+//     }
+// }
+// async function UpdateBookSaleByBookID(req) {
+//     try {
+//         const testUpdate = await averageRating(req)
+//         console.log(testUpdate)
+//         const update = await book.findByIdAndUpdate(req, {
+//             $set: {
+//                 rate: testUpdate
+//             }
+//         }, {
+//             new: true
+//         })
+//         return update
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
-async function getRateByBookID(req) {
-    try {
-        const listRate = await rating.find({
-            bookID: req
-        })
-        return listRate
-    } catch (error) {
+// async function getRateByBookID(req) {
+//     try {
+//         const listRate = await rating.find({
+//             bookID: req
+//         })
+//         return listRate
+//     } catch (error) {
 
-    }
-}
-async function averageRating(req) {
-    const listRate = await getRateByBookID(req)
+//     }
+// }
+// async function averageRating(req) {
+//     const listRate = await getRateByBookID(req)
 
-    let total = parseFloat(0)
-    for (let index in listRate) {
-        total = total + parseFloat(listRate[index].star)
-    }
-    let average = Math.round(2 * (total / listRate.length)) / 2;
-    if (listRate.length == 0)
-        return { average: 0, count: 0 }
-    else
-        return { average: average, count: listRate.length }
-}
+//     let total = parseFloat(0)
+//     for (let index in listRate) {
+//         total = total + parseFloat(listRate[index].star)
+//     }
+//     let average = Math.round(2 * (total / listRate.length)) / 2;
+//     if (listRate.length == 0)
+//         return { average: 0, count: 0 }
+//     else
+//         return { average: average, count: listRate.length }
+// }
 
 module.exports = router;
