@@ -305,7 +305,7 @@ export class BookDetailComponent implements OnInit {
     this.ratingService.getListRatingAccount(id).subscribe((res) => {
       this.ListRatingAccount = res
       console.log(this.ListRatingAccount)
-      //console.log("Books By Id");
+      console.log("Books By Id---------------------");
       //console.log(res)
     });
   }

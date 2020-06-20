@@ -3,6 +3,7 @@ const router = express.Router();
 const rating = require('../../models/D_action/rating');
 const userAccount = require('../../models/C_permission/user');
 const accountsocials = require('../../models/C_permission/accountsocials');
+const book = require('../../models/A_store/book');
 //rating
 //get all
 router.get('/', function(req, res) {
@@ -29,22 +30,22 @@ router.get('/:ratingID', function(req, res) {
 //post
 router.post('/', function(req, res) {
     async function run() {
+        const add = await addRate(req)
         const updateRateBook = await UpdateRatingAverageBook(req.body.bookID)
-        var newrating = new rating();
-        newrating.bookID = req.body.bookID;
-        newrating.userID = req.body.userID;
-        newrating.star = req.body.star;
-        newrating.review = req.body.review;
-        newrating.save(function(err, insertedrating) {
-            if (err) {
-                console.log('Err Saving rating');
-            } else {
-                res.json(insertedrating);
-            }
-        });
+        res.json(add);
+
     }
     run()
 });
+async function addRate(req) {
+    var newrating = new rating();
+    newrating.bookID = req.body.bookID;
+    newrating.userID = req.body.userID;
+    newrating.star = req.body.star;
+    newrating.review = req.body.review;
+    newrating.save()
+    return newrating;
+}
 
 
 //update
@@ -110,7 +111,7 @@ async function findRatingByUserIDAndBookID(req, res) {
 };
 async function putRate(idRate, req, res) {
     try {
-        const updateRateBook = await UpdateRatingAverageBook(req.body.bookID)
+
         const rateUpdate = await rating.findByIdAndUpdate(idRate, {
             $set: {
                 bookID: req.body.bookID,
@@ -121,7 +122,7 @@ async function putRate(idRate, req, res) {
         }, {
             new: true
         });
-        // console.log(customerArray)
+        const updateRateBook = await UpdateRatingAverageBook(req.body.bookID)
         return rateUpdate;
     } catch (err) {
         return res.status(501).json(err);
@@ -132,6 +133,7 @@ router.post('/UpdateRating', function(req, res) {
     async function run() {
         const rateFind = await findRatingByUserIDAndBookID(req, res);
         const update = await putRate(rateFind[0]._id, req, res)
+
         res.json(update)
 
     }
@@ -152,16 +154,18 @@ router.get('/averageRating/:book_id', function(req, res) {
     run()
 })
 
-async function getRateByBookID(req, res) {
-    try {
-        const listRate = await rating.find({
-            bookID: req.params.book_id
-        })
-        return listRate
-    } catch (error) {
-        return res.status(501).json(err);
-    }
-}
+// async function getRateByBookID(req, res) {
+//     try {
+//         console.log(req.params.book_id)
+//         console.log("------------------------")
+//         const listRate = await rating.find({
+//             bookID: req.params.book_id
+//         })
+//         return listRate
+//     } catch (error) {
+//         return res.status(501).json(err);
+//     }
+// }
 
 
 // lấy các bình luận đánh giá theo bookID
@@ -179,12 +183,16 @@ async function getSosialAccountByOrUserAccountID(req) {
 }
 router.get('/getListRatingAccount/:book_id', function(req, res) {
     async function run() {
-        const listRate = await getRateByBookID(req, res);
+
+        const listRate = await getRateByBookID(req.params.book_id, res);
+        // console.log(listRate)
         const listAccountRate = []
         for (var index in listRate) {
             const user = await getSosialAccountByOrUserAccountID(listRate[index].userID)
             listAccountRate.push({ username: user.username, imageUrl: user.imageUrl, star: listRate[index].star, review: listRate[index].review })
         }
+        // console.log(listAccountRate)
+
         res.json(listAccountRate)
     }
     run();
@@ -196,6 +204,7 @@ router.get('/getListRatingAccount/:book_id', function(req, res) {
 //#region //get average Rating
 async function UpdateRatingAverageBook(req) {
     try {
+        console.log("!@3")
         const testUpdate = await averageRating(req)
         console.log(testUpdate)
         const update = await book.findByIdAndUpdate(req, {
