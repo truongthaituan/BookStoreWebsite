@@ -10,4 +10,6 @@ export class Book {
      seriID: string;
      sale: number;
      count: number;
+     quantity:Number;
+     rate:Number;
 }

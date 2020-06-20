@@ -10,6 +10,8 @@
      imgBook: String,
      seriID: String,
      sale: Number,
+     quantity: Number,
+     rate: Object,
  });
 
  module.exports = mongoose.model('books', bookSchema);

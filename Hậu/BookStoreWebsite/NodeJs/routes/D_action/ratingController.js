@@ -28,25 +28,30 @@ router.get('/:ratingID', function(req, res) {
 
 //post
 router.post('/', function(req, res) {
-    var newrating = new rating();
-    newrating.bookID = req.body.bookID;
-    newrating.userID = req.body.userID;
-    newrating.star = req.body.star;
-    newrating.review = req.body.review;
-    newrating.save(function(err, insertedrating) {
-        if (err) {
-            console.log('Err Saving rating');
-        } else {
-            res.json(insertedrating);
-        }
-    });
+    async function run() {
+        const updateRateBook = await UpdateRatingAverageBook(req.body.bookID)
+        var newrating = new rating();
+        newrating.bookID = req.body.bookID;
+        newrating.userID = req.body.userID;
+        newrating.star = req.body.star;
+        newrating.review = req.body.review;
+        newrating.save(function(err, insertedrating) {
+            if (err) {
+                console.log('Err Saving rating');
+            } else {
+                res.json(insertedrating);
+            }
+        });
+    }
+    run()
 });
 
 
 //update
 router.put('/:id', function(req, res) {
         async function run() {
-            const update = putRate(req.params.id, req, res)
+            const update = await putRate(req.params.id, req, res)
+
             res.json(update);
         }
         run();
@@ -104,8 +109,8 @@ async function findRatingByUserIDAndBookID(req, res) {
     }
 };
 async function putRate(idRate, req, res) {
-
     try {
+        const updateRateBook = await UpdateRatingAverageBook(req.body.bookID)
         const rateUpdate = await rating.findByIdAndUpdate(idRate, {
             $set: {
                 bookID: req.body.bookID,
@@ -186,4 +191,49 @@ router.get('/getListRatingAccount/:book_id', function(req, res) {
 })
 
 
+
+
+//#region //get average Rating
+async function UpdateRatingAverageBook(req) {
+    try {
+        const testUpdate = await averageRating(req)
+        console.log(testUpdate)
+        const update = await book.findByIdAndUpdate(req, {
+            $set: {
+                rate: testUpdate
+            }
+        }, {
+            new: true
+        })
+        return update
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function getRateByBookID(req) {
+    try {
+        const listRate = await rating.find({
+            bookID: req
+        })
+        return listRate
+    } catch (error) {
+
+    }
+}
+async function averageRating(req) {
+    const listRate = await getRateByBookID(req)
+
+    let total = parseFloat(0)
+    for (let index in listRate) {
+        total = total + parseFloat(listRate[index].star)
+    }
+    let average = Math.round(2 * (total / listRate.length)) / 2;
+    if (listRate.length == 0)
+        return { average: 0, count: 0 }
+    else
+        return { average: average, count: listRate.length }
+}
+
+//#endregion
 module.exports = router;

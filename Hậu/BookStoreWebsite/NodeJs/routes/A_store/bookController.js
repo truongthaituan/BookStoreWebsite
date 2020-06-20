@@ -41,6 +41,8 @@ router.post('/', function(req, res) {
     newbook.imgBook = req.body.imgBook;
     newbook.seriID = req.body.seriID;
     newbook.sale = req.body.sale;
+    newbook.quantity = 100;
+    newbook.rate = 0;
     newbook.save(function(err, insertedbook) {
         if (err) {
             console.log('Err Saving book');
@@ -66,6 +68,8 @@ router.put('/:id', function(req, res) {
                     imgBook: req.body.imgBook,
                     seriID: req.body.seriID,
                     sale: req.body.sale,
+                    quantity: req.body.quantity,
+
                 }
             }, {
                 new: true

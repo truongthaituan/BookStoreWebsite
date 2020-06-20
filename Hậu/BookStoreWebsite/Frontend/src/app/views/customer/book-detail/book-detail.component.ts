@@ -174,8 +174,7 @@ export class BookDetailComponent implements OnInit {
     });
     //#endregion
     this.resetForm();
-    this.averageRating = 0
-  this.countRating = 0
+  
     //set độ dài cartBook
     this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 
@@ -186,7 +185,7 @@ export class BookDetailComponent implements OnInit {
     this.getAllAccount();
     this.getRatingsByBookID(this.idBook);
     this.getAllUsers();
-    this.getRatinngAverage(this.idBook);  
+    // this.getRatinngAverage(this.idBook);  
   
 
   }
@@ -330,7 +329,7 @@ export class BookDetailComponent implements OnInit {
       this.DataSetRecommend(book_id,0, form.value.star,0);
       this.ratingService.getRatingByUserIDBookID(form.value).subscribe(
         data => {
-          console.log((Object.values(data)[0] +"------"))
+
           //nếu có rồi thì update
           if (Object.keys(data).length > 0 && Object.values(data)[0].star !=0 ) { //
             this.UpdateRating(form);
@@ -338,6 +337,7 @@ export class BookDetailComponent implements OnInit {
           } else { //chưa có thì insert
             this.PostRating(form);
           }
+          this.ngOnInit()
         },
         error => console.log(error)
       );
@@ -592,16 +592,6 @@ export class BookDetailComponent implements OnInit {
     }
   }
   getRatingByBook: any
-  averageRating = 0
-  countRating = 0
-  getRatinngAverage(id){
-    this.ratingService.getRatingAverage(id).subscribe((res) => {
-      if(Object.values(res)[1]!=0){
-      this.averageRating = Object.values(res)[0];
-      this.countRating = Object.values(res)[1];
-      }
-    })
-  }
 
   DataSetRecommend(bookId,buy,rate,view){
     if(this.accountSocial._id){

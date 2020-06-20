@@ -63,7 +63,9 @@ export class InsertBookComponent implements OnInit {
       imgBook: "",
       seriID: "",
       sale: null,
-      count: null
+      count: null,
+      quantity:null,
+      rate:null,
     };
   }
   getCategoryList() {

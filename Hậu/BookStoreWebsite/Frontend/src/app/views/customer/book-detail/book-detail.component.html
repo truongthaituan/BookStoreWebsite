@@ -42,76 +42,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-sm-12 smallProduct" style="margin: 0 auto;">
-                                <div class="row">
 
-
-                                    <div class="col-sm-1">
-
-                                    </div>
-                                    <div class="col-sm-10" style="margin: 0 auto;">
-                                        <div class="carousel-left">
-                                            <div class="col-sm-1 ">
-                                                <a type="button" (click)="owlCar.prev()">
-                                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <owl-carousel-o [options]="customOptions" #owlCar id="imgFamiliar">
-
-                                            <ng-template carouselSlide>
-                                                <a type="button">
-                                                    <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/29/86/7b/d8cf003fa67446227e502b9fff302588.jpg" />
-                                                </a>
-                                            </ng-template>
-                                            <ng-template carouselSlide>
-                                                <a type="button">
-                                                    <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
-                                                </a>
-                                            </ng-template>
-                                            <ng-template carouselSlide>
-                                                <a type="button" data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg">
-                                                    <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/08/70/f6/c0f945de2df89d766ace8a7e05eedb12.jpg" />
-                                                </a>
-                                            </ng-template>
-                                            <ng-template carouselSlide>
-                                                <a type="button" data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg">
-                                                    <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/80/8a/dd/f7dd2e81989d58d0addada83fbc1a86d.jpg" />
-                                                </a>
-                                            </ng-template>
-                                            <ng-template carouselSlide>
-                                                <a type="button" data-image="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg">
-                                                    <img id="" style="width: 100px;height: 75px;" src="https://vcdn.tikicdn.com/cache/w170/ts/review/6d/38/32/859428edd02e90c3f4c6e5656f9004bc.jpg" />
-                                                </a>
-                                            </ng-template>
-
-                                        </owl-carousel-o>
-                                        <div class="carousel-right">
-                                            <div class="col-sm-1">
-                                                <a type="button" (click)="owlCar.next()">
-                                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-1">
-
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- </div> -->
-                            <!-- Up and down button for vertical carousel -->
-                            <!-- <a type="button" (click)="owlCar.next()" id="ui-carousel-next" style="display: inline;"></a> -->
-                            <!-- <a type="button" (click)="owlCar.prev()" id="ui-carousel-prev" style="display: inline;"></a> -->
-                            <!-- </div> -->
-                            <!-- Gallery -->
-
-                            <!-- gallery Viewer -->
-
-                            <!-- </div> -->
                         </div>
                         <div class="summary entry-summary col-sm-4 col-xl-4  md-col-4 mr-3">
 
@@ -119,77 +50,77 @@
                             </h2>
                             <div itemprop="offers">
                                 <div class="row">
-                                    <div *ngIf="averageRating == 0" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 0" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 0.5" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 0.5" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 1" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 1" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 1.5" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 1.5" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 2" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 2" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 2.5" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 2.5" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 3" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 3" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 3.5" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 3.5" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 4" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 4" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 4.5" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 4.5" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
                                     </div>
-                                    <div *ngIf="averageRating == 5" class="col-sm-4">
+                                    <div *ngIf="bookService.selectedBook.rate.average == 5" class="col-sm-4">
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
