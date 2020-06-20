@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 declare var $:any;
 @Component({
   selector: 'app-about-us',
@@ -9,12 +9,15 @@ declare var $:any;
 export class AboutUsComponent implements OnInit {
 
   
-  constructor(private router:Router) { }
+  constructor(private router:Router,private route: ActivatedRoute) { }
+  idBook = this.route.snapshot.paramMap.get('id');
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
+      console.log(this.idBook)
+      return this.router.navigate(["/booksCategory" + `/${this.idBook}`]);
   }
 
 }

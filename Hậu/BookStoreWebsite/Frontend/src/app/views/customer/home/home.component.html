@@ -543,7 +543,7 @@
                                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                          instock sale featured shipping-taxable purchasable product-type-simple">
                                         <div class="product-wrap">
-                                         <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
+                                            <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                             <div class="product-image">
                                                 <div class="catalog-image">
                                                     <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -580,38 +580,55 @@
 
 
                                             <!-- end product-image -->
-                                             <!-- Sale -->
-                                                <div *ngIf="item.sale!=0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                            <!-- Sale -->
+                                            <div *ngIf="item.sale!=0" class="product-content">
+                                                <h4 class="product_title">
+                                                    <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                </h4>
+                                                <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                    <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </span>
+                                                <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                    <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </span>
+                                                <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
                                                     </span>
-                                                    </ins>
-
-                                                    <del style="font-size: 12px">
+                                                </ins>
+                                                <del style="font-size: 12px">
                                                         <span class="woocommerce-Price-amount amount" >
                                                             {{item.priceBook | currency:"VND"}}
                                                     </span>
                                                     </del>
-                                                    </span>
-                                                </div>
-                                                <!-- Don't Sale -->
-                                                <div *ngIf="item.sale==0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                                </span>
+                                            </div>
+                                            <!-- Don't Sale -->
+                                            <div *ngIf="item.sale==0" class="product-content">
+                                                <h4 class="product_title">
+                                                    <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                                </h4>
+                                                <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                    <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </span>
+                                                <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                    <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </span>
+                                                <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook | currency:"VND"}}
                                                     </span>
-                                                    </ins>
-                                                    </span>
-                                                </div>
+                                                </ins>
+                                                </span>
+                                            </div>
                                             <!-- end product-content -->
                                         </div>
                                     </div>
@@ -680,6 +697,15 @@
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -699,6 +725,15 @@
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -733,7 +768,7 @@
                                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                          instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
-                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
+                                                <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -770,11 +805,20 @@
 
 
                                                 <!-- end product-image -->
-                                                 <!-- Sale -->
+                                                <!-- Sale -->
                                                 <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -794,6 +838,15 @@
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -830,7 +883,7 @@
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
-                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
+                                                <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -867,11 +920,20 @@
 
 
                                                 <!-- end product-image -->
-                                                 <!-- Sale -->
+                                                <!-- Sale -->
                                                 <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -891,6 +953,15 @@
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -927,7 +998,7 @@
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
-                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
+                                                <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -964,11 +1035,20 @@
 
 
                                                 <!-- end product-image -->
-                                                 <!-- Sale -->
+                                                <!-- Sale -->
                                                 <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -988,6 +1068,15 @@
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -1024,7 +1113,7 @@
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple">
                                             <div class="product-wrap">
-                                             <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
+                                                <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                                 <div class="product-image">
                                                     <div class="catalog-image">
                                                         <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -1061,11 +1150,20 @@
 
 
                                                 <!-- end product-image -->
-                                                 <!-- Sale -->
+                                                <!-- Sale -->
                                                 <div *ngIf="item.sale!=0" class="product-content">
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -1085,6 +1183,15 @@
                                                     <h4 class="product_title">
                                                         <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
                                                     </h4>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==0">
+                                                        <span *ngFor="let i of [].constructor(5-(5-(item.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
+                                                    <span *ngIf="(item.rate.average/0.5)%2==1">
+                                                        <span *ngFor="let i of [].constructor(item.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                    <span *ngFor="let i of [].constructor((item.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                    <span *ngFor="let i of [].constructor(5-(item.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                    </span>
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
@@ -1582,7 +1689,7 @@
                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                          instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of BookByCategory  |
                         paginate: { itemsPerPage: 4,currentPage: p }">
-                            <div class="product-wrap" >
+                            <div class="product-wrap">
                                 <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                 <div class="product-image">
                                     <div class="catalog-image">
@@ -1599,7 +1706,7 @@
                                     <div class="product-buttons">
                                         <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" id="btnAddToCart" data-quantity="1" class="button" (click)="addToCart(item)">Add to cart</a>
                                         </div>
-                                 
+
                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                             <div class="yith-wcwl-add-button show" style="display:block">
                                                 <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
@@ -1612,38 +1719,38 @@
                                     </div>
                                 </div>
                                 <!-- end product-image -->
-                            <!-- Sale -->
-                                                <div *ngIf="item.sale!=0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                <!-- Sale -->
+                                <div *ngIf="item.sale!=0" class="product-content">
+                                    <h4 class="product_title">
+                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                    </h4>
+                                    <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
                                                     </span>
-                                                    </ins>
+                                    </ins>
 
-                                                    <del style="font-size: 12px">
+                                    <del style="font-size: 12px">
                                                         <span class="woocommerce-Price-amount amount" >
                                                             {{item.priceBook | currency:"VND"}}
                                                     </span>
                                                     </del>
-                                                    </span>
-                                                </div>
-                                                <!-- Don't Sale -->
-                                                <div *ngIf="item.sale==0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                    </span>
+                                </div>
+                                <!-- Don't Sale -->
+                                <div *ngIf="item.sale==0" class="product-content">
+                                    <h4 class="product_title">
+                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                    </h4>
+                                    <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook | currency:"VND"}}
                                                     </span>
-                                                    </ins>
-                                                    </span>
-                                                </div>
+                                    </ins>
+                                    </span>
+                                </div>
                                 <!-- end product-content -->
                             </div>
 

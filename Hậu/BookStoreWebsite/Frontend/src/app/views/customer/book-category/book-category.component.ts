@@ -128,7 +128,8 @@ export class BookCategoryComponent implements OnInit {
   }
   selectedBook = [];
   detailBook(book: Book) {
-    return this._router.navigate(["/bookDetail" + `/${book._id}`]);
+    return this._router.navigate(['/aboutUs/' + `/${book._id}`]);
+
   }
   refreshCategoryList() {
     this.bookCategoryService.getCategoryList().subscribe((res) => {
@@ -145,7 +146,7 @@ export class BookCategoryComponent implements OnInit {
     this.bookFilter.price2 = null;
     this.bookService.getBookList().subscribe((res) => {
       this.books = res as Book[];
-      console.log(this.books);
+     
     });
   }
   showCategory(id: String) {
@@ -218,7 +219,7 @@ export class BookCategoryComponent implements OnInit {
       this.authorService.authors = res as Author[];
       this.startPage = 0;
       this.paginationLimit = 5;
-      console.log(res);
+ 
     });
   }
 

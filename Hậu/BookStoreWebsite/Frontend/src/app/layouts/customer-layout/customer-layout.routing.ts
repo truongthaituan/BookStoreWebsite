@@ -24,7 +24,7 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'account', component: MyAccountComponent },
     { path: 'lostPassword', component: LostPasswordComponent },
     { path: 'cartBook', component: BookCartComponent },
-    { path: 'aboutUs', component: AboutUsComponent },
+    { path: 'aboutUs/:id', component: AboutUsComponent },
     { path: 'accountProfile', component: ProfileDetailComponent },
     { path: 'accountProfileSocial', component: ProfileAccountSocialComponent },
     { path: 'accountProfileEdit/:id', component: ProfileDetailEditComponent },

@@ -59,7 +59,19 @@
                                         <tr *ngFor="let cartbook of CartBook">
 
                                             <td><img src={{cartbook.imgBook}} (click)=ViewBookDetail(cartbook._id) style="cursor: pointer;" /> </td>
-                                            <td colspan="2">{{cartbook.nameBook}}</td>
+                                            <td colspan="2">{{cartbook.nameBook}}<br>
+                                                <span *ngIf="(cartbook.rate.average/0.5)%2==0">
+                                                    <span *ngFor="let i of [].constructor(5-(5-(cartbook.rate.average)))" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span *ngFor="let i of [].constructor(5-(cartbook.rate.average))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </span>
+                                                <span *ngIf="(cartbook.rate.average/0.5)%2==1">
+                                                    <span *ngFor="let i of [].constructor(cartbook.rate.average-0.5)" class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                                <span *ngFor="let i of [].constructor((cartbook.rate.average/0.5)%2)" class="float-right"><i class="text-warning fa fa-star-half-o"></i></span>
+                                                <span *ngFor="let i of [].constructor(5-(cartbook.rate.average-0.5+1))" class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                                </span><br>
+                                                <b *ngIf="cartbook.quantity < cartbook.count && cartbook.quantity>0" style="color: red;font-size: 10px;">(Còn {{cartbook.quantity}} Quốn Sách Tại Cửa Hàng)<br>Vui lòng giảm số lượng sách bạn muốn mua</b>
+                                                <b *ngIf="cartbook.quantity >= cartbook.count" style="font-size: 10px;">(Còn {{cartbook.quantity}} Quốn Sách Tại Cửa Hàng)</b>
+                                            </td>
                                             <!-- Sale -->
                                             <td *ngIf="cartbook.sale!=0" style="padding-left: 40px;">{{cartbook.priceBook*(100-cartbook.sale)/100|currency:"VND"}}
                                                 <br>

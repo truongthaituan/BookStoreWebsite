@@ -11,5 +11,5 @@ export class Book {
      sale: number;
      count: number;
      quantity:Number;
-     rate:Number;
+     rate:Object;
 }

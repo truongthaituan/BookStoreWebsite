@@ -125,7 +125,9 @@ router.get('/getAllCartBookByUserID/:userID', function(req, res) {
                 imgBook: book.imgBook,
                 seriID: book.seriID,
                 sale: book.sale,
-                count: CartBook[index].count
+                count: CartBook[index].count,
+                quantity: book.quantity,
+                rate: book.rate
             };
             cartBookArray.push(book_add);
         }

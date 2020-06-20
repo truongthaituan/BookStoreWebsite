@@ -360,7 +360,7 @@ export class CustomerLayoutComponent implements OnInit {
   }
   Search(){
     if(this.InputSearch!=""){
-      return this._router.navigate(['/booksCategory/' + `/${this.InputSearch}`]);
+      return this._router.navigate(['/aboutUs/' + `/${this.InputSearch}`]);
     }
   }
 }
