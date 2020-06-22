@@ -594,7 +594,7 @@ export class BookDetailComponent implements OnInit {
   getRatingByBook: any
 
   DataSetRecommend(bookId,buy,rate,view){
-    if(this.accountSocial._id){
+    if(this.accountSocial!=null){
       this.datasetRecommend.userID = this.accountSocial._id;
       this.datasetRecommend.bookID = bookId;
       //các value == 0 trừ click xem = 1  ...--> vào trong backend sẽ tự cộng

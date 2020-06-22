@@ -67,52 +67,54 @@ export class HomeComponent implements OnInit {
 				
 			});
 		//get 2 thể loại mà người dùng thích nhất để show sách theo thể loại
+		if(this.accountSocial!=null){
+			this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
+				listBestBookOnCategory => {
+			
+					this.BookByListCategoryBest = listBestBookOnCategory as Book
+					if(this.BookByListCategoryBest.length>1)
+					{
+						this.IsRecommend = true
+						this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]
+						this.theloai2=Object.keys(this.BookByListCategoryBest[1])[0]
+						this.ListBookCategory1=Object.values(this.BookByListCategoryBest[0])[0]
+						this.ListBookCategory2=Object.values(this.BookByListCategoryBest[1])[0]
+					}else{
+						this.IsRecommend = false
+					}
+			
+				});
+			this._recommendSyS.getAllRecommendByUserID(this.accountSocial._id).subscribe(
+				listAllRecommend =>{
+					console.log(listAllRecommend['click'])
+					this.ListClickRecommend = listAllRecommend['click'] as Book
+					this.ListrateRecommend = listAllRecommend['rate'] as Book
+					this.ListBuyRecommend = listAllRecommend['buy'] as Book
+					
+					if(this.ListClickRecommend.length>6)
+					{
+						this.IsClickRecommend=true
+					}else{
+						this.IsClickRecommend=false
+					}
+	
+					if(this.ListrateRecommend.length>6)
+					{
+						this.IsRateRecommend=true
+					}else{
+						this.IsRateRecommend=false
+					}
+	
+					if(this.ListBuyRecommend.length>6)
+					{
+						this.IsBuyRecommend=true
+					}else{
+						this.IsBuyRecommend=false
+					}
+				}
+			)
+		}
 		
-		this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
-			listBestBookOnCategory => {
-		
-				this.BookByListCategoryBest = listBestBookOnCategory as Book
-				if(this.BookByListCategoryBest.length>1)
-				{
-					this.IsRecommend = true
-					this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]
-					this.theloai2=Object.keys(this.BookByListCategoryBest[1])[0]
-					this.ListBookCategory1=Object.values(this.BookByListCategoryBest[0])[0]
-					this.ListBookCategory2=Object.values(this.BookByListCategoryBest[1])[0]
-				}else{
-					this.IsRecommend = false
-				}
-		
-			});
-		this._recommendSyS.getAllRecommendByUserID(this.accountSocial._id).subscribe(
-			listAllRecommend =>{
-				console.log(listAllRecommend['click'])
-				this.ListClickRecommend = listAllRecommend['click'] as Book
-				this.ListrateRecommend = listAllRecommend['rate'] as Book
-				this.ListBuyRecommend = listAllRecommend['buy'] as Book
-				
-				if(this.ListClickRecommend.length>6)
-				{
-					this.IsClickRecommend=true
-				}else{
-					this.IsClickRecommend=false
-				}
-
-				if(this.ListrateRecommend.length>6)
-				{
-					this.IsRateRecommend=true
-				}else{
-					this.IsRateRecommend=false
-				}
-
-				if(this.ListBuyRecommend.length>6)
-				{
-					this.IsBuyRecommend=true
-				}else{
-					this.IsBuyRecommend=false
-				}
-			}
-		)
 	}
 	script_Frontend() {
 		this.customOptions = {
