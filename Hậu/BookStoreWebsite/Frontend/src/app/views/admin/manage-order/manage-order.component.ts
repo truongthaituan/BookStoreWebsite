@@ -33,6 +33,7 @@ export class ManageOrderComponent implements OnInit {
   TongCount = 0;
   point: Point = new Point;
   lengthCartBook = 0;
+  expandedIndex=-1
   //thông tin login
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin = localStorage.getItem('statusLogin');
@@ -192,5 +193,8 @@ export class ManageOrderComponent implements OnInit {
       }
     )
 
+  }
+  expandRow(index: number): void {
+    this.expandedIndex = index === this.expandedIndex ? -1 : index;
   }
 }

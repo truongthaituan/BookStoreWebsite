@@ -12,8 +12,12 @@
 @import '../../../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
 #btnAddToCart {
-    padding: 18px 26px !important;
+    padding-left: 22px !important;
+    padding-top: 18px !important;
+    padding-right: 22px !important;
+    padding-bottom: 18px !important;
     cursor: pointer;
+    font-weight: bold;
 }
 
 ::ng-deep .owl-prev {
