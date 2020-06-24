@@ -6,9 +6,11 @@ import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { PointService } from 'src/app/app-services/point-service/point.service';
+import { Favorite } from 'src/app/app-services/favorite-service/favorite.model';
 //recommend
 import { BestService } from '../../../app-services/best-service/best.service';
 import { Recommend } from '../../../app-services/recommendSys-service/recommendSys.service';
+import { FavoriteService } from 'src/app/app-services/favorite-service/favorite.service';
 declare var $: any;
 @Component({
 	selector: 'app-home',
@@ -21,7 +23,7 @@ export class HomeComponent implements OnInit {
 	customOptions: any
 	constructor(private _router: Router, private bookService: BookService,
 		private _cartBookDBService: CartBookService, private _pointService: PointService
-		, private _bestService: BestService,private _recommendSyS:Recommend) {
+		, private _bestService: BestService,private _recommendSyS:Recommend,private _favorite:FavoriteService) {
 
 	}
 	//chứa thông tin giỏ hàng
@@ -43,6 +45,7 @@ export class HomeComponent implements OnInit {
 		this.getTotalCountAndPrice();
 		this.checkCartBookDBAndLocalStorage();
 		this.getBestBookAndRecommend();
+		this.getAllFavoriteByUserId();
 	}
 	//recommend
 	theloai1:any
@@ -440,6 +443,33 @@ export class HomeComponent implements OnInit {
 
 		});
 	}
+	// favorite Book
+	favorite: Favorite = new Favorite
+	listFavorite :any
+	favoriteBook(bookID){
+		if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+		this.favorite.bookID=bookID;
+		this.favorite.userID=this.accountSocial._id
+		this._favorite.postFavorite(this.favorite).subscribe(
+			aFavorite=>{ // aFavorite sẽ trả về all favorite by userID
+				this.listFavorite = aFavorite as Favorite[];
+		})
+	}else{
+		this.alertMessage = "Bạn phải đăng nhập để thực hiện thao tác này";
+		this.alertFalse = true;
+		setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+	}
+	}
+	getAllFavoriteByUserId(){
+		if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+		this._favorite.getAllFavoriteByUserID(this.accountSocial._id).subscribe(
+			listFavorites =>{
+				this.listFavorite = listFavorites as Favorite[];
+			}
+		)
+	}
+}
+
 }
 
 

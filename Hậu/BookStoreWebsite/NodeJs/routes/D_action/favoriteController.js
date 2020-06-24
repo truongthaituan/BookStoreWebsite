@@ -14,10 +14,6 @@ router.get('/', function(req, res) {
             }
         });
 });
-
-
-
-
 // get a person
 router.get('/:favoriteID', function(req, res) {
     favorite.findById(req.params.favoriteID)
@@ -27,20 +23,6 @@ router.get('/:favoriteID', function(req, res) {
         });
 })
 
-//post
-router.post('/', function(req, res) {
-    var newfavorite = new favorite();
-    newfavorite.bookID = req.body.bookID;
-    newfavorite.userID = req.body.userID;
-
-    newfavorite.save(function(err, insertedfavorite) {
-        if (err) {
-            console.log('Err Saving favorite');
-        } else {
-            res.json(insertedfavorite);
-        }
-    });
-});
 
 
 //update
@@ -63,13 +45,82 @@ router.put('/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/:id', function(req, res) {
-    favorite.findByIdAndRemove(req.params.id, function(err, deletefavorite) {
-        if (err) {
-            res.send('err Delete');
-        } else {
-            res.json({ message: 'Successfully deleted' });
-        }
-    });
+router.get('/getAllByUserID/:id', function(req, res) {
+    async function run() {
+        const listFavorite = await getAllFavoriteByUserID(req.params.id)
+        res.json(listFavorite)
+    }
+    run()
 });
+
+
+
+
+//add-or-delete favorite by userID and BookID
+//post
+router.post('/', function(req, res) {
+    async function run() {
+
+        const aFavorite = await findFavoriteByBookIDUserID(req, res)
+
+        if (aFavorite.length == 0) {
+            //post
+            const newFavorite = await postFavorite(req, res)
+            const setUpFavorite = await getAllFavoriteByUserID(req.body.userID)
+            res.json(setUpFavorite)
+        }
+        //delete
+        else {
+            const delFavorite = await deleteFavorite(aFavorite[0]._id)
+            const setUpFavorite = await getAllFavoriteByUserID(req.body.userID)
+            res.json(setUpFavorite)
+        }
+
+    }
+    run()
+});
+
+async function findFavoriteByBookIDUserID(req, res) {
+    try {
+        const aFavorite = await favorite.find({
+            userID: req.body.userID,
+            bookID: req.body.bookID
+        })
+        return aFavorite
+    } catch (error) {
+
+    }
+}
+async function postFavorite(req, res) {
+    try {
+        var newfavorite = new favorite();
+        newfavorite.bookID = req.body.bookID;
+        newfavorite.userID = req.body.userID;
+
+        const aFavorite = await newfavorite.save()
+        return aFavorite
+    } catch (error) {
+
+    }
+}
+async function deleteFavorite(id, res) {
+    try {
+
+        const deleteFavorite = await favorite.findByIdAndRemove(id)
+        return deleteFavorite
+    } catch (error) {
+
+    }
+}
+async function getAllFavoriteByUserID(id, res) {
+    try {
+        const listFavorite = await favorite.find({
+            userID: id
+        })
+        return listFavorite
+    } catch (error) {
+
+    }
+}
+
 module.exports = router;

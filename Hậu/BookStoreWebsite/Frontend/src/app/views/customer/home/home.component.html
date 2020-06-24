@@ -562,19 +562,16 @@
                                                         <a *ngIf="!checkCountMax10" rel="nofollow" data-product_id="78" data-product_sku="" id="btnAddToCart" data-quantity="1" class="button" (mouseenter)="checkCountCartBeforeAdd(item)" (click)="addToCart(item)">Chọn Mua</a>
 
                                                     </div>
-                                                    <!-- <div class="yith_compare_btn">
-                                                        <div class="woocommerce product compare-button">
-                                                            <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
-                                                    </div> -->
+
                                                     <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
-                                                        <div class="yith-wcwl-add-button show" style="display:block">
-                                                            <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                       Add to Wishlist</a>
-                                                        </div>
+                                                        <!-- <div class="yith-wcwl-add-button show" style="display:block"> -->
+                                                        <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                            <i class="fa fa-heart" style="vertical-align: middle;color: yellow;"></i> </a>
+                                                        <!-- </div>
                                                         <div style="clear:both"></div>
-                                                        <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                        <div class="yith-wcwl-wishlistaddresponse"></div> -->
                                                     </div>
-                                                    <div class="clear"></div>
+                                                    <!-- <div class="clear"></div> -->
                                                 </div>
                                             </div>
 
@@ -680,8 +677,8 @@
                                                         </div> -->
                                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                                             <div class="yith-wcwl-add-button show" style="display:block">
-                                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                       Add to Wishlist</a>
+                                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                                    Add to Wishlist</a>
                                                             </div>
                                                             <div style="clear:both"></div>
                                                             <div class="yith-wcwl-wishlistaddresponse"></div>
@@ -793,8 +790,8 @@
                                                         </div> -->
                                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                                             <div class="yith-wcwl-add-button show" style="display:block">
-                                                                <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                       Add to Wishlist</a>
+                                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                                    Add to Wishlist</a>
                                                             </div>
                                                             <!-- <div style="clear:both"></div> -->
                                                             <div class="yith-wcwl-wishlistaddresponse"></div>
@@ -908,8 +905,8 @@
                                                         </div> -->
                                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                                             <div class="yith-wcwl-add-button show" style="display:block">
-                                                                <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                   Add to Wishlist</a>
+                                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                                    Add to Wishlist</a>
                                                             </div>
                                                             <div style="clear:both"></div>
                                                             <div class="yith-wcwl-wishlistaddresponse"></div>
@@ -1023,8 +1020,8 @@
                                                         </div> -->
                                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                                             <div class="yith-wcwl-add-button show" style="display:block">
-                                                                <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                   Add to Wishlist</a>
+                                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                                    Add to Wishlist</a>
                                                             </div>
                                                             <div style="clear:both"></div>
                                                             <div class="yith-wcwl-wishlistaddresponse"></div>
@@ -1138,8 +1135,8 @@
                                                         </div> -->
                                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                                             <div class="yith-wcwl-add-button show" style="display:block">
-                                                                <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                   Add to Wishlist</a>
+                                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                                    Add to Wishlist</a>
                                                             </div>
                                                             <div style="clear:both"></div>
                                                             <div class="yith-wcwl-wishlistaddresponse"></div>
@@ -1709,8 +1706,8 @@
 
                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                             <div class="yith-wcwl-add-button show" style="display:block">
-                                                <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-               Add to Wishlist</a>
+                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                    Add to Wishlist</a>
                                             </div>
                                             <div style="clear:both"></div>
                                             <div class="yith-wcwl-wishlistaddresponse"></div>
