@@ -12,7 +12,9 @@
     font-weight: bold;
     font-size: 150%;
 }
-
+::ng-deep .swal-button--confirm{
+    background-color: red !important;
+}
 .product {
     width: 30%;
     margin: 30px;

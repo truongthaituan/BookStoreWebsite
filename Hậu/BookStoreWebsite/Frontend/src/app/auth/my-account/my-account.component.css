@@ -6,6 +6,9 @@
 @import '../../../assets/themes/bookstore/assets/css/common676a.css';
 @import '../../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
+.error{
+    color: red;
+}
 #login:hover {
     color: green;
 }

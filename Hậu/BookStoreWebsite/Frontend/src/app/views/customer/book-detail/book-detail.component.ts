@@ -277,8 +277,6 @@ export class BookDetailComponent implements OnInit {
   getListRatingAccount(id:string){
     this.ratingService.getListRatingAccount(id).subscribe((res) => {
       this.ListRatingAccount = res
-      console.log(this.ListRatingAccount)
-      console.log("Books By Id---------------------");
       //console.log(res)
     });
   }
@@ -320,7 +318,6 @@ export class BookDetailComponent implements OnInit {
   UpdateRating(form) {
     this.ratingService.UpdateRating(form.value).subscribe(
       dataUpdate => {
-        console.log("-------------------2")
         console.log(dataUpdate)
         this.statusRating = true;
         form.resetForm();
@@ -338,7 +335,6 @@ export class BookDetailComponent implements OnInit {
     this.ratingService.postRating(form.value).subscribe(
       dataPost => {
         // console.log(data);
-        console.log("-------------------3")
         console.log(dataPost)
         this.statusRating = true;
         form.resetForm();

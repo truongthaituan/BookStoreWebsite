@@ -7,6 +7,8 @@ import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
 import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
 import { BookService } from 'src/app/app-services/book-service/book.service';
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert';
 import { truncateSync } from 'fs';
 declare var $: any;
 @Component({
@@ -18,7 +20,9 @@ declare var $: any;
 export class BookCartComponent implements OnInit {
   helper = new JwtHelperService();
   token: any = this.helper.decodeToken(localStorage.getItem('token'));
-  constructor(private _router: Router, private _cartBookDB: CartBookService, private _discountCode: DiscountCodeService,private _book:BookService,private _cartBookDBService:CartBookService) {
+  constructor(private _router: Router, private _cartBookDB: CartBookService,
+     private _discountCode: DiscountCodeService,private _book:BookService,
+     private _cartBookDBService:CartBookService) {
 
   }
   //#region Buộc phải có trên các component
@@ -199,21 +203,36 @@ export class BookCartComponent implements OnInit {
   }
   // Delete Cart Book
   deleteCartBook(id) {
-    var setconfirm = confirm('Bạn có muốn xóa cuốn sách này không ?')
-    if (setconfirm == true) {
-      for (var i = 0; i < this.lengthCartBook; i++) {
-        if (this.CartBook[i]._id == id) {
-          this.deleteOneCartBookDB(this.CartBook[i]);
-          this.CartBook.splice(i, 1);
-          break;
+    Swal({
+      text: "Bạn có chắc muốn xóa sản phẩm này trong giỏ hàng ?",
+      icon: 'warning',
+      buttons:  {
+        cancel: true,
+        confirm: {
+         value:"OK",
+         closeModal: true
         }
       }
-      localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
-      this.ngOnInit();
-    }
-    else {
-      this.ngOnInit();
-    }
+    })
+    .then((willDelete) => {
+        if(willDelete){
+          for (var i = 0; i < this.lengthCartBook; i++) {
+            if (this.CartBook[i]._id == id) {
+              this.deleteOneCartBookDB(this.CartBook[i]);
+              this.CartBook.splice(i, 1);
+              break;
+            }
+          }
+          localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
+          Swal({
+            title: "Đã xóa xong!",
+            text: "Sách này đã được xóa trong giỏ hàng.",
+            icon: 'success'
+          });
+          this.ngOnInit();
+        }
+      console.log(willDelete)
+    });
   }
   //click vào hình chuyển về detail
   ViewBookDetail(idBook) {

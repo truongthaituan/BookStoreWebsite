@@ -34,9 +34,10 @@
                                     <div id="gallery_pdp"> -->
 
                             <div class="col-sm-12 ">
-                                <!-- <img id="zoom_10" src="{{bookService.selectedBook?.imgBook}}"  style="width: 350px;margin: 0 auto;"    
-                                            href="https://icodefy.com/Tools/iZoom/images/large/image1.jpg" /> -->
-                                <ngx-image-zoom [thumbImage]=bookService.selectedBook?.imgBook [fullImage]=bookService.selectedBook?.imgBook [magnification]="2" [enableScrollZoom]="true" [enableLens]="true" [circularLens]="true" [lensWidth]="280" [lensHeight]="280"></ngx-image-zoom>
+                            
+                                <ngx-image-zoom [thumbImage]=bookService.selectedBook?.imgBook
+                                [fullImage]=bookService.selectedBook?.imgBook [magnification]="2" [enableScrollZoom]="true"
+                                 [enableLens]="true" [circularLens]="true" [lensWidth]="280" [lensHeight]="280"></ngx-image-zoom>
                                 <div class="col-sm-12" style="text-align: center;">
                                     <i class="icon-zoom-in"></i> Rê chuột lên hình để phóng to
                                 </div>
@@ -93,6 +94,10 @@
                             <div itemprop="description" class="description">
                                 <b *ngIf="bookService.selectedBook.quantity <= 20" style="color: red;">Còn {{bookService.selectedBook.quantity}} Quốn Sách</b>
                                 <b *ngIf="bookService.selectedBook.quantity > 20">Còn {{bookService.selectedBook.quantity}} Quốn Sách</b>
+                                   <div class="product_meta">
+                                <span class="posted_in">Categories: <a href="#" rel="tag">Budgeting and Finance</a></span>
+                            </div>
+
                             </div>
 
                             <form class="cart" method="post" enctype='multipart/form-data' #form="ngForm" (ngSubmit)="addToCart(bookService.selectedBook,form.value)">
@@ -115,20 +120,7 @@
                             <button href="#" data-toggle="modal" data-value='' id="TryRead" data-target="#modalTryRead" class="single_add_to_cart_button button alt" style="text-transform: uppercase;">Đọc
                                 thử</button>
                             <!-- <button class="single_add_to_cart_button button alt">Đọc thử</button> -->
-                            <div class="product_meta">
-                                <span class="posted_in">Categories: <a href="#" rel="tag">Budgeting and Finance</a>,
-                                    <a href="#" rel="tag">Creative Thinking</a>,
-                                    <a href="../../product-category/fantasy/index.html" rel="tag">Fantasy</a>,
-                                    <a href="../../product-category/historical-fiction/index.html" rel="tag">Historical
-                                        Fiction</a>,
-                                    <a href="../../product-category/people-management/index.html" rel="tag">People
-                                        Management</a>, <a href="../../product-category/personal-finance/index.html"
-                                        rel="tag">Personal Finance</a>, <a
-                                        href="../../product-category/romance/index.html" rel="tag">Romance</a>, <a
-                                        href="../../product-category/science-fiction/index.html" rel="tag">Science
-                                        Fiction</a></span>
-                            </div>
-
+                     
 
                         </div>
                         <!-- .summary -->
@@ -349,7 +341,7 @@
 
                                             <div class="product-buttons">
                                                 <div *ngIf="checkedAddBook" class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (mouseenter)="checkGetCountBookDetailEqual10(item._id)" (click)="clickAddBookOnModel(item)" data-toggle="modal"
-                                                        data-target="#myModal">Add to cart</a>
+                                                        data-target="#myModal">Chọn mua</a>
                                                 </div>
                                                 <div *ngIf="!checkedAddBook" class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (mouseenter)="checkGetCountBookDetailEqual10(item._id)" (click)="clickAddBookOnModel(item)">Add to cart</a>
                                                 </div>
@@ -440,10 +432,10 @@
                     <div class="col mb-2">
                         <div class="row">
                             <div class="col-sm-12  col-md-6">
-                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToHome()">Continue Shopping</button>
+                                <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToHome()">Tiếp tục mua hàng</button>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Cart Book</button>
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Giỏ hàng</button>
                             </div>
 
                         </div>
