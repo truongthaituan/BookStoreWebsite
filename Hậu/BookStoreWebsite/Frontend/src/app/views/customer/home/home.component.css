@@ -11,7 +11,25 @@
 @import '../../../../assets/plugins/js_composer/assets/css/js_composer.min20fd.css';
 @import '../../../../assets/themes/bookstore/assets/css/styles676a.css';
 @import '../../../../assets/themes/bookstore/includes/wp-social-widget/assets/css/social-icons8a54.css';
+.yith-wcwl-add-button a:before {
+    content: "\f004";
+    font-family: FontAwesome;
+    display: inline-block;
+    line-height: 52px;
+    color: yellow !important;
+    text-align: center;
+    font-size: 14px;
+}
+
 #btnAddToCart {
+    padding-left: 25px !important;
+    padding-top: 18px !important;
+    padding-right: 25px !important;
+    padding-bottom: 18px !important;
+    cursor: pointer;
+    font-weight: bold;
+}
+#btnAddToCart_modal{
     padding-left: 22px !important;
     padding-top: 18px !important;
     padding-right: 22px !important;
@@ -19,7 +37,6 @@
     cursor: pointer;
     font-weight: bold;
 }
-
 ::ng-deep .owl-prev {
     position: absolute !important;
     top: 0px !important;

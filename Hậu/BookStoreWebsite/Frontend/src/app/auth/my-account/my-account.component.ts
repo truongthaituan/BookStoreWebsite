@@ -9,12 +9,13 @@ import {
   FacebookLoginProvider,
   AuthService
 } from 'ng4-social-login';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Response } from '../../app-services/response/response.model';
 import { User } from '../../app-services/user-service/user.model';
 import { SocialaccountService } from '../../app-services/socialAccount-service/socialaccount.service';
 import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { MustMatch } from '../helpers/must-match.validator';
 
 
 declare var $: any;
@@ -25,6 +26,7 @@ declare var $: any;
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent implements OnInit {
+  
   public user: any = SocialUser;
   errStringLogin: String = ""
   errRegister: String = ""
@@ -33,20 +35,22 @@ export class MyAccountComponent implements OnInit {
   errorStr: string = ''
   statusLogin: Boolean = false
   alertMessage: string = ''
-  registerForm: FormGroup = new FormGroup({
-    email: new FormControl(null, [Validators.email, Validators.required]),
-    username: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required),
-    cpass: new FormControl(null, Validators.required),
-    imageUrl: new FormControl(null),
-  })
-
+//   registerForm: FormGroup = new FormGroup({
+//     email: new FormControl(null, [Validators.email, Validators.required]),
+//     username: new FormControl(null, Validators.required),
+//     password: new FormControl(null, Validators.required),
+//     cpass: new FormControl(null, Validators.required),
+//     imageUrl: new FormControl(null),
+//   },{
+//     validator: MustMatch('password', 'cpass')
+// });
+  registerForm: FormGroup;
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
     password: new FormControl(null, Validators.required)
   });
   constructor(private _router: Router, private _userService: UserService,private spinnerService: Ng4LoadingSpinnerService,
-    private socialAuthService: AuthService, private socialAccountService: SocialaccountService) {
+    private socialAuthService: AuthService, private socialAccountService: SocialaccountService,private formBuilder: FormBuilder) {
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
@@ -62,6 +66,14 @@ export class MyAccountComponent implements OnInit {
   lengthCartBook = 0;
   templogin = 0;
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.email, Validators.required]],
+      username: ['', Validators.required],
+      password: ['', [Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=])(?=\\S+\$).{8,40}\$'),Validators.required]],
+      cpass: ['', Validators.required]
+  }, {
+      validator: MustMatch('password', 'cpass')
+  });
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
@@ -70,6 +82,11 @@ export class MyAccountComponent implements OnInit {
     this.initialAccount();
     this.getTotalCountAndPrice();
   }
+  submitted_register = false;
+  submitted_login = false;
+    // convenience getter for easy access to form fields
+    get f() { return this.registerForm.controls; }
+    get fLogin() { return this.loginForm.controls; }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
     if (CartBook == null) {
@@ -113,60 +130,41 @@ export class MyAccountComponent implements OnInit {
     });
   }
   register() {
+ 
+    this.submitted_register = true;
     if (!this.registerForm.valid) {
-      alert("Mời nhập đầy đủ thông tin và nhập email theo cú pháp ***@***.***")
       return;
     }
-    else
-      if (this.registerForm.controls.password.value != this.registerForm.controls.cpass.value) {
-        alert("Xác nhận mật khẩu không đúng!");
-        return;
-      }
-      else {
         this.registerForm.value.role = "CUSTOMER";
-        // console.log(JSON.stringify(this.registerForm.value)); 
         this.spinnerService.show();
         setTimeout(()=>this.spinnerService.hide(),3300)
         this._userService.register(JSON.stringify(this.registerForm.value))
           .subscribe(
             data => {
-            //   const response: Response = data as Response;
-            // if (response.status == false) {
-            //   console.log(response.message)
-            //   this.errRegister = "Email đã tồn tại! Vui lòng chọn email khác!";
-            //   setTimeout(() => {  this.errRegister = null; }, 3000);
-            // }
-            // else {
-            //   // console.log(data);
-            //   this.statusRegister = true;
-            //   setTimeout(() => {  this.statusRegister = false; }, 3000);
-            //   this.registerForm.reset();
-            //   console.log("Add User Successfully!");
-            //   }
-           
+              console.log(data)
+              this.errRegister = ""
               if(data == "Email has been sent--Please confirm"){
                 this.statusRegister = true;
                   setTimeout(() => {  this.statusRegister = false; }, 3000);
                   this.registerForm.reset();
-                  // console.log("Add User Successfully!");
+              }else if(!Object.bind(data).status){
+                this.spinnerService.hide()
+                this.errRegister = "Tài khoản email đã tồn tại!"
               }
             });
-          }
   }
 
   login() {
+    this.submitted_login = true
     if (!this.loginForm.valid) {
-      alert("Mời nhập đầy đủ thông tin và nhập email theo cú pháp ***@***.***");
       return;
-    }
-    else {
+    } 
       this.showErrorMessage = false;
       //goij method login từ userService
       this._userService.login(JSON.stringify(this.loginForm.value)).subscribe((res) => {
         //gọi object response
         const response: Response = res as Response;
         if (response.status == false) {
-          // console.log(response.message)
           this.errStringLogin = response.message
         }
         else {
@@ -190,7 +188,6 @@ export class MyAccountComponent implements OnInit {
           }
         }
       })
-    }
   }
   //Login with google
   googleLogin() {
