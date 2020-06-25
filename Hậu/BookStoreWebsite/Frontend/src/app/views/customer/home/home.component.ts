@@ -6,9 +6,13 @@ import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { PointService } from 'src/app/app-services/point-service/point.service';
+
 //recommend
 import { BestService } from '../../../app-services/best-service/best.service';
 import { Recommend } from '../../../app-services/recommendSys-service/recommendSys.service';
+//favorite
+import { Favorite } from 'src/app/app-services/favorite-service/favorite.model';
+import { FavoriteService } from 'src/app/app-services/favorite-service/favorite.service';
 declare var $: any;
 @Component({
 	selector: 'app-home',
@@ -21,7 +25,7 @@ export class HomeComponent implements OnInit {
 	customOptions: any
 	constructor(private _router: Router, private bookService: BookService,
 		private _cartBookDBService: CartBookService, private _pointService: PointService
-		, private _bestService: BestService,private _recommendSyS:Recommend) {
+		, private _bestService: BestService,private _recommendSyS:Recommend,private _favoriteService:FavoriteService) {
 
 	}
 	//chứa thông tin giỏ hàng
@@ -36,13 +40,17 @@ export class HomeComponent implements OnInit {
 	//recommend
 	bestBookList: Book = new Book;
 	BookByListCategoryBest:any
+	favorite: Favorite = new Favorite
+	listFavorite :any
 	ngOnInit() {
+		this.getAllFavoriteByUserId();
 		$('.searchHeader').attr('style', 'font-size: 1.6rem !important');
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
 		this.checkCartBookDBAndLocalStorage();
 		this.getBestBookAndRecommend();
+		
 	}
 	//recommend
 	theloai1:any
@@ -440,6 +448,44 @@ export class HomeComponent implements OnInit {
 
 		});
 	}
+
+	// favorite Book
+	favoriteBook(bookID){
+		if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+		this.favorite.bookID=bookID;
+		this.favorite.userID=this.accountSocial._id
+		this._favoriteService.postFavorite(this.favorite).subscribe(
+			aFavorite=>{ // aFavorite sẽ trả về all favorite by userID
+				this.listFavorite = aFavorite as Favorite[];
+		})
+	}else{
+		this.alertMessage = "Bạn phải đăng nhập để thực hiện thao tác này";
+		this.alertFalse = true;
+		setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+	}
+	}
+	getAllFavoriteByUserId(){
+		if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+		this._favoriteService.getAllFavoriteByUserID(this.accountSocial._id).subscribe(
+			listFavorites =>{
+				this.listFavorite = listFavorites as Favorite[];
+			}
+		)
+	}
+}
+//validate favorite 
+validateFavorite(id) {
+	if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+	for(let index in this.listFavorite)
+	{
+		if(id==this.listFavorite[index].bookID)
+		return true;
+	}
+	return false
+  }
+  return false
+}
+
 }
 
 

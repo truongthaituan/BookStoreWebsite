@@ -109,6 +109,7 @@ export class BookCartPaymentComponent implements OnInit {
         this.TongCount += parseInt(this.CartBook[i].count);
       }
     }
+ 
     $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
     $('.cart_items').html(this.TongCount.toString());
     localStorage.setItem("TongTien", this.TongTien.toString());
@@ -200,7 +201,6 @@ export class BookCartPaymentComponent implements OnInit {
     if(this.discountCode._id!=null){
       //update discount code
       this.discountCode.status=1;
-     
       this.putDiscountCode(this.discountCode);
     }
     this.sendMail.discountCode =  this.discountCode.discountCode;
@@ -306,29 +306,18 @@ export class BookCartPaymentComponent implements OnInit {
 
   createJson(CartBook: any) {
     this.TongTienPayPal = 0;
-    //lưu tạm số tiền bị thừa khi chuyển đổi
-    let moneyExcess=0.00;
     for (var i = 0; i < this.lengthCartBook; i++) {
-      // var TienDu =(parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2))-(CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100))
-      // moneyExcess = moneyExcess + TienDu*CartBook[i].count
-      var infoCart = {
+        var infoCart = {
         name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2)),
         currency: "USD", quantity: CartBook[i].count
       };
   
       this.CartBook2.push(infoCart);
       this.TongTienPayPal += CartBook[i].count * parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2));
-      // console.log(infoCart.price+"======"+ this.TongTienPayPal+ "==========="+(this.TongTien/23632).toFixed(2)+"======="+moneyExcess.toFixed(4) +"======="+CartBook[i].count*TienDu)
-    }
+        }
     this.TongTienPayPal = this.TongTienPayPal.toFixed(2);
-    // if(this.TongTienPayPal==(this.TongTien/23632).toFixed(2)){
-    //   console.log( this.TongTienPayPal+ "==========="+(this.TongTien/23632).toFixed(2))
-    // }
-    // else{
-    //   console.log( this.TongTienPayPal+ "!="+(this.TongTien/23632).toFixed(2))
-    // }
+  
   }
-  title = 'app';
   public didPaypalScriptLoad: boolean = false;
   public paymentAmount: number = 1000;
   totalcount = 150

@@ -165,4 +165,34 @@ router.post('/filter', function(req, res) {
             }
         });
 });
+
+
+// Xử lý thanh toán
+//Update QuantityBoook by BookID & Quantity
+async function UpdateQuantityByBookID(abook, bookQuantityUpdate, res) {
+
+    const Updatebook = await book.findByIdAndUpdate(abook._id, {
+        $set: {
+            quantity: abook.quantity - bookQuantityUpdate,
+        }
+    }, {
+        new: true
+    })
+
+    return Updatebook
+}
+async function getBookByID(req, res) {
+    const abook = await book.findById(req.body._id)
+
+    return abook
+}
+
+router.post('/UpdateQuantity', function(req, res) {
+    async function run() {
+        const abook = await getBookByID(req, res)
+        const update = await UpdateQuantityByBookID(abook, req.body.quantity, res)
+        res.json(update)
+    }
+    run()
+})
 module.exports = router;

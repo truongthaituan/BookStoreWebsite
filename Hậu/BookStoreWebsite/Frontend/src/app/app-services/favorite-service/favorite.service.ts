@@ -24,7 +24,7 @@ export class FavoriteService {
   postFavorite(favorite: Favorite) {
     return this._http.post(this.baseURL, favorite);
   }
-  deleteFavorite(_id: string) {
-    return this._http.delete(this.baseURL + `/${_id}`);
+  getAllFavoriteByUserID(id: String) {
+    return this._http.get(this.baseURL+"/getAllByUserID" + `/${id}`);
   }
 }

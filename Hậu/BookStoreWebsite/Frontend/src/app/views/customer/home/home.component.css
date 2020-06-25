@@ -29,14 +29,7 @@
     cursor: pointer;
     font-weight: bold;
 }
-#btnAddToCart_modal{
-    padding-left: 22px !important;
-    padding-top: 18px !important;
-    padding-right: 22px !important;
-    padding-bottom: 18px !important;
-    cursor: pointer;
-    font-weight: bold;
-}
+
 ::ng-deep .owl-prev {
     position: absolute !important;
     top: 0px !important;
