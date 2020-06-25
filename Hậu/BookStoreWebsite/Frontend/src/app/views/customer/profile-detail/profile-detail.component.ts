@@ -13,9 +13,15 @@ export class ProfileDetailComponent implements OnInit {
 
   constructor(private _router: Router, private userService: UserService,private location: Location, private route: ActivatedRoute) { }
 
+ //thông tin login
+ accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
+ statusLogin = localStorage.getItem('statusLogin');
+ loginBy: String = ""
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     let id = JSON.parse(localStorage.getItem("accountSocial"))._id;
+    if (this.statusLogin == null) { this._router.navigate(['/account']); }
+    this.loginBy = localStorage.getItem('loginBy');
     this.getUserById(id);
   }
   getUserByUsername(email){
@@ -40,5 +46,18 @@ export class ProfileDetailComponent implements OnInit {
   moveToProfileChangePassword(userId)
   {
     return this._router.navigate(["/changePassword" + `/${userId}`]);
+  }
+  
+  moveToProfileDetail(){
+    this._router.navigate(['/accountProfile'])
+  }
+  moveToProfileAccountSocial(){
+    this._router.navigate(['/accountProfileSocial'])
+  }
+  goToOrderHistory(){
+    this._router.navigate(['/orderHistory'])
+  }
+  goToDiscountCode(){
+    this._router.navigate(['/discountCode'])
   }
 }

@@ -21,10 +21,13 @@ export class ProfileChangePasswordComponent implements OnInit {
     })
 
   constructor(private _router: Router, private route: ActivatedRoute,private userService: UserService, private location: Location) { }
-
+  loginBy: String = ""
+  statusLogin = localStorage.getItem('statusLogin');
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     let id = this.route.snapshot.paramMap.get('id');
+    if (this.statusLogin == null) { this._router.navigate(['/account']); }
+    this.loginBy = localStorage.getItem('loginBy');
     this.getUserById(id);
   }
   getUserById(id){
@@ -93,5 +96,17 @@ export class ProfileChangePasswordComponent implements OnInit {
 
     cancel(){
       this.location.back();
+    }
+    moveToProfileDetail(){
+      this._router.navigate(['/accountProfile'])
+    }
+    moveToProfileAccountSocial(){
+      this._router.navigate(['/accountProfileSocial'])
+    }
+    goToOrderHistory(){
+      this._router.navigate(['/orderHistory'])
+    }
+    goToDiscountCode(){
+      this._router.navigate(['/discountCode'])
     }
 }

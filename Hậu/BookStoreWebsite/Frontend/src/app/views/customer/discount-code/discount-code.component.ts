@@ -27,12 +27,7 @@ export class DiscountCodeComponent implements OnInit {
  
 
 
-  goToOrderHistory(){
-    this._router.navigate(['/orderHistory'])
-  }
-  goToDiscountCode(){
-    this._router.navigate(['/discountCode'])
-  }
+  
   goToBookCart(Object:any){
     localStorage.setItem("DiscountCode",JSON.stringify(Object));
     this._router.navigate(['/cartBook'])
@@ -56,5 +51,11 @@ export class DiscountCodeComponent implements OnInit {
   }
   moveToProfileAccountSocial(){
     this._router.navigate(['/accountProfileSocial'])
+  }
+  goToOrderHistory(){
+    this._router.navigate(['/orderHistory'])
+  }
+  goToDiscountCode(){
+    this._router.navigate(['/discountCode'])
   }
 }
