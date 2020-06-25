@@ -359,8 +359,21 @@ export class CustomerLayoutComponent implements OnInit {
     console.log(this.InputSearch)
   }
   Search(){
-    if(this.InputSearch!=""){
+    var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    if(this.InputSearch!="" && !format.test(this.InputSearch)){
       return this._router.navigate(['/aboutUs/' + `/${this.InputSearch}`]);
+    }else
+    if(format.test(this.InputSearch)){
+      swal({
+        text: "Không được chứa ký tự đặc biệt!",
+        icon: 'warning',
+        buttons:  {
+          confirm: {
+           value:"OK",
+           closeModal: true
+          }
+        }
+      })
     }
   }
 }
