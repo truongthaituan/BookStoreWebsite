@@ -12,6 +12,9 @@ import { BookFiter } from '../../../app-services/book-service/bookfilter.model';
 import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
+//favorite
+import { Favorite } from 'src/app/app-services/favorite-service/favorite.model';
+import { FavoriteService } from 'src/app/app-services/favorite-service/favorite.service';
 declare var $: any
 @Component({
   selector: 'app-book-category',
@@ -44,7 +47,7 @@ export class BookCategoryComponent implements OnInit {
   alertFalse = false;
   cartBookDB: CartBook = new CartBook;
   constructor(private _router: Router,private route: ActivatedRoute, private bookService: BookService, private authorService: AuthorService,
-    private bookCategoryService: CategoryService, private _cartBookDB: CartBookService) {
+    private bookCategoryService: CategoryService, private _cartBookDB: CartBookService,private _favoriteService:FavoriteService) {
 
     $(function () {
 
@@ -72,7 +75,10 @@ export class BookCategoryComponent implements OnInit {
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin: string = ""
   searchBy = this.route.snapshot.paramMap.get('id');
+  favorite: Favorite = new Favorite
+	listFavorite :any
   ngOnInit() {
+    this.getAllFavoriteByUserId();
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     $(function () {
       $("#scrollToTopButton").click(function () {
@@ -368,6 +374,41 @@ export class BookCategoryComponent implements OnInit {
     }
   }
 
-
+ // favorite Book
+ favoriteBook(bookID){
+  if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+  this.favorite.bookID=bookID;
+  this.favorite.userID=this.accountSocial._id
+  this._favoriteService.postFavorite(this.favorite).subscribe(
+    aFavorite=>{ // aFavorite sẽ trả về all favorite by userID
+      this.listFavorite = aFavorite as Favorite[];
+  })
+}else{
+  this.alertMessage = "Bạn phải đăng nhập để thực hiện thao tác này";
+  this.alertFalse = true;
+  setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+}
+}
+getAllFavoriteByUserId(){
+  if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+  this._favoriteService.getAllFavoriteByUserID(this.accountSocial._id).subscribe(
+    listFavorites =>{
+      this.listFavorite = listFavorites as Favorite[];
+    }
+  )
+}
+}
+//validate favorite 
+validateFavorite(id) {
+if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
+for(let index in this.listFavorite)
+{
+  if(id==this.listFavorite[index].bookID)
+  return true;
+}
+return false
+}
+return false
+}
 
 }

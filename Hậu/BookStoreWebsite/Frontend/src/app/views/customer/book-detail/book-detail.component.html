@@ -105,14 +105,10 @@
                                 <button *ngIf="checkedAddBook" type="submit" class="single_add_to_cart_button button alt" data-toggle="modal" data-target="#myModal" style=" text-transform: uppercase;">Chọn Mua</button>
                                 <button *ngIf="!checkedAddBook" type="submit" class="single_add_to_cart_button button alt" style=" text-transform: uppercase;">Chọn Mua</button>
                             </form>
-                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-76">
-                                <div class="yith-wcwl-add-button show" style="display:block">
-                                    <a rel="follow" data-product-id="76" data-product-type="simple" class="add_to_wishlist">
-                                        Add to Wishlist</a>
-                                </div>
-                                <div style="clear:both"></div>
-                                <div class="yith-wcwl-wishlistaddresponse"></div>
-
+                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
+                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(bookService.selectedBook._id)">
+                                    <i *ngIf="!validateFavorite(bookService.selectedBook._id)" class="fa fa-heart" style="margin-left:50px;color:#FFF;margin-top: 20px;"></i>
+                                    <i *ngIf="validateFavorite(bookService.selectedBook._id)" class="fa fa-heart" style="margin-left:50px;color:yellow;margin-top: 20px;"></i> </a>
                             </div>
 
                             <div class="clear"></div>
@@ -357,19 +353,11 @@
                                                 </div>
                                                 <div *ngIf="!checkedAddBook" class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" class="button" (mouseenter)="checkGetCountBookDetailEqual10(item._id)" (click)="clickAddBookOnModel(item)">Add to cart</a>
                                                 </div>
-                                                <!-- <div class="yith_compare_btn">
-                                                    <div class="woocommerce product compare-button">
-                                                        <a href="#" class="compare button" data-product_id="78" rel="nofollow">Compare</a></div>
-                                                </div> -->
                                                 <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-                                                        <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                                            Add to Wishlist</a>
-                                                    </div>
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                    <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                        <i *ngIf="!validateFavorite(item._id)" class="fa fa-heart" style="margin-left:65px;color:#FFF;margin-top: 20px;"></i>
+                                                        <i *ngIf="validateFavorite(item._id)" class="fa fa-heart" style="margin-left:65px;color:yellow;margin-top: 20px;"></i> </a>
                                                 </div>
-                                                <!-- <div class="clear"></div> -->
                                             </div>
                                         </div>
                                         <!-- end product-image -->
@@ -489,14 +477,10 @@
                                             </div>
                                            
                                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                                                        Add to Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                    <i *ngIf="!validateFavorite(item._id)" class="fa fa-heart" style="margin-right: 30px;color:#FFF;margin-top: 20px;"></i>
+                                                    <i *ngIf="validateFavorite(item._id)" class="fa fa-heart" style="margin-right: 30px;color: yellow;margin-top: 20px;"></i> </a>
                                             </div>
-                                            <div class="clear"></div>
                                         </div>
                                     </div>
                                     <!-- end product-image -->

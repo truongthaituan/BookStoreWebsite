@@ -51,7 +51,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                                      instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books | paginate: { id:'1',itemsPerPage: 6,currentPage: p1 }">
                                 <div class="product-wrap">
-                                <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
+                                    <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                     <div class="product-image">
                                         <div class="catalog-image">
                                             <button (click)="detailBook(item);" style="background-color: transparent;border-color: transparent;">
@@ -71,49 +71,45 @@ js-comp-ver-4.9.2 vc_responsive ">
                                             </div>
 
                                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                               Add to Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                    <i *ngIf="!validateFavorite(item._id)" class="fa fa-heart" style="margin-left:40px;color:#FFF;margin-top: 20px;"></i>
+                                                    <i *ngIf="validateFavorite(item._id)" class="fa fa-heart" style="margin-left:40px;color: yellow;margin-top: 20px;"></i> </a>
                                             </div>
-                                            <div class="clear"></div>
                                         </div>
                                     </div>
                                     <!-- end product-image -->
-                                     <!-- Sale -->
-                                                <div *ngIf="item.sale!=0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                    <!-- Sale -->
+                                    <div *ngIf="item.sale!=0" class="product-content">
+                                        <h4 class="product_title">
+                                            <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                        </h4>
+                                        <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
                                                     </span>
-                                                    </ins>
+                                        </ins>
 
-                                                    <del style="font-size: 12px">
+                                        <del style="font-size: 12px">
                                                         <span class="woocommerce-Price-amount amount" >
                                                             {{item.priceBook | currency:"VND"}}
                                                     </span>
                                                     </del>
-                                                    </span>
-                                                </div>
-                                                <!-- Don't Sale -->
-                                                <div *ngIf="item.sale==0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                        </span>
+                                    </div>
+                                    <!-- Don't Sale -->
+                                    <div *ngIf="item.sale==0" class="product-content">
+                                        <h4 class="product_title">
+                                            <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                        </h4>
+                                        <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook | currency:"VND"}}
                                                     </span>
-                                                    </ins>
-                                                    </span>
-                                                </div>
+                                        </ins>
+                                        </span>
+                                    </div>
                                     <!-- end product-content -->
                                 </div>
                             </div>
@@ -222,7 +218,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                              instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of books  |
                             paginate: { id:'2',itemsPerPage: 4,currentPage: p }">
                                 <div class="product-wrap" style="height: 270px;">
-                                <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
+                                    <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                     <div class="product-image">
                                         <div class="catalog-image">
                                             <button (click)="detailBook(item);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">
@@ -240,49 +236,46 @@ js-comp-ver-4.9.2 vc_responsive ">
                                             </div>
 
                                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
-                                                <div class="yith-wcwl-add-button show" style="display:block">
-                                                    <a href="#" rel="nofollow" data-product-id="78" data-product-type="simple" class="add_to_wishlist">
-                   Add to Wishlist</a>
-                                                </div>
-                                                <div style="clear:both"></div>
-                                                <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
+                                                    <i *ngIf="!validateFavorite(item._id)" class="fa fa-heart" style="margin-right: 30px;color:#FFF;margin-top: 20px;"></i>
+                                                    <i *ngIf="validateFavorite(item._id)" class="fa fa-heart" style="margin-right: 30px;color: yellow;margin-top: 20px;"></i> </a>
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                     </div>
                                     <!-- end product-image -->
-                                     <!-- Sale -->
-                                                <div *ngIf="item.sale!=0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                    <!-- Sale -->
+                                    <div *ngIf="item.sale!=0" class="product-content">
+                                        <h4 class="product_title">
+                                            <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                        </h4>
+                                        <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook*(100-item.sale)/100 | currency:"VND"}}
                                                     </span>
-                                                    </ins>
+                                        </ins>
 
-                                                    <del style="font-size: 12px">
+                                        <del style="font-size: 12px">
                                                         <span class="woocommerce-Price-amount amount" >
                                                             {{item.priceBook | currency:"VND"}}
                                                     </span>
                                                     </del>
-                                                    </span>
-                                                </div>
-                                                <!-- Don't Sale -->
-                                                <div *ngIf="item.sale==0" class="product-content">
-                                                    <h4 class="product_title">
-                                                        <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
-                                                    </h4>
-                                                    <span class="price">
+                                        </span>
+                                    </div>
+                                    <!-- Don't Sale -->
+                                    <div *ngIf="item.sale==0" class="product-content">
+                                        <h4 class="product_title">
+                                            <div id="OverFlowNameBook" href="bookDetail">{{item.nameBook}}</div>
+                                        </h4>
+                                        <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
                                                                 {{item.priceBook | currency:"VND"}}
                                                     </span>
-                                                    </ins>
-                                                    </span>
-                                                </div>
+                                        </ins>
+                                        </span>
+                                    </div>
                                     <!-- end product-content -->
                                 </div>
 
