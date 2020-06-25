@@ -13,9 +13,13 @@ export class ProfileAccountSocialComponent implements OnInit {
 
   constructor(private _router: Router, private socialAccountService: SocialaccountService,
      private location: Location, private route: ActivatedRoute) { }
+     loginBy: String = ""
+     statusLogin = localStorage.getItem('statusLogin');
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     let googleID = JSON.parse(localStorage.getItem("accountSocial")).google_id;
+    if (this.statusLogin == null) { this._router.navigate(['/account']); }
+    this.loginBy = localStorage.getItem('loginBy');
     this.getSocialAccountByGoogleID(googleID);
   }
   getSocialAccountByGoogleID(googleID){
@@ -26,5 +30,17 @@ export class ProfileAccountSocialComponent implements OnInit {
   }
   cancel(){
     this.location.back();
+  }
+  moveToProfileDetail(){
+    this._router.navigate(['/accountProfile'])
+  }
+  moveToProfileAccountSocial(){
+    this._router.navigate(['/accountProfileSocial'])
+  }
+  goToOrderHistory(){
+    this._router.navigate(['/orderHistory'])
+  }
+  goToDiscountCode(){
+    this._router.navigate(['/discountCode'])
   }
 }
