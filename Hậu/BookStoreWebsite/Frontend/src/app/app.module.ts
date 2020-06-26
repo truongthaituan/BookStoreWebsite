@@ -46,6 +46,8 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 
 
+
+
 export function provideConfig() {
   return config;
 }
@@ -54,6 +56,8 @@ export function provideConfig() {
     AppComponent,
     CustomerLayoutComponent,
     AdminLayoutComponent,
+
+    
   
 
             ],

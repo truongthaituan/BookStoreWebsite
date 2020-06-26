@@ -21,7 +21,7 @@
                     <a class="btn btn-default btn-block" *ngIf="loginBy == 'loginbt'" (click)="moveToProfileDetail();">Thông Tin Tài Khoản</a>
                     <a class="btn btn-default btn-block" *ngIf="loginBy == 'loginSocial'" (click)="moveToProfileAccountSocial();">Thông Tin Tài Khoản</a>
 
-                    <a class="btn btn-default btn-block" href="#">Sách Yêu Thích</a>
+                    <a class="btn btn-default btn-block" (click)="goToFavorite();">Sách Yêu Thích</a>
                 </div>
             </div>
         </div>

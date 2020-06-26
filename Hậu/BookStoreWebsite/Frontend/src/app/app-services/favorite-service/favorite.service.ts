@@ -27,4 +27,7 @@ export class FavoriteService {
   getAllFavoriteByUserID(id: String) {
     return this._http.get(this.baseURL+"/getAllByUserID" + `/${id}`);
   }
+  getAllBookFavoriteByUserID(id: String) {
+    return this._http.get(this.baseURL+"/getAllBookByUserID" + `/${id}`);
+  }
 }

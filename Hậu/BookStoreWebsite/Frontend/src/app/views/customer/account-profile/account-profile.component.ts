@@ -32,5 +32,7 @@ export class AccountProfileComponent implements OnInit {
   goToDiscountCode(){
     this._router.navigate(['/discountCode'])
   }
-  
+  goToFavorite(){
+    this._router.navigate(['/favorites'])
+  }
 }

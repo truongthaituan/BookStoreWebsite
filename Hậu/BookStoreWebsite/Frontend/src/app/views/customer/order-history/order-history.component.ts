@@ -205,4 +205,8 @@ export class OrderHistoryComponent implements OnInit {
   moveToProfileAccountSocial(){
     this._router.navigate(['/accountProfileSocial'])
   }
+  goToFavorite(){
+    this._router.navigate(['/favorites'])
+  }
+
 }
