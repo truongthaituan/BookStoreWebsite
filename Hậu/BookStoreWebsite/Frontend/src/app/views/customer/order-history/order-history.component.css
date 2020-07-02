@@ -764,6 +764,12 @@ select::-ms-expand {
     padding: 5px;
 }
 
+.order-container .box .col-1 .btn-default {
+    width: 25%;
+    font-size: 12px;
+    padding: 5px;
+}
+
 .order-container .box .col-2 .error-title {
     width: 80%;
     text-align: center;
