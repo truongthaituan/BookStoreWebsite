@@ -22,6 +22,8 @@ import { ProfileDetailEditComponent } from 'src/app/views/customer/profile-detai
 import { ProfileChangePasswordComponent } from 'src/app/views/customer/profile-change-password/profile-change-password.component';
 import { ProfileAccountSocialComponent } from 'src/app/views/customer/profile-account-social/profile-account-social.component';
 import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/discount-code.component';
+import { FavoriteComponent } from 'src/app/views/customer/favorite/favorite.component';
+import { SaleComponent } from 'src/app/views/customer/sale/sale.component';
 import { AgmCoreModule } from '@agm/core';
 
 import { AgmDirectionModule } from 'agm-direction'; 
@@ -65,7 +67,9 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
     ProfileChangePasswordComponent,
     ProfileAccountSocialComponent,
     DiscountCodeComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    FavoriteComponent,
+    SaleComponent,
   ]
 })
 

@@ -262,7 +262,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                         <li class="cat-item cat-item-11">
                             <a *ngIf="loginBy == 'loginbt'" (click)="moveToProfileDetail();">Thông Tin Tài Khoản</a>
                             <a *ngIf="loginBy == 'loginSocial'" (click)="moveToProfileAccountSocial();">Thông Tin Tài Khoản</a>
-                            <a href="#">Sách Yêu Thích</a>
+                            <a (click)="goToFavorite();">Sách Yêu Thích</a>
                         </li>
                     </ul>
                 </div>

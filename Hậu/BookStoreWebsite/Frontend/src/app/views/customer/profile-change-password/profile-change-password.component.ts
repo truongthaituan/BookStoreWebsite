@@ -109,4 +109,7 @@ export class ProfileChangePasswordComponent implements OnInit {
     goToDiscountCode(){
       this._router.navigate(['/discountCode'])
     }
+    goToFavorite(){
+      this._router.navigate(['/favorites'])
+    }
 }

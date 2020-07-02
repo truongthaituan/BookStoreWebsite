@@ -60,4 +60,7 @@ export class ProfileDetailComponent implements OnInit {
   goToDiscountCode(){
     this._router.navigate(['/discountCode'])
   }
+  goToFavorite(){
+    this._router.navigate(['/favorites'])
+  }
 }

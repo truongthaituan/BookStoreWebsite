@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const favorite = require('../../models/D_action/favorite');
-//favorite
-//get all
+const book = require('../../models/A_store/book')
+    //favorite
+    //get all
 router.get('/', function(req, res) {
     console.log('get request for all favorites');
     favorite.find({})
@@ -49,6 +50,29 @@ router.get('/getAllByUserID/:id', function(req, res) {
     async function run() {
         const listFavorite = await getAllFavoriteByUserID(req.params.id)
         res.json(listFavorite)
+    }
+    run()
+});
+
+async function getBookByListID(req) {
+    try {
+        var listBook = []
+        for (let index in req) {
+
+            const aBook = await book.findById(req[index].bookID)
+            listBook.push(aBook)
+        }
+
+        return listBook
+    } catch (error) {
+
+    }
+}
+router.get('/getAllBookByUserID/:id', function(req, res) {
+    async function run() {
+        const listFavorite = await getAllFavoriteByUserID(req.params.id)
+        const listBookFavorite = await getBookByListID(listFavorite)
+        res.json(listBookFavorite)
     }
     run()
 });
