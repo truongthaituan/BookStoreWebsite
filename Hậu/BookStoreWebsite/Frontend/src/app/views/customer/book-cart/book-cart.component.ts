@@ -98,10 +98,13 @@ export class BookCartComponent implements OnInit {
   }
   minus(id) {
     for (let j = 0; j < JSON.parse(localStorage.getItem("CartBook")).length; j++) {
-      if (this.CartBook[j].count != 0) {
         if (this.CartBook[j]._id == id) {
+          if (this.CartBook[j].count > 1) {
           this.CartBook[j].count--;
           this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
+        }
+        else{
+          this.deleteCartBook(id)
         }
       }
     }
@@ -223,16 +226,16 @@ export class BookCartComponent implements OnInit {
               break;
             }
           }
-          localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
           Swal({
             title: "Đã xóa xong!",
             text: "Sách này đã được xóa trong giỏ hàng.",
             icon: 'success'
           });
-          this.ngOnInit();
+          localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
         }
-      console.log(willDelete)
+        this.ngOnInit();
     });
+  
   }
   //click vào hình chuyển về detail
   ViewBookDetail(idBook) {

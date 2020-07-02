@@ -20,7 +20,14 @@
     text-align: center;
     font-size: 14px;
 }
-
+#btnAddToCart_modal{
+    padding-left: 22px !important;
+    padding-top: 18px !important;
+    padding-right: 25px !important;
+    padding-bottom: 18px !important;
+    cursor: pointer;
+    font-weight: bold;
+}
 #btnAddToCart {
     padding-left: 25px !important;
     padding-top: 18px !important;

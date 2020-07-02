@@ -1621,7 +1621,7 @@
                 <div class="col mb-2">
                     <div class="row">
                         <div class="col-sm-12  col-md-6">
-                            <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal">Tiếp tục mua hàng</button>
+                            <button id="continue" class="btn btn-block btn-light " style="padding: 10px 16px;" data-dismiss="modal" (click)="goToHome()">Tiếp tục mua hàng</button>
                         </div>
                         <div class="col-sm-12 col-md-6 text-right">
                             <button class="btn btn-lg btn-block btn-success text-uppercase" type="button" data-dismiss="modal" (click)="goToCartBook()">Giỏ hàng   </button>
@@ -1637,12 +1637,12 @@
                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                          instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of BookByCategory  |
                         paginate: { itemsPerPage: 4,currentPage: p }">
-                            <div class="product-wrap">
+                        <div class="product-wrap" style="height: 270px;">
                                 <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                 <div class="product-image">
                                     <div class="catalog-image">
-                                        <button (click)="detailBook(item);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">
-                               <img width="169" height="169" src="{{item.imgBook}}"
+                                        <button (click)="clickGoToBookDetail(item._id);" data-dismiss="modal" style="background-color: transparent;border-color: transparent;">
+                                            <img width="169" height="169" src="{{item.imgBook}}"
                                 class="attachment-bookstore_product_thumb size-bookstore_product_thumb wp-post-image"
                                  alt="book6" sizes="(max-width: 207px) 100vw, 207px" />              
                                     <div class="button yith-wcqv-button" data-product_id="78">
@@ -1652,13 +1652,15 @@
                                     </div>
 
                                     <div class="product-buttons">
-                                        <div class="add-to-cart-btn"><a rel="nofollow" data-product_id="78" data-product_sku="" id="btnAddToCart_modal" data-quantity="1" class="button" (click)="addToCart(item)">Chọn Mua</a>
+                                        <div class="add-to-cart-btn" id = "add-to-cart-btn">
+                                            <a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1"  id = "btnAddToCart_modal"
+                                            class="button" (click)="addToCart(item)">Chọn mua</a>
                                         </div>
-
+                                       
                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                             <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
-                                                <i *ngIf="!validateFavorite(item._id)" class="fa fa-heart" style="margin-right:30px;color:#FFF;margin-top: 20px;"></i>
-                                                <i *ngIf="validateFavorite(item._id)" class="fa fa-heart" style="margin-right:30px;color: yellow;margin-top: 20px;"></i> </a>
+                                                <i *ngIf="!validateFavorite(item._id)" class="fa fa-heart" style="margin-right: 30px;color:#FFF;margin-top: 20px;"></i>
+                                                <i *ngIf="validateFavorite(item._id)" class="fa fa-heart" style="margin-right: 30px;color: yellow;margin-top: 20px;"></i> </a>
                                         </div>
                                     </div>
                                 </div>
