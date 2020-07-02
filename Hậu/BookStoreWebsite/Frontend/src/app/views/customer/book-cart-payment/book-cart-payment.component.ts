@@ -267,6 +267,15 @@ export class BookCartPaymentComponent implements OnInit {
           this.postOrderDetail(this.orderDetails);
 
         }
+        if(orders.paymentOption == "Online"){
+          this.point.point = parseInt((orders.totalPrice / 10000).toFixed(0));
+          this.point.userID =  this.accountSocial._id;
+  
+          this._pointService.putPointByUserID(this.point).subscribe(
+          pointNew => {
+            }
+          );
+        }
 
       },
       error => console.log(error)

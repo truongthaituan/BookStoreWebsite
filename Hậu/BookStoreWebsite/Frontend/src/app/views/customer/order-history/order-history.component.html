@@ -34,19 +34,26 @@ js-comp-ver-4.9.2 vc_responsive ">
                                 </div>
                                 <div *ngFor="let order of list_Order; let $index=index;">
 
-                                    <div class="order-container" *ngIf="order.status=='New'&&order.paymentOption=='Cash'" style="cursor: pointer;">
+                                    <div class="order-container" *ngIf="order.status=='New'" style="cursor: pointer;">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
                                                 <div class="row">
                                                     <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                    <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                    <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span>
+                                                        <span style="font-size: 11px;">
+                                                            {{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%) = <b style="color: red;">{{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}</b>
+                                                        </span>
+                                                    </div>
                                                     <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
                                                     <div *ngFor="let cus of list_all_customer">
                                                         <div class="col-sm-2" *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
                                                     </div>
 
-                                                    <div class="col-sm-2"><span>Trạng thái</span><span>Chờ xác nhận </span></div>
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-2"><span>Trạng thái</span>
+                                                        <span *ngIf="order.paymentOption=='Cash'">Chờ Xác Nhận </span>
+                                                        <span *ngIf="order.paymentOption=='Online'">Chờ Vận Chuyển </span>
+                                                    </div>
+                                                    <div class="col-sm-2" *ngIf="order.paymentOption=='Cash'">
                                                         <div class="box">
                                                             <a class="btn-default" (click)="ClickDeleteOrder(order)">Cancel</a>
                                                         </div>
@@ -100,7 +107,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đang Giao </b>
                                 </div>
                                 <div *ngFor="let order of list_Order; let $index=index;">
-                                    <div class="order-container" *ngIf="(order.status=='New'&&order.paymentOption=='Online')||order.status=='Inprogress'">
+                                    <div class="order-container" *ngIf="order.status=='Inprogress'">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
                                                 <div class="row">

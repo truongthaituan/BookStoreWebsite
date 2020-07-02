@@ -182,7 +182,7 @@ export class ManageOrderComponent implements OnInit {
             this._pointService.putPointByUserID(this.point).subscribe(
               pointNew => {
                 
-                localStorage.setItem("Point", Object.values(pointNew)[2]);
+                // localStorage.setItem("Point", Object.values(pointNew)[2]);
                 // this.ngOnInit();  
               }
             );
