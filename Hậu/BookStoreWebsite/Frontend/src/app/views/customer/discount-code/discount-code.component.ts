@@ -34,7 +34,7 @@ export class DiscountCodeComponent implements OnInit {
   }
   IsDisCount=true
   getDisCountCodeByUserID(){
-    this._discountCode.getDiscountCodeByUserIDAndStatus(this.accountSocial._id).subscribe(
+    this._discountCode.getDiscountCodeByUserID(this.accountSocial._id).subscribe(
       listDiscountCode => {
         this.discountCodes = listDiscountCode as DiscountCode[]
         console.log(this.discountCodes.length)

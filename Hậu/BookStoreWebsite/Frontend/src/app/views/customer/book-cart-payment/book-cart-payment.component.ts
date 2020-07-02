@@ -23,7 +23,7 @@ declare let paypal: any;
 //dataset Recommend
 import { datasetRecommend } from '../../../app-services/recommendSys-service/dataRecommend-service/dataRecommend.model'
 import { DatasetRecommendService } from 'src/app/app-services/recommendSys-service/dataRecommend-service/dataRecommend.service';
-
+import swal from 'sweetalert';
 @Component({
   selector: 'app-book-cart-payment',
   templateUrl: './book-cart-payment.component.html',
@@ -32,7 +32,7 @@ import { DatasetRecommendService } from 'src/app/app-services/recommendSys-servi
 export class BookCartPaymentComponent implements OnInit {
   constructor(private _router: Router, private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService
-    , private _pointService: PointService,private _discountCode : DiscountCodeService, private _datasetRecommend : DatasetRecommendService) {
+    , private _pointService: PointService, private _discountCode: DiscountCodeService, private _datasetRecommend: DatasetRecommendService) {
 
   }
   //chứa thông tin giỏ hàng
@@ -59,14 +59,14 @@ export class BookCartPaymentComponent implements OnInit {
   cartBookDB: CartBook = new CartBook;
   public loading: boolean = true;
   discountCode: DiscountCode = new DiscountCode;
-  paymentLoading=false;
-  datasetRecommend : datasetRecommend = new datasetRecommend;
+  paymentLoading = false;
+  datasetRecommend: datasetRecommend = new datasetRecommend;
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
-    if(localStorage.getItem('DiscountCode')!=null){
-      this.discountCode=JSON.parse(localStorage.getItem('DiscountCode'));
-    }else{
-      this.discountCode.discountCode=0;
+    if (localStorage.getItem('DiscountCode') != null) {
+      this.discountCode = JSON.parse(localStorage.getItem('DiscountCode'));
+    } else {
+      this.discountCode.discountCode = 0;
     }
     if (localStorage.getItem('statusLogin') == 'true') {
       $("#checkLogin").addClass("active");
@@ -84,7 +84,7 @@ export class BookCartPaymentComponent implements OnInit {
     this.getTotalCountAndPrice();
     this.getCustomerByID(customer_id);
     console.log(this.CartBook);
-    this.paymentLoading=false;
+    this.paymentLoading = false;
   }
   // set độ dài của giỏ hàng
   cartBookLength(CartBook) {
@@ -105,22 +105,22 @@ export class BookCartPaymentComponent implements OnInit {
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
       for (var i = 0; i < this.lengthCartBook; i++) {
-        this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100).toFixed(0));
+        this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count) * (100 - this.CartBook[i].sale) / 100).toFixed(0));
         this.TongCount += parseInt(this.CartBook[i].count);
       }
     }
- 
+
     $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
     $('.cart_items').html(this.TongCount.toString());
     localStorage.setItem("TongTien", this.TongTien.toString());
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
   //#endregion
-   formatCurrency(number){
+  formatCurrency(number) {
     var n = number.split('').reverse().join("");
-    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
-    return  n2.split('').reverse().join('') + 'VNĐ';
-}
+    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+    return n2.split('').reverse().join('') + 'VNĐ';
+  }
   //get customer By ID
   getCustomerByID(id) {
     this._customerService.getCustomerById(id).subscribe(
@@ -153,11 +153,11 @@ export class BookCartPaymentComponent implements OnInit {
     if (this.CartBook) {
       //SendMail
       this.sendMail.name = this.customer.name;
-      this.sendMail.address = this.customer.address ;
+      this.sendMail.address = this.customer.address;
       this.sendMail.email = this.customer.email;
       this.sendMail.phone = this.customer.phone;
       this.sendMail.orderDate = this.orders.orderDate;
-      this.sendMail.sale= "";
+      this.sendMail.sale = "";
       this.sendMail.imgBook = "";
       this.sendMail.nameBook = "";
       this.sendMail.count = "";
@@ -170,11 +170,11 @@ export class BookCartPaymentComponent implements OnInit {
 
         this.sendMail.count += this.CartBook[i].count + "next";
         if (this.IsPaypal) {
-          this.sendMail.price += (this.CartBook[i].priceBook / 23632*(100-this.CartBook[i].sale)/100).toFixed(2) + "next";
-          this.sendMail.feeShip =  parseFloat((this.customer.feeShip/23632*(100-this.CartBook[i].sale)/100).toFixed(2));
+          this.sendMail.price += (this.CartBook[i].priceBook / 23632 * (100 - this.CartBook[i].sale) / 100).toFixed(2) + "next";
+          this.sendMail.feeShip = parseFloat((this.customer.feeShip / 23632 * (100 - this.CartBook[i].sale) / 100).toFixed(2));
         } else {
           this.sendMail.price += this.CartBook[i].priceBook + "next";
-          this.sendMail.feeShip =  this.customer.feeShip;
+          this.sendMail.feeShip = this.customer.feeShip;
         }
         this._bookService.getBookById(this.CartBook[i]._id).subscribe(
           getBook => {
@@ -198,13 +198,15 @@ export class BookCartPaymentComponent implements OnInit {
   // sendmail
   sendMailCartBook(sendMail: SendMail) {
 
-    if(this.discountCode._id!=null){
+    if (this.discountCode._id != null) {
       //update discount code
-      this.discountCode.status=1;
-      this.putDiscountCode(this.discountCode);
+      // this.discountCode.status=1;
+      // this.putDiscountCode(this.discountCode);
+      //Delete Discount Code
+      this._discountCode.deleteDiscountCode(this.discountCode._id).subscribe()
     }
-    this.sendMail.discountCode =  this.discountCode.discountCode;
-    
+    this.sendMail.discountCode = this.discountCode.discountCode;
+
     if (this.IsPaypal) {
       this.sendMail.totalPrice = this.TongTienPayPal.toString();
       this._sendMail.postsendMailPayPal(sendMail).subscribe(
@@ -228,11 +230,7 @@ export class BookCartPaymentComponent implements OnInit {
       this._sendMail.postsendMail(sendMail).subscribe(
         postSendMail => {
 
-          console.log("SendMail Success");
-          //show alert
-          this.alertMessage = "Thanh toán thành công, mọi thông tin thanh toán đã được gửi qua email " + sendMail.email;
-          this.alertSucess = true;
-          setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
+
           //thực hiện lưu db (order - orderDetail - customer )
           this.postOrder(this.orders);
 
@@ -249,8 +247,8 @@ export class BookCartPaymentComponent implements OnInit {
     this.now = new Date();
     orders.orderDate = this.now.toString().substring(0, 24);
     orders.totalPrice = this.TongTien;
-    orders.discountCode= this.discountCode.discountCode;
-    orders.feeShip= this.customer.feeShip;
+    orders.discountCode = this.discountCode.discountCode;
+    orders.feeShip = this.customer.feeShip;
     this._orderService.postOrder(orders).subscribe(
       orderdata => {
 
@@ -262,17 +260,17 @@ export class BookCartPaymentComponent implements OnInit {
           this.orderDetails.count = this.CartBook[i].count;
           this.orderDetails.orderID = orderdata['_id'];
           this.orderDetails.price = this.CartBook[i].priceBook;
-          this.orderDetails.sale =  this.CartBook[i].sale;
+          this.orderDetails.sale = this.CartBook[i].sale;
           //post order Detail
           this.postOrderDetail(this.orderDetails);
 
         }
-        if(orders.paymentOption == "Online"){
+        if (orders.paymentOption == "Online") {
           this.point.point = parseInt((orders.totalPrice / 10000).toFixed(0));
-          this.point.userID =  this.accountSocial._id;
-  
+          this.point.userID = this.accountSocial._id;
+
           this._pointService.putPointByUserID(this.point).subscribe(
-          pointNew => {
+            pointNew => {
             }
           );
         }
@@ -283,7 +281,7 @@ export class BookCartPaymentComponent implements OnInit {
   }
   //post order Detail
   postOrderDetail(orderDetails: OrderDetail) {
-    this.DataSetRecommend(orderDetails.bookID,orderDetails.count,0,0)
+    this.DataSetRecommend(orderDetails.bookID, orderDetails.count, 0, 0)
     this._orderDetailService.postOrderDetail(orderDetails).subscribe(
       orderDetaildata => {
         localStorage.removeItem('CartBook');
@@ -292,20 +290,14 @@ export class BookCartPaymentComponent implements OnInit {
         this.deleteAllCartBookDBByUserID(this.accountSocial._id);
         this.getTotalCountAndPrice();
         this.IsPaypal = false;
-        
-        
+
+
         this._router.navigate(['/']);
       },
       error => console.log(error)
     );
   }
-  //pay by cash
 
-  payByCash() {
-    this.paymentLoading=true;
-    this.orders.paymentOption = "Cash";
-    this.payCheckOut();
-  }
   //#region paypal
   //create a json for paypal
   JsonCartBook: any
@@ -316,16 +308,16 @@ export class BookCartPaymentComponent implements OnInit {
   createJson(CartBook: any) {
     this.TongTienPayPal = 0;
     for (var i = 0; i < this.lengthCartBook; i++) {
-        var infoCart = {
-        name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2)),
+      var infoCart = {
+        name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632 * (100 - CartBook[i].sale) / 100).toFixed(2)),
         currency: "USD", quantity: CartBook[i].count
       };
-  
+
       this.CartBook2.push(infoCart);
-      this.TongTienPayPal += CartBook[i].count * parseFloat((CartBook[i].priceBook / 23632*(100-CartBook[i].sale)/100).toFixed(2));
-        }
+      this.TongTienPayPal += CartBook[i].count * parseFloat((CartBook[i].priceBook / 23632 * (100 - CartBook[i].sale) / 100).toFixed(2));
+    }
     this.TongTienPayPal = this.TongTienPayPal.toFixed(2);
-  
+
   }
   public didPaypalScriptLoad: boolean = false;
   public paymentAmount: number = 1000;
@@ -344,12 +336,12 @@ export class BookCartPaymentComponent implements OnInit {
             [{
               "item_list": {
                 "items": this.CartBook2
-                ,"shipping_address": {
+                , "shipping_address": {
                   "recipient_name": this.customer.name,
                   "line1": this.customer.address,
                   "line2": "",
                   "city": ".",
-               
+
                   "phone": this.customer.phone,
                   "postal_code": ".",
                   "country_code": "VN"
@@ -364,7 +356,7 @@ export class BookCartPaymentComponent implements OnInit {
               },
               "description": "This is the payment description."
             }
-          ]
+            ]
 
           // [
           //   { amount: { total: this.paymentAmount, currency: 'USD' } }
@@ -373,17 +365,18 @@ export class BookCartPaymentComponent implements OnInit {
       });
     },
     onAuthorize: (data, actions) => {
+      //xử lý thanh toán
+      //thanh toán thành công
       return actions.payment.execute().then((payment) => {
         this.IsPaypal = true;
         this.orders.paymentOption = "Online";
-        this.payCheckOut();
 
       });
     }
   };
   public loadPaypalScript(): Promise<any> {
-  
-    this.paymentLoading=true;
+
+    this.paymentLoading = true;
     this.didPaypalScriptLoad = true;
     return new Promise((resolve, reject) => {
       const scriptElement = document.createElement('script');
@@ -391,7 +384,7 @@ export class BookCartPaymentComponent implements OnInit {
       scriptElement.onload = resolve;
       document.body.appendChild(scriptElement);
     })
-   
+
   }
   //#endregion  
   deleteAllCartBookDBByUserID(id) {
@@ -406,29 +399,71 @@ export class BookCartPaymentComponent implements OnInit {
     }
   }
   //update discount code
-  putDiscountCode(discountCode:DiscountCode) {
-      this._discountCode.putDiscountCode(discountCode).subscribe(
+  putDiscountCode(discountCode: DiscountCode) {
+    this._discountCode.putDiscountCode(discountCode).subscribe(
+      req => {
+        console.log(req);
+      },
+      error => console.log(error)
+    );
+  }
+  DataSetRecommend(bookId, buy, rate, view) {
+    if (this.accountSocial._id) {
+      this.datasetRecommend.userID = this.accountSocial._id;
+      this.datasetRecommend.bookID = bookId;
+      //các value == 0 trừ click xem = 1  ...--> vào trong backend sẽ tự cộng
+      this.datasetRecommend.buy = buy;
+      this.datasetRecommend.rate = rate;
+      this.datasetRecommend.click = view;
+      console.log(this.datasetRecommend)
+      this._datasetRecommend.putOrPostDatasetRecommend(this.datasetRecommend).subscribe(
         req => {
           console.log(req);
         },
         error => console.log(error)
       );
     }
-    DataSetRecommend(bookId,buy,rate,view){
-      if(this.accountSocial._id){
-        this.datasetRecommend.userID = this.accountSocial._id;
-        this.datasetRecommend.bookID = bookId;
-        //các value == 0 trừ click xem = 1  ...--> vào trong backend sẽ tự cộng
-        this.datasetRecommend.buy =buy ; 
-        this.datasetRecommend.rate=rate;
-        this.datasetRecommend.click=view;
-        console.log(this.datasetRecommend)
-        this._datasetRecommend.putOrPostDatasetRecommend(this.datasetRecommend).subscribe(
-          req => {
-            console.log(req);
-          },
-          error => console.log(error)
-        );
+  }
+  //pay by cash
+
+  payByCash() {
+    this.paymentLoading = true;
+    this.orders.paymentOption = "Cash";
+    //kiểm tra số lượng sách trong cửa hàng so với đơn hàng 
+    this.CheckBillBeforePay()
+
+
+  }
+  //Kiểm tra bất đồng bộ và roll back
+  listBookCheck: any
+  CheckBillBeforePay() {
+    this._bookService.UpdateQuantity(this.CartBook).subscribe(res => {
+      if (res == true) {
+        this.payCheckOut();
+        if (this.orders.paymentOption == "Cash") {
+          swal({
+            title: "Đã Đặt Thành Công Đơn Hàng!",
+            text: "Cám Ơn Bạn Đã Ủng Hộ Cửa Hàng",
+            icon: 'success'
+          });
+        }
+        if (this.orders.paymentOption == "Online") {
+
+          swal({
+            title: "Đã Thanh Toán Thành Công Đơn Hàng!",
+            text: "Cám Ơn Bạn Đã Ủng Hộ Cửa Hàng",
+            icon: 'success'
+          });
+        }
+      } else {
+        swal({
+          title: "Đơn Hàng Bạn Đặt Mua Hiện Đã Hết Hàng!",
+          text: "Vui Lòng Quay Lại Sau ",
+          icon: 'warning'
+        });
       }
-    }
+
+    })
+
+  }
 }

@@ -173,7 +173,7 @@ async function UpdateQuantityByBookID(abook, bookQuantityUpdate, res) {
 
     const Updatebook = await book.findByIdAndUpdate(abook._id, {
         $set: {
-            quantity: abook.quantity - bookQuantityUpdate,
+            quantity: abook.quantity + bookQuantityUpdate,
         }
     }, {
         new: true
@@ -182,16 +182,49 @@ async function UpdateQuantityByBookID(abook, bookQuantityUpdate, res) {
     return Updatebook
 }
 async function getBookByID(req, res) {
-    const abook = await book.findById(req.body._id)
+    const abook = await book.findById(req)
 
     return abook
 }
 
 router.post('/UpdateQuantity', function(req, res) {
     async function run() {
-        const abook = await getBookByID(req, res)
+        const abook = await getBookByID(req.body._id, res)
         const update = await UpdateQuantityByBookID(abook, req.body.quantity, res)
+        console.log(update)
         res.json(update)
+    }
+    run()
+})
+
+
+//check Giỏ hàng thanh toán bất đồng bộ
+router.post('/CheckBillBeforePay', function(req, res) {
+    async function run() {
+        let temp = -1;
+        for (let index in req.body) {
+            const abook = await getBookByID(req.body[index]._id, res)
+                //kiểm số lượng oke thì trừ
+            if (abook.quantity >= req.body[index].count) {
+
+                const update = await UpdateQuantityByBookID(abook, -req.body[index].count, res)
+            } else {
+                temp = index
+                break
+            }
+        }
+        if (temp == -1) {
+            res.json(true)
+        } else { //roll back dữ liệu
+            for (let index in req.body) {
+                if (temp == index) {
+                    break
+                }
+                const abook = await getBookByID(req.body[index]._id, res)
+                const update = await UpdateQuantityByBookID(abook, req.body[index].count, res)
+            }
+            res.json(false)
+        }
     }
     run()
 })

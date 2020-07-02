@@ -38,4 +38,10 @@ export class BookService {
   filterBook(body: any) {
     return this._http.post(this.baseURL +"/filter", body);
   }
+  //Update Book Quantity
+  //trong function backend đã trừ ... (a - b)
+  UpdateQuantity(body: any){
+    return this._http.post(this.baseURL +"/CheckBillBeforePay", body);
+    
+  }
 }

@@ -46,7 +46,6 @@ export class BookCartComponent implements OnInit {
   alertFalse = false;
   cartBookDB: CartBook = new CartBook;
   discountCode: DiscountCode = new DiscountCode;
-
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     if (localStorage.getItem('DiscountCode') != null) {
@@ -54,7 +53,8 @@ export class BookCartComponent implements OnInit {
     } else {
       this.discountCode.discountCode = 0;
     }
-
+    console.log("12333")
+    console.log(this.discountCode.discountCode)
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
@@ -76,6 +76,10 @@ export class BookCartComponent implements OnInit {
     this.CheckViewCart();
     //valid quantity và rate trong cartBook
 
+  }
+  unUseDiscountCode(){
+    localStorage.removeItem('DiscountCode');
+    this.ngOnInit();
   }
   //#region Buộc phải có trên các component
   quantity: number = 1;
