@@ -94,35 +94,38 @@ async function CheckIsBuy(data, element) {
     return isExist1(data, element);
 }
 //compare 2 person by BookID  ---> value check (rate)
+
+//Tính hệ số tương quan giữa hai người dùng p1 và p2
+//dataInit ứng với Book ; value ứng với rate 
 async function pearson_correlation(dataset, p1, p2, dataInit, value) {
     try {
-        var existp1p2 = {};
-        const Person1Get = await getPerson(p1);
-        const Person2Get = await getPerson(p2);
-        const Person1 = await DeleteCheckZero(Person1Get, value)
-        const Person2 = await DeleteCheckZero(Person2Get, value)
+        var existp1p2 = {}; //Lưu lại biến khi p1[dataInit]=p2[dataInit]
+        const Person1Get = await getPerson(p1); //Lấy data người dùng p1
+        const Person2Get = await getPerson(p2); //Lấy data người dùng p2
+        const Person1 = await DeleteCheckZero(Person1Get, value) //Loại bỏ những data có rate = 0 (Chưa đánh giá)
+        const Person2 = await DeleteCheckZero(Person2Get, value) //Loại bỏ những data có rate = 0 (Chưa đánh giá)
 
         for (var key1 in Person1) {
             for (var key2 in Person2) {
                 if (Person1[key1][dataInit] == Person2[key2][dataInit]) {
-                    existp1p2[Person1[key1][dataInit]] = 1
+                    existp1p2[Person1[key1][dataInit]] = 1 //Lưu lại biến khi p1[dataInit]=p2[dataInit]
                     break;
                 }
             }
         }
-        var num_existence = len(existp1p2);
+        var num_existence = len(existp1p2); //số lượng dataInit giống nhau
         if (num_existence == 0) return 0;
-        //store the sum and the square sum of both p1 and p2
-        //store the product of both
-        var p1_sum = 0,
-            p2_sum = 0,
-            p1_sq_sum = 0,
-            p2_sq_sum = 0,
-            prod_p1p2 = 0,
+        // lưu tổng và tổng bình phương của cả p1 và p2
+        // lưu trữ sản phẩm của cả hai
+        var p1_sum = 0, //tổng p1
+            p2_sum = 0, //tổng p2
+            p1_sq_sum = 0, //tổng bình phương p1
+            p2_sq_sum = 0, //tổng bình phương p2
+            prod_p1p2 = 0, //tổng tích p1 p2
             p1_cur = 0,
             p2_cur = 0;
-        //calculate the sum and square sum of each data point
-        //and also the product of both point
+        // tính tổng và bình phương của mỗi điểm dữ liệu
+        // và cũng là sản phẩm của cả hai điểm
         for (var key in existp1p2) {
             for (var key1 in Person1) {
                 if (key == Person1[key1][dataInit]) {
@@ -157,6 +160,7 @@ async function pearson_correlation(dataset, p1, p2, dataInit, value) {
 }
 
 // check by 
+
 // dataset : bộ dữ liệu
 // person : user đăng nhập 
 // pearson_correlation : function work
@@ -178,7 +182,7 @@ async function recommendation_eng(dataset, person, pearson_correlation, dataInit
             this[props] += aValue;
         }
     };
-    var rank_lst = [];
+    var rank_lst = []; //danh sách xếp hạng kết quả tương thích của item
     const Person2Get = await getPerson(person);
     const dataPerson2 = await DeleteCheckZero(Person2Get, value)
 
@@ -187,39 +191,40 @@ async function recommendation_eng(dataset, person, pearson_correlation, dataInit
     for (var other in datafilter) {
         if (datafilter[other].userID == person) continue;
         var similar = await pearson_correlation(dataset, person, datafilter[other].userID, dataInit, value);
-        if (similar <= 0) continue;
+        if (similar <= 0) continue; //kiểm tra hệ số tương quan <=0 tức là không liên hệ gì với nhau
         const Person1Get = await getPerson(datafilter[other].userID);
         const dataPerson1 = await DeleteCheckZero(Person1Get, value)
         for (var data1 in dataPerson1) {
+            //Kiểm tra dataInit trong dataPerson1[data1] có tồn tại trong dataPerson2 không
             if (!(await isExist2(dataPerson2, dataPerson1[data1], dataInit))) {
+                //nếu không tồn tại thì dự đoán hệ số tương quan sản phẩm
+                //tính trung bình theo hệ số tương quan
                 totals.setDefault(dataPerson1[data1][dataInit], dataPerson1[data1][value] * similar);
                 simsum.setDefault(dataPerson1[data1][dataInit], similar);
             }
         }
     }
     for (var item in totals) {
-        //this what the setter function does
-        //so we have to find a way to avoid the function in the object     
         if (typeof totals[item] != "function") {
+            //tính trung bình theo hệ số tương quan
             var val = totals[item] / simsum[item];
             rank_lst.push({ val: val, items: item });
         }
     }
-    rank_lst.sort(function(a, b) {
+    rank_lst.sort(function(a, b) { //sắp xếp theo thứ tự giảm dần
         return b.val < a.val ? -1 : b.val > a.val ?
             1 : b.val >= a.val ? 0 : NaN;
     });
     var recommend = []
-        // console.log(Person2Get)
     for (var i in rank_lst) {
-
+        //nếu đã mua rồi thì không hiện nữa
         if (!(await CheckIsBuy(Person2Get, rank_lst[i].items))) {
             recommend.push(rank_lst[i].items);
         }
     }
-    // console.log([rank_lst, recommend]);
-    return recommend;
+    return recommend; //danh sách id book
 }
+
 //#endregion
 //các value cột trong datasets
 // 0: _id

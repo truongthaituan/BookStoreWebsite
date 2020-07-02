@@ -151,21 +151,23 @@ async function pearson_correlation(dataset, p1, p2) {
         return res.status(501).json(err);
     }
 }
-
+//tạo danh sách xếp hạng nhà phê bình ứng với person
+//với num_user là số lượng hiển thị
+//pearson_correlation là function tính hệ số tương quan giữa 2 user
 async function similar_user(dataset, person, num_user, pearson_correlation) {
     try {
         var scores = [];
-        //locj tene trung
-        var datafilter = await deduplicate(dataset);
-
+        var datafilter = await deduplicate(dataset); //lọc tên user trùng
         for (var others in datafilter) {
             if (datafilter[others].name != person) {
+                //tính hệ số tương quan giữa person và từng user
                 var val = await pearson_correlation(datafilter, person, datafilter[others].name)
                 var p = datafilter[others].name
+                    //danh sách các hệ số tính được
                 scores.push({ val: val, p: p });
             }
         }
-        scores.sort(function(a, b) {
+        scores.sort(function(a, b) { //sắp xếp từ cao đến thấp
             return b.val < a.val ? -1 : b.val > a.val ? 1 : b.val >= a.val ? 0 : NaN;
         });
 
