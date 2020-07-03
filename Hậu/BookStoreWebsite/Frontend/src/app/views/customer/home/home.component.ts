@@ -204,9 +204,7 @@ export class HomeComponent implements OnInit {
 	}
 	selectedBook = [];
 	detailBook(book: Book) {
-		//   this.selectedBook.push(book);
-		//   console.log(this.selectedBook);
-		//   localStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
+
 		return this._router.navigate(["/bookDetail" + `/${book._id}`]);
 	}
 	refreshBookList() {

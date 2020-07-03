@@ -26,6 +26,7 @@ export class OrderHistoryComponent implements OnInit {
   list_Order_New=[]   //new
   list_Order_Inpro=[]  //inproject
   list_Order_Done=[]    //done
+  list_Order_Cancel=[] //cancel
   list_OrderDetail: Array<OrderDetail>;
   list_Book: Array<Book>;
   TongTien = 0;
@@ -54,6 +55,7 @@ export class OrderHistoryComponent implements OnInit {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     $('#future-orders').css('display', 'none');
     $('#done-orders').css('display', 'none');
+    $('#order-cancel').css('display', 'none');
 
     $('#toggle-orders li').click(function () {
       $('#toggle-orders li').not(this).removeClass('selected');
@@ -62,21 +64,31 @@ export class OrderHistoryComponent implements OnInit {
 
 
     $('.fo').click(function () {
+      
+      $('#order-cancel').hide();
       $('#order-history').hide();
       $('#done-orders').hide();
       $('#future-orders').fadeIn('fast');
     });
 
     $('.oh').click(function () {
+      $('#order-cancel').hide();
       $('#order-history').fadeIn('fast');
       $('#future-orders').hide();
       $('#done-orders').hide();
     });
 
     $('.com').click(function () {
+      $('#order-cancel').hide();
       $('#order-history').hide();
       $('#future-orders').hide();
       $('#done-orders').fadeIn('fast');
+    });
+    $('.cancel').click(function () {
+      $('#order-cancel').fadeIn('fast');
+      $('#order-history').hide();
+      $('#future-orders').hide();
+      $('#done-orders').hide();
     });
 
     $(function () {
@@ -138,8 +150,6 @@ export class OrderHistoryComponent implements OnInit {
           {
            
             this.list_Order_New.push(this.list_Order[index])
-    
-          
             this.IsCheckNew=true;
             continue;
           }
@@ -154,6 +164,12 @@ export class OrderHistoryComponent implements OnInit {
             this.IsCheckDone=true;
             continue;
           }
+          if(this.list_Order[index].status=='Cancel')
+          {
+            this.list_Order_Cancel.push(this.list_Order[index])
+            this.IsCheckCancel=true;
+            continue;
+          }
         
         }
   
@@ -162,6 +178,7 @@ export class OrderHistoryComponent implements OnInit {
     );
   }
 
+ 
   getAllCustomer() {
     this._customer.getCustomerList().subscribe(
       allCustomerlist => {
@@ -194,12 +211,24 @@ export class OrderHistoryComponent implements OnInit {
     if(orderDel.discountCode!=0){
       var setconfirm = confirm('Hủy đơn hàng này bạn sẽ bị mất mã giảm giá '+orderDel.discountCode+"%, /n<br> Bạn có chắc là muốn xóa ? ")
       if(setconfirm){
-        this.DeleteOrder(orderDel._id);
+        orderDel.status = "Cancel";
+        this._order.putOrder(orderDel).subscribe(
+          order => {
+            
+            this.ngOnInit();
+    
+          });
       }
     }else{
       var setconfirm = confirm('Bạn có chắc là muốn hủy đơn hàng này chứ ?');
       if(setconfirm){
-       this.DeleteOrder(orderDel._id);
+        orderDel.status = "Cancel";
+        this._order.putOrder(orderDel).subscribe(
+          order => {
+            
+            this.ngOnInit();
+    
+          });
       }
     }
   }
