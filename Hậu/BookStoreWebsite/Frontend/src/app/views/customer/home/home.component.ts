@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
+import { Category } from '../../../app-services/category-service/category.model';
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { PointService } from 'src/app/app-services/point-service/point.service';
-
+import Swal from 'sweetalert';
 //recommend
 import { BestService } from '../../../app-services/best-service/best.service';
 import { Recommend } from '../../../app-services/recommendSys-service/recommendSys.service';
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
 
 	//recommend
 	bestBookList: Book = new Book;
+	bestCategoryList: Category = new Category;
 	BookByListCategoryBest:any
 	favorite: Favorite = new Favorite
 	listFavorite :any
@@ -69,11 +71,12 @@ export class HomeComponent implements OnInit {
 	IsBuyRecommend=false
 	getBestBookAndRecommend() {
 		//get sách được mua nhiều nhất
+		//thể loại hot nhất
 		this._bestService.getBookBestSelling().subscribe(
 			listBestBook => {
-				this.bestBookList = listBestBook as Book
-				
-			});
+				this.bestBookList = listBestBook[1] as Book
+				this.bestCategoryList = listBestBook[0] as Category
+			});	
 		//get 2 thể loại mà người dùng thích nhất để show sách theo thể loại
 		if(this.accountSocial!=null){
 			this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
@@ -310,8 +313,19 @@ export class HomeComponent implements OnInit {
 	}
 	//Xóa hết DB lưu lại theo giỏ hàng
 	mergeCartBookAndCartBookDB(cartBookDB: Object) {
-		var setconfirm = confirm('Giỏ hàng cũ của bạn chưa được thanh toán ,bạn có muốn gộp giỏ hàng cũ vào không ?')
-		if (setconfirm == true) {
+		Swal({
+			text: "Giỏ hàng cũ của bạn chưa được thanh toán ,bạn có muốn gộp giỏ hàng cũ vào không ?",
+			icon: 'warning',
+			buttons:  {
+			  cancel: true,
+			  confirm: {
+			   value:"OK",
+			   closeModal: true
+			  }
+			}
+		  }).then((willDelete) => {
+			if(willDelete){
+			
 			//gộp cartbook
 			for (var i = 0; i < Object.keys(cartBookDB).length; i++) {
 				for (var j = 0; j < this.lengthCartBook; j++) {
@@ -326,14 +340,20 @@ export class HomeComponent implements OnInit {
 						//add 
 						this.CartBook.push(Object.values(cartBookDB)[i]);
 					}
-				}
 			}
 			localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
 			this.getTotalCountAndPrice();
 		}
 		this.deleteAllCartBookDBByUserID(this.accountSocial._id);
-
-
+		Swal({
+            title: "",
+            text: "Gộp giỏ hàng thành công",
+            icon: 'success'
+          });
+			}
+	 		
+		});
+		
 	}
 
 

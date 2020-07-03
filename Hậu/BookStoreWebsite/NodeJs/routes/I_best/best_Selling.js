@@ -6,8 +6,9 @@ const book = require('../../models/A_store/book');
 const acountSocial = require('../../models/C_permission/accountsocials');
 const user = require('../../models/C_permission/user');
 const customer = require('../../models/B_profile/customer');
-const categoryModel = require('../../models/A_store/category')
-    //thống kê Danh sách sách mua nhiều
+const categoryModel = require('../../models/A_store/category');
+const category = require('../../models/A_store/category');
+//thống kê Danh sách sách mua nhiều
 async function getAllOrder(req, res) {
     try {
         const orderArray = await order.find({});
@@ -35,6 +36,14 @@ async function getBookByBookID(req, res) {
         return res.status(501).json(err);
     }
 }
+async function getCategoryByID(req, res) {
+    try {
+        const aCategory = await category.findById(req);
+        return aCategory;
+    } catch (err) {
+        return res.status(501).json(err);
+    }
+}
 //get book by CategoryID
 async function getBookByCategoryID(req, res) {
     try {
@@ -57,12 +66,12 @@ async function getUserIDByCusID(req, res) {
 async function CreateDataBookCount(data, orderDetail, book) {
     let isExist1 = (data2, orderDetailCheck, bookBook) => {
         for (var key in data2) {
-    
-                if (data2[key].bookID == bookBook) {
-                    data2[key].count += orderDetailCheck.count;
-                    return data2;
-                }
-            
+
+            if (data2[key].bookID == bookBook) {
+                data2[key].count += orderDetailCheck.count;
+                return data2;
+            }
+
         }
         var dataReturn = {}
         dataReturn = { "bookID": bookBook, "count": orderDetailCheck.count }
@@ -71,6 +80,32 @@ async function CreateDataBookCount(data, orderDetail, book) {
     }
     return isExist1(data, orderDetail, book);
 }
+async function CreateDataBookCountCategory(data) {
+
+    var dataCategory = []
+
+    for (var key in data) {
+        let temp = 0;
+
+        let aBook = await book.findById(data[key].bookID);
+        // console.log(aBook)
+        for (var key2 in dataCategory) {
+            if (dataCategory[key2].categoryID == aBook.categoryID) {
+                dataCategory[key2].count += data[key].count
+                temp = 1;
+                break
+            }
+        }
+        if (temp == 1) continue
+        var dataReturn = {}
+        dataReturn = { "categoryID": aBook.categoryID, "count": data[key].count }
+        dataCategory.push(dataReturn);
+    }
+
+    return dataCategory;
+
+}
+
 async function CreateDataCategoryCount(data, orderDetail, user, category) {
     let isExist1 = (data2, orderDetailCheck, userCheck, bookCategory) => {
         for (var key in data2) {
@@ -105,7 +140,9 @@ async function getCategoryBookByBookID(req, res) {
 router.get('/Book', function(req, res) {
         async function run() {
             let BookList = []
+            let CategoryList = []
             let DataBook = []
+            let DataCategory = []
             const orderArray = await getAllOrder(req, res);
             // console.log("DataBook")
             for (var index in orderArray) {
@@ -116,11 +153,16 @@ router.get('/Book', function(req, res) {
                     //kiểm tra xem id sách có tồn tại trong danh sách
                     //nếu chưa thì thêm , có rồi thì cộng
                     // DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], userInOrder, orderDetailArray[index2].bookID)
-DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], orderDetailArray[index2].bookID)
+                    DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], orderDetailArray[index2].bookID)
 
                 }
             }
+            DataCategory = await CreateDataBookCountCategory(DataBook)
+
             DataBook.sort(function(a, b) {
+                return b.count - a.count;
+            });
+            DataCategory.sort(function(a, b) {
                 return b.count - a.count;
             });
             //get book by Databook
@@ -133,56 +175,67 @@ DataBook = await CreateDataBookCount(DataBook, orderDetailArray[index2], orderDe
                 // console.log(abook)
                 BookList.push(abook);
             }
+            for (var index in DataCategory) {
+                if (index > 2) {
+                    break;
+                }
+                // console.log(DataBook[index].bookID)
+                const aCategory = await getCategoryByID(DataCategory[index].categoryID, res);
+                // console.log(abook)
+                CategoryList.push(aCategory);
+            }
+
+
             // id user
-            res.json(BookList);
+            res.json([CategoryList, BookList]);
         }
         run();
     })
     //show những sách người dùng mua nhiều nhất trong thể loại 
 router.get('/BookByCategory/:UserID', function(req, res) {
-    async function run() {
-        let BookList = []
-        let DataBook = []
-        const orderArray = await getAllOrder(req, res);
-        for (var index in orderArray) {
-            const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
-            if (userInOrder.userID != req.params.UserID) continue
+        async function run() {
+            let BookList = []
+            let DataBook = []
+            const orderArray = await getAllOrder(req, res);
+            for (var index in orderArray) {
+                const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
+                if (userInOrder.userID != req.params.UserID) continue
 
-            const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
+                const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
 
-            for (var index2 in orderDetailArray) {
-                const bookCategory = await getCategoryBookByBookID(orderDetailArray[index2].bookID, res);
+                for (var index2 in orderDetailArray) {
+                    const bookCategory = await getCategoryBookByBookID(orderDetailArray[index2].bookID, res);
 
-                //kiểm tra xem id sách có tồn tại trong danh sách
-                //nếu chưa thì thêm , có rồi thì cộng
-                DataBook = await CreateDataCategoryCount(DataBook, orderDetailArray[index2], userInOrder, bookCategory)
+                    //kiểm tra xem id sách có tồn tại trong danh sách
+                    //nếu chưa thì thêm , có rồi thì cộng
+                    DataBook = await CreateDataCategoryCount(DataBook, orderDetailArray[index2], userInOrder, bookCategory)
+
+                }
+            }
+            // console.log(DataBook)
+            DataBook.sort(function(a, b) {
+                return b.count - a.count;
+            });
+
+            //get book by Databook
+            for (var index in DataBook) {
+                if (index > 1) {
+                    break;
+                }
+                const abook = await getBookByCategoryID(DataBook[index].categoryID, res);
+                //set key Object
+                const categoryName = DataBook[index].categoryName;
+                var obj = {};
+                obj[categoryName] = abook;
+
+                BookList.push(obj);
+                // số lượng category muon
 
             }
+            // id user
+            res.json(BookList);
         }
-        // console.log(DataBook)
-        DataBook.sort(function(a, b) {
-            return b.count - a.count;
-        });
-
-        //get book by Databook
-        for (var index in DataBook) {
-            if (index > 1) {
-                break;
-            }
-            const abook = await getBookByCategoryID(DataBook[index].categoryID, res);
-            //set key Object
-            const categoryName = DataBook[index].categoryName;
-            var obj = {};
-            obj[categoryName] = abook;
-
-            BookList.push(obj);
-            // số lượng category muon
-
-        }
-        // id user
-        res.json(BookList);
-    }
-    run();
-})
-
+        run();
+    })
+    //show thể loại bán chạy nhất
 module.exports = router;

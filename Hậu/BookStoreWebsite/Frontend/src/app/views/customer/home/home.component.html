@@ -463,7 +463,7 @@
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
-                                            <h2 style='color:#27ae61'>Văn học<br> nghệ thuật</h2>
+                                            <h2 style='color:#27ae61'>{{bestCategoryList[0].nameCategory}}</h2>
                                             <a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>Vào Xem
                                                          <em class='fa fa-long-arrow-right'></em>
                                              </a></div>
@@ -483,7 +483,7 @@
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
-                                            <h2 style='color:#27ae61'>Khoa học<br> công nghệ</h2>
+                                            <h2 style='color:#27ae61'>{{bestCategoryList[1].nameCategory}}</h2>
                                             <a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>
                                                        Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
                                     </div>
@@ -502,7 +502,7 @@
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
-                                            <h2 style='color:#27ae61'>Truyện, tiểu thuyết</h2><a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>Vào Xem 
+                                            <h2 style='color:#27ae61'>{{bestCategoryList[2].nameCategory}}</h2><a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>Vào Xem 
                                                     <em class='fa fa-long-arrow-right'></em></a></div>
                                     </div>
                                 </div>
@@ -1637,7 +1637,7 @@
                         product_cat-creative-thinking product_cat-personal-finance product_cat-romance last
                          instock sale featured shipping-taxable purchasable product-type-simple" *ngFor="let item of BookByCategory  |
                         paginate: { itemsPerPage: 4,currentPage: p }">
-                        <div class="product-wrap" style="height: 270px;">
+                            <div class="product-wrap" style="height: 270px;">
                                 <span *ngIf="item.sale!=0" class="on-sale">-{{item.sale}}%</span>
                                 <div class="product-image">
                                     <div class="catalog-image">
@@ -1652,11 +1652,10 @@
                                     </div>
 
                                     <div class="product-buttons">
-                                        <div class="add-to-cart-btn" id = "add-to-cart-btn">
-                                            <a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1"  id = "btnAddToCart_modal"
-                                            class="button" (click)="addToCart(item)">Chọn mua</a>
+                                        <div class="add-to-cart-btn" id="add-to-cart-btn">
+                                            <a rel="nofollow" data-product_id="78" data-product_sku="" data-quantity="1" id="btnAddToCart_modal" class="button" (click)="addToCart(item)">Chọn mua</a>
                                         </div>
-                                       
+
                                         <div class="yith-wcwl-add-to-wishlist add-to-wishlist-78">
                                             <a rel="nofollow" data-product-id="78" data-product-type="simple" style="cursor:pointer;" (click)="favoriteBook(item._id)">
                                                 <i *ngIf="!validateFavorite(item._id)" class="fa fa-heart" style="margin-right: 30px;color:#FFF;margin-top: 20px;"></i>

@@ -134,7 +134,7 @@ export class BookCategoryComponent implements OnInit {
   }
   selectedBook = [];
   detailBook(book: Book) {
-    return this._router.navigate(['/aboutUs/' + `/${book._id}`]);
+    return this._router.navigate(['/bookDetail/' + `/${book._id}`]);
 
   }
   refreshCategoryList() {
