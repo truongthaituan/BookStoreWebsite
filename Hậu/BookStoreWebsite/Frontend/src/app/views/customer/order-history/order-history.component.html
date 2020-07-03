@@ -32,8 +32,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                 <div *ngIf="!IsCheckNew" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Chờ Xác Nhận </b>
                                 </div>
-                                <div *ngFor="let order of list_Order; let $index=index;">
-
+                                <div *ngFor="let order of list_Order_New| paginate: { id:'1',itemsPerPage: 4,currentPage: p1 }; let $index=index;">
                                     <div class="order-container" *ngIf="order.status=='New'" style="cursor: pointer;">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
@@ -94,10 +93,14 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     </div>
 
                                 </div>
+                                <div *ngIf="!IsCheckNew">
+                                    <pagination-controls id='1' (pageChange)="p1 = $event"></pagination-controls>
+                                </div>
                                 <!-- end of order-container -->
 
 
                             </div>
+
                             <!-- end of Order History -->
                             <!-- inprogress -->
 
@@ -106,7 +109,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                 <div *ngIf="!IsCheckInprogress" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đang Giao </b>
                                 </div>
-                                <div *ngFor="let order of list_Order; let $index=index;">
+                                <div *ngFor="let order of list_Order_Inpro | paginate: { id:'2',itemsPerPage: 4,currentPage: p2 }; let $index=index;">
                                     <div class="order-container" *ngIf="order.status=='Inprogress'">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
@@ -153,7 +156,11 @@ js-comp-ver-4.9.2 vc_responsive ">
                                         </div>
                                     </div>
                                 </div>
+                                <div *ngIf="!IsCheckInprogress">
+                                    <pagination-controls id='2' (pageChange)="p2 = $event"></pagination-controls>
+                                </div>
                             </div>
+
                             <!-- end of order-container -->
                             <!-- end of future-orders -->
                             <!-- done    -->
@@ -161,7 +168,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                 <div *ngIf="!IsCheckDone" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đã Giao </b>
                                 </div>
-                                <div *ngFor="let order of list_Order; let $index=index;">
+                                <div *ngFor="let order of list_Order_Done  | paginate: { id:'3',itemsPerPage: 4,currentPage: p3 }; let $index=index;">
                                     <div class="order-container" *ngIf="order.status=='Done'">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
@@ -210,6 +217,9 @@ js-comp-ver-4.9.2 vc_responsive ">
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div *ngIf="!IsCheckDone">
+                                    <pagination-controls id='3' (pageChange)="p3 = $event"></pagination-controls>
                                 </div>
                                 <!-- end of order-container -->
 

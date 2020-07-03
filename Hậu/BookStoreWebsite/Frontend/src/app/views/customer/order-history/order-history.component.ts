@@ -23,6 +23,9 @@ export class OrderHistoryComponent implements OnInit {
   list_Orders_CusName = [];
   list_all_customer: Array<Customer>;
   list_Order: Array<Order>;
+  list_Order_New=[]   //new
+  list_Order_Inpro=[]  //inproject
+  list_Order_Done=[]    //done
   list_OrderDetail: Array<OrderDetail>;
   list_Book: Array<Book>;
   TongTien = 0;
@@ -117,26 +120,37 @@ export class OrderHistoryComponent implements OnInit {
     return  n2.split('').reverse().join('') + 'VNĐ';
 }
   // get order by userID
+  IsCheckCancel=false
   IsCheckNew=false;
   IsCheckInprogress=false;
   IsCheckDone=false;
+  
   getOrderByUserID(id) {
     this._order.getOrderByUserId(id).subscribe(
       listOrder => {
         this.list_Order = listOrder as Order[];
-
+      
         for(let index in this.list_Order){
-          if(this.list_Order[index].status=="New"&& this.list_Order[index].paymentOption=="Cash")
+          let obj : Order
+        
+
+          if(this.list_Order[index].status=="New")
           {
+           
+            this.list_Order_New.push(this.list_Order[index])
+    
+          
             this.IsCheckNew=true;
             continue;
           }
-          if((this.list_Order[index].status=='New'&&this.list_Order[index].paymentOption=='Online')||this.list_Order[index].status=='Inprogress'){
+          if(this.list_Order[index].status=='Inprogress'){
             this.IsCheckInprogress=true;
+            this.list_Order_Inpro.push(this.list_Order[index])
             continue;
           }
           if(this.list_Order[index].status=='Done')
           {
+            this.list_Order_Done.push(this.list_Order[index])
             this.IsCheckDone=true;
             continue;
           }
@@ -178,17 +192,16 @@ export class OrderHistoryComponent implements OnInit {
   }
   ClickDeleteOrder(orderDel:Order){
     if(orderDel.discountCode!=0){
-      var setconfirm = confirm('Xóa đơn hàng này bạn sẽ bị mất mã giảm giá '+orderDel.discountCode+"%, /n<br> Bạn có chắc là muốn xóa ? ")
+      var setconfirm = confirm('Hủy đơn hàng này bạn sẽ bị mất mã giảm giá '+orderDel.discountCode+"%, /n<br> Bạn có chắc là muốn xóa ? ")
       if(setconfirm){
-        this. DeleteOrder(orderDel._id);
+        this.DeleteOrder(orderDel._id);
       }
     }else{
       var setconfirm = confirm('Bạn có chắc là muốn hủy đơn hàng này chứ ?');
       if(setconfirm){
-       this. DeleteOrder(orderDel._id);
+       this.DeleteOrder(orderDel._id);
       }
     }
-  
   }
   DeleteOrder(id:string){
     this._order.deleteOrder(id).subscribe(

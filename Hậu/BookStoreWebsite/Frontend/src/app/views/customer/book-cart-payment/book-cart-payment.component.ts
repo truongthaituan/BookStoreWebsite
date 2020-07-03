@@ -459,11 +459,12 @@ export class BookCartPaymentComponent implements OnInit {
         swal({
           title: "Đơn Hàng Bạn Đặt Mua Hiện Đã Hết Hàng!",
           text: "Vui Lòng Quay Lại Sau ",
-          icon: 'warning'
-        });
-      }
-
+          icon: 'warning'          
+        }).then((willDelete) => {
+            this.ngOnInit();
+          })
+  
+        }
     })
-
   }
 }
