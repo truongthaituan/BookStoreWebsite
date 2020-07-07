@@ -303,112 +303,20 @@
         border: 2px solid #27ae61;
     }
     
-    .bks-post-slider .post-grid .post-content .post-date:after {
-        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #27ae61 rgba(0, 0, 0, 0);
-    }
     
-    .woocommerce .woocommerce-info:before,
-    .single .post-meta .author a,
-    .woocommerce .woocommerce-message:before,
-    .read-more,
-    .bks-product-list-wrap .bks-products-list-container li .product-content .amount,
-    .slick-dots li.slick-active button:before,
-    .product-wrap span.price {
-        color: #27ae61!important;
-    }
-    
-    ul.post-categories li a:after {
-        border-right-color: #27ae61;
-    }
-    
-    .pagination>.active>a,
-    .pagination>.active>span,
-    .pagination>.active>a,
-    .pagination>.active>a:focus,
-    .pagination>.active>a:hover,
-    .pagination>.active>span,
-    .pagination>.active>span:focus,
-    .pagination>.active>span:hover {
-        background-color: #27ae61 !important;
-        border: 2px solid #27ae61 !important;
-        color: #ffffff !important;
-    }
-    
-    @media only screen and (max-width:768px) {
-        .vc-mm-menu-h .vc-nav-on-desktop,
-        .vc-mm-menu-v .vc-nav-on-desktop,
-        .vc-mm-menu-h .vc-nav-on-desktop .vc-mm-mega-cont,
-        .vc-mm-menu-v .vc-nav-on-desktop .vc-mm-mega-cont {}
-    }
-    
-    @media only screen and (max-width:768px) {
-        .vc-mm-menu-h .vc-nav-on-desktop>li:hover>a,
-        .vc-mm-menu-v .vc-nav-on-desktop>li:hover>a {
-            background-color: #229955 !important;
-            color: #ffffff !important;
-        }
-        .vc-mm-menu-h .vc-nav-on-desktop .vc-d-0>.nav-link,
-        .vc-mm-menu-v .vc-nav-on-desktop .vc-d-0>.nav-link,
-        .vc-mm-menu-h .vc-mm-child-title,
-        .vc-mm-menu-v .vc-mm-child-title {
-            border-color: #229955 !important;
-        }
-    }
-    
-    .read-more:hover {
-        color: #229955;
-    }
-    
-    .woocommerce div.product .woocommerce-tabs ul.tabs li {
-        background-color: #ffffff !important;
-        color: #333333 !important;
-    }
-    
-    .bks-cart-widget .minicart-button {
-        border-top-left-radius: 0px !important;
-        border-bottom-left-radius: 0px !important;
-        border-left: 0px;
-    }
-    
-    .bks-promo {
-        background-color: #B7A930;
-    }
-    
-    body .social-links li a .social-icon {
-        background: #24a9e2;
-        color: #ffffff;
-    }
-    
-    body .social-links li a .social-icon:hover,
-    body .social-links li a .social-icon:focus {
-        background: #1e73be;
-        color: #ffffff;
-    }
-    
-    body .social-links li .social-icon,
-    .social-icon:after {
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        border-radius: 50%;
-    }
+
 </style>
 
-<body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
+<body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer vc_responsive">
     <div class="wrapper">
-        <!-- //MAIN NAVIGATION -->
         <div class="page-header bks-breadcrumb">
             <div class="container">
-                <h1> My Account</h1>
+                <h1>Đăng Nhập / Đăng Ký</h1>
             </div>
         </div>
         <div id="page-content" role="main">
-
             <div class="container">
                 <div class="padding-40-v">
-
-
                     <article id="post-7" class="post-7 page type-page status-publish hentry">
                         <div class="entry-content">
                             <div class="woocommerce">
@@ -449,11 +357,12 @@
                                                                 </div>
 
                                                                 <p class="form-row">
-                                                                    <input type="submit" class="woocommerce-Button button" name="login" value="Đăng Nhập" (click)="login()" />
+                                                                    <input type="submit" class="woocommerce-Button button" name="login"
+                                                                     value="Đăng Nhập" (click)="login()" />
                                                                   
                                                                 </p>
                                                                 <p class="woocommerce-LostPassword lost_password">
-                                                                    <a href="#">Quên mật khẩu ?</a>
+                                                                    <a (click)="logout();">Quên mật khẩu ?</a>
                                                                 </p>
                                                                 <div class="text-center p-t-46 p-b-20">
                                                                     <span class="txt2">

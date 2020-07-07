@@ -16,7 +16,7 @@ import { SocialaccountService } from '../../app-services/socialAccount-service/s
 import { SocialAccount } from 'src/app/app-services/socialAccount-service/socialaccount.model';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { MustMatch } from '../helpers/must-match.validator';
-
+import {AuthenticateService} from '../../app-services/auth-service/authenticate.service'
 
 declare var $: any;
 
@@ -35,21 +35,14 @@ export class MyAccountComponent implements OnInit {
   errorStr: string = ''
   statusLogin: Boolean = false
   alertMessage: string = ''
-//   registerForm: FormGroup = new FormGroup({
-//     email: new FormControl(null, [Validators.email, Validators.required]),
-//     username: new FormControl(null, Validators.required),
-//     password: new FormControl(null, Validators.required),
-//     cpass: new FormControl(null, Validators.required),
-//     imageUrl: new FormControl(null),
-//   },{
-//     validator: MustMatch('password', 'cpass')
-// });
+
   registerForm: FormGroup;
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
     password: new FormControl(null, Validators.required)
   });
-  constructor(private _router: Router, private _userService: UserService,private spinnerService: Ng4LoadingSpinnerService,
+  constructor(private _router: Router, private _userService: UserService,
+    private spinnerService: Ng4LoadingSpinnerService,private authService: AuthenticateService,
     private socialAuthService: AuthService, private socialAccountService: SocialaccountService,private formBuilder: FormBuilder) {
     $(function () {
       $("#scrollToTopButton").click(function () {
@@ -161,33 +154,41 @@ export class MyAccountComponent implements OnInit {
     } 
       this.showErrorMessage = false;
       //goij method login từ userService
-      this._userService.login(JSON.stringify(this.loginForm.value)).subscribe((res) => {
+      this.authService.login(JSON.stringify(this.loginForm.value)).subscribe((res) => {
         //gọi object response
-        const response: Response = res as Response;
-        if (response.status == false) {
-          this.errStringLogin = response.message
+        // const response: Response = res as Response;
+        if (res != null) {
+          this.errStringLogin = res
         }
-        else {
-          localStorage.setItem("token", response.token)
-          //admin
-          if ((response.obj as User).role == "ADMIN") {
-            window.location.href = "/dashboard"
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
-            this.statusLogin = true;
-            localStorage.setItem('statusLogin', String(this.statusLogin));
-            localStorage.setItem('loginBy', "loginbt");
-          }
-          //member
-          else  if((response.obj as User).role == "CUSTOMER"){
-            window.location.href = "/"
-            console.log(response.obj as User)
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
-            this.statusLogin = true;
-            localStorage.setItem('statusLogin', String(this.statusLogin));
-            localStorage.setItem('loginBy', "loginbt");
-          }
-        }
+        // else {
+        //   localStorage.setItem("token", response.token)
+          console.log(res)
+          // //admin
+          // if ((response.obj as User).role == "ADMIN") {
+          //   window.location.href = "/dashboard"
+          //   localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
+          //   this.statusLogin = true;
+          //   localStorage.setItem('statusLogin', String(this.statusLogin));
+          //   localStorage.setItem('loginBy', "loginbt");
+          // }
+          // //member
+          // else  if((response.obj as User).role == "CUSTOMER"){
+          //   window.location.href = "/"
+          //   console.log(response.obj as User)
+          //   localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
+          //   this.statusLogin = true;
+          //   localStorage.setItem('statusLogin', String(this.statusLogin));
+          //   localStorage.setItem('loginBy', "loginbt");
+          // }
+
+        // }
       })
+  }
+  logout(){
+    this._userService.logout().subscribe(res =>{
+      console.log(res)
+      localStorage.clear();
+    })
   }
   //Login with google
   googleLogin() {

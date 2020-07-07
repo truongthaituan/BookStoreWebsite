@@ -6,6 +6,8 @@ import { Point } from 'src/app/app-services/point-service/point.model';
 import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
 import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
 import swal from 'sweetalert';
+import { UserService } from 'src/app/app-services/user-service/user.service';
+import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
 declare var $: any;
 declare let Winwheel: any
 
@@ -27,7 +29,14 @@ export class CustomerLayoutComponent implements OnInit {
 	TongTien = 0;
   TongCount = 0;
   lengthCartBook = 0;
-  constructor(private _router: Router, private _pointService: PointService, private _discountCode: DiscountCodeService) {
+
+  isLoggedIn = false
+  role: string = ''
+  isCustomer = false
+
+
+  constructor(private _router: Router, private userService: UserService,private authService: AuthenticateService,
+    private _pointService: PointService, private _discountCode: DiscountCodeService) {
 
   }
   changespinner="chocolate"  ;
@@ -39,6 +48,12 @@ export class CustomerLayoutComponent implements OnInit {
     this.designWheel();
     console.log(this.accountSocial);
     this.getTotalCountAndPrice();
+    this.authService.authInfo.subscribe(val => {
+      this.isLoggedIn = val.isLoggedIn;
+      this.role = val.role;
+      this.isCustomer = this.authService.isCustomer()
+      this.accountSocial = JSON.parse(this.authService.getAccount())
+    });
   }
   // set độ dài của giỏ hàng
 	cartBookLength(CartBook) {
@@ -332,8 +347,13 @@ export class CustomerLayoutComponent implements OnInit {
     return this._router.navigate(['/cartBook']);
   }
   logout() {
-    localStorage.clear();
-    window.location.href = "/";
+    // this.userService.logout().subscribe(res => {
+    //   console.log(res)
+    //   localStorage.clear();
+    //   window.location.href = "/";
+    // })
+    this.authService.logout();
+    this._router.navigate(['homePage']);
   }
   getPointByUserID() {
     //get point user by userID

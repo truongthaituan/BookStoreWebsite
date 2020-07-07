@@ -6,44 +6,8 @@ var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var superSecret = 'toihocmean';
 const nodemailer = require('nodemailer');
+const {checkRole} = require("../utils/Auth")
 //user
-
-router.post('/confirm-email', function(req, res) {
-
-});
-//get all
-router.get('/', function(req, res) {
-    console.log('get request for all users');
-    user.find({})
-        .exec(function(err, users) {
-            if (err) {
-                console.log("err req users");
-            } else {
-                res.json(users);
-            }
-        });
-});
-
-// get a person
-router.get('/:userID', function(req, res) {
-    user.findById(req.params.userID)
-        .exec(function(err, users) {
-            if (err) console.log("Error retrieving user");
-            else res.json(users);
-        });
-})
-
-// get a person by username
-router.get('/email/:email', function(req, res) {
-    user.find({
-            email: req.params.email
-        })
-        .exec(function(err, users) {
-            if (err) console.log("Error retrieving user");
-            else res.json(users);
-        });
-})
-
 //register
 router.post('/signup', function(req, res) {
     var newuser = new user();
@@ -130,9 +94,73 @@ router.post('/signup', function(req, res) {
     }
 
 });
+//login
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return res.status(501).json(err); }
+        if (!user) {
+          return res.send({
+              status: false,
+              message: "Tài khoản email hoặc mật khẩu không chính xác!"
+          });
+      }
+      if(!user.status){
+          return res.send({
+              status: false,
+              message: "Tài khoản chưa được xác nhận! Vui lòng xác nhận!"
+          });
+      }
+        req.logIn(user, function(err) {
+          if (err) { return res.status(501).json(err); }
+          var account = user;
+          var token = jwt.sign({
+              email: account.email,
+              role: account.role
+          }, superSecret, {
+              expiresIn: '24h' // expires in 24 hours
+          });
+          res.status(200).json({
+              obj: account,
+              token: token
+            });
+        });
+      })(req, res, next);
+});
+//get all
+router.get('/', checkRole(["ADMIN"]), function(req, res) {
+    console.log('get request for all users');
+    user.find({})
+        .exec(function(err, users) {
+            if (err) {
+                console.log("err req users");
+            } else {
+                res.json(users);
+            }
+        });
+});
+
+// get a person
+router.get('/:userID', function(req, res) {
+    user.findById(req.params.userID)
+        .exec(function(err, users) {
+            if (err) console.log("Error retrieving user");
+            else res.json(users);
+        });
+})
+
+// get a person by email
+router.get('/email/:email', function(req, res) {
+    user.find({
+            email: req.params.email
+        })
+        .exec(function(err, users) {
+            if (err) console.log("Error retrieving user");
+            else res.json(users);
+        });
+})
 
 //update
-router.put('/:id', function(req, res) {
+router.put('/:id', checkRole(["ADMIN"]), function(req, res) {
     user.findByIdAndUpdate(req.params.id, {
             $set: {
                 email: req.body.email,
@@ -163,11 +191,6 @@ router.put('/changePassword/:email', function(req, res) {
         if (req.body.username) user.username = req.body.username;
         if (req.body.imageUrl) user.imageUrl = req.body.imageUrl;
         if (req.body.role) user.role = req.body.role;
-        // if(req.body.newPassword) user.password = req.body.newPassword;
-        console.log(req.body.currentPassword)
-            // if(!user.comparePassword(req.body.currentPassword)){
-            //     res.json({  success: false, message: 'Password was wrong!'});
-            // } 
         if (!user.comparePassword(req.body.currentPassword)) {
             res.send({
                 status: false,
@@ -194,7 +217,7 @@ router.put('/changePassword/:email', function(req, res) {
 
 
 //delete
-router.delete('/:id', function(req, res) {
+router.delete('/:id', checkRole(["ADMIN"]), function(req, res) {
     user.findByIdAndRemove(req.params.id, function(err, deleteuser) {
         if (err) {
             res.send('err Delete');
@@ -203,96 +226,9 @@ router.delete('/:id', function(req, res) {
         }
     });
 });
-router.get('/', isLoggedIn, function(req, res, next) {
-    return res.status(200).json(req.user);
-});
-
-router.get('/profile', isLoggedIn, function(req, res) {
-    res.json({ user: req.user });
-});
-
-router.post('/login', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        if (err) { return res.status(501).send(err); }
-        if (!user) {
-            return res.send({
-                status: false,
-                message: "Tài khoản email hoặc mật khẩu không chính xác!"
-            });
-        }
-        if(!user.status){
-            return res.send({
-                status: false,
-                message: "Tài khoản chưa được xác nhận! Vui lòng xác nhận!"
-            });
-        }
-        req.logIn(user, function(err) {
-            if (err) { return res.status(501).send(err); }
-            var account = user;
-            var token = jwt.sign({
-                email: account.email,
-                username: account.username
-            }, superSecret, {
-                expiresIn: '24h' // expires in 24 hours
-            });
-            res.send({
-                status: true,
-                message: "Success",
-                obj: account,
-                token: token
-            });
-        });
-    })(req, res, next);
-});
-
-// router.post('/authenticate', function(req, res) {
-//     // find the user 
-//     user.findOne({
-//         userName: req.body.userName
-//     }).select('userName password').exec(function(err, user) {
-//         if (err) throw err;
-//         // no user with that userName was found 
-//         if (!user) {
-//             res.json({
-//                 success: false,
-//                 message: 'Authentication failed. User not found.'
-//             });
-//         } else if (user) {
-//             // check if password matches 
-//             var validpassword = user.comparepassword(req.body.password);
-//             if (!validpassword) {
-//                 res.json({
-//                     success: false,
-//                     message: 'Authentication failed. Wrong password.'
-//                 });
-//             } else {
-//                 // if user is found and password is right 
-//                 // create a token 
-//                 var token = jwt.sign({
-
-//                     userName: user.userName
-//                 }, superSecret, {
-//                     expiresIn: '10p' // expires in 24 hours
-//                 });
-//                 res.json({
-//                     success: true,
-//                     message: 'Lam viec voi token!',
-//                     token: token
-//                 });
-//             }
-//         }
-//     });
-// });
-
-router.get('/logout', function(req, res, next) {
+router.get('/auth/logout', function(req,res,next){
     req.logout();
+    return res.status(200).json({message:'Logout Success'});
 })
 
-function isLoggedIn(req, res, next) {
-    console.log(req.isAuthenticated());
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
-module.exports = router;
+module.exports = router

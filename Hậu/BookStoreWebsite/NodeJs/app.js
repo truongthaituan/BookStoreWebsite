@@ -13,13 +13,12 @@ var expressJWT = require('express-jwt');
 const book = require('./routes/A_store/bookController');
 const category = require('./routes/A_store/categoryController');
 const author = require('./routes/A_store/authorController');
+var session = require('express-session');
 
 const seri = require('./routes/A_store/seriCategory');
 
 //B_profile
 const customer = require('./routes/B_profile/customerController');
-const employee = require('./routes/B_profile/employeeController');
-const location = require('./routes/B_profile/locationsVNController');
 //C_permission
 const role = require('./routes/C_permission/roleController');
 const accountSocial = require('./routes/C_permission/accountSocialController');
@@ -60,31 +59,38 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/bookstore');
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 var passport = require('passport');
+const MongoStore = require('connect-mongo')(session);
+app.use(session({
+  name:'myname.sid',
+  resave:false,
+  saveUninitialized:false,
+  secret:'secret',
+  cookie:{
+    maxAge:36000000,
+    httpOnly:false,
+    secure:false
+  },
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+require('./passport/passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./passport/passport-config');
 //app
-
+// using the custom middleware for storing variable in response
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.isAuthenticated()
+    next()
+})
 //ALLOW PATHS WITHOUT TOKEN AUTHENTICATION
 app.use(expressJWT({ secret: superSecret })
     .unless({
         path: [
             '/users/login',
             '/users/signup',
-            /^\/books.*/,
-            /^\/categories.*/,
-            /^\/authors.*/,
-            /^\/series.*/,
-            /^\/socials.*/,
-            /^\/users.*/,
             /^\/cartBooks.*/,
             /^\/points.*/,
             /^\/discountCodes.*/,
@@ -93,17 +99,35 @@ app.use(expressJWT({ secret: superSecret })
             '/socials/facebook',
             '/addAccount',
             {
+                url: /^\/books.*/,
+                methods: ['GET']
+            },
+            {
+                url: /^\/categories.*/,
+                methods: ['GET']
+            },
+            {
+                url: /^\/series.*/,
+                methods: ['GET']
+            },
+            {
+                url: /^\/authors.*/,
+                methods: ['GET']
+            },
+            {
                 url: /^\/ratings.*/,
                 methods: ['GET']
             }
 
         ]
-    }, {
-        path: [{
-            url: /^\/categories.*/,
-            methods: ['GET']
-        }]
     }));
+
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 //A_store
 app.use('/books', book);
 app.use('/categories', category);
@@ -112,8 +136,6 @@ app.use('/authors', author);
 app.use('/series', seri);
 //B_profile
 app.use('/customers', customer);
-app.use('/employees', employee);
-app.use('/locations', location);
 //C_permission
 app.use('/roles', role);
 app.use('/users', user);

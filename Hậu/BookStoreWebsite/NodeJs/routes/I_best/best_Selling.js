@@ -7,6 +7,7 @@ const acountSocial = require('../../models/C_permission/accountsocials');
 const user = require('../../models/C_permission/user');
 const customer = require('../../models/B_profile/customer');
 const categoryModel = require('../../models/A_store/category')
+
     //thống kê Danh sách sách mua nhiều
 async function getAllOrder(req, res) {
     try {
@@ -156,14 +157,12 @@ router.get('/BookByCategory/:UserID', function(req, res) {
                 //kiểm tra xem id sách có tồn tại trong danh sách
                 //nếu chưa thì thêm , có rồi thì cộng
                 DataBook = await CreateDataCategoryCount(DataBook, orderDetailArray[index2], userInOrder, bookCategory)
-
             }
         }
         // console.log(DataBook)
         DataBook.sort(function(a, b) {
             return b.count - a.count;
         });
-
         //get book by Databook
         for (var index in DataBook) {
             if (index > 1) {
@@ -174,10 +173,8 @@ router.get('/BookByCategory/:UserID', function(req, res) {
             const categoryName = DataBook[index].categoryName;
             var obj = {};
             obj[categoryName] = abook;
-
             BookList.push(obj);
             // số lượng category muon
-
         }
         // id user
         res.json(BookList);

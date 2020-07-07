@@ -21,17 +21,12 @@ export class UserService {
   }
 
   login(body:any){
-    return this._http.post(this.baseURL +'/login',body,{
-      observe:'body',
-      withCredentials:true,
-      headers:new HttpHeaders().append('Content-Type','application/json')
-    });
+    return this._http.post(this.baseURL +'/login',body)
   }
 
   logout(){
-    return this._http.get(this.baseURL +'/logout',{
+    return this._http.get(this.baseURL +'/auth/logout',{
       observe:'body',
-      withCredentials:true,
       headers:new HttpHeaders().append('Content-Type','application/json')
     });
   }

@@ -12,7 +12,6 @@ export class AuthInterceptorService implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log("Interception In Progress");
     const token: string = localStorage.getItem('token');
-    
     req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
     req = req.clone({ headers: req.headers.set('Accept', 'application/json') });

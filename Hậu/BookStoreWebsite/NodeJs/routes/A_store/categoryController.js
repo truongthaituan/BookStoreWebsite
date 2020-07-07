@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const category = require('../../models/A_store/category');
+const {checkRole} = require("../utils/Auth")
 //category
 //get all
 router.get('/', function(req, res) {
@@ -25,7 +26,7 @@ router.get('/:categoryID', function(req, res) {
 })
 
 //post
-router.post('/', function(req, res) {
+router.post('/',checkRole(["ADMIN"]),function(req, res) {
     var newcategory = new category();
     newcategory.nameCategory = req.body.nameCategory;
 
@@ -40,7 +41,7 @@ router.post('/', function(req, res) {
 
 
 //update
-router.put('/:id', function(req, res) {
+router.put('/:id',checkRole(["ADMIN"]),function(req, res) {
         category.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameCategory: req.body.nameCategory,
@@ -57,7 +58,7 @@ router.put('/:id', function(req, res) {
             })
     })
     //delete
-router.delete('/:id', function(req, res) {
+router.delete('/:id', checkRole(["ADMIN"]), function(req, res) {
     category.findByIdAndRemove(req.params.id, function(err, deletecategory) {
         if (err) {
             res.send('err Delete');
