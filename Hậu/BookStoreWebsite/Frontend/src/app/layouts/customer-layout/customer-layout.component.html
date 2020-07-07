@@ -586,11 +586,8 @@
                                                             <div class="widget widget_nav_menu">
                                                                 <div class="menu-novel-container">
                                                                     <ul id="menu-novel" class="menu">
-                                                                        <li id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120"><a href="../romance/index.html">Sách Khoa Học Công Nghệ </a></li>
-                                                                        <li id="menu-item-121" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-121"><a href="../fantasy/index.html">Sách Trinh Thám</a></li>
-                                                                        <li id="menu-item-122" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-122"><a href="../thrillers/index.html">Sách Thiếu Nhi</a></li>
-                                                                        <li id="menu-item-123" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-123"><a href="../science-fiction/index.html">Sách Kinh Dị</a></li>
-                                                                        <li id="menu-item-124" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-124"><a href="../historical-fiction/index.html">Sách Lịch Sử</a></li>
+                                                                        <li style="cursor: pointer;" id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToCategory(topCategory[item]._id)>{{topCategory[item].nameCategory}}</a></li>
+
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -606,11 +603,7 @@
                                                             <div class="widget widget_nav_menu">
                                                                 <div class="menu-business-container">
                                                                     <ul id="menu-business" class="menu">
-                                                                        <li id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125"><a href="../budgeting-and-finance/index.html">Sách Kỹ Năng</a></li>
-                                                                        <li id="menu-item-126" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-126"><a href="../creative-thinking/index.html">Sách Văn Học</a></li>
-                                                                        <li id="menu-item-127" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat current-menu-item menu-item-127"><a href="index.html">Sách Công Nghệ Thông Tin</a></li>
-                                                                        <li id="menu-item-128" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-128"><a href="../people-management/index.html">Sách Ngoại Ngữ</a></li>
-                                                                        <li id="menu-item-129" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-129"><a href="../sales-and-marketting/index.html">Sách Kinh Tế</a></li>
+                                                                        <li style="cursor: pointer;" id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToCategory(topCategory[item]._id)>{{topCategory[item].nameCategory}}</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -627,7 +620,68 @@
                                                                     <div class='dis-bottom-left-content'>
                                                                         <div class='dis-bottom-left-text'>
                                                                             <h6 style='color:#323232'>THỂ LOẠI</h6>
-                                                                            <h2 style='color:#27ae61'>KHOA HỌC CÔNG NGHỆ</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
+                                                                            <h2 style='color:#27ae61'>{{topCategory[0].nameCategory}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="menu-item-118" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-118 vc-menu-item vc-d-0 vc-mm-mega vc-mm-align-default vc-mm-layout-full" data-mm-settings="{&quot;layout&quot;:&quot;full&quot;,&quot;width&quot;:&quot;&quot;}">
+                            <a href="#" class="nav-link" id="headSet"><span class="vc-label">Tác Giả</span></a>
+                            <div class="vc-mm-mega-cont" id="headSet2">
+                                <div class="vc-mm-mega-cont-inner">
+                                    <div class="vc_row wpb_row vc_row-fluid">
+                                        <div class="page-container">
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner vc_custom_1454743982508">
+                                                    <div class="wpb_wrapper">
+                                                        <h3 style="text-align: left" class="vc_custom_heading">Top Tác Giả</h3>
+                                                        <div class="vc_wp_custommenu wpb_content_element">
+                                                            <div class="widget widget_nav_menu">
+                                                                <div class="menu-novel-container">
+                                                                    <ul id="menu-novel" class="menu">
+                                                                        <li style="cursor: pointer;" id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToAuthor(topAuthor[item]._id)>{{topAuthor[item].nameAuthor}}</a></li>
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner vc_custom_1454743993099">
+                                                    <div class="wpb_wrapper">
+                                                        <h3 style="text-align: left" class="vc_custom_heading">Khác</h3>
+                                                        <div class="vc_wp_custommenu wpb_content_element">
+                                                            <div class="widget widget_nav_menu">
+                                                                <div class="menu-business-container">
+                                                                    <ul id="menu-business" class="menu">
+                                                                        <li style="cursor: pointer;" id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125" *ngFor="let item of [5,6,7,8,9];"><a (click)=goToAuthor(topAuthor[item]._id)>{{topAuthor[item].nameAuthor}}</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                                <div class="vc_column-inner ">
+                                                    <div class="wpb_wrapper">
+                                                        <div class=''>
+                                                            <div class='dis-bottom-left'>
+                                                                <div class='dis-bottom-left-img'><img src='../../assets/img/01/home-1-text-book.jpg' alt='TEXT BOOKS'>
+                                                                    <div class='dis-bottom-left-content'>
+                                                                        <div class='dis-bottom-left-text'>
+                                                                            <h6 style='color:#323232'>Tác Giả</h6>
+                                                                            <h2 style='color:#27ae61'>{{topAuthor[0].nameAuthor}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
                                                                     </div>
                                                                 </div>
                                                             </div>

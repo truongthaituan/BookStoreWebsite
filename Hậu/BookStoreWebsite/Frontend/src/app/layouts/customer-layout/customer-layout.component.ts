@@ -5,7 +5,10 @@ import { PointService } from 'src/app/app-services/point-service/point.service';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { DiscountCodeService } from 'src/app/app-services/discountCode-Service/discountCode.service';
 import { DiscountCode } from 'src/app/app-services/discountCode-Service/discountCode.model';
+import { Book } from '../../app-services/book-service/book.model';
+import { Category } from '../../app-services/category-service/category.model';
 import swal from 'sweetalert';
+import { BestService } from 'src/app/app-services/best-service/best.service';
 declare var $: any;
 declare let Winwheel: any
 
@@ -27,7 +30,9 @@ export class CustomerLayoutComponent implements OnInit {
 	TongTien = 0;
   TongCount = 0;
   lengthCartBook = 0;
-  constructor(private _router: Router, private _pointService: PointService, private _discountCode: DiscountCodeService) {
+  topCategory=[]
+  topAuthor = []
+  constructor(private _router: Router, private _pointService: PointService, private _discountCode: DiscountCodeService,private _best:BestService) {
 
   }
   changespinner="chocolate"  ;
@@ -39,6 +44,16 @@ export class CustomerLayoutComponent implements OnInit {
     this.designWheel();
     console.log(this.accountSocial);
     this.getTotalCountAndPrice();
+    this.getTop10CategoryAndAuthor()
+  }
+
+  getTop10CategoryAndAuthor(){
+    this._best.getTop10CategoryAndAuthor().subscribe(
+      top10=>{
+      this.topCategory=top10["CategoryList"]
+      this.topAuthor=top10["AuthorList"]
+      }
+    )
   }
   // set độ dài của giỏ hàng
 	cartBookLength(CartBook) {

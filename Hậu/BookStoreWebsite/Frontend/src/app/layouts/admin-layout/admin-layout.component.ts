@@ -193,4 +193,13 @@ export class AdminLayoutComponent implements OnInit {
   moveToManageOrder(){
     this._router.navigate(['/manageOrder']);
   }
+  moveToManageAuthor(){
+    this._router.navigate(['/manageAuthor']);
+  }
+  moveToManageCategory(){
+    this._router.navigate(['/manageCategory']);
+  }
+  moveToManageSeri(){
+    this._router.navigate(['/manageSeri']);
+  }
 }

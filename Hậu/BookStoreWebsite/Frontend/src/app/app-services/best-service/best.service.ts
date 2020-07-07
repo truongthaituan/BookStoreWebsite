@@ -18,6 +18,11 @@ export class BestService {
   getBookOnCategoryBuyMostByUserID(userID) { 
     return this._http.get(this.baseURL+'/BookByCategory/'+userID);
   }
+  getTop10CategoryAndAuthor(){
+    return this._http.get(this.baseURL+'/Top10');
+  }
+  getSomeNewSomeBuySomeRateBest(){
+    return this._http.get(this.baseURL+'/getSomeNewSomeBuySomeRateBest');
+  }
 
-  
 }
