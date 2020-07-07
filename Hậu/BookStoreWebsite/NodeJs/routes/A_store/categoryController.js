@@ -29,6 +29,8 @@ router.get('/:categoryID', function(req, res) {
 router.post('/',checkRole(["ADMIN"]),function(req, res) {
     var newcategory = new category();
     newcategory.nameCategory = req.body.nameCategory;
+    newcategory.imgCategory = req.body.imgCategory;
+    newcategory.detailCategory = req.body.detailCategory;
 
     newcategory.save(function(err, insertedcategory) {
         if (err) {
@@ -45,6 +47,9 @@ router.put('/:id',checkRole(["ADMIN"]),function(req, res) {
         category.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameCategory: req.body.nameCategory,
+                    imgCategory: req.body.imgCategory,
+                    detailCategory: req.body.detailCategory,
+
                 }
             }, {
                 new: true

@@ -18,7 +18,14 @@ export class DiscountCodeComponent implements OnInit {
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   statusLogin = localStorage.getItem('statusLogin');
   loginBy: String = ""
+ Code: DiscountCode = new DiscountCode;
   ngOnInit() {
+    if (localStorage.getItem('DiscountCode') != null) {
+      this.Code = JSON.parse(localStorage.getItem('DiscountCode'));
+    } else {
+      this.Code.discountCode = 0;
+    }
+ 
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     if (this.statusLogin == null) { this._router.navigate(['/account']); }
     this.loginBy = localStorage.getItem('loginBy');
@@ -37,7 +44,7 @@ export class DiscountCodeComponent implements OnInit {
     this._discountCode.getDiscountCodeByUserID(this.accountSocial._id).subscribe(
       listDiscountCode => {
         this.discountCodes = listDiscountCode as DiscountCode[]
-        console.log(this.discountCodes.length)
+        
         if(this.discountCodes.length==0)
         {
           this.IsDisCount=false

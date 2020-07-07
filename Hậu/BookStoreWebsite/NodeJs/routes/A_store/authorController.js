@@ -30,7 +30,8 @@ router.get('/:authorID', function(req, res) {
 router.post('/' ,checkRole(["ADMIN"]), function(req, res) {
     var newauthor = new author();
     newauthor.nameAuthor = req.body.nameAuthor;
-
+    newauthor.imgAuthor = req.body.imgAuthor;
+    newauthor.detailAuthor = req.body.detailAuthor;
     newauthor.save(function(err, insertedauthor) {
         if (err) {
             console.log('Err Saving author');
@@ -45,7 +46,10 @@ router.post('/' ,checkRole(["ADMIN"]), function(req, res) {
 router.put('/:id',checkRole(["ADMIN"]),function(req, res) {
         author.findByIdAndUpdate(req.params.id, {
                 $set: {
-                    nameAuthor: req.body.nameAuthor
+                    nameAuthor: req.body.nameAuthor,
+                    imgAuthor: req.body.imgAuthor,
+                    detailAuthor: req.body.detailAuthor,
+
                 }
             }, {
                 new: true

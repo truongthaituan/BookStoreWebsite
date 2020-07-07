@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from '../../../app-services/book-service/book.service';
 import { Book } from '../../../app-services/book-service/book.model';
+import { Category } from '../../../app-services/category-service/category.model';
 import { CartBookService } from 'src/app/app-services/cartBook-service/cartBook.service';
 import { CartBook } from 'src/app/app-services/cartBook-service/cartBook.model';
 import { Point } from 'src/app/app-services/point-service/point.model';
 import { PointService } from 'src/app/app-services/point-service/point.service';
-
+import Swal from 'sweetalert';
 //recommend
 import { BestService } from '../../../app-services/best-service/best.service';
 import { Recommend } from '../../../app-services/recommendSys-service/recommendSys.service';
@@ -39,17 +40,42 @@ export class HomeComponent implements OnInit {
 
 	//recommend
 	bestBookList: Book = new Book;
+	bestCategoryList: Category = new Category;
 	BookByListCategoryBest:any
 	favorite: Favorite = new Favorite
-	listFavorite :any
+	listFavorite :any	
+	IsNeedLoadRecommend=false;		//recommend chỉ chạy 1 lần thôi (để đỡ load nhiều)
 	ngOnInit() {
 		this.getAllFavoriteByUserId();
 		$('.searchHeader').attr('style', 'font-size: 1.6rem !important');
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
+		// //recommend chỉ chạy 1 lần thôi (để đỡ load nhiều)	(2 trạng thái đăng nhập có sự thay đổi thì mới chạy recommends)
+		if(this.accountSocial!=null){
+			localStorage.setItem("StatusLoginNow","true");
+			if(localStorage.getItem("StatusLoginNow")!=localStorage.getItem("StatusLoginBefore"))
+			{
+				this.IsNeedLoadRecommend = true
+				localStorage.setItem("StatusLoginBefore","true");
+			}
+		}else{
+			localStorage.setItem("StatusLoginNow","false");
+			if(localStorage.getItem("StatusLoginNow")!=localStorage.getItem("StatusLoginBefore"))
+			{
+				this.IsNeedLoadRecommend = true
+				localStorage.setItem("StatusLoginBefore","false");
+			}
+		}
+		if(JSON.parse(localStorage.getItem("listBestBook"))== null||this.IsNeedLoadRecommend==true){
+			this.IsNeedLoadRecommend=false
+			this.getBestBookAndRecommend();
+		
+		}
+		this.LoadBestBookAndRecommendSecond();
 		this.checkCartBookDBAndLocalStorage();
-		this.getBestBookAndRecommend();
+		this.RecommendByUser();
+		
 		
 	}
 	//recommend
@@ -67,62 +93,84 @@ export class HomeComponent implements OnInit {
 
 	ListBuyRecommend:any
 	IsBuyRecommend=false
+	LoadBestBookAndRecommendSecond(){
+		this.bestBookList = JSON.parse(localStorage.getItem("listBestBook"))[1] as Book
+		this.bestCategoryList =  JSON.parse(localStorage.getItem("listBestBook"))[0] as Category
+		this._bestService.getSomeNewSomeBuySomeRateBest().subscribe(
+			listTop3=>{
+				this.top3New = listTop3["BookListNew"] as Book
+				this.top3Buy = listTop3["BookListBuyMost"] as Book
+				this.top3Rate = listTop3["DataListRateMost"] as Book
+				console.log(listTop3)
+			}
+		)
+	}
+	//top3 show (new,buy,rate)
+	top3New:any
+	top3Buy:any
+	top3Rate:any
+	
 	getBestBookAndRecommend() {
 		//get sách được mua nhiều nhất
+		//thể loại hot nhất
 		this._bestService.getBookBestSelling().subscribe(
 			listBestBook => {
-				this.bestBookList = listBestBook as Book
+				localStorage.setItem("listBestBook", JSON.stringify(listBestBook));
+				this.bestBookList = listBestBook[1] as Book
+				this.bestCategoryList = listBestBook[0] as Category
+			});	
+	
+	}
+	RecommendByUser()
+	{
+			//get 2 thể loại mà người dùng thích nhất để show sách theo thể loại
+			if(this.accountSocial!=null){
+				this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
+					listBestBookOnCategory => {
 				
-			});
-		//get 2 thể loại mà người dùng thích nhất để show sách theo thể loại
-		if(this.accountSocial!=null){
-			this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
-				listBestBookOnCategory => {
-			
-					this.BookByListCategoryBest = listBestBookOnCategory as Book
-					if(this.BookByListCategoryBest.length>1)
-					{
-						this.IsRecommend = true
-						this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]
-						this.theloai2=Object.keys(this.BookByListCategoryBest[1])[0]
-						this.ListBookCategory1=Object.values(this.BookByListCategoryBest[0])[0]
-						this.ListBookCategory2=Object.values(this.BookByListCategoryBest[1])[0]
-					}else{
-						this.IsRecommend = false
-					}
-			
-				});
-			this._recommendSyS.getAllRecommendByUserID(this.accountSocial._id).subscribe(
-				listAllRecommend =>{
-					console.log(listAllRecommend['click'])
-					this.ListClickRecommend = listAllRecommend['click'] as Book
-					this.ListrateRecommend = listAllRecommend['rate'] as Book
-					this.ListBuyRecommend = listAllRecommend['buy'] as Book
-					
-					if(this.ListClickRecommend.length>6)
-					{
-						this.IsClickRecommend=true
-					}else{
-						this.IsClickRecommend=false
-					}
-	
-					if(this.ListrateRecommend.length>6)
-					{
-						this.IsRateRecommend=true
-					}else{
-						this.IsRateRecommend=false
-					}
-	
-					if(this.ListBuyRecommend.length>6)
-					{
-						this.IsBuyRecommend=true
-					}else{
-						this.IsBuyRecommend=false
-					}
-				}
-			)
-		}
+						this.BookByListCategoryBest = listBestBookOnCategory as Book
+						if(this.BookByListCategoryBest.length>1)
+						{
+							this.IsRecommend = true
+							this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]
+							this.theloai2=Object.keys(this.BookByListCategoryBest[1])[0]
+							this.ListBookCategory1=Object.values(this.BookByListCategoryBest[0])[0]
+							this.ListBookCategory2=Object.values(this.BookByListCategoryBest[1])[0]
+						}else{
+							this.IsRecommend = false
+						}
+				
+					});
+				this._recommendSyS.getAllRecommendByUserID(this.accountSocial._id).subscribe(
+					listAllRecommend =>{
+						
+						this.ListClickRecommend = listAllRecommend['click'] as Book
+						this.ListrateRecommend = listAllRecommend['rate'] as Book
+						this.ListBuyRecommend = listAllRecommend['buy'] as Book
+						
+						if(this.ListClickRecommend.length>6)
+						{
+							this.IsClickRecommend=true
+						}else{
+							this.IsClickRecommend=false
+						}
 		
+						if(this.ListrateRecommend.length>6)
+						{
+							this.IsRateRecommend=true
+						}else{
+							this.IsRateRecommend=false
+						}
+		
+						if(this.ListBuyRecommend.length>6)
+						{
+							this.IsBuyRecommend=true
+						}else{
+							this.IsBuyRecommend=false
+						}
+					}
+				)
+			}
 	}
 	script_Frontend() {
 		this.customOptions = {
@@ -204,9 +252,7 @@ export class HomeComponent implements OnInit {
 	}
 	selectedBook = [];
 	detailBook(book: Book) {
-		//   this.selectedBook.push(book);
-		//   console.log(this.selectedBook);
-		//   localStorage.setItem("selectedBook",JSON.stringify(this.selectedBook));
+
 		return this._router.navigate(["/bookDetail" + `/${book._id}`]);
 	}
 	refreshBookList() {
@@ -312,8 +358,19 @@ export class HomeComponent implements OnInit {
 	}
 	//Xóa hết DB lưu lại theo giỏ hàng
 	mergeCartBookAndCartBookDB(cartBookDB: Object) {
-		var setconfirm = confirm('Giỏ hàng cũ của bạn chưa được thanh toán ,bạn có muốn gộp giỏ hàng cũ vào không ?')
-		if (setconfirm == true) {
+		Swal({
+			text: "Giỏ hàng cũ của bạn chưa được thanh toán ,bạn có muốn gộp giỏ hàng cũ vào không ?",
+			icon: 'warning',
+			buttons:  {
+			  cancel: true,
+			  confirm: {
+			   value:"OK",
+			   closeModal: true
+			  }
+			}
+		  }).then((willDelete) => {
+			if(willDelete){
+			
 			//gộp cartbook
 			for (var i = 0; i < Object.keys(cartBookDB).length; i++) {
 				for (var j = 0; j < this.lengthCartBook; j++) {
@@ -328,14 +385,20 @@ export class HomeComponent implements OnInit {
 						//add 
 						this.CartBook.push(Object.values(cartBookDB)[i]);
 					}
-				}
 			}
 			localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
 			this.getTotalCountAndPrice();
 		}
 		this.deleteAllCartBookDBByUserID(this.accountSocial._id);
-
-
+		Swal({
+            title: "",
+            text: "Gộp giỏ hàng thành công",
+            icon: 'success'
+          });
+			}
+	 		
+		});
+		
 	}
 
 
