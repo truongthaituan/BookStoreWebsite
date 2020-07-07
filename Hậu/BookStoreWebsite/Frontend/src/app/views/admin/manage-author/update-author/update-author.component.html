@@ -25,12 +25,21 @@
                                         <div class="col-sm-4">
                                             <div class="input-field col s12">
 
-                                                <!-- <img alt="" src="{{ bookService.selectedBook.imgBook }}" style="width: 100%;height: 100%;"> -->
-
+                                                <img alt="" src="{{ author.imgAuthor }}" style="width: 100%;height: 200px;">
+                                                <div *ngIf="author.imgAuthor!=''" style="position:absolute;top:0px;left:40px;width:220px;">
+                                                    <h6 style='color:#323232;font-size: 13px;font-family:Robo;font-weight: bold;margin-top: 40px;margin-bottom: 20px;'>TÁC GIẢ</h6>
+                                                    <h2 style='color:#27ae61;font-size: 25px;font-family:Robo;font-weight: bold;margin-top: 20px; text-transform: uppercase;'>{{author.nameAuthor}}</h2>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-8">
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="input-field col s12" style="padding: 0px;">
+                                                    <label>Hình Ảnh Tác Giả</label>
+                                                    <input class="form-control" type="text" (change)="getLinkImg($event)" name="imgAuthor" #name="ngModel" placeholder="Nhập Link Tác Giả" [(ngModel)]="author.imgAuthor" required>
 
+                                                </div>
+                                            </div>
                                             <div class="row" style="padding-bottom: 10px;">
                                                 <div class="input-field col s12" style="padding: 0px;">
                                                     <label>Tên Tác Giả</label>
@@ -38,7 +47,13 @@
 
                                                 </div>
                                             </div>
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="input-field col s12" style="padding: 0px;">
+                                                    <label>Thông Tín Tác Giả</label>
+                                                    <textarea class="form-control" rows="4" name="detailAuthor" #name="ngModel" [(ngModel)]="author.detailAuthor" placeholder="Nhập Thông Tin Tác Giả"></textarea>
 
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <button class="btn btn-primary" type="submit" style="border-radius: 30px ; width: 100%;height: 50px;font-size: 13px;">Lưu Thông Tin</button>

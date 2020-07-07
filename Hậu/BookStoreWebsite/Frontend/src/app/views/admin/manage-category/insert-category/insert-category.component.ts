@@ -57,6 +57,8 @@ export class InsertCategoryComponent implements OnInit {
     this.category = {
       _id: null,
       nameCategory:"",
+      imgCategory: "",
+      detailCategory: "",
     };
   }
     cancel(){
@@ -71,7 +73,12 @@ export class InsertCategoryComponent implements OnInit {
             error => console.log(error)
            );
     }
+    getLinkImgCategory="";
+    getLinkImg(event : any)
+    { 
+      this.getLinkImgCategory=event.target.value;
 
+    }
      
   logout() {
     localStorage.clear();

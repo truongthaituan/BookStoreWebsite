@@ -22,7 +22,7 @@ import { Seri } from 'src/app/app-services/seri-service/seri.model';
 })
 export class AdminManageAuthorComponent implements OnInit {
   statusCRUD: String = ""
-  displayedColumns: string[] = ['nameAuthor', 'empty2', 'Details', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['imgAuthor', 'empty1','nameAuthor', 'empty2', 'Details', 'Edit', 'Delete'];
   // dataSource: MatTableDataSource<Book>;
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

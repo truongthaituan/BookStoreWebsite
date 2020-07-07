@@ -22,7 +22,7 @@ import { Seri } from 'src/app/app-services/seri-service/seri.model';
 })
 export class AdminManageCategoryComponent implements OnInit {
   statusCRUD: String = ""
-  displayedColumns: string[] = ['nameCategory', 'empty2', 'Details', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['imgCategory', 'empty1','nameCategory', 'empty2', 'Details', 'Edit', 'Delete'];
   // dataSource: MatTableDataSource<Book>;
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

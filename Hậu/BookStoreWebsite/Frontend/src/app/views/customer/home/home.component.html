@@ -459,7 +459,7 @@
                     <div class="wpb_wrapper">
                         <div class=''>
                             <div class='dis-bottom-left'>
-                                <div class='dis-bottom-left-img'><img src='../../assets/img/02/home-1-ebook.jpg' alt='E-BOOKS'>
+                                <div class='dis-bottom-left-img'><img src='{{bestCategoryList[0].imgCategory}}' alt='E-BOOKS'>
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
@@ -479,7 +479,7 @@
                     <div class="wpb_wrapper">
                         <div class=''>
                             <div class='dis-bottom-left'>
-                                <div class='dis-bottom-left-img'><img src='../../assets/img/02/home-1-text-book.jpg' alt='TEXT BOOKS'>
+                                <div class='dis-bottom-left-img'><img src='{{bestCategoryList[1].imgCategory}}' alt='TEXT BOOKS'>
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
@@ -498,7 +498,7 @@
                     <div class="wpb_wrapper">
                         <div class=''>
                             <div class='dis-bottom-left'>
-                                <div class='dis-bottom-left-img'><img src='../../assets/img/02/home-1-offer.jpg' alt='OFFER ZONE'>
+                                <div class='dis-bottom-left-img'><img src='{{bestCategoryList[2].imgCategory}}' alt='OFFER ZONE'>
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
@@ -1214,7 +1214,7 @@
                                             <ul class='bks-products-list-container'>
 
                                                 <li class='clearfix' *ngFor="let item of top3New">
-                                                    <div class='product-list-wrap'>
+                                                    <div class='product-list-wrap' style="cursor: pointer;" (click)=clickGoToBookDetail(item._id)>
 
                                                         <div class='col-sm-4 col-xs-4'>
                                                             <div class='product-image'><img width="216" height="265" src="{{item.imgBook}}" class="img-responsive wp-post-image" alt="book12" /></div>
@@ -1254,7 +1254,7 @@
 
                                                 <li class='clearfix' *ngFor="let item of top3Buy">
 
-                                                    <div class='product-list-wrap'>
+                                                    <div class='product-list-wrap' style="cursor: pointer;" (click)=clickGoToBookDetail(item._id)>
                                                         <div class='col-sm-4 col-xs-4'>
                                                             <div class='product-image'><img width="216" height="265" src="{{item.imgBook}}" class="img-responsive wp-post-image" alt="book12" /></div>
                                                         </div>
@@ -1291,7 +1291,7 @@
                                         <div class='bks-product-list-wrap '>
                                             <ul class='bks-products-list-container'>
                                                 <li class='clearfix' *ngFor="let item of top3Rate">
-                                                    <div class='product-list-wrap'>
+                                                    <div class='product-list-wrap' style="cursor: pointer;" (click)=clickGoToBookDetail(item._id)>
 
                                                         <div class='col-sm-4 col-xs-4'>
                                                             <div class='product-image'><img width="216" height="265" src="{{item.imgBook}}" class="img-responsive wp-post-image" alt="book12" /></div>

@@ -56,7 +56,9 @@ export class UpdateAuthorComponent implements OnInit {
       form.reset();
     this.author = {
       _id: "",
-      nameAuthor:""
+      nameAuthor:"",
+      imgAuthor:"",
+      detailAuthor:"",
     }
   }
   getAuthorByID(id:string) {

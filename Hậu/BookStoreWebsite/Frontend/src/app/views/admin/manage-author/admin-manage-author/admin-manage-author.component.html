@@ -29,7 +29,15 @@
                                     <div class="table-responsive">
                                         <div class="mat-elevation-z8">
                                             <table mat-table [dataSource]="dataSource" matSort style="width: 100%;" id="mytable">
+                                                <ng-container matColumnDef="imgAuthor">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Hình Tác Giả </th>
+                                                    <td mat-cell *matCellDef="let row"><img src="{{ row.imgAuthor }}" width="60px" height="50px" /></td>
+                                                </ng-container>
 
+                                                <ng-container matColumnDef="empty1">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                                                    <td mat-cell *matCellDef="let row"></td>
+                                                </ng-container>
 
                                                 <ng-container matColumnDef="nameAuthor">
                                                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Tên tác giả </th>

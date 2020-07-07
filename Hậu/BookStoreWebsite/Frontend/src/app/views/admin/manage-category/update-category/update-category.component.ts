@@ -57,7 +57,9 @@ export class UpdateCategoryComponent implements OnInit {
       form.reset();
     this.category = {
       _id: "",
-      nameCategory:""
+      nameCategory:"",
+      imgCategory: "",
+      detailCategory: "",
     }
   }
   getCategoryByID(id:string) {

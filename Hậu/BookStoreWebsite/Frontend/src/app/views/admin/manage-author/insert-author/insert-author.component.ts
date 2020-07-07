@@ -56,6 +56,8 @@ export class InsertAuthorComponent implements OnInit {
     this.author = {
       _id: null,
       nameAuthor:"",
+      imgAuthor:"",
+      detailAuthor:"",
     };
   }
     cancel(){
@@ -71,7 +73,12 @@ export class InsertAuthorComponent implements OnInit {
            );
     }
 
-     
+    getLinkImgAuthor="";
+    getLinkImg(event : any)
+    { 
+      this.getLinkImgAuthor=event.target.value;
+
+    }
   logout() {
     localStorage.clear();
     window.location.href = "/homePage";

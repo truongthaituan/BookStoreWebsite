@@ -75,13 +75,7 @@ export class HomeComponent implements OnInit {
 		this.LoadBestBookAndRecommendSecond();
 		this.checkCartBookDBAndLocalStorage();
 		this.RecommendByUser();
-		this._bestService.getSomeNewSomeBuySomeRateBest().subscribe(
-			listTop3=>{
-				this.top3New = listTop3["BookListNew"] as Book
-				this.top3Buy = listTop3["BookListBuyMost"] as Book
-				this.top3Rate = listTop3["DataListRateMost"] as Book
-			}
-		)
+		
 		
 	}
 	//recommend
@@ -102,11 +96,20 @@ export class HomeComponent implements OnInit {
 	LoadBestBookAndRecommendSecond(){
 		this.bestBookList = JSON.parse(localStorage.getItem("listBestBook"))[1] as Book
 		this.bestCategoryList =  JSON.parse(localStorage.getItem("listBestBook"))[0] as Category
+		this._bestService.getSomeNewSomeBuySomeRateBest().subscribe(
+			listTop3=>{
+				this.top3New = listTop3["BookListNew"] as Book
+				this.top3Buy = listTop3["BookListBuyMost"] as Book
+				this.top3Rate = listTop3["DataListRateMost"] as Book
+				console.log(listTop3)
+			}
+		)
 	}
 	//top3 show (new,buy,rate)
 	top3New:any
 	top3Buy:any
 	top3Rate:any
+	
 	getBestBookAndRecommend() {
 		//get sách được mua nhiều nhất
 		//thể loại hot nhất
