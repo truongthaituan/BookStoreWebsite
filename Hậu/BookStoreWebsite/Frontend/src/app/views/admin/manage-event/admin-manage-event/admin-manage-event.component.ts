@@ -87,8 +87,8 @@ export class AdminManageEventComponent implements OnInit {
     }
   }
 
-  addCategory() {
-    this._router.navigate(['/insertCategory']);
+  addEvent() {
+    this._router.navigate(['/insertEvent']);
   }
    
   logout() {

@@ -1,5 +1,3 @@
-<p>insert-author works!</p>
-
 <head>
     <meta charset="utf-8" />
     <!--     Fonts and icons     -->
@@ -23,52 +21,162 @@
                                 </div>
                                 <div class="card-body">
                                     <form #bookForm="ngForm" (ngSubmit)="onSubmit(bookForm)" class="appointment-form" style="color: #555555;">
+                                        <!-- HÌnh1 -->
+                                        <div *ngIf="IsSmallImg" class="col-md-12">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <img src="{{getLinkImgCategory}}" style="width:100%;height:140px;text-align:center">
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                        <!-- HÌnh2 -->
+                                        <div *ngIf="IsAveraImg" class="col-md-12">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-6">
+                                                <img src="{{getLinkImgCategory}}" style="width:100%;height:140px;text-align:center">
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                        <!-- HÌnh3 -->
+                                        <div *ngIf="IsBigImg" class="col-md-12">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <img src="{{getLinkImgCategory}}" style="width:100%;height:140px;text-align:center">
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
 
-                                        <div class="col-sm-4">
+                                        <div class="radio" style="text-align:center;">
+                                            <label style="margin-top:5px;"><input type="radio" (click)="radioImgSmall()" name="optradio" checked></label>
+                                            <label style="margin-top:5px;"><input type="radio" (click)="radioImgAvera()" name="optradio"></label>
+                                            <label style="margin-top:5px;"><input type="radio" (click)="radioImgBig()" name="optradio"></label>
+                                        </div>
+
+                                        <div class="col-sm-8" style="padding: 10px;">
+
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="input-field col s12" style="padding: 0px;">
+                                                    <label>Tiêu Đề</label>
+                                                    <input class="form-control" type="text" name="headerPromotion" #name="ngModel" [(ngModel)]="promotion.headerPromotion" placeholder="Nhập Tên Tiêu Đề" required>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="input-field col s12" style="padding: 0px;">
+                                                    <label>Hình Ảnh Sự Kiện</label>
+                                                    <input class="form-control" type="text" (change)="getLinkImg($event)" name="imgPromotion" #name="ngModel" placeholder="Nhập Link Ảnh Sự Kiện" [(ngModel)]="promotion.imgPromotion" required>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="input-field col s12" style="padding: 0px;">
+                                                    <label>Thông Tin Sự Kiện</label>
+                                                    <textarea class="form-control" rows="4" name="detailPromotion" #name="ngModel" [(ngModel)]="promotion.detailPromotion" placeholder="Nhập Mô Tả Sự Kiện" required></textarea>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-sm-4" style="border-left: 2px solid #E6E6E6;height: 255px;padding: 10px;">
+
+                                            <div class="col-sm-5">
+                                                <label>Mức Giảm </label>
+                                                <div class="id_100" style="padding-bottom: 10px;">
+                                                    <select class="form-control" class="custom-select" name="discount" #name="ngModel" [(ngModel)]="promotion.discount" required style="padding-left: 10px;height: 36px;font-size: 14px;">
+                                                    <!-- <option ></option> -->
+                      
+                                                    <option value=5>5%</option>
+                                                    <option value=10>10%</option>
+                                                    <option value=15>15%</option>
+                                                    <option value=20>20%</option>
+                                                    <option value=25>25%</option>
+                                                  </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <label>Điều Kiện Giảm</label>
+                                                <div class="id_200" style="padding-bottom: 10px;">
+                                                    <select *ngIf="!promotion.addList" class="form-control" class="custom-select" name="ifDiscount" #name="ngModel" [(ngModel)]="promotion.ifDiscount" required style="padding-left: 10px;height: 36px;font-size: 14px;">
+                                                    <!-- <option ></option> -->
+                      
+                                                    <option value=100000>100.000 VNĐ</option>
+                                                    <option value=200000>200.000 VNĐ</option>
+                                                    <option value=300000>300.000 VNĐ</option>
+                                                    <option value=500000>500.000 VNĐ</option>
+                                                    <option value=1000000>1.000.000 VNĐ</option>
+                                                  </select>
+                                                    <select *ngIf="promotion.addList" class="form-control" class="custom-select" disabled name="ifDiscount" #name="ngModel" [(ngModel)]="promotion.ifDiscount" required style="padding-left: 10px;height: 36px;font-size: 14px;">
+                                                    <!-- <option ></option> -->
+                      
+                                                    <option value=100000>100.000 VNĐ</option>
+                                                    <option value=200000>200.000 VNĐ</option>
+                                                    <option value=300000>300.000 VNĐ</option>
+                                                    <option value=500000>500.000 VNĐ</option>
+                                                    <option value=1000000>1.000.000 VNĐ</option>
+                                                  </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <label>Ngày Bắt Đầu</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input class="form-control" type="time" id="timeStart" name="eta" (input)="timeStart($event)">
+                                            </div>
+                                            <div class="col-sm-7">
+
+                                                <input class="form-control" type="date" id="dateStart" name="trip-start" min="{{mindateStart}}" (input)="dateStart($event)">
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <label>Ngày Kết Thúc</label>
+                                            </div>
+
+                                            <div class="col-sm-5">
+                                                <input class="form-control" type="time" id="timeEnd" name="eta" (input)="timeEnd($event)">
+                                            </div>
+                                            <div class="col-sm-7">
+
+                                                <input class="form-control" type="date" id="dateEnd" name="trip-start" min="{{mindateEnd}}" (input)="dateEnd($event)">
+                                            </div>
+                                            <div class="col-sm-12" style="margin-top:10px">
+                                                <input *ngIf="!promotion.addList" style="padding:10px;" type="checkbox" class="form-check-input" id="exampleCheck1" name="isShow" #name="ngModel" [(ngModel)]="promotion.isShow">
+
+                                                <input *ngIf="promotion.addList" style="padding:10px;" disabled type="checkbox" class="form-check-input" id="exampleCheck1" name="isShow" #name="ngModel" [(ngModel)]="promotion.isShow">
+                                                <label class="form-check-label" for="exampleCheck1"> &nbsp;
+                                                    <span  *ngIf="!promotion.addList">
+                                                        Cho Phép Hiển Thị Tại Trang Bán Hàng
+                                                    </span>
+                                                    <span  *ngIf="promotion.addList" style="color: #AAAAAA;">
+                                                        Cho Phép Hiển Thị Tại Trang Bán Hàng
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-12" style="margin-top:10px">
+                                                <input style="padding:10px;" type="checkbox" class="form-check-input" id="exampleCheck2" name="addList" #name="ngModel" [(ngModel)]="promotion.addList">
+                                                <label class="form-check-label" for="exampleCheck2"> &nbsp; Tạo Danh Sách Sách Giảm Giá</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12" style="padding: 10px;" *ngIf="promotion.addList">
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="input-field col s12" style="padding: 0px;">
+                                                    <label>Danh Sách ID Sách Được Áp Dụng Trong Sự Kiện</label>
+                                                    <textarea class="form-control" rows="4" name="listBookIn" #name="ngModel" [(ngModel)]="promotion.listBookIn" placeholder="ID1,ID2,ID3...." required></textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="float: right;"> &nbsp;
                                             <div class="input-field col s12">
 
-                                                <img alt="" src="{{getLinkImgCategory}}" style="width: 100%;height: 200px">
-                                                <div *ngIf="category.imgCategory!=''" style="position:absolute;top:0px;left:40px;width:220px;">
-                                                    <h6 style='color:#323232;font-size: 13px;font-family:Robo;font-weight: bold;margin-top: 40px;margin-bottom: 20px;'>LOẠI SÁCH</h6>
-                                                    <h2 style='color:#27ae61;font-size: 25px;font-family:Robo;font-weight: bold;margin-top: 20px; text-transform: uppercase;'>{{category.nameCategory}}</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="row" style="padding-bottom: 10px;">
-                                                <div class="input-field col s12" style="padding: 0px;">
-                                                    <label>Hình Ảnh Thể Loại</label>
-                                                    <input class="form-control" type="text" (change)="getLinkImg($event)" name="imgCategory" #name="ngModel" placeholder="Nhập Link Thể Loại" [(ngModel)]="category.imgCategory" required>
-
-                                                </div>
-                                            </div>
-                                            <div class="row" style="padding-bottom: 10px;">
-                                                <div class="input-field col s12" style="padding: 0px;">
-                                                    <label>Tên Thể Loại</label>
-                                                    <input class="form-control" type="text" name="nameCategory" #name="ngModel" [(ngModel)]="category.nameCategory" placeholder="Nhập Tên Thể Loại" required>
-
-                                                </div>
-                                            </div>
-                                            <div class="row" style="padding-bottom: 10px;">
-                                                <div class="input-field col s12" style="padding: 0px;">
-                                                    <label>Thông Tín Thể Loại</label>
-                                                    <textarea class="form-control" rows="4" name="detailCategory" #name="ngModel" [(ngModel)]="category.detailCategory" placeholder="Nhập Mô Tả Thể Loại"></textarea>
-
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="row" style="float: right;">
-                                                &nbsp;
-                                                <div class="input-field col s12">
-
-                                                    <button class="btn btn-primary" type="submit" style="border-radius: 30px ; width: 180px;height: 50px;font-size: 13px;">Lưu Thông
+                                                <button class="btn btn-primary" type="submit" style="border-radius: 30px ; width: 180px;height: 50px;font-size: 13px;">Lưu Thông
                               Tin</button>
-                                                    <button class="btn btn-primary" type="button" (click)="cancel()" style="border-radius: 30px; width: 180px;height: 50px;font-size: 13px;">Trở Về</button>
-                                                </div>
+                                                <button class="btn btn-primary" type="button" (click)="cancel()" style="border-radius: 30px; width: 180px;height: 50px;font-size: 13px;">Trở Về</button>
                                             </div>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>

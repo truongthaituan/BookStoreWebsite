@@ -27,12 +27,16 @@ router.get('/:promotionID', function(req, res) {
 //post
 router.post('/', function(req, res) {
     var newpromotion = new promotion();
+
+    newpromotion.headerPromotion = req.body.headerPromotion;
+    newpromotion.imgPromotion = req.body.imgPromotion;
     newpromotion.detailPromotion = req.body.detailPromotion;
     newpromotion.discount = req.body.discount;
     newpromotion.ifDiscount = req.body.ifDiscount;
     newpromotion.startDate = req.body.startDate;
     newpromotion.endDate = req.body.endDate;
-
+    newpromotion.listBookIn = req.body.listBookIn;
+    newpromotion.isShow = req.body.isShow;
     newpromotion.save(function(err, insertedpromotion) {
         if (err) {
             console.log('Err Saving promotion');
@@ -47,12 +51,15 @@ router.post('/', function(req, res) {
 router.put('/:id', function(req, res) {
         promotion.findByIdAndUpdate(req.params.id, {
                 $set: {
+                    headerPromotion: req.body.headerPromotion,
+                    imgPromotion: req.body.imgPromotion,
                     detailPromotion: req.body.detailPromotion,
                     discount: req.body.discount,
                     ifDiscount: req.body.ifDiscount,
                     startDate: req.body.startDate,
                     endDate: req.body.endDate,
-
+                    listBookIn: req.body.listBookIn,
+                    isShow: req.body.isShow,
                 }
             }, {
                 new: true

@@ -21,7 +21,7 @@ import { Seri } from 'src/app/app-services/seri-service/seri.model';
 })
 export class AdminManageBookComponent implements OnInit {
   statusCRUD: String = ""
-  displayedColumns: string[] = ['imgBook', 'empty1', 'nameBook', 'priceBook', 'empty2', 'Details', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['_id', 'empty0','imgBook', 'empty1', 'nameBook', 'priceBook', 'empty2', 'Details', 'Edit', 'Delete'];
   // dataSource: MatTableDataSource<Book>;
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

@@ -39,6 +39,7 @@ export class ManageOrderComponent implements OnInit {
 
   ngOnInit() {
     this.script_Frontend();
+   
     this.getAllOrder();
     this.getAllCustomer();
     this.getAllOrderDetail();

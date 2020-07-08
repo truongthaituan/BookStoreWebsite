@@ -212,4 +212,7 @@ export class AdminLayoutComponent implements OnInit {
   moveToManageSeri(){
     this._router.navigate(['/manageSeri']);
   }
+  moveToManageEvent(){
+    this._router.navigate(['/manageEvent']);
+  }
 }

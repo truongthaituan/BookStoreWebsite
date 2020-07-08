@@ -24,6 +24,11 @@ import { AdminManageSeriComponent } from 'src/app/views/admin/manage-seri/admin-
 import { AdminSeriDetailComponent } from 'src/app/views/admin/manage-seri/admin-seri-detail/admin-seri-detail.component';
 import { InsertSeriComponent } from 'src/app/views/admin/manage-seri/insert-seri/insert-seri.component';
 import { UpdateSeriComponent } from 'src/app/views/admin/manage-seri/update-seri/update-seri.component';
+//event
+import { AdminEventDetailComponent } from 'src/app/views/admin/manage-event/admin-event-detail/admin-event-detail.component';
+import { AdminManageEventComponent } from 'src/app/views/admin/manage-event/admin-manage-event/admin-manage-event.component';
+import { InsertEventComponent } from 'src/app/views/admin/manage-event/insert-event/insert-event.component';
+import { UpdateEventComponent } from 'src/app/views/admin/manage-event/update-event/update-event.component';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -145,6 +150,11 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
     AdminSeriDetailComponent,
     InsertSeriComponent,
     UpdateSeriComponent,
+    //managerEvent
+    AdminEventDetailComponent,
+    AdminManageEventComponent,
+    InsertEventComponent,
+    UpdateEventComponent,
 
     MapsComponent,
     AdminManageUserComponent,

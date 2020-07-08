@@ -46,4 +46,9 @@ export class BookService {
   getBookSale(){
     return this._http.get(this.baseURL+"/getBookSale/get");
   }
+
+  updateSalePromotion(body:any){
+    console.log(body)
+    return this._http.post(this.baseURL+"/UpdateByBookIDAndSale",body)
+  }
 }
