@@ -75,7 +75,7 @@ export class UpdateAuthorComponent implements OnInit {
           // form.value.imgMonAn =  $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
           let id = this.route.snapshot.paramMap.get('id');
         form.value._id = id;
-        form.value.quantity=100;
+       
         this.authorService.putAuthor(form.value).subscribe(
          data => {console.log(data);
           this.alertSucess = true;

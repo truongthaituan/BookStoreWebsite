@@ -16,7 +16,7 @@ export class AboutUsComponent implements OnInit {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
-      console.log(this.idBook)
+    
       return this.router.navigate(["/booksCategory" + `/${this.idBook}`]);
   }
 

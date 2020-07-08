@@ -70,7 +70,6 @@ export class HomeComponent implements OnInit {
 		if(JSON.parse(localStorage.getItem("listBestBook"))== null||this.IsNeedLoadRecommend==true){
 			this.IsNeedLoadRecommend=false
 			this.getBestBookAndRecommend();
-		
 		}
 		this.LoadBestBookAndRecommendSecond();
 		this.checkCartBookDBAndLocalStorage();
@@ -94,6 +93,7 @@ export class HomeComponent implements OnInit {
 	ListBuyRecommend:any
 	IsBuyRecommend=false
 	LoadBestBookAndRecommendSecond(){
+	
 		this.bestBookList = JSON.parse(localStorage.getItem("listBestBook"))[1] as Book
 		this.bestCategoryList =  JSON.parse(localStorage.getItem("listBestBook"))[0] as Category
 		this._bestService.getSomeNewSomeBuySomeRateBest().subscribe(

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const book = require('../../models/A_store/book');
 const user = require('../../routes/C_permission/userController')
-const {checkRole} = require("../utils/Auth")
+const { checkRole } = require("../utils/Auth")
 
 
 //book
@@ -31,7 +31,7 @@ router.get('/:bookID', function(req, res) {
 
 
 //post
-router.post('/',checkRole(["ADMIN"]), function(req, res) {
+router.post('/', checkRole(["ADMIN"]), function(req, res) {
     if (req.body.sale == null || req.body.sale == "") req.body.sale = 0
     var newbook = new book();
     newbook.nameBook = req.body.nameBook;
@@ -56,7 +56,7 @@ router.post('/',checkRole(["ADMIN"]), function(req, res) {
 
 
 //update
-router.put('/:id',checkRole(["ADMIN"]), function(req, res) {
+router.put('/:id', checkRole(["ADMIN"]), function(req, res) {
         if (req.body.sale == null || req.body.sale == "") req.body.sale = 0
         book.findByIdAndUpdate(req.params.id, {
 
@@ -85,7 +85,7 @@ router.put('/:id',checkRole(["ADMIN"]), function(req, res) {
             })
     })
     //delete
-router.delete('/:id',checkRole(["ADMIN"]), function(req, res) {
+router.delete('/:id', checkRole(["ADMIN"]), function(req, res) {
     book.findByIdAndRemove(req.params.id, function(err, deletebook) {
         if (err) {
             res.send('err Delete');
@@ -230,4 +230,17 @@ router.post('/CheckBillBeforePay', function(req, res) {
     }
     run()
 })
+
+router.get('/getBookSale/get', function(req, res) {
+    console.log('get request for all books');
+    book.find({})
+        .exec(function(err, books) {
+            if (err) {
+                console.log("err req books");
+            } else {
+                books = books.filter(book => (book.sale > 0));
+                res.json(books);
+            }
+        });
+});
 module.exports = router;

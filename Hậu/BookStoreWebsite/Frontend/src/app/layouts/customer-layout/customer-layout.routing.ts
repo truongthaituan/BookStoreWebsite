@@ -19,6 +19,8 @@ import { DiscountCodeComponent } from 'src/app/views/customer/discount-code/disc
 import { ConfirmEmailComponent } from 'src/app/views/customer/confirm-email/confirm-email.component';
 import { FavoriteComponent } from 'src/app/views/customer/favorite/favorite.component';
 import { SaleComponent } from 'src/app/views/customer/sale/sale.component';
+import { PageShowListComponent } from 'src/app/views/customer/page-show-list/page-show-list.component';
+import { Navlv2Component } from 'src/app/views/customer/navlv2/navlv2.component';
 export const CustomerLayoutRoutes: Routes = [
     { path: 'homePage', component: HomeComponent },
     { path: 'booksCategory/:id', component: BookCategoryComponent },
@@ -39,5 +41,7 @@ export const CustomerLayoutRoutes: Routes = [
     // { path: 'manageOrder', component: ManageOrderComponent },
     { path: 'profile', component: AccountProfileComponent },
     { path: 'discountCode', component: DiscountCodeComponent },
-    { path: 'confirm-account/:token', component: ConfirmEmailComponent }
+    { path: 'confirm-account/:token', component: ConfirmEmailComponent },
+    { path: 'filter/:name/:id', component: PageShowListComponent },
+    { path: 'rountlv2/:name/:id', component: Navlv2Component }
 ];

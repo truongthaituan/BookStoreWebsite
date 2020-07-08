@@ -31,7 +31,8 @@ import { SafePipeModule } from 'safe-pipe';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ConfirmEmailComponent } from 'src/app/views/customer/confirm-email/confirm-email.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
-
+import { PageShowListComponent } from 'src/app/views/customer/page-show-list/page-show-list.component';
+import { Navlv2Component } from 'src/app/views/customer/navlv2/navlv2.component';
 @NgModule({
   imports: [
     Ng4LoadingSpinnerModule,
@@ -70,6 +71,8 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
     ConfirmEmailComponent,
     FavoriteComponent,
     SaleComponent,
+    PageShowListComponent,
+    Navlv2Component,
   ]
 })
 

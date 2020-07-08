@@ -485,7 +485,7 @@
                         <ul id="menu" class="nav  nav-pills nav-stacked">
 
                             <a type="button" *ngIf="isLoggedIn" (click)="moveToProfile();" class="btn btn-link">Tài Khoản</a>
-                            <a type="button" *ngIf="!isLoggedIn"class="btn btn-link">Cửa Hàng</a>
+                            <a type="button" *ngIf="!isLoggedIn" class="btn btn-link">Cửa Hàng</a>
                             <a type="button" *ngIf="!isLoggedIn" (click)="moveToAccount();" class="btn btn-link">Đăng Nhập / Đăng Ký</a>
 
                             <button id="username" *ngIf="isLoggedIn" style="background-color: transparent;border-color:
@@ -618,7 +618,7 @@
                                                                     <div class='dis-bottom-left-content'>
                                                                         <div class='dis-bottom-left-text'>
                                                                             <h6 style='color:#323232'>THỂ LOẠI</h6>
-                                                                            <h2 style='color:#27ae61'>{{topCategory[0].nameCategory}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
+                                                                            <h2 style='color:#27ae61'>{{topCategory[0].nameCategory}}</h2><a (click)=goToCategory(topCategory[0]._id) style='color:#212121;cursor: pointer;' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -679,7 +679,7 @@
                                                                     <div class='dis-bottom-left-content'>
                                                                         <div class='dis-bottom-left-text'>
                                                                             <h6 style='color:#323232'>Tác Giả</h6>
-                                                                            <h2 style='color:#27ae61'>{{topAuthor[0].nameAuthor}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
+                                                                            <h2 style='color:#27ae61'>{{topAuthor[0].nameAuthor}}</h2><a (click)=goToAuthor(topAuthor[0]._id) style='color:#212121;cursor: pointer;' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -693,7 +693,7 @@
                             </div>
                         </li>
                         <li id="menu-item-136" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-136 vc-menu-item vc-d-0 vc-mm-mega vc-mm-align-default vc-mm-layout-full" data-mm-settings="{&quot;layout&quot;:&quot;full&quot;,&quot;width&quot;:&quot;&quot;}">
-                            <a class="nav-link" id="headSet"><span class="vc-label">Đang Giảm Giá</span></a>
+                            <a style="cursor: pointer;" (click)=goToSale() class="nav-link" id="headSet"><span class="vc-label">Đang Giảm Giá</span></a>
 
                         </li>
                         <div id="InputSearch">

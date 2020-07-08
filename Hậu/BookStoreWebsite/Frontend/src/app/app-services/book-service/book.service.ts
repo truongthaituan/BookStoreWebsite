@@ -42,6 +42,8 @@ export class BookService {
   //trong function backend đã trừ ... (a - b)
   UpdateQuantity(body: any){
     return this._http.post(this.baseURL +"/CheckBillBeforePay", body);
-    
+  }
+  getBookSale(){
+    return this._http.get(this.baseURL+"/getBookSale/get");
   }
 }
