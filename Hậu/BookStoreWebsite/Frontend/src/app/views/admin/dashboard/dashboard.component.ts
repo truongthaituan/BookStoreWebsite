@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { StatisticService } from 'src/app/app-services/statistic-service/statistic.service';
 import { UserService } from 'src/app/app-services/user-service/user.service';
 import { SocialaccountService } from 'src/app/app-services/socialAccount-service/socialaccount.service';
+import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
 declare var $:any;       
 class TotalMonth{
   yearCheck: string;
@@ -14,9 +15,9 @@ class TotalMonth{
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
-  statusLogin = localStorage.getItem('statusLogin');
-  loginBy = localStorage.getItem('loginBy');
+  // accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
+  // statusLogin = localStorage.getItem('statusLogin');
+  // loginBy = localStorage.getItem('loginBy');
 
   //Doughnut Chart
    doughnutChartLabels : Array<string>;
@@ -27,6 +28,9 @@ export class DashboardComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
+    isLoggedIn = false
+    role: string = ''
+    accountSocial: any
 
    barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
    barChartType = 'bar';
@@ -45,7 +49,7 @@ export class DashboardComponent implements OnInit {
    radarChartType = 'radar';
 
  
-  constructor(private _router: Router, private statisticService: StatisticService,
+  constructor(private _router: Router, private statisticService: StatisticService,private authService: AuthenticateService,
      private userService: UserService, private accountSocialService: SocialaccountService) { }
 
     ngOnInit() {
@@ -64,12 +68,7 @@ export class DashboardComponent implements OnInit {
           $('#select_month').addClass("readonly-block");
       }
   });
-    // if($('input[name=month]:checked').length > 0){
-    //   alert(1)
-    // }else{
-    //   $('#field_month').addClass("readonly-wrapper");
-    //   $('#select_month').addClass("readonly-block");
-    // }
+  
     this.statisticService.TotalPriceOnYear(2016).subscribe(total => {
       console.log(total)
       this.totalYear = total
@@ -88,6 +87,14 @@ export class DashboardComponent implements OnInit {
         })
       }
     })
+    this.authService.authInfo.subscribe(val => {
+			this.isLoggedIn = val.isLoggedIn;
+			this.role = val.role;
+      this.accountSocial = JSON.parse(this.authService.getAccount())
+      if(val.role.includes("CUSTOMER")){
+        this._router.navigate(['/404Notfound'])
+      }
+		  });
   }
   totalYear: any = 0.0
   bestUser: any
@@ -100,7 +107,6 @@ export class DashboardComponent implements OnInit {
   selectedMonth: any
   changeYear(year){
     this.onYear = true;
-    // alert("selected --->"+year);
     this.selectedYear = year
     this.statisticService.TotalPriceOnYear(year).subscribe(total => {
       this.totalYear = total

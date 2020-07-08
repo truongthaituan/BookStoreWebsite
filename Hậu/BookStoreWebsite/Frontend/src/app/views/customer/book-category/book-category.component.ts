@@ -64,11 +64,15 @@ export class BookCategoryComponent implements OnInit {
       $("#amount-max").val("Max : " + selectedValues[1] + "đ");
     });
     console.log(this.bookFilter.price1)
-    this.bookFilter.price1 = selectedValues[0];
-    this.bookFilter.price2 = selectedValues[1];
-    this.filter();
+    this.price1 = selectedValues[0];
+    this.price2 = selectedValues[1];
+    
   }
-
+filterByPrice(){
+  this.bookFilter.price1 = this.price1
+  this.bookFilter.price2 = this.price2
+  this.filter();
+}
 
   booksCategory: []
   category_id: string;
@@ -213,12 +217,15 @@ export class BookCategoryComponent implements OnInit {
     this.bookFilter.nameBook = this.searchForm.value.nameBook;
     this.filter();
   }
-
-  sort() {
-    let selected = $('select[name=orderby] option').filter(':selected').val()
-    this.bookFilter.sortByPrice = selected;
+  onEditClick(event){
+    this.bookFilter.sortByPrice = event;
     this.filter();
   }
+  // sort() {
+  //   let selected = $('select[name=orderby] option').filter(':selected').val()
+  //   this.bookFilter.sortByPrice = selected;
+  //   this.filter();
+  // }
 
   getAllAuthor() {
     this.authorService.getAuthorList().subscribe((res) => {

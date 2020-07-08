@@ -32,7 +32,7 @@ export class MyAccountComponent implements OnInit {
   errRegister: String = ""
   statusRegister: Boolean
   showErrorMessage: Boolean = false;
-  errorStr: string = ''
+  errorStr: String = ""
   statusLogin: Boolean = false
   alertMessage: string = ''
 
@@ -123,7 +123,6 @@ export class MyAccountComponent implements OnInit {
     });
   }
   register() {
- 
     this.submitted_register = true;
     if (!this.registerForm.valid) {
       return;
@@ -160,87 +159,25 @@ export class MyAccountComponent implements OnInit {
         if (res != null) {
           this.errStringLogin = res
         }
-        // else {
-        //   localStorage.setItem("token", response.token)
           console.log(res)
-          // //admin
-          // if ((response.obj as User).role == "ADMIN") {
-          //   window.location.href = "/dashboard"
-          //   localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
-          //   this.statusLogin = true;
-          //   localStorage.setItem('statusLogin', String(this.statusLogin));
-          //   localStorage.setItem('loginBy', "loginbt");
-          // }
-          // //member
-          // else  if((response.obj as User).role == "CUSTOMER"){
-          //   window.location.href = "/"
-          //   console.log(response.obj as User)
-          //   localStorage.setItem('accountSocial', JSON.stringify((response.obj as User)));
-          //   this.statusLogin = true;
-          //   localStorage.setItem('statusLogin', String(this.statusLogin));
-          //   localStorage.setItem('loginBy', "loginbt");
-          // }
-
-        // }
       })
   }
-  logout(){
-    this._userService.logout().subscribe(res =>{
-      console.log(res)
-      localStorage.clear();
-    })
-  }
+
   //Login with google
   googleLogin() {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
       this.user = userData;
       console.log(this.user.id);
       //Call method loginGoogle from SocialAccountService
-      this.socialAccountService.loginGoogle(this.user.id).subscribe((res) => {
-        const response: Response = res as Response;
-        //if status from back-end is false
-        if (!response.status) {
-          //Add account google into DB
-          this.socialAccountService.socialAccount.google_id = this.user.id;
-          this.socialAccountService.socialAccount.username = this.user.name;
-          this.socialAccountService.socialAccount.email = this.user.email;
-          this.socialAccountService.socialAccount.imageUrl = this.user.photoUrl;
-          console.log("Account " + this.socialAccountService.socialAccount);
-          //Call method SignUpGoogle from SocialAccountService
-          this.socialAccountService.signUp(this.socialAccountService.socialAccount).subscribe((res) => {
-            const response: Response = res as Response;
-            if (!response.status) {
-              this.errorStr = response.message;
-            }
-            else {
-              localStorage.setItem("token", response.token)
-              localStorage.setItem('loginBy', "loginSocial");
-              localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
-              console.log("created");
-              window.location.href = "/";
-              this.statusLogin = true;
-              localStorage.setItem('statusLogin', String(this.statusLogin));
-            }
-          });
-        }
-        else {
-          localStorage.setItem('loginBy', "loginSocial");
-          if ((response.obj as SocialAccount).role == "ADMIN") {
-            localStorage.setItem("token", response.token)
-            this._router.navigate(['/dashboard']);
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
-            this.statusLogin = true;
-            localStorage.setItem('statusLogin', String(this.statusLogin));
-          }
-          else  if ((response.obj as SocialAccount).role == "CUSTOMER") {
-            localStorage.setItem("token", response.token)
-            window.location.href = "/"
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
-            console.log(response.obj as SocialAccount);
-            this.statusLogin = true;
-            localStorage.setItem('statusLogin', String(this.statusLogin));
-     
-          }
+      this.authService.loginGoogle(this.user.id, this.user).subscribe((res) => {
+        if(!res){
+          this.socialAccountService.socialAccount.google_id =  this.user.id;
+          this.socialAccountService.socialAccount.username =  this.user.name;
+          this.socialAccountService.socialAccount.email =  this.user.email;
+          this.socialAccountService.socialAccount.imageUrl =  this.user.photoUrl;
+          this.authService.signUp(this.socialAccountService.socialAccount).subscribe(signUp =>{
+            console.log(signUp)
+          })
         }
       });
     });
@@ -248,49 +185,16 @@ export class MyAccountComponent implements OnInit {
   facebookLogin() {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
       this.user = userData;
-      console.log(this.user.id);
-      this.socialAccountService.loginFacebook(this.user.id).subscribe((res) => {
-        const response: Response = res as Response;
-        console.log(res);
-        console.log("hello123");
-        if (!response.status) {
-          this.socialAccountService.socialAccount.facebook_id = this.user.id;
-          this.socialAccountService.socialAccount.username = this.user.name;
-          this.socialAccountService.socialAccount.imageUrl = this.user.photoUrl;
-          console.log(this.socialAccountService.socialAccount);
-
-          this.socialAccountService.signUp(this.socialAccountService.socialAccount).subscribe((res: any) => {
-            const response: Response = res as Response;
-            if (!response.status) {
-              this.errorStr = response.message;
-            }
-            else 
-            {
-              localStorage.setItem("token", response.token)
-              localStorage.setItem('loginBy', "loginSocial");
-              localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
-              console.log("created");
-              // this._router.navigate(['/booksCategory']);
-              window.location.href = "/";
-              this.statusLogin = true;
-              localStorage.setItem('statusLogin', String(this.statusLogin));
-            } 
-          });
-
-        }
-        else {    
-          localStorage.setItem('loginBy', "loginSocial");
-          if ((response.obj as SocialAccount).role == "ADMIN") {
-            localStorage.setItem("token", response.token)
-            this._router.navigate(['/dashboard']);
-          }
-          else  if ((response.obj as SocialAccount).role == "CUSTOMER") {
-            localStorage.setItem("token", response.token)
-            window.location.href = "/"
-            localStorage.setItem('accountSocial', JSON.stringify((response.obj as SocialAccount)));
-            this.statusLogin = true;
-            localStorage.setItem('statusLogin', String(this.statusLogin));
-          }
+      console.log(this.user);
+      this.authService.loginFacebook(this.user.id, this.user).subscribe((res) => {
+        if(!res){
+          this.socialAccountService.socialAccount.facebook_id =  this.user.id;
+          this.socialAccountService.socialAccount.username =  this.user.name;
+          this.socialAccountService.socialAccount.email =  this.user.email;
+          this.socialAccountService.socialAccount.imageUrl =  this.user.photoUrl;
+          this.authService.signUp(this.socialAccountService.socialAccount).subscribe(signUp =>{
+            console.log(signUp)
+          })
         }
       });
     });

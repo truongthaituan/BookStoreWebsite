@@ -526,7 +526,8 @@
                         <div class="bks-cart-widget right">
                             <div class="currency-switcher pull-left">
                                 <form method="post" action="#" class="woocommerce-currency-switcher-form ">
-                                    <label>Tổng Tiền : </label> <label id="tongtien">&nbsp; {{ tongTien|currency:"VND" }}</label>
+                                    <label>Tổng Tiền : </label> 
+                                    <label id="tongtien">&nbsp; {{ TongTien|currency:"VND" }}</label>
                                 </form>
                             </div>
                             <div class="mini-cart pull-right" style="cursor: pointer;">
@@ -584,7 +585,7 @@
                                                             <div class="widget widget_nav_menu">
                                                                 <div class="menu-novel-container">
                                                                     <ul id="menu-novel" class="menu">
-                                                                        <li style="cursor: pointer;" id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToCategory(topCategory[item]._id)>{{topCategory[item].nameCategory}}</a></li>
+                                                                        <li style="cursor: pointer;" id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToCategory(topCategory[item]._id)>{{topCategory[item]?.nameCategory}}</a></li>
 
                                                                     </ul>
                                                                 </div>
@@ -601,7 +602,7 @@
                                                             <div class="widget widget_nav_menu">
                                                                 <div class="menu-business-container">
                                                                     <ul id="menu-business" class="menu">
-                                                                        <li style="cursor: pointer;" id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToCategory(topCategory[item]._id)>{{topCategory[item].nameCategory}}</a></li>
+                                                                        <li style="cursor: pointer;" id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToCategory(topCategory[item]._id)>{{topCategory[item]?.nameCategory}}</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -614,11 +615,11 @@
                                                     <div class="wpb_wrapper">
                                                         <div class=''>
                                                             <div class='dis-bottom-left'>
-                                                                <div class='dis-bottom-left-img'><img src='{{topCategory[0].imgCategory}}' alt='TEXT BOOKS'>
+                                                                <div class='dis-bottom-left-img'><img src='{{topCategory[0]?.imgCategory}}' alt='TEXT BOOKS'>
                                                                     <div class='dis-bottom-left-content'>
                                                                         <div class='dis-bottom-left-text'>
                                                                             <h6 style='color:#323232'>THỂ LOẠI</h6>
-                                                                            <h2 style='color:#27ae61'>{{topCategory[0].nameCategory}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
+                                                                            <h2 style='color:#27ae61'>{{topCategory[0]?.nameCategory}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -645,7 +646,7 @@
                                                             <div class="widget widget_nav_menu">
                                                                 <div class="menu-novel-container">
                                                                     <ul id="menu-novel" class="menu">
-                                                                        <li style="cursor: pointer;" id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToAuthor(topAuthor[item]._id)>{{topAuthor[item].nameAuthor}}</a></li>
+                                                                        <li style="cursor: pointer;" id="menu-item-120" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-120" *ngFor="let item of [0,1,2,3,4];"><a (click)=goToAuthor(topAuthor[item]._id)>{{topAuthor[item]?.nameAuthor}}</a></li>
 
                                                                     </ul>
                                                                 </div>
@@ -662,7 +663,7 @@
                                                             <div class="widget widget_nav_menu">
                                                                 <div class="menu-business-container">
                                                                     <ul id="menu-business" class="menu">
-                                                                        <li style="cursor: pointer;" id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125" *ngFor="let item of [5,6,7,8,9];"><a (click)=goToAuthor(topAuthor[item]._id)>{{topAuthor[item].nameAuthor}}</a></li>
+                                                                        <li style="cursor: pointer;" id="menu-item-125" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-125" *ngFor="let item of [5,6,7,8,9];"><a (click)=goToAuthor(topAuthor[item]._id)>{{topAuthor[item]?.nameAuthor}}</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -679,7 +680,7 @@
                                                                     <div class='dis-bottom-left-content'>
                                                                         <div class='dis-bottom-left-text'>
                                                                             <h6 style='color:#323232'>Tác Giả</h6>
-                                                                            <h2 style='color:#27ae61'>{{topAuthor[0].nameAuthor}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
+                                                                            <h2 style='color:#27ae61'>{{topAuthor[0]?.nameAuthor}}</h2><a href='booksCategory' style='color:#212121' class='btn-link'>Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
                                                                     </div>
                                                                 </div>
                                                             </div>

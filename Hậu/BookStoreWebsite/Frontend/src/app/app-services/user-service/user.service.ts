@@ -20,16 +20,16 @@ export class UserService {
     });
   }
 
-  login(body:any){
-    return this._http.post(this.baseURL +'/login',body)
-  }
+  // login(body:any){
+  //   return this._http.post(this.baseURL +'/login',body)
+  // }
 
-  logout(){
-    return this._http.get(this.baseURL +'/auth/logout',{
-      observe:'body',
-      headers:new HttpHeaders().append('Content-Type','application/json')
-    });
-  }
+  // logout(){
+  //   return this._http.get(this.baseURL +'/auth/logout',{
+  //     observe:'body',
+  //     headers:new HttpHeaders().append('Content-Type','application/json')
+  //   });
+  // }
   getAllUsers(){
     return this._http.get(this.baseURL);
   }

@@ -31,6 +31,7 @@ import { SafePipeModule } from 'safe-pipe';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ConfirmEmailComponent } from 'src/app/views/customer/confirm-email/confirm-email.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { Page404NotFoundComponent } from 'src/app/views/customer/page404-not-found/page404-not-found.component';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
     ConfirmEmailComponent,
     FavoriteComponent,
     SaleComponent,
+    Page404NotFoundComponent
   ]
 })
 

@@ -36,17 +36,12 @@ let config = new AuthServiceConfig([
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('498895894399247')
+    provider: new FacebookLoginProvider('956798711447917')
   }
 ], false);
 // Import the library
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
-
-
-
-
-
 
 export function provideConfig() {
   return config;
@@ -55,11 +50,7 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     CustomerLayoutComponent,
-    AdminLayoutComponent,
-
-    
-  
-
+    AdminLayoutComponent
             ],
   imports: [
     Ng4LoadingSpinnerModule.forRoot(),

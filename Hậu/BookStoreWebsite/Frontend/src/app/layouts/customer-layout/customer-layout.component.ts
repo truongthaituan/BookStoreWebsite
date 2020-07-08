@@ -47,12 +47,9 @@ export class CustomerLayoutComponent implements OnInit {
   ngOnInit() {
     $("#changewhell").css({'float':'right','width':'90px','background-color':this.changespinner});
     $("#color").css({'color':this.changespinner});
-    console.log("alo12323");
-    console.log(this.changespinner);
     this.designWheel();
-    console.log(this.accountSocial);
     this.getTotalCountAndPrice();
-    this.authService.authInfo.subscribe(val => {
+    this.authService.authInfo.subscribe(val => { 
       this.isLoggedIn = val.isLoggedIn;
       this.role = val.role;
       this.isCustomer = this.authService.isCustomer()
@@ -88,7 +85,8 @@ export class CustomerLayoutComponent implements OnInit {
         this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100).toFixed(0));
 				this.TongCount += parseInt(this.CartBook[i].count);
 			}
-		}
+    }
+    
 		$('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
 		$('.cart_items').html(this.TongCount.toString());
 		localStorage.setItem("TongTien", this.TongTien.toString());
@@ -361,13 +359,13 @@ export class CustomerLayoutComponent implements OnInit {
     return this._router.navigate(['/cartBook']);
   }
   logout() {
-    // this.userService.logout().subscribe(res => {
-    //   console.log(res)
-    //   localStorage.clear();
-    //   window.location.href = "/";
-    // })
-    this.authService.logout();
-    this._router.navigate(['homePage']);
+    this.authService.logout();    
+		$('#tongtien').html("&nbsp;" + this.formatCurrency("0"));
+		$('.cart_items').html("0");
+		localStorage.setItem("TongTien", "0");
+    localStorage.setItem("TongCount", "0");
+    // alert("alo")
+    this._router.navigate(['/homePage']);
   }
   getPointByUserID() {
     //get point user by userID

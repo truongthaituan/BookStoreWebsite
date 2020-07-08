@@ -21,17 +21,16 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <p class="woocommerce-result-count">
                                 Chọn lọc sắp xếp</p>
                             <form class="woocommerce-ordering">
-                                <select name="orderby" class="orderby">
-					<option selected='selected'>Sắp xếp</option>
-					<option value="sortAscending" >Sắp xếp theo giá tiền (Tăng Dần)</option>
-					<option  value="sortDescending" >Sắp xếp theo giá tiền (Giảm Dần)</option>
-					<!-- <option value="date" >Sort by newness</option>
-					<option value="price" >Sort by price: low to high</option>
-					<option value="price-desc" >Sort by price: high to low</option> -->
-                    </select>
-                                <nav class="gridlist-toggle">
-                                    <a type="submit" (click)="sort();"><span class="fa fa-filter"></span> <em>Filter</em></a>
-                                </nav>
+                                <select name="orderby" class="orderby" (change)="onEditClick($event.target.value)">
+                                <option value="sortAscending">Theo giá tiền (Tăng Dần)</option>
+                                <option  value="sortDescending" >Theo giá tiền (Giảm Dần)</option>
+                                <!-- <option value="date" >Sort by newness</option>
+                                <option value="price" >Sort by price: low to high</option>
+                                <option value="price-desc" >Sort by price: high to low</option> -->
+                                </select>
+                                <!-- <nav class="gridlist-toggle">
+                                    <a type="submit" (click)="sort();"><span class="fa fa-sort"></span> <em>Sort</em></a>
+                                </nav> -->
                             </form>
                             <!-- <nav class="gridlist-toggle">
                                 <form method="post" [formGroup]="searchForm">
@@ -130,9 +129,18 @@ js-comp-ver-4.9.2 vc_responsive ">
                             <input type="text" id="amount-min" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11px;">
                             <input type="text" id="amount-max" readonly style="border:0; color:#808080; font-weight:bold;font-size: 11px;">
                         </p>
-                        <npn-slider [min]="10000" [max]="500000" [minSelected]="40000" [maxSelected]="300000" [step]="10000" [showStepIndicator]="true" (onChange)="onSliderChange($event)">
+                        <div class="col-sm-10">
+                        <npn-slider [min]="10000" [max]="500000" [minSelected]="40000" [maxSelected]="300000"
+                         [step]="10000" [showStepIndicator]="true" (onChange)="onSliderChange($event)">
                         </npn-slider>
+                         </div>
+                         <div class="col-sm-2">
+                            <nav class="gridlist-toggle">
+                                <a type="submit" (click)="filterByPrice();"><span class="fa fa-filter"></span> <em>Filter</em></a>
+                            </nav>
+                         </div>
                     </div>
+                   
                 </div>
 
 
