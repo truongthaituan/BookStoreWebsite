@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
 declare var $:any;     
 @Component({
   selector: 'app-admin-layout',
@@ -7,11 +8,20 @@ declare var $:any;
   styleUrls: ['./admin-layout.component.css']
 })
 export class AdminLayoutComponent implements OnInit {
-
-  constructor(private _router: Router) { }
+  isLoggedIn = false
+  role: string = ''
+  accountSocial: any
+  constructor(private _router: Router,private authService: AuthenticateService) { }
 
   ngOnInit() {
-   
+    this.authService.authInfo.subscribe(val => {
+			this.isLoggedIn = val.isLoggedIn;
+			this.role = val.role;
+      this.accountSocial = JSON.parse(this.authService.getAccount())
+      if(val.role.includes("CUSTOMER")){
+        this._router.navigate(['/404Notfound'])
+      }
+		  });
       $(".nav-item").click(function() { 
         var navItem = $(this);
         $("li").removeClass("active");

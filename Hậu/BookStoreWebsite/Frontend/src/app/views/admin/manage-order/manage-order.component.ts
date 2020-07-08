@@ -36,11 +36,9 @@ export class ManageOrderComponent implements OnInit {
   expandedIndex=-1
   //thông tin login
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
-  statusLogin = localStorage.getItem('statusLogin');
 
   ngOnInit() {
     this.script_Frontend();
-    if (this.statusLogin == null) { this._router.navigate(['/account']); }
     this.getAllOrder();
     this.getAllCustomer();
     this.getAllOrderDetail();

@@ -156,8 +156,8 @@ export class MyAccountComponent implements OnInit {
       this.authService.login(JSON.stringify(this.loginForm.value)).subscribe((res) => {
         //gọi object response
         // const response: Response = res as Response;
-        if (res != null) {
-          this.errStringLogin = res
+        if (res['message'] != null) {
+          this.errStringLogin = res['message']
         }
           console.log(res)
       })

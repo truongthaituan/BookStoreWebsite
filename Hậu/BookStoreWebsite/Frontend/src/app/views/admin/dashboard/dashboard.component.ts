@@ -4,6 +4,7 @@ import { StatisticService } from 'src/app/app-services/statistic-service/statist
 import { UserService } from 'src/app/app-services/user-service/user.service';
 import { SocialaccountService } from 'src/app/app-services/socialAccount-service/socialaccount.service';
 import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
+import { BookService } from 'src/app/app-services/book-service/book.service';
 declare var $:any;       
 class TotalMonth{
   yearCheck: string;
@@ -20,25 +21,23 @@ export class DashboardComponent implements OnInit {
   // loginBy = localStorage.getItem('loginBy');
 
   //Doughnut Chart
-   doughnutChartLabels : Array<string>;
+   doughnutChartLabels = [];
    doughnutChartType: string = ''
-   doughnutChartData: Array<number>;
+   doughnutChartData = []
   //Bar Chart
     barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-    isLoggedIn = false
-    role: string = ''
-    accountSocial: any
 
-   barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+
+   barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2012', '2012', '2012', '2012', '2012'];
    barChartType = 'bar';
    barChartLegend = true;
 
    barChartData = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+    {data: [190, 59, 80, 81, 56, 55, 40, 40, 40, 40, 40, 40], label: 'Series A'},
+    {data: [28, 48, 40, 19, 86, 27, 90, 40, 40, 40, 40, 40], label: 'Series B'}
   ];
   //Radar chart
    radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
@@ -49,13 +48,24 @@ export class DashboardComponent implements OnInit {
    radarChartType = 'radar';
 
  
-  constructor(private _router: Router, private statisticService: StatisticService,private authService: AuthenticateService,
+  constructor(private _router: Router, private statisticService: StatisticService,private bookService: BookService,
      private userService: UserService, private accountSocialService: SocialaccountService) { }
-
+     FourBookBuyMost : any
     ngOnInit() {
-    this.doughnutChartLabels =  ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-    this.doughnutChartData = [120, 150, 180, 90];
-    this.doughnutChartType = 'doughnut';
+    // this.doughnutChartLabels =  [];
+    // this.doughnutChartData = [59, 34, 28, 17];
+    this.statisticService.getFourBooksBuyTheMost().subscribe(res => {
+      this.FourBookBuyMost = res
+      for(let i in this.FourBookBuyMost){
+        this.doughnutChartData.push(this.FourBookBuyMost[i].count)
+        this.doughnutChartLabels.push(this.FourBookBuyMost[i].nameBook)
+      
+      }
+      console.log(this.doughnutChartData)
+      this.doughnutChartType = 'doughnut';
+    })
+   
+   
     $('#field_month').addClass("readonly-wrapper");
     $('#select_month').addClass("readonly-block");
     $("#month").on('change',function(){
@@ -68,33 +78,25 @@ export class DashboardComponent implements OnInit {
           $('#select_month').addClass("readonly-block");
       }
   });
+
+ 
   
     this.statisticService.TotalPriceOnYear(2016).subscribe(total => {
-      console.log(total)
       this.totalYear = total
     }) 
     this.statisticService.BestUserOnYear(2016).subscribe(total => {
-      console.log(total)
       this.bestUser = total
       this.totalYearOfCustomer =  this.bestUser.totalPrice
       if(this.bestUser.userID == 'not found'){
         this.bestUserName = ""
       }else{
         this.userService.getUserById(this.bestUser.userID).subscribe(res => {
-          console.log(res)
           this.bestUserShow = res
           this.bestUserName = this.bestUserShow.username
         })
       }
     })
-    this.authService.authInfo.subscribe(val => {
-			this.isLoggedIn = val.isLoggedIn;
-			this.role = val.role;
-      this.accountSocial = JSON.parse(this.authService.getAccount())
-      if(val.role.includes("CUSTOMER")){
-        this._router.navigate(['/404Notfound'])
-      }
-		  });
+
   }
   totalYear: any = 0.0
   bestUser: any
@@ -105,14 +107,13 @@ export class DashboardComponent implements OnInit {
   onMonth: boolean = false;
   selectedYear: any
   selectedMonth: any
+  
   changeYear(year){
     this.onYear = true;
     this.selectedYear = year
     this.statisticService.TotalPriceOnYear(year).subscribe(total => {
       this.totalYear = total
-     
     })
-
     this.statisticService.BestUserOnYear(year).subscribe(total => {
       this.bestUser = total
       this.totalYearOfCustomer =  this.bestUser.totalPrice
@@ -120,18 +121,17 @@ export class DashboardComponent implements OnInit {
         this.bestUserName = ""
       }else{
         this.userService.getUserById(this.bestUser.userID).subscribe(res => {
-          console.log(res)
           this.bestUserShow = res
           this.bestUserName = this.bestUserShow.username
         })
          this.accountSocialService.getUserByID(this.bestUser.userID).subscribe(res => {
-              console.log(res)
               this.bestUserShow = res
               this.bestUserName = this.bestUserShow.username
             })
       }
     })
   }
+  
   checkValue(event: any){
     console.log(event)
     if(event == true){

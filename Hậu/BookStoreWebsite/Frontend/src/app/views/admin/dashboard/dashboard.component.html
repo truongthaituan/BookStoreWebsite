@@ -180,14 +180,10 @@
                         <div class="col-md-6">
                             <div class="card card-chart">
                                 <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" id="canvas_chart1"></canvas>
-                                <div class="card-body">
-                                    <h4 class="card-title">Daily Sales</h4>
-                                    <p class="card-category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                </div>
+                               
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                        <i class="material-icons">pie_chart</i> Biểu đồ biểu thị 4 tựa sách được mua nhiều nhất
                                     </div>
                                 </div>
                             </div>
@@ -195,27 +191,9 @@
                         <div class="col-md-6">
                             <div class="card card-chart">
                                 <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
-                                <div class="card-body">
-                                    <h4 class="card-title">Email Subscriptions</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
-                                </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="card card-chart">
-                                <canvas baseChart [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType"></canvas>
-                                <div class="card-body">
-                                    <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                        <i class="material-icons">bar_chart</i> Biểu đồ cột biểu thị số sách bán và doanh thu theo từng tháng
                                     </div>
                                 </div>
                             </div>

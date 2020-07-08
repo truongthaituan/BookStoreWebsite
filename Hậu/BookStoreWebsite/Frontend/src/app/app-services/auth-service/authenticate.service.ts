@@ -34,7 +34,7 @@ export class AuthenticateService {
       .pipe(map(
         data => {
           if(data['message'] != null){
-           data = data['message']
+           data = { message: data['message'] }
           }else{
             this.finishAuthentication(data);
           }

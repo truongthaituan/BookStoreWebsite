@@ -9,6 +9,9 @@ export class StatisticService {
 
   constructor(private _http: HttpClient ,private _host:HostService) { }
   readonly baseURL = this._host.host()+':3000/statistic';
+  getFourBooksBuyTheMost() {
+    return this._http.get(this.baseURL+'/FourBookBuyTheMost');
+  }
   getBooksBuyTheMost() {
     return this._http.get(this.baseURL+'/BuyTheMost');
   }

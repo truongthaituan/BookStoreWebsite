@@ -158,6 +158,7 @@ async function CreateListBookBuyMost(data, element) {
     }
     return isExist1(data, element);
 }
+
 async function ShowPriceTotal(data) {
     var totalPrice = 0.0
     totalPrice += (data.totalPrice - ((data.totalPrice * data.discountCode) / 100));
@@ -249,6 +250,36 @@ router.get('/BuyTheMost', function(req, res) {
     run();
 })
 
+router.get('/FourBookBuyTheMost', function(req, res) {
+    async function run() {
+        let arrayBookBuyTheMost = []
+        let temp = 0
+        const orderArray = await getAllOrder(req, res);
+        for (var index in orderArray) {
+            const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
+            for (var index2 in orderDetailArray) {
+                // arrayBookBuyTheMost.push(orderDetailArray[index2]);
+                //kiểm tra xem id sách có tồn tại trong danh sách
+                //nếu chưa thì thêm , có rồi thì cộng
+                arrayBookBuyTheMost = await CreateListBookBuyMost(arrayBookBuyTheMost, orderDetailArray[index2])
+            }
+        }
+        arrayBookBuyTheMost.sort(function(a, b) {
+            return b.count - a.count;
+        });
+        let arrayFourBookMost = []
+        for(let i in arrayBookBuyTheMost){
+            let bookByID = await getBookByID(arrayBookBuyTheMost[i].bookID, res)
+            console.log(bookByID.nameBook)
+            let BookBuyMost = {}
+            BookBuyMost = {"nameBook":bookByID.nameBook, "count": arrayBookBuyTheMost[i].count}
+            arrayFourBookMost.push(BookBuyMost)
+            if(i >= 3)break;
+        }
+        res.json(arrayFourBookMost);
+    }
+    run();
+})
 //Buy the most By week
 router.get('/BookBuyTheMostOnWeek', function(req, res) {
         async function run() {
