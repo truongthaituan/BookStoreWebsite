@@ -32,7 +32,8 @@ router.post('/', function(req, res) {
     newpromotion.ifDiscount = req.body.ifDiscount;
     newpromotion.startDate = req.body.startDate;
     newpromotion.endDate = req.body.endDate;
-
+    newpromotion.listBookIn = req.body.listBookIn;
+    newpromotion.isShow = req.body.isShow;
     newpromotion.save(function(err, insertedpromotion) {
         if (err) {
             console.log('Err Saving promotion');
@@ -52,7 +53,8 @@ router.put('/:id', function(req, res) {
                     ifDiscount: req.body.ifDiscount,
                     startDate: req.body.startDate,
                     endDate: req.body.endDate,
-
+                    listBookIn: req.body.listBookIn,
+                    isShow: req.body.isShow,
                 }
             }, {
                 new: true

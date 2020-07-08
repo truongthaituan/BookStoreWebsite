@@ -5,7 +5,8 @@ const promotionSchema = mongoose.Schema({
     ifDiscount: Number,
     startDate: String,
     endDate: String,
-
+    listBookIn: Object,
+    isShow: String,
 });
 
 module.exports = mongoose.model('promotions', promotionSchema);
