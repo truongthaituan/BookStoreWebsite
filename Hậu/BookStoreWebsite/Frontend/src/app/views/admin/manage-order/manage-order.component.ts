@@ -40,7 +40,7 @@ export class ManageOrderComponent implements OnInit {
 
   ngOnInit() {
     this.script_Frontend();
-    if (this.statusLogin == null) { this._router.navigate(['/account']); }
+    // if (this.statusLogin == null) { this._router.navigate(['/account']); }
     this.getAllOrder();
     this.getAllCustomer();
     this.getAllOrderDetail();

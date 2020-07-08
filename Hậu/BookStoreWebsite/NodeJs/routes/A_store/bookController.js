@@ -243,4 +243,39 @@ router.get('/getBookSale/get', function(req, res) {
             }
         });
 });
+
+
+
+
+//Update by bookID and sale
+//update
+router.post('/UpdateByBookIDAndSale', checkRole(["ADMIN"]), function(req, res) {
+    async function run() {
+        const listUpdate = []
+        console.log(req.body)
+        for (let index of req.body.listBookIn) {
+            const update = await UpdateByBookIDAndSale(index, req, res)
+            listUpdate.push(update)
+        }
+
+        res.json(listUpdate)
+    }
+    run()
+
+})
+async function UpdateByBookIDAndSale(id, req, res) {
+    try {
+        book.findByIdAndUpdate(id, {
+            $set: {
+                sale: req.body.discount
+            }
+        }, {
+            new: true
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
+
+}
 module.exports = router;
