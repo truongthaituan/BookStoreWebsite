@@ -38,26 +38,27 @@ router.get('/findByGoogleId/:googleID', function (req, res) {
 router.post('/google', (req, res) => {
     SocialAccount.findOne({ google_id: req.body.google_id }).exec((err, doc) => {
         if (err) {
-            res.json({
-                status: false,
-                message: "Error in retriving Account: " +
+            res.send({
+                    status: false,
+                    message: "Error in retriving Account: " +
                     JSON.stringify(err, undefined, 2)
             });
         } else if (!doc) {
-            res.json({
-                status: false
+            res.send({
+                status: false,
+                message:"Loi roi"
             });
         } else {
             var socialAccount = doc;
             var token = jwt.sign({
                 email: socialAccount.email,
-                username: socialAccount.username
+                role: socialAccount.role
             }, superSecret, {
                 expiresIn: '24h' // expires in 24 hours
             });
-            res.json({
+            res.status(200).json({
                 status: true,
-                message: "Success",
+                message:"Login thanh cong",
                 obj: socialAccount,
                 token: token
             });
@@ -67,26 +68,27 @@ router.post('/google', (req, res) => {
 router.post('/facebook', (req, res) => {
     SocialAccount.findOne({ facebook_id: req.body.facebook_id }).exec((err, doc) => {
         if (err) {
-            res.json({
+            res.send({
                 status: false,
                 message: "Error in retriving Account: " +
                     JSON.stringify(err, undefined, 2)
             });
         } else if (!doc) {
-            res.json({
-                status: false
+            res.send({
+                status: false,
+                message: "Loi roi"
             });
         } else {
             var SocialAccount = doc;
             var token = jwt.sign({
                 email: SocialAccount.email,
-                username: SocialAccount.username
+                role: SocialAccount.role
             }, superSecret, {
                 expiresIn: '24h' // expires in 24 hours
             });
-            res.json({
+            res.status(200).json({     
                 status: true,
-                message: "Success",
+                message:"Login thanh cong",          
                 obj: SocialAccount,
                 token: token
             });
@@ -107,24 +109,16 @@ router.post('/addAccount', (req, res) => {
         if (err) {
             res.json({
                 status: false,
-                message: err,
-                obj: null
+                message: "Thêm tài khoản xảy ra lỗi!"
             });
         } else {
-            // res.json({
-            //     status: true,
-            //     message: "Insert Successfully!",
-            //     obj: socialAccount
-            // });
             var token = jwt.sign({
                 email: socialAccount.email,
-                username: socialAccount.username
+                role: socialAccount.role
             }, superSecret, {
                 expiresIn: '24h' // expires in 24 hours
             });
-            res.json({
-                status: true,
-                message: "Insert Successfully!",
+            res.status(200).json({
                 obj: socialAccount,
                 token: token
             });

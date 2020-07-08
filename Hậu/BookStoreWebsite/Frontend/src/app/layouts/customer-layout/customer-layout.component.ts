@@ -45,14 +45,11 @@ export class CustomerLayoutComponent implements OnInit {
   }
   changespinner = "chocolate";
   ngOnInit() {
-    $("#changewhell").css({ 'float': 'right', 'width': '90px', 'background-color': this.changespinner });
-    $("#color").css({ 'color': this.changespinner });
-    console.log("alo12323");
-    console.log(this.changespinner);
+    $("#changewhell").css({'float':'right','width':'90px','background-color':this.changespinner});
+    $("#color").css({'color':this.changespinner});
     this.designWheel();
-    console.log(this.accountSocial);
     this.getTotalCountAndPrice();
-    this.authService.authInfo.subscribe(val => {
+    this.authService.authInfo.subscribe(val => { 
       this.isLoggedIn = val.isLoggedIn;
       this.role = val.role;
       this.isCustomer = this.authService.isCustomer()
@@ -70,36 +67,37 @@ export class CustomerLayoutComponent implements OnInit {
     )
   }
   // set độ dài của giỏ hàng
-  cartBookLength(CartBook) {
-    if (CartBook == null) {
-      this.lengthCartBook = 0;
-    } else {
-      this.lengthCartBook = CartBook.length;
+	cartBookLength(CartBook) {
+		if (CartBook == null) {
+			this.lengthCartBook = 0;
+		} else {
+			this.lengthCartBook = CartBook.length;
+		}
+	}
+	//get total count and price 
+	getTotalCountAndPrice() {
+		this.TongTien = 0;
+		this.TongCount = 0;
+		this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
+		this.cartBookLength(this.CartBook);
+		if (this.CartBook != null) {
+			for (var i = 0; i < this.lengthCartBook; i++) {
+        this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100).toFixed(0));
+				this.TongCount += parseInt(this.CartBook[i].count);
+			}
     }
-  }
-  //get total count and price 
-  getTotalCountAndPrice() {
-    this.TongTien = 0;
-    this.TongCount = 0;
-    this.CartBook = JSON.parse(localStorage.getItem("CartBook"));
-    this.cartBookLength(this.CartBook);
-    if (this.CartBook != null) {
-      for (var i = 0; i < this.lengthCartBook; i++) {
-        this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count) * (100 - this.CartBook[i].sale) / 100).toFixed(0));
-        this.TongCount += parseInt(this.CartBook[i].count);
-      }
-    }
-    $('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
-    $('.cart_items').html(this.TongCount.toString());
-    localStorage.setItem("TongTien", this.TongTien.toString());
-    localStorage.setItem("TongCount", this.TongCount.toString());
-  }
-  //#endregion
-  formatCurrency(number) {
-    var n = number.split('').reverse().join("");
-    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
-    return n2.split('').reverse().join('') + 'VNĐ';
-  }
+    
+		$('#tongtien').html("&nbsp;" + this.formatCurrency(this.TongTien.toString()));
+		$('.cart_items').html(this.TongCount.toString());
+		localStorage.setItem("TongTien", this.TongTien.toString());
+		localStorage.setItem("TongCount", this.TongCount.toString());
+	  }
+	  //#endregion
+	   formatCurrency(number){
+		var n = number.split('').reverse().join("");
+		var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
+		return  n2.split('').reverse().join('') + 'VNĐ';
+	}
   designWheel() {
     //Thông số vòng quay
     let duration = 5; //Thời gian kết thúc vòng quay
@@ -362,13 +360,13 @@ export class CustomerLayoutComponent implements OnInit {
     return this._router.navigate(['/cartBook']);
   }
   logout() {
-    // this.userService.logout().subscribe(res => {
-    //   console.log(res)
-    //   localStorage.clear();
-    //   window.location.href = "/";
-    // })
-    this.authService.logout();
-    return this._router.navigate(['homePage']);
+    this.authService.logout();    
+		$('#tongtien').html("&nbsp;" + this.formatCurrency("0"));
+		$('.cart_items').html("0");
+		localStorage.setItem("TongTien", "0");
+    localStorage.setItem("TongCount", "0");
+    // alert("alo")
+    this._router.navigate(['/homePage']);
   }
   getPointByUserID() {
     //get point user by userID

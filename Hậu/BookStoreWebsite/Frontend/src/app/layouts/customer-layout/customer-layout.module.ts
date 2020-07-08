@@ -33,6 +33,8 @@ import { ConfirmEmailComponent } from 'src/app/views/customer/confirm-email/conf
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { PageShowListComponent } from 'src/app/views/customer/page-show-list/page-show-list.component';
 import { Navlv2Component } from 'src/app/views/customer/navlv2/navlv2.component';
+import { Page404NotFoundComponent } from 'src/app/views/customer/page404-not-found/page404-not-found.component';
+
 @NgModule({
   imports: [
     Ng4LoadingSpinnerModule,
@@ -73,6 +75,7 @@ import { Navlv2Component } from 'src/app/views/customer/navlv2/navlv2.component'
     SaleComponent,
     PageShowListComponent,
     Navlv2Component,
+    Page404NotFoundComponent
   ]
 })
 

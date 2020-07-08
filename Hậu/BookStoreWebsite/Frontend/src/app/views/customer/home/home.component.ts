@@ -14,6 +14,7 @@ import { Recommend } from '../../../app-services/recommendSys-service/recommendS
 //favorite
 import { Favorite } from 'src/app/app-services/favorite-service/favorite.model';
 import { FavoriteService } from 'src/app/app-services/favorite-service/favorite.service';
+import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
 declare var $: any;
 @Component({
 	selector: 'app-home',
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
 	success: Boolean = false;
 	//
 	customOptions: any
-	constructor(private _router: Router, private bookService: BookService,
+	constructor(private _router: Router, private bookService: BookService,private authService: AuthenticateService,
 		private _cartBookDBService: CartBookService, private _pointService: PointService
 		, private _bestService: BestService,private _recommendSyS:Recommend,private _favoriteService:FavoriteService) {
 
@@ -37,6 +38,10 @@ export class HomeComponent implements OnInit {
 	lengthCartBook = 0;
 	accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
 	cartBookDB: CartBook = new CartBook;
+
+	isLoggedIn = false
+	role: string = ''
+	isCustomer = false
 
 	//recommend
 	bestBookList: Book = new Book;
@@ -51,7 +56,7 @@ export class HomeComponent implements OnInit {
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
-		// //recommend chỉ chạy 1 lần thôi (để đỡ load nhiều)	(2 trạng thái đăng nhập có sự thay đổi thì mới chạy recommends)
+		// recommend chỉ chạy 1 lần thôi (để đỡ load nhiều)	(2 trạng thái đăng nhập có sự thay đổi thì mới chạy recommends)
 		if(this.accountSocial!=null){
 			localStorage.setItem("StatusLoginNow","true");
 			if(localStorage.getItem("StatusLoginNow")!=localStorage.getItem("StatusLoginBefore"))
@@ -73,9 +78,14 @@ export class HomeComponent implements OnInit {
 		}
 		this.LoadBestBookAndRecommendSecond();
 		this.checkCartBookDBAndLocalStorage();
-		this.RecommendByUser();
 		
-		
+	    this.authService.authInfo.subscribe(val => {
+			this.isLoggedIn = val.isLoggedIn;
+			this.role = val.role;
+			this.isCustomer = this.authService.isCustomer()
+			this.accountSocial = JSON.parse(this.authService.getAccount())
+			this.RecommendByUser();
+		  });
 	}
 	//recommend
 	theloai1:any
@@ -93,9 +103,10 @@ export class HomeComponent implements OnInit {
 	ListBuyRecommend:any
 	IsBuyRecommend=false
 	LoadBestBookAndRecommendSecond(){
-	
+		if(localStorage.getItem("listBestBook")){
 		this.bestBookList = JSON.parse(localStorage.getItem("listBestBook"))[1] as Book
 		this.bestCategoryList =  JSON.parse(localStorage.getItem("listBestBook"))[0] as Category
+		}
 		this._bestService.getSomeNewSomeBuySomeRateBest().subscribe(
 			listTop3=>{
 				this.top3New = listTop3["BookListNew"] as Book
@@ -123,13 +134,14 @@ export class HomeComponent implements OnInit {
 	}
 	RecommendByUser()
 	{
+		console.log(this.accountSocial)
 			//get 2 thể loại mà người dùng thích nhất để show sách theo thể loại
-			if(this.accountSocial!=null){
+			if(this.accountSocial != null){
 				this._bestService.getBookOnCategoryBuyMostByUserID(this.accountSocial._id).subscribe(
 					listBestBookOnCategory => {
 				
 						this.BookByListCategoryBest = listBestBookOnCategory as Book
-						if(this.BookByListCategoryBest.length>1)
+						if(this.BookByListCategoryBest.length > 1)
 						{
 							this.IsRecommend = true
 							this.theloai1=Object.keys(this.BookByListCategoryBest[0])[0]

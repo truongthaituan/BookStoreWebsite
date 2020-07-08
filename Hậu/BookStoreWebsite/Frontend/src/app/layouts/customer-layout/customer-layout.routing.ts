@@ -21,6 +21,7 @@ import { FavoriteComponent } from 'src/app/views/customer/favorite/favorite.comp
 import { SaleComponent } from 'src/app/views/customer/sale/sale.component';
 import { PageShowListComponent } from 'src/app/views/customer/page-show-list/page-show-list.component';
 import { Navlv2Component } from 'src/app/views/customer/navlv2/navlv2.component';
+import { Page404NotFoundComponent } from 'src/app/views/customer/page404-not-found/page404-not-found.component';
 export const CustomerLayoutRoutes: Routes = [
     { path: 'homePage', component: HomeComponent },
     { path: 'booksCategory/:id', component: BookCategoryComponent },
@@ -43,5 +44,6 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'discountCode', component: DiscountCodeComponent },
     { path: 'confirm-account/:token', component: ConfirmEmailComponent },
     { path: 'filter/:name/:id', component: PageShowListComponent },
-    { path: 'rountlv2/:name/:id', component: Navlv2Component }
+    { path: 'rountlv2/:name/:id', component: Navlv2Component },
+    { path: '404Notfound', component: Page404NotFoundComponent }
 ];

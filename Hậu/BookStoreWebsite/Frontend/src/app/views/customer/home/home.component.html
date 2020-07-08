@@ -459,11 +459,11 @@
                     <div class="wpb_wrapper">
                         <div class=''>
                             <div class='dis-bottom-left'>
-                                <div class='dis-bottom-left-img'><img src='{{bestCategoryList[0].imgCategory}}' alt='E-BOOKS'>
+                                <div class='dis-bottom-left-img'><img src='{{bestCategoryList[0]?.imgCategory}}' alt='E-BOOKS'>
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
-                                            <h2 style='color:#27ae61'>{{bestCategoryList[0].nameCategory}}</h2>
+                                            <h2 style='color:#27ae61'>{{bestCategoryList[0]?.nameCategory}}</h2>
                                             <a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>Vào Xem
                                                          <em class='fa fa-long-arrow-right'></em>
                                              </a></div>
@@ -633,13 +633,13 @@
                         </ng-template>
 
                     </owl-carousel-o>
-                    <div *ngIf="IsRecommend">
+                    <div *ngIf="IsRecommend && isLoggedIn">
                         <div>-------------------------------------------------------------------------------------------</div>
                         <div>
                             <span style='font-size:18px;color:#333333;line-height:21px'>Thể Loại {{theloai1}}</span>
                         </div>
                         <owl-carousel-o [options]="customOptions">
-                            <ng-template *ngFor="let item of  ListBookCategory1" carouselSlide>
+                            <ng-template *ngFor="let item of  ListBookCategory1" carouselSlide>ng serve --ssl
                                 <div class="item">
                                     <div class="media media-card">
 
@@ -846,7 +846,7 @@
 
                         <div>-------------------------------------------------------------------------------------------</div>
                     </div>
-                    <div *ngIf="IsBuyRecommend">
+                    <div *ngIf="IsBuyRecommend && isLoggedIn">
                         <div>
                             <span style='font-size:18px;color:#333333;line-height:21px'>Liên Quan Đến Những Sách Bạn Đã Mua</span>
                         </div>
@@ -953,7 +953,7 @@
 
                         <div>-------------------------------------------------------------------------------------------</div>
                     </div>
-                    <div *ngIf="IsRateRecommend">
+                    <div *ngIf="IsRateRecommend && isLoggedIn">
                         <div>
                             <span style='font-size:18px;color:#333333;line-height:21px'>Liên Quan Đến Những Sách Bạn Đã Đánh Giá</span>
                         </div>
@@ -1060,7 +1060,7 @@
 
                         <div>-------------------------------------------------------------------------------------------</div>
                     </div>
-                    <div *ngIf="IsClickRecommend">
+                    <div *ngIf="IsClickRecommend && isLoggedIn">
                         <div>
                             <span style='font-size:18px;color:#333333;line-height:21px'>Liên Quan Đến Những Sách Bạn Đã Xem</span>
                         </div>

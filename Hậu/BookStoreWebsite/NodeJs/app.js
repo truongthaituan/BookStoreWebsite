@@ -95,12 +95,17 @@ app.use(expressJWT({ secret: superSecret })
             /^\/points.*/,
             /^\/discountCodes.*/,
             /^\/best_selling.*/,
-            '/socials/google',
-            '/socials/facebook',
+            /^\/socials.*/,
+            // '/socials/google',
+            // '/socials/facebook',
             '/addAccount',
+            // {
+            //     url: /^\/socials.*/,
+            //     methods: ['POST']
+            // },
             {
                 url: /^\/books.*/,
-                methods: ['GET']
+                methods: ['GET','POST']
             },
             {
                 url: /^\/categories.*/,
