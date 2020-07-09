@@ -52,7 +52,7 @@
                                             <label style="margin-top:5px;"><input type="radio" (click)="radioImgBig()" name="optradio"></label>
                                         </div>
 
-                                        <div class="col-sm-8" style="padding: 10px;">
+                                        <div class="col-sm-8" style="padding: 15px;">
 
                                             <div class="row" style="padding-bottom: 10px;">
                                                 <div class="input-field col s12" style="padding: 0px;">
@@ -79,7 +79,7 @@
 
 
                                         </div>
-                                        <div class="col-sm-4" style="border-left: 2px solid #E6E6E6;height: 255px;padding: 10px;">
+                                        <div class="col-sm-4" style="border-left: 2px solid #E6E6E6;height: 260px;padding: 10px;">
 
                                             <div class="col-sm-5">
                                                 <label>Mức Giảm </label>
@@ -188,5 +188,12 @@
         </div>
     </div>
 
-
+    <!--  message alert -->
+    <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;z-index: 1000001;font-size: 14px;">
+        {{alertMessage}}
+    </div>
+    <div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;z-index: 1000001;font-size: 14px;  ">
+        {{alertMessage}}
+    </div>
+    <!--  message alert -->
 </body>

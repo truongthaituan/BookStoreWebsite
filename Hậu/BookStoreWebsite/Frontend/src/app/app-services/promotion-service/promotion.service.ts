@@ -28,5 +28,7 @@ export class PromotionService {
   deletePromotion(_id: string) {
     return this._http.delete(this.baseURL + `/${_id}`);
   }
-
+ getTop3Promotion(){
+   return this._http.get(this.baseURL+"/Top3/3PromotionShow");
+ }
 }

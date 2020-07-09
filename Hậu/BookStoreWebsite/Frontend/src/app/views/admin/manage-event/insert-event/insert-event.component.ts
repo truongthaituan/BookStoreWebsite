@@ -52,6 +52,9 @@ export class InsertEventComponent implements OnInit {
 
   }
   promotion: any
+  alertMessage = "";
+  alertSucess = false;
+  alertFalse = false;
   resetForm(form?: NgForm) {
     if (form)
       form.reset();
@@ -66,36 +69,37 @@ export class InsertEventComponent implements OnInit {
       endDate: "",
       listBookIn: null,
       isShow: "",
-      addList:"",
+      addList: "",
     };
   }
   cancel() {
     this._router.navigate(['/managerEvent']);
   }
   onSubmit(form: NgForm) {
-    form.value.startDate=this.DateStart+" "+this.TimeStart
-    form.value.endDate=this.DateEnd+" "+this.TimeEnd
-    form.value.listBookIn= form.value.listBookIn.split(",")
+    form.value.startDate = this.DateStart + " " + this.TimeStart
+    form.value.endDate = this.DateEnd + " " + this.TimeEnd
+    if(form.value.listBookIn!=null){  form.value.listBookIn = form.value.listBookIn.split(",")}
+    if (!this.validate()) {
+      this.alertFalse = true;
+      setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+    } else {
     
       this.promotionService.postPromotion(form.value).subscribe(
         data => {
-          this.promotion= data as Promotion
-     
+          this.promotion = data as Promotion
           //update sale on list book
-          if(data["listBookIn"]!=null){
-              this.bookService.updateSalePromotion(this.promotion).subscribe(data2=>{
-                console.log(data2)
-                console.log("thanh cong")
-              })
-            
+          if (data["listBookIn"] != null) {
+            this.bookService.updateSalePromotion(this.promotion).subscribe(data2 => {
+            })
           }
           this.resetForm()
           // this._router.navigate(['/managerEvent']);
-    
-      this.statusInsert = true;
-    },
+
+          this.statusInsert = true;
+        },
         error => console.log(error)
-       );
+      );
+    }
   }
   getLinkImgCategory = "";
   getLinkImg(event: any) {
@@ -109,7 +113,53 @@ export class InsertEventComponent implements OnInit {
   }
 
 
+  //check validate
+  validate() {
+    // ifDiscount: null,
+    // listBookIn: null,
+    // isShow: "",
+    // addList:"",
 
+    if (this.promotion.headerPromotion == "") {
+      this.alertMessage = "Tiêu Đề Không Được Để Trống";
+      return false
+    }
+    if (this.promotion.imgPromotion == "") {
+      this.alertMessage = "Hình Ảnh Sự Kiện Không Được Để Trống";
+      return false
+    }
+    if (this.promotion.detailPromotion == "") {
+      this.alertMessage = "Thông Tin Sự Kiện Không Được Để Trống";
+      return false
+    }
+    if (this.promotion.discount == null) {
+      this.alertMessage = "Mức Giảm Không Được Để Trống";
+      return false
+    }
+    if (this.TimeStart == null) {
+      console.log(1)
+      this.alertMessage = "Thời Gian Bắt Đầu Không Được Để Trống";
+      return false
+    }
+    if (this.DateStart == null) {  
+      this.alertMessage = "Ngày Bắt Đầu Không Được Để Trống";
+      return false
+    }
+    if (this.TimeEnd == null) {   
+      this.alertMessage = "Thời Gian Kết Thúc Không Được Để Trống";
+      return false
+    }
+    if (this.DateEnd == null) {     
+      this.alertMessage = "Ngày Kết Thúc Không Được Để Trống";
+      return false
+    }
+    if(this.promotion.ifDiscount=null && this.promotion.listBookIn){
+      this.alertMessage = "Điều Kiện Giảm Hoặc Danh Sách Sách Trong Sự Kiện Không Được Để Trống";
+      return false
+    }
+    return true
+
+  }
 
 
 
@@ -146,20 +196,20 @@ export class InsertEventComponent implements OnInit {
     var now = new Date();
     var nowSplit = now.toString().split(" ") //hiện tại  
     //min date
-    this.mindateStart=nowSplit[3]+'-'+this.Listmonth[nowSplit[1]]+'-'+nowSplit[2]
-    if(this.timeStart==null){
-      this.mindateEnd=this.mindateStart
-    }else{
-      this.mindateEnd=this.DateStart
+    this.mindateStart = nowSplit[3] + '-' + this.Listmonth[nowSplit[1]] + '-' + nowSplit[2]
+    if (this.timeStart == null) {
+      this.mindateEnd = this.mindateStart
+    } else {
+      this.mindateEnd = this.DateStart
     }
     //min time
-  //   var timeNow=nowSplit[4].split(":")
-  //   this.minTimeStart = timeNow[0]+":"+timeNow[1]
-  //   if(this.mindateStart==this.DateStart){
-  //   this.minTimeStart = timeNow[0]+":"+timeNow[1]
-  // }else{
-  //   this.minTimeStart="00:00"
-  // }
+    //   var timeNow=nowSplit[4].split(":")
+    //   this.minTimeStart = timeNow[0]+":"+timeNow[1]
+    //   if(this.mindateStart==this.DateStart){
+    //   this.minTimeStart = timeNow[0]+":"+timeNow[1]
+    // }else{
+    //   this.minTimeStart="00:00"
+    // }
   }
 
   //xử lý date time
@@ -179,11 +229,11 @@ export class InsertEventComponent implements OnInit {
   }
 
   //xử lý các box
-//   addList=false
-//   IsCreateList(event)
-//   {
-// this.addList=event.target.value
-// console.log(this.addList)
-//   }
+  //   addList=false
+  //   IsCreateList(event)
+  //   {
+  // this.addList=event.target.value
+  // console.log(this.addList)
+  //   }
 
 }

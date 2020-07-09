@@ -64,16 +64,16 @@ mongoose.connect('mongodb://localhost:27017/bookstore');
 var passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
 app.use(session({
-  name:'myname.sid',
-  resave:false,
-  saveUninitialized:false,
-  secret:'secret',
-  cookie:{
-    maxAge:36000000,
-    httpOnly:false,
-    secure:false
-  },
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+    name: 'myname.sid',
+    resave: false,
+    saveUninitialized: false,
+    secret: 'secret',
+    cookie: {
+        maxAge: 36000000,
+        httpOnly: false,
+        secure: false
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 require('./passport/passport-config');
 app.use(passport.initialize());
@@ -82,10 +82,10 @@ app.use(passport.session());
 //app
 // using the custom middleware for storing variable in response
 app.use((req, res, next) => {
-    res.locals.isAuthenticated = req.isAuthenticated()
-    next()
-})
-//ALLOW PATHS WITHOUT TOKEN AUTHENTICATION
+        res.locals.isAuthenticated = req.isAuthenticated()
+        next()
+    })
+    //ALLOW PATHS WITHOUT TOKEN AUTHENTICATION
 app.use(expressJWT({ secret: superSecret })
     .unless({
         path: [
@@ -105,7 +105,7 @@ app.use(expressJWT({ secret: superSecret })
             // },
             {
                 url: /^\/books.*/,
-                methods: ['GET','POST']
+                methods: ['GET', 'POST']
             },
             {
                 url: /^\/categories.*/,

@@ -1338,70 +1338,70 @@
                         </div>
                         <div class="bks-post-slider">
                             <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-sm-4">
+                                <div class="row" *ngIf="ListPromotion.length==3">
+                                    <div class="col-sm-4" *ngFor="let promotion of ListPromotion">
                                         <div class="post-grid">
 
                                             <div class="post-thumb">
-                                                <a class="post-image" href="an-audio-post/index.html">
-                                                    <img width="350" height="140" src="../../assets/img/02/497109-1280x720-350x140.jpg" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="497109-1280x720" /> </a>
+                                                <a class="post-image">
+                                                    <img width="350" height="140" src="{{promotion.imgPromotion}}" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="497109-1280x720" /> </a>
                                             </div>
                                             <div class="post-content">
                                                 <div class="post-date">
-                                                    Sự kiện diễn ra đến hết 30/08/2020</div>
+                                                    Sự kiện diễn ra đến hết {{promotion.endDate.split(' ')[0]}}</div>
                                                 <div class="post-title">
-                                                    <a href="an-audio-post/index.html">
-                                                        Mùa Hè Cho Các Bạn Trẻ          </a>
+                                                    <a>
+                                                        {{promotion.headerPromotion}}        </a>
                                                 </div>
-                                                <p>Say Hi ! Với các bạn trẻ nè<br>Chắc hẳn, các em thiếu nhi đang có một kì nghỉ hè dài dăng dẳng không biết làm gì phải không nè ^^<br>Vậy thì hãy dành thời gian , hòa mình vào những câu truyện thám hiểm ly
-                                                    kỳ hấp dẫn &#8230;</p>
+                                                <p>{{promotion.detailPromotion}}</p>
                                                 <a class="read-more btn-link" href="an-audio-post/index.html">Đọc Thêm <em class="fa fa-long-arrow-right"></em></a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                </div>
+                                <div class="row" *ngIf="ListPromotion.length==2">
+                                    <div class="col-sm-6" *ngFor="let promotion of ListPromotion">
                                         <div class="post-grid">
 
                                             <div class="post-thumb">
-                                                <a class="post-image" href="a-brief-lesson-on-color-theory/index.html">
-                                                    <img width="350" height="140" src="../../assets/img/01/94d43e327d9303539cb1e2aac7032668_XL-350x140.jpg" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="94d43e327d9303539cb1e2aac7032668_XL" sizes="(max-width: 350px) 100vw, 350px"
-                                                    />
-                                                </a>
+                                                <a class="post-image">
+                                                    <img width="350" height="140" src="{{promotion.imgPromotion}}" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="497109-1280x720" /> </a>
                                             </div>
-
                                             <div class="post-content">
                                                 <div class="post-date">
-                                                    Sự kiện diễn ra đến hết 30/06/2020</div>
+                                                    Sự kiện diễn ra đến hết {{promotion.endDate.split(' ')[0]}}</div>
                                                 <div class="post-title">
-                                                    <a href="a-brief-lesson-on-color-theory/index.html">
-                                                         Tháng 6 Thảnh Thơi            </a>
+                                                    <a>
+                                                        {{promotion.headerPromotion}}        </a>
                                                 </div>
-                                                <p>Hè sắp đến rồi các bạn nhỉ <br>Trong tháng 6 này ,các đọc giả của BookShop có muốn đọc thử các thể loại mới , hấp dẫn va lôi quốn đầy ngây ngất lòng người không &#8230;</p>
-                                                <a class="read-more btn-link" href="a-brief-lesson-on-color-theory/index.html">Đọc Thêm <em class="fa fa-long-arrow-right"></em></a>
+                                                <p>{{promotion.detailPromotion}}</p>
+                                                <a class="read-more btn-link" href="an-audio-post/index.html">Đọc Thêm <em class="fa fa-long-arrow-right"></em></a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                </div>
+                                <div class="row" *ngIf="ListPromotion.length==1">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-6" *ngFor="let promotion of ListPromotion">
                                         <div class="post-grid">
-                                            <div class="post-thumb">
-                                                <a class="post-image" href="offer-of-the-month/index.html">
-                                                    <img width="350" height="140" src="../../assets/img/02/184b7cb84d7b456c96a0bdfbbeaa5f14_L-350x140.jpg" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="184b7cb84d7b456c96a0bdfbbeaa5f14_L" sizes="(max-width: 350px) 100vw, 350px"
-                                                    /> </a>
-                                            </div>
 
+                                            <div class="post-thumb">
+                                                <a class="post-image">
+                                                    <img width="350" height="140" src="{{promotion.imgPromotion}}" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="497109-1280x720" /> </a>
+                                            </div>
                                             <div class="post-content">
                                                 <div class="post-date">
-                                                    Sự kiện diễn ra đến hết 30/06/2020 </div>
+                                                    Sự kiện diễn ra đến hết {{promotion.endDate.split(' ')[0]}}</div>
                                                 <div class="post-title">
-                                                    <a href="offer-of-the-month/index.html">
-                                                        Ở Nhà Trong Thời Dịch Cùng BookShop            </a>
+                                                    <a>
+                                                        {{promotion.headerPromotion}}        </a>
                                                 </div>
-                                                <p>Các độc giả thân mến<br>Trong tình hình dịch bệnh Ncov hiện tại, mọi người nên nhớ chú ý giữ gìn sức khỏe và hạn chế ra đường nhé!<br>Cùng BookShop hòa mình vào những mẩu truyện, sách với đủ các thể loại,..
-                                                    tha hồ đốt thời gian mà không thấy chán &#8230;</p>
-                                                <a class="read-more btn-link" href="offer-of-the-month/index.html">Read more <em class="fa fa-long-arrow-right"></em></a>
+                                                <p>{{promotion.detailPromotion}}</p>
+                                                <a class="read-more btn-link" href="an-audio-post/index.html">Đọc Thêm <em class="fa fa-long-arrow-right"></em></a>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-3"></div>
                                 </div>
                             </div>
                         </div>
