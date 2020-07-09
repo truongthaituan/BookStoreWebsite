@@ -79,10 +79,11 @@ import { ManageOrderComponent } from 'src/app/views/admin/manage-order/manage-or
 import { FileUploadModule } from 'ng2-file-upload';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   imports: [
     FileUploadModule,
+    NgxPaginationModule,
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,

@@ -25,23 +25,30 @@
                                 </div>
                                 <!-- new (Cash)-->
                                 <div class="row" id="order-history">
-                                    <div *ngFor="let order of list_Order; let $index=index;" style="width: 100%;">
+                                    <div *ngFor="let order of list_Order_New| paginate: { id:'1',itemsPerPage: 4,currentPage: p1 }; let $index=index;" style="width: 100%;">
                                         <div class="order-container" *ngIf="order.status=='New'">
                                             <div (click)="expandRow($index)">
                                                 <div class="header" style="margin-bottom: 0px;">
                                                     <div class="row">
                                                         <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                        <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                        <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span>
+                                                            <span style="font-size: 11px;">
+                                                                {{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%) = <b style="color: red;">{{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}</b>
+                                                            </span>
+                                                        </div>
                                                         <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
                                                         <div class="col-sm-2">
                                                             <div *ngFor="let cus of list_all_customer">
                                                                 <div *ngIf="cus._id==order.customerID">
-                                                                    <span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
+                                                                    <span>Người Đặt Hàng</span><span>{{cus.name}} (SĐT:{{cus.phone}})</span></div>
                                                             </div>
                                                         </div>
                                                         <!-- <div class="col-sm-1"></div> -->
 
-                                                        <div class="col-sm-2"><span>Trạng thái</span><span>Chờ xác nhận </span></div>
+                                                        <div class="col-sm-2"><span>Trạng thái</span>
+                                                            <span *ngIf="order.paymentOption=='Cash'">Chờ Xác Nhận </span>
+                                                            <span *ngIf="order.paymentOption=='Online'">Chờ Vận Chuyển </span>
+                                                        </div>
 
                                                         <div class="col-sm-2">
                                                             <div class="box" style="padding: 0;">
@@ -56,17 +63,30 @@
                                                     <div class="box" *ngIf="orderDetail.orderID==order._id">
                                                         <div *ngFor="let book of list_Book">
                                                             <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                                <div class="col-sm-3">
-                                                                    <img style="border:0px" src={{book.imgBook}} alt="" />
+
+                                                                <div class="col-sm-3" style="margin-top:10px">
+                                                                    <p>{{book._id}}</p>
                                                                 </div>
-                                                                <div class="col-sm-4">
+
+                                                                <div class="col-sm-3" style="margin-top:10px">
                                                                     <p>{{book.nameBook}}</p>
                                                                 </div>
-                                                                <div class="col-sm-2">
-                                                                    <p>{{orderDetail.price|currency:"VND"}}</p>
+                                                                <div class="col-sm-2" style="margin-top:10px">
+                                                                    <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
+                                                                        <br>
+                                                                        <span *ngIf="orderDetail.sale!=0" style="top:0px;position: relative;font-size: 14px;">
+                                                                        <span style="text-decoration: line-through;color:darkgrey;">
+                                                                            {{orderDetail.price|currency:"VND"}}
+                                                                        </span><b style="color:red;"> | -{{orderDetail.sale}}%</b>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="col-sm-1" style="margin-top:10px">
+                                                                    <p>x {{orderDetail.count}}</p>
                                                                 </div>
                                                                 <div class="col-sm-1">
-                                                                    <p>x {{orderDetail.count}}</p>
+                                                                    <img style="border:0px" src={{book.imgBook}} width="50px" height="50px" alt="" />
                                                                 </div>
 
                                                             </div>
@@ -76,6 +96,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div *ngIf="IsCheckNew">
+                                        <pagination-controls id='1' (pageChange)="p1 = $event"></pagination-controls>
+                                    </div>
                                     <!-- end of order-container -->
 
 
@@ -84,22 +107,26 @@
                                 <!-- inprogress -->
 
                                 <div id="future-orders">
-                                    <div *ngFor="let order of list_Order; let $index=index;">
+                                    <div *ngFor="let order of list_Order_Inpro | paginate: { id:'2',itemsPerPage: 4,currentPage: p2 }; let $index=index;">
                                         <div class="order-container" style="margin-right: 15px;margin-left: -15px;" *ngIf="order.status=='Inprogress'">
                                             <div (click)="expandRow($index)">
                                                 <div class="header" style="margin-bottom: 0px;">
                                                     <div class="row">
                                                         <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                        <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                        <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span>
+                                                            <span style="font-size: 11px;">
+                                                                {{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%) = <b style="color: red;">{{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}</b>
+                                                            </span>
+                                                        </div>
                                                         <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
                                                         <div class="col-sm-2">
                                                             <div *ngFor="let cus of list_all_customer">
-                                                                <div *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
+                                                                <div *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}} (SĐT:{{cus.phone}})</span></div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-2"><span>Trạng thái</span><span>Đang vận chuyển</span></div>
                                                         <div class="col-sm-2">
-                                                            <div class="box">
+                                                            <div class="box" style="padding: 0;">
                                                                 <a (click)="ClickDaGiao(order)" class="btn-default">Đã Nhận Hàng</a>
                                                             </div>
                                                         </div>
@@ -111,17 +138,30 @@
                                                     <div class="box" *ngIf="orderDetail.orderID==order._id">
                                                         <div *ngFor="let book of list_Book">
                                                             <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                                <div class="col-sm-3">
-                                                                    <img style="border:0px" src={{book.imgBook}} alt="" />
+
+                                                                <div class="col-sm-3" style="margin-top:10px">
+                                                                    <p>{{book._id}}</p>
                                                                 </div>
-                                                                <div class="col-sm-4">
+
+                                                                <div class="col-sm-3" style="margin-top:10px">
                                                                     <p>{{book.nameBook}}</p>
                                                                 </div>
-                                                                <div class="col-sm-2">
-                                                                    <p>{{orderDetail.price|currency:"VND"}}</p>
+                                                                <div class="col-sm-2" style="margin-top:10px">
+                                                                    <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
+                                                                        <br>
+                                                                        <span *ngIf="orderDetail.sale!=0" style="top:0px;position: relative;font-size: 14px;">
+                                                                        <span style="text-decoration: line-through;color:darkgrey;">
+                                                                            {{orderDetail.price|currency:"VND"}}
+                                                                        </span><b style="color:red;"> | -{{orderDetail.sale}}%</b>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="col-sm-1" style="margin-top:10px">
+                                                                    <p>x {{orderDetail.count}}</p>
                                                                 </div>
                                                                 <div class="col-sm-1">
-                                                                    <p>x {{orderDetail.count}}</p>
+                                                                    <img style="border:0px" src={{book.imgBook}} width="50px" height="50px" alt="" />
                                                                 </div>
 
                                                             </div>
@@ -131,23 +171,29 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div *ngIf="IsCheckInprogress">
+                                        <pagination-controls id='2' (pageChange)="p2 = $event"></pagination-controls>
+                                    </div>
                                 </div>
                                 <!-- end of order-container -->
                                 <!-- end of future-orders -->
                                 <!-- done    -->
                                 <div id="done-orders">
-                                    <div *ngFor="let order of list_Order; let $index=index;">
+                                    <div *ngFor="let order of list_Order_Done  | paginate: { id:'3',itemsPerPage: 4,currentPage: p3 }; let $index=index;">
                                         <div class="order-container" style="margin-right: 15px;margin-left: -15px;" *ngIf="order.status=='Done'">
                                             <div (click)="expandRow($index)">
                                                 <div class="header" style="margin-bottom: 0px;">
                                                     <div class="row">
                                                         <div class="col-sm-3"><span>Ngày Đặt Hàng</span><span>{{order.orderDate}}</span></div>
-                                                        <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%)={{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}    </span></div>
+                                                        <div *ngIf="order.discountCode!=0" class="col-sm-3"><span>Tổng Đơn Hàng</span>
+                                                            <span style="font-size: 11px;">
+                                                                {{order.totalPrice|currency:"VND"}} - {{(order.totalPrice*order.discountCode)/100|currency:"VND"}}({{order.discountCode}}%) = <b style="color: red;">{{(order.totalPrice*(100-order.discountCode))/100|currency:"VND"}}</b>
+                                                            </span>
+                                                        </div>
                                                         <div *ngIf="order.discountCode==0" class="col-sm-3"><span>Tổng Đơn Hàng</span><span>{{order.totalPrice|currency:"VND"}} </span></div>
                                                         <div class="col-sm-2">
                                                             <div *ngFor="let cus of list_all_customer">
-                                                                <div *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}}</span></div>
+                                                                <div *ngIf="cus._id==order.customerID"><span>Người Đặt Hàng</span><span>{{cus.name}} (SĐT:{{cus.phone}})</span></div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-2"></div>
@@ -161,24 +207,41 @@
                                                     <div class="box" *ngIf="orderDetail.orderID==order._id">
                                                         <div *ngFor="let book of list_Book">
                                                             <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                                <div class="col-sm-3">
-                                                                    <img style="border:0px" src={{book.imgBook}} alt="" />
+
+                                                                <div class="col-sm-3" style="margin-top:10px">
+                                                                    <p>{{book._id}}</p>
                                                                 </div>
-                                                                <div class="col-sm-4">
+
+                                                                <div class="col-sm-3" style="margin-top:10px">
                                                                     <p>{{book.nameBook}}</p>
                                                                 </div>
-                                                                <div class="col-sm-2">
-                                                                    <p>{{orderDetail.price|currency:"VND"}}</p>
+                                                                <div class="col-sm-2" style="margin-top:10px">
+                                                                    <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
+                                                                        <br>
+                                                                        <span *ngIf="orderDetail.sale!=0" style="top:0px;position: relative;font-size: 14px;">
+                                                                        <span style="text-decoration: line-through;color:darkgrey;">
+                                                                            {{orderDetail.price|currency:"VND"}}
+                                                                        </span><b style="color:red;"> | -{{orderDetail.sale}}%</b>
+                                                                        </span>
+                                                                    </p>
                                                                 </div>
-                                                                <div class="col-sm-1">
+
+                                                                <div class="col-sm-1" style="margin-top:10px">
                                                                     <p>x {{orderDetail.count}}</p>
                                                                 </div>
+                                                                <div class="col-sm-1">
+                                                                    <img style="border:0px" src={{book.imgBook}} width="50px" height="50px" alt="" />
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div *ngIf="IsCheckDone">
+                                        <pagination-controls id='3' (pageChange)="p3 = $event"></pagination-controls>
                                     </div>
                                     <!-- end of order-container -->
 

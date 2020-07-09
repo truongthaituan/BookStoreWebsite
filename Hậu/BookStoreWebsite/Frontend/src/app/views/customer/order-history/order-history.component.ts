@@ -136,14 +136,19 @@ export class OrderHistoryComponent implements OnInit {
   IsCheckDone=false;
   
   getOrderByUserID(id) {
+    this.list_Order_New=[]   //new
+    this.list_Order_Inpro=[]  //inproject
+    this.list_Order_Done=[]    //done
+    this.list_Order_Cancel=[] //cancel
+    this.IsCheckCancel=false
+    this.IsCheckNew=false;
+    this.IsCheckInprogress=false;
+    this.IsCheckDone=false;
     this._order.getOrderByUserId(id).subscribe(
       listOrder => {
         this.list_Order = listOrder as Order[];
       
         for(let index in this.list_Order){
-          let obj : Order
-        
-
           if(this.list_Order[index].status=="New")
           {
            

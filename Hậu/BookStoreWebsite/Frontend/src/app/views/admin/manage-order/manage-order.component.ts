@@ -27,6 +27,10 @@ export class ManageOrderComponent implements OnInit {
   orders: Order = new Order;
   list_all_customer: Array<Customer>;
   list_Order: Array<Order>;
+  list_Order_New=[]   //new
+  list_Order_Inpro=[]  //inproject
+  list_Order_Done=[]    //done
+  list_Order_Cancel=[] //cancel
   list_OrderDetail: Array<OrderDetail>;
   list_Book: Array<Book>;
   TongTien = 0;
@@ -118,14 +122,54 @@ export class ManageOrderComponent implements OnInit {
 		var n = number.split('').reverse().join("");
 		var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
 		return  n2.split('').reverse().join('') + 'VNĐ';
-	}
+  }
+    // get order by userID
+    IsCheckCancel=false
+    IsCheckNew=false;
+    IsCheckInprogress=false;
+    IsCheckDone=false;
   // get order by userID
   getAllOrder() {
+    //update null
+    this.list_Order_New=[]   //new
+    this.list_Order_Inpro=[]  //inproject
+    this.list_Order_Done=[]    //done
+    this.list_Order_Cancel=[] //cancel
+    this.IsCheckCancel=false
+    this.IsCheckNew=false;
+    this.IsCheckInprogress=false;
+    this.IsCheckDone=false;
     this._order.getOrderList().subscribe(
       listOrder => {
         this.list_Order = listOrder as Order[]; 
-      // console.log(Date.parse((this.list_Order[0].orderDate).toString()))
-      // console.log(Date.parse((this.list_Order[1].orderDate).toString()))
+        for(let index in this.list_Order){
+          if(this.list_Order[index].status=="New")
+          {
+           
+            this.list_Order_New.push(this.list_Order[index])
+            this.IsCheckNew=true;
+            continue;
+          }
+          if(this.list_Order[index].status=='Inprogress'){
+            this.IsCheckInprogress=true;
+            this.list_Order_Inpro.push(this.list_Order[index])
+            continue;
+          }
+          if(this.list_Order[index].status=='Done')
+          {
+            this.list_Order_Done.push(this.list_Order[index])
+            this.IsCheckDone=true;
+            continue;
+          }
+          if(this.list_Order[index].status=='Cancel')
+          {
+            this.list_Order_Cancel.push(this.list_Order[index])
+            this.IsCheckCancel=true;
+            continue;
+          }
+        
+        }
+  
       },
       error => console.log(error)
     );
@@ -168,25 +212,26 @@ export class ManageOrderComponent implements OnInit {
 
   ClickDaGiao(orders: Order) {
     orders.status = "Done";
-    console.log(orders)
     this._customer.getUserIDByCustomerID(orders.customerID).subscribe(
       UserID => {
 
 
         this._order.putOrder(orders).subscribe(
           order => {
+            
+            //không cộng điểm cho user đã thanh toán trước
+            if(orders["paymentOption"]=="Cash"){
             this.point.point = parseInt((orders.totalPrice / 10000).toFixed(0));
             this.point.userID = Object.values(UserID)[0].userID;
-            console.log(this.point);
             this._pointService.putPointByUserID(this.point).subscribe(
               pointNew => {
-                
-                // localStorage.setItem("Point", Object.values(pointNew)[2]);
-                // this.ngOnInit();  
+
               }
             );
 
-
+            }
+            this.ngOnInit();  
+            
 
           });
       }
@@ -195,5 +240,6 @@ export class ManageOrderComponent implements OnInit {
   }
   expandRow(index: number): void {
     this.expandedIndex = index === this.expandedIndex ? -1 : index;
+    
   }
 }

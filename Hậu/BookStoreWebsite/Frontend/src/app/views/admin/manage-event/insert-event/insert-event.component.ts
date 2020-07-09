@@ -79,14 +79,17 @@ export class InsertEventComponent implements OnInit {
     
       this.promotionService.postPromotion(form.value).subscribe(
         data => {
-          this.promotion= data
+          this.promotion= data as Promotion
+     
           //update sale on list book
           if(data["listBookIn"]!=null){
               this.bookService.updateSalePromotion(this.promotion).subscribe(data2=>{
                 console.log(data2)
+                console.log("thanh cong")
               })
             
           }
+          this.resetForm()
           // this._router.navigate(['/managerEvent']);
     
       this.statusInsert = true;

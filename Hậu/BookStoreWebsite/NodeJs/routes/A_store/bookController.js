@@ -249,7 +249,7 @@ router.get('/getBookSale/get', function(req, res) {
 
 //Update by bookID and sale
 //update
-router.post('/UpdateByBookIDAndSale', checkRole(["ADMIN"]), function(req, res) {
+router.post('/UpdateByBookIDAndSale', function(req, res) {
     async function run() {
         const listUpdate = []
         console.log(req.body)

@@ -34,7 +34,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Chờ Xác Nhận </b>
                                 </div>
                                 <div *ngFor="let order of list_Order_New| paginate: { id:'1',itemsPerPage: 4,currentPage: p1 }; let $index=index;">
-                                    <div class="order-container" *ngIf="order.status=='New'" style="cursor: pointer;">
+                                    <div class="order-container" style="cursor: pointer;">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
                                                 <div class="row">
@@ -54,7 +54,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                         <span *ngIf="order.paymentOption=='Online'">Chờ Vận Chuyển </span>
                                                     </div>
                                                     <div class="col-sm-2" *ngIf="order.paymentOption=='Cash'">
-                                                        <div class="box">
+                                                        <div class="box" style="padding:0px">
                                                             <a class="btn-default" (click)="ClickDeleteOrder(order)">Hủy Bỏ</a>
                                                         </div>
                                                     </div>
@@ -66,13 +66,15 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                 <div class="box" *ngIf="orderDetail.orderID==order._id">
                                                     <div *ngFor="let book of list_Book">
                                                         <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                            <div class="col-sm-3">
-                                                                <img style="border:0px" src={{book.imgBook}} alt="" />
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
+                                                                <p>{{book._id}}</p>
                                                             </div>
-                                                            <div class="col-sm-4">
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
                                                                 <p>{{book.nameBook}}</p>
                                                             </div>
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-2" style="margin-top:10px">
                                                                 <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
                                                                     <br>
                                                                     <span *ngIf="orderDetail.sale!=0" style="top:-10px;position: relative;font-size: 14px;">
@@ -82,8 +84,12 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                                     </span>
                                                                 </p>
                                                             </div>
-                                                            <div class="col-sm-1">
+
+                                                            <div class="col-sm-1" style="margin-top:10px">
                                                                 <p>x {{orderDetail.count}}</p>
+                                                            </div>
+                                                            <div class="col-sm-1">
+                                                                <img style="border:0px" src={{book.imgBook}} width="50px" height="50px" alt="" />
                                                             </div>
 
                                                         </div>
@@ -111,7 +117,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đang Giao </b>
                                 </div>
                                 <div *ngFor="let order of list_Order_Inpro | paginate: { id:'2',itemsPerPage: 4,currentPage: p2 }; let $index=index;">
-                                    <div class="order-container" *ngIf="order.status=='Inprogress'">
+                                    <div class="order-container">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
                                                 <div class="row">
@@ -131,13 +137,15 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                 <div class="box" *ngIf="orderDetail.orderID==order._id">
                                                     <div *ngFor="let book of list_Book">
                                                         <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                            <div class="col-sm-3">
-                                                                <img style="border:0px" src={{book.imgBook}} alt="" />
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
+                                                                <p>{{book._id}}</p>
                                                             </div>
-                                                            <div class="col-sm-4">
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
                                                                 <p>{{book.nameBook}}</p>
                                                             </div>
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-2" style="margin-top:10px">
                                                                 <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
                                                                     <br>
                                                                     <span *ngIf="orderDetail.sale!=0" style="top:-10px;position: relative;font-size: 14px;">
@@ -147,9 +155,14 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                                     </span>
                                                                 </p>
                                                             </div>
-                                                            <div class="col-sm-1">
+
+                                                            <div class="col-sm-1" style="margin-top:10px">
                                                                 <p>x {{orderDetail.count}}</p>
                                                             </div>
+                                                            <div class="col-sm-1">
+                                                                <img style="border:0px" src={{book.imgBook}} width="50px" height="50px" alt="" />
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -170,7 +183,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đã Giao </b>
                                 </div>
                                 <div *ngFor="let order of list_Order_Done  | paginate: { id:'3',itemsPerPage: 4,currentPage: p3 }; let $index=index;">
-                                    <div class="order-container" *ngIf="order.status=='Done'">
+                                    <div class="order-container">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
                                                 <div class="row">
@@ -190,13 +203,15 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                 <div class="box" *ngIf="orderDetail.orderID==order._id">
                                                     <div *ngFor="let book of list_Book">
                                                         <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                            <div class="col-sm-3">
-                                                                <img style="border:0px" src={{book.imgBook}} alt="" />
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
+                                                                <p>{{book._id}}</p>
                                                             </div>
-                                                            <div class="col-sm-4">
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
                                                                 <p>{{book.nameBook}}</p>
                                                             </div>
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-2" style="margin-top:10px">
                                                                 <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
                                                                     <br>
                                                                     <span *ngIf="orderDetail.sale!=0" style="top:-10px;position: relative;font-size: 14px;">
@@ -206,12 +221,14 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                                     </span>
                                                                 </p>
                                                             </div>
-                                                            <div class="col-sm-1">
+
+                                                            <div class="col-sm-1" style="margin-top:10px">
                                                                 <p>x {{orderDetail.count}}</p>
                                                             </div>
-                                                            <div class="col-sm-2">
-                                                                <a class="btn-default" style="cursor:pointer;" (click)="clickGoToBookDetail(orderDetail.bookID);">Đặt Lại</a>
+                                                            <div class="col-sm-1">
+                                                                <img style="border:0px" src={{book.imgBook}} width="50px" height="50px" alt="" />
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -233,8 +250,8 @@ js-comp-ver-4.9.2 vc_responsive ">
                                 <div *ngIf="!IsCheckCancel" style="background-color: #EEE;height:60px;width: 100%;text-align: center;">
                                     <b style="top:15px;position: relative;">Bạn Không Có Đơn Hàng Đã Hủy </b>
                                 </div>
-                                <div *ngFor="let order of list_Order_Done  | paginate: { id:'4',itemsPerPage: 4,currentPage: p4 }; let $index=index;">
-                                    <div class="order-container" *ngIf="order.status=='Done'">
+                                <div *ngFor="let order of list_Order_Cancel  | paginate: { id:'4',itemsPerPage: 4,currentPage: p4 }; let $index=index;">
+                                    <div class="order-container">
                                         <div (click)="expandRow($index)">
                                             <div class="header">
                                                 <div class="row">
@@ -254,13 +271,15 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                 <div class="box" *ngIf="orderDetail.orderID==order._id">
                                                     <div *ngFor="let book of list_Book">
                                                         <div class="row" *ngIf="book._id==orderDetail.bookID">
-                                                            <div class="col-sm-3">
-                                                                <img style="border:0px" src={{book.imgBook}} alt="" />
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
+                                                                <p>{{book._id}}</p>
                                                             </div>
-                                                            <div class="col-sm-4">
+
+                                                            <div class="col-sm-3" style="margin-top:10px">
                                                                 <p>{{book.nameBook}}</p>
                                                             </div>
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-2" style="margin-top:10px">
                                                                 <p>{{orderDetail.price*(100-orderDetail.sale)/100|currency:"VND"}}
                                                                     <br>
                                                                     <span *ngIf="orderDetail.sale!=0" style="top:-10px;position: relative;font-size: 14px;">
@@ -270,12 +289,14 @@ js-comp-ver-4.9.2 vc_responsive ">
                                                                     </span>
                                                                 </p>
                                                             </div>
-                                                            <div class="col-sm-1">
+
+                                                            <div class="col-sm-1" style="margin-top:10px">
                                                                 <p>x {{orderDetail.count}}</p>
                                                             </div>
-                                                            <div class="col-sm-2">
-                                                                <a class="btn-default" style="cursor:pointer;" (click)="clickGoToBookDetail(orderDetail.bookID);">Đặt Lại</a>
+                                                            <div class="col-sm-1">
+                                                                <img style="border:0px" src={{book.imgBook}} width="50px" height="50px" alt="" />
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
