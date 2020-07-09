@@ -82,4 +82,45 @@ router.delete('/:id', function(req, res) {
         }
     });
 });
+
+
+
+router.get('/Top3/3PromotionShow', function(req, res) {
+
+    async function run() {
+
+        var Listmonth = { "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12" }
+        var now = new Date();
+        var nowSplit = now.toString().split(" ") //hiện tại  
+            //min date
+        var nowCheck = [nowSplit[3], Listmonth[nowSplit[1]], nowSplit[2]] //year,month,day
+        console.log(nowCheck)
+        console.log(123)
+        const AllPromotion = await getAll()
+        ThreePromotion = []
+        for (let index of AllPromotion) {
+            if (index.isShow == "true") {
+                //kiểm tra hiện tại so với bắt đầu và kết thúc
+                var start = index.startDate.split(' ')[0].split('-')
+                var end = index.endDate.split(' ')[0].split('-')
+                if (parseInt(nowCheck[0]) >= parseInt(start[0]) && parseInt(nowCheck[0]) <= parseInt(end[0])) {
+                    if (parseInt(nowCheck[1]) >= parseInt(start[1]) && parseInt(nowCheck[1]) <= parseInt(end[1])) {
+                        if (parseInt(nowCheck[2]) >= parseInt(start[2]) && parseInt(nowCheck[2]) <= parseInt(end[2])) {
+                            ThreePromotion.push(index)
+                        }
+                    }
+                }
+            }
+            if (ThreePromotion.length == 3) break
+        }
+        res.json(ThreePromotion)
+    }
+    run()
+});
+
+//get all
+async function getAll() {
+    const listPromotion = await promotion.find({})
+    return listPromotion
+}
 module.exports = router;

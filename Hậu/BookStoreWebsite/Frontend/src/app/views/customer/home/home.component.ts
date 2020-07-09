@@ -15,6 +15,9 @@ import { Recommend } from '../../../app-services/recommendSys-service/recommendS
 import { Favorite } from 'src/app/app-services/favorite-service/favorite.model';
 import { FavoriteService } from 'src/app/app-services/favorite-service/favorite.service';
 import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
+//promotion
+import{Promotion} from 'src/app/app-services/promotion-service/promotion.model';
+import{PromotionService} from 'src/app/app-services/promotion-service/promotion.service';
 declare var $: any;
 @Component({
 	selector: 'app-home',
@@ -27,7 +30,7 @@ export class HomeComponent implements OnInit {
 	customOptions: any
 	constructor(private _router: Router, private bookService: BookService,private authService: AuthenticateService,
 		private _cartBookDBService: CartBookService, private _pointService: PointService
-		, private _bestService: BestService,private _recommendSyS:Recommend,private _favoriteService:FavoriteService) {
+		, private _bestService: BestService,private _recommendSyS:Recommend,private _favoriteService:FavoriteService,private _promotion:PromotionService) {
 
 	}
 	//chứa thông tin giỏ hàng
@@ -56,6 +59,7 @@ export class HomeComponent implements OnInit {
 		this.script_Frontend();
 		this.refreshBookList();
 		this.getTotalCountAndPrice();
+		this.get3Promotion();
 		// recommend chỉ chạy 1 lần thôi (để đỡ load nhiều)	(2 trạng thái đăng nhập có sự thay đổi thì mới chạy recommends)
 		if(this.accountSocial!=null){
 			localStorage.setItem("StatusLoginNow","true");
@@ -561,6 +565,13 @@ validateFavorite(id) {
   return false
 }
 
+//get 3 promotion
+ListPromotion:any
+get3Promotion(){
+	this._promotion.getTop3Promotion().subscribe(list=>{
+		this.ListPromotion = list as Promotion
+	})
+}
 }
 
 

@@ -252,10 +252,11 @@ router.get('/getBookSale/get', function(req, res) {
 router.post('/UpdateByBookIDAndSale', function(req, res) {
     async function run() {
         const listUpdate = []
-        console.log(req.body)
+
         for (let index of req.body.listBookIn) {
+
             const update = await UpdateByBookIDAndSale(index, req, res)
-            listUpdate.push(update)
+            console.log(update)
         }
 
         res.json(listUpdate)
@@ -264,17 +265,14 @@ router.post('/UpdateByBookIDAndSale', function(req, res) {
 
 })
 async function UpdateByBookIDAndSale(id, req, res) {
-    try {
-        book.findByIdAndUpdate(id, {
-            $set: {
-                sale: req.body.discount
-            }
-        }, {
-            new: true
-        })
-    } catch (error) {
-        console.log(error)
-    }
+    const Updatebook = await book.findByIdAndUpdate(id, {
+        $set: {
+            sale: req.body.discount,
+        }
+    }, {
+        new: true
+    })
+    return Updatebook
 
 
 }
