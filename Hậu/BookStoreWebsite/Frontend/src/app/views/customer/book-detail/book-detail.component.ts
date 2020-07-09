@@ -98,7 +98,8 @@ export class BookDetailComponent implements OnInit {
   idBook = this.route.snapshot.paramMap.get('id');
   ListRatingAccount:any
   favorite: Favorite = new Favorite
-	listFavorite :any
+  listFavorite :any
+
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1rem !important');
     $('.wrapper a img').attr('style', 'border: 1px solid transparent !important');

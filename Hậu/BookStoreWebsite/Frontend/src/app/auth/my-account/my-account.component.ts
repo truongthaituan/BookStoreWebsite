@@ -159,7 +159,7 @@ export class MyAccountComponent implements OnInit {
         if (res['message'] != null) {
           this.errStringLogin = res['message']
         }
-          console.log(res)
+          localStorage.setItem("loginBy","loginbt")
       })
   }
 
@@ -176,9 +176,10 @@ export class MyAccountComponent implements OnInit {
           this.socialAccountService.socialAccount.email =  this.user.email;
           this.socialAccountService.socialAccount.imageUrl =  this.user.photoUrl;
           this.authService.signUp(this.socialAccountService.socialAccount).subscribe(signUp =>{
-            console.log(signUp)
+            // console.log(signUp)
           })
         }
+        localStorage.setItem("loginBy","loginSocial")
       });
     });
   }
@@ -196,6 +197,7 @@ export class MyAccountComponent implements OnInit {
             console.log(signUp)
           })
         }
+        localStorage.setItem("loginBy","loginSocial")
       });
     });
   }

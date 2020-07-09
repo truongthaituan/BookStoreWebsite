@@ -319,20 +319,7 @@
     ul.post-categories li a:after {
         border-right-color: #27ae61;
     }
-    
-    .pagination>.active>a,
-    .pagination>.active>span,
-    .pagination>.active>a,
-    .pagination>.active>a:focus,
-    .pagination>.active>a:hover,
-    .pagination>.active>span,
-    .pagination>.active>span:focus,
-    .pagination>.active>span:hover {
-        background-color: #27ae61 !important;
-        border: 2px solid #27ae61 !important;
-        color: #ffffff !important;
-    }
-    
+ 
     @media only screen and (max-width:768px) {
         .vc-mm-menu-h .vc-nav-on-desktop,
         .vc-mm-menu-v .vc-nav-on-desktop,
@@ -372,26 +359,7 @@
     .bks-promo {
         background-color: #B7A930;
     }
-    /*     
-    body .social-links li a .social-icon {
-        background: #24a9e2;
-        color: #ffffff;
-    }
-    
-    body .social-links li a .social-icon:hover,
-    body .social-links li a .social-icon:focus {
-        background: #1e73be;
-        color: #ffffff;
-    }
-    
-    body .social-links li .social-icon,
-    .social-icon:after {
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        border-radius: 50%;
-    } */
+  
 </style>
 
 <body class="page page-id-7 page-template-default woocommerce-account woocommerce-page wpb-js-composer js-comp-ver-4.9.2 vc_responsive currency-usd">
@@ -404,9 +372,12 @@
                 <!-- <h1>Shipping</h1> -->
                 <div class="wrap">
                     <ul class="list">
-                        <li id="checkLogin">1</li>
-                        <li id="customer">2</li>
-                        <li id="payment">3</li>
+                        <li *ngIf="isLoggedIn" class="active">1</li>
+                        <li *ngIf="isLoggedIn" class="active">2</li>
+                        <li *ngIf="isLoggedIn" class="active">3</li>
+                        <li *ngIf="!isLoggedIn">1</li>
+                        <li *ngIf="!isLoggedIn">2</li>
+                        <li *ngIf="!isLoggedIn">3</li>
                     </ul>
 
                 </div>

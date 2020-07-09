@@ -15,12 +15,10 @@ export class ProfileDetailComponent implements OnInit {
 
  //thông tin login
  accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
- statusLogin = localStorage.getItem('statusLogin');
  loginBy: String = ""
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     let id = JSON.parse(localStorage.getItem("accountSocial"))._id;
-    if (this.statusLogin == null) { this._router.navigate(['/account']); }
     this.loginBy = localStorage.getItem('loginBy');
     this.getUserById(id);
   }

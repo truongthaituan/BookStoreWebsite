@@ -10,6 +10,7 @@ class TotalMonth{
   yearCheck: string;
   monthCheck: string;
 }  
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,20 +26,12 @@ export class DashboardComponent implements OnInit {
    doughnutChartType: string = ''
    doughnutChartData = []
   //Bar Chart
-    barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
+    barChartOptions = {};
+   barChartLabels = [] 
+   barChartType = ''
+   barChartLegend = false
 
-
-   barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2012', '2012', '2012', '2012', '2012'];
-   barChartType = 'bar';
-   barChartLegend = true;
-
-   barChartData = [
-    {data: [190, 59, 80, 81, 56, 55, 40, 40, 40, 40, 40, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90, 40, 40, 40, 40, 40], label: 'Series B'}
-  ];
+   barChartData = [];
   //Radar chart
    radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
    radarChartData = [
@@ -59,12 +52,10 @@ export class DashboardComponent implements OnInit {
       for(let i in this.FourBookBuyMost){
         this.doughnutChartData.push(this.FourBookBuyMost[i].count)
         this.doughnutChartLabels.push(this.FourBookBuyMost[i].nameBook)
-      
       }
-      console.log(this.doughnutChartData)
       this.doughnutChartType = 'doughnut';
     })
-   
+   this.TotalPriceOnEachMonth();
    
     $('#field_month').addClass("readonly-wrapper");
     $('#select_month').addClass("readonly-block");
@@ -96,8 +87,31 @@ export class DashboardComponent implements OnInit {
         })
       }
     })
-
   }
+  yearCheck: Date = new Date()
+  TotalPriceByMonth = []
+  TotalBookByMonth = []
+  TotalPriceOnEachMonth(){
+    this.totalMonth.yearCheck = "2020"
+    this.statisticService.TotalPriceOnEachMonth(this.totalMonth).subscribe(res => {
+      // this.TotalPriceByMonth = 
+      this.barChartOptions = {
+        scaleShowVerticalLines: false,
+        responsive: true
+      };
+      this.barChartLabels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+      this.barChartType = 'bar'
+      this.barChartLegend = true
+      for(let i in (res as [])){
+        // console.log(res[i])
+        this.TotalPriceByMonth.push(res[i].totalPrice)
+        this.TotalBookByMonth.push(res[i].count)
+      }
+      this.barChartData = [  {data: this.TotalBookByMonth, label: 'Số lượng sách bán'},
+                             {data: this.TotalPriceByMonth, label: 'Doanh thu'}  ]
+    })
+  }
+
   totalYear: any = 0.0
   bestUser: any
   bestUserShow: any

@@ -404,9 +404,12 @@
                 <!-- <h1>Shipping</h1> -->
                 <div class="wrap">
                     <ul class="list">
-                        <li id="checkLogin">1</li>
-                        <li id="customer">2</li>
-                        <li id="payment">3</li>
+                        <li *ngIf="isLoggedIn" class="active">1</li>
+                        <li *ngIf="isLoggedIn" class="active">2</li>
+                        <li *ngIf="!isLoggedIn">1</li>
+                        <li *ngIf="!isLoggedIn">2</li>
+                        <li *ngIf="isLoggedIn || !isLoggedIn">3</li>
+                       
                     </ul>
 
                 </div>

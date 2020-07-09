@@ -14,19 +14,25 @@ export class ProfileAccountSocialComponent implements OnInit {
   constructor(private _router: Router, private socialAccountService: SocialaccountService,
      private location: Location, private route: ActivatedRoute) { }
      loginBy: String = ""
-     statusLogin = localStorage.getItem('statusLogin');
+      accountSocial = {}
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
-    let googleID = JSON.parse(localStorage.getItem("accountSocial")).google_id;
-    if (this.statusLogin == null) { this._router.navigate(['/account']); }
+      this.accountSocial = JSON.parse(localStorage.getItem("accountSocial")) as SocialAccount
     this.loginBy = localStorage.getItem('loginBy');
-    this.getSocialAccountByGoogleID(googleID);
   }
-  getSocialAccountByGoogleID(googleID){
-    this.socialAccountService.getSocialAccountByGoogleID(googleID).subscribe(res => {
-      console.log(res)
-      this.socialAccountService.socialAccount = res as SocialAccount;
-    })
+  getSocialAccountByGoogleID(googleID, facebookID){
+    if(googleID){
+      this.socialAccountService.getSocialAccountByGoogleID(googleID).subscribe(res => {
+        console.log(res)
+        this.socialAccountService.socialAccount = res as SocialAccount;
+      })
+    }else if(facebookID){
+      this.socialAccountService.getSocialAccountByGoogleID(googleID).subscribe(res => {
+        console.log(res)
+        this.socialAccountService.socialAccount = res as SocialAccount;
+      })
+    }
+ 
   }
   cancel(){
     this.location.back();

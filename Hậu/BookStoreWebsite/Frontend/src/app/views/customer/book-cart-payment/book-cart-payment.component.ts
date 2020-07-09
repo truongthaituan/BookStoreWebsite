@@ -24,13 +24,14 @@ declare let paypal: any;
 import { datasetRecommend } from '../../../app-services/recommendSys-service/dataRecommend-service/dataRecommend.model'
 import { DatasetRecommendService } from 'src/app/app-services/recommendSys-service/dataRecommend-service/dataRecommend.service';
 import swal from 'sweetalert';
+import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
 @Component({
   selector: 'app-book-cart-payment',
   templateUrl: './book-cart-payment.component.html',
   styleUrls: ['./book-cart-payment.component.css']
 })
 export class BookCartPaymentComponent implements OnInit {
-  constructor(private _router: Router, private route: ActivatedRoute, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
+  constructor(private _router: Router, private route: ActivatedRoute,private authService: AuthenticateService, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService
     , private _pointService: PointService, private _discountCode: DiscountCodeService, private _datasetRecommend: DatasetRecommendService) {
 
@@ -55,6 +56,11 @@ export class BookCartPaymentComponent implements OnInit {
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
+
+  isLoggedIn = false
+	role: string = ''
+  isCustomer = false
+  
   //paypal
   cartBookDB: CartBook = new CartBook;
   public loading: boolean = true;
@@ -68,11 +74,13 @@ export class BookCartPaymentComponent implements OnInit {
     } else {
       this.discountCode.discountCode = 0;
     }
-    if (localStorage.getItem('statusLogin') == 'true') {
-      $("#checkLogin").addClass("active");
-      $("#customer").addClass("active");
-      $("#payment").addClass("active");
-    }
+    this.authService.authInfo.subscribe(val => {
+			this.isLoggedIn = val.isLoggedIn;
+			this.role = val.role;
+			this.isCustomer = this.authService.isCustomer()
+			this.accountSocial = JSON.parse(this.authService.getAccount())
+      
+		  });
     //paypal
     if (!this.didPaypalScriptLoad) {
       this.loadPaypalScript().then(() => {

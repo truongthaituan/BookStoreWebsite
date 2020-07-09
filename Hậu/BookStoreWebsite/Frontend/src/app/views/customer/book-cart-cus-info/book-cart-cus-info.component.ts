@@ -12,6 +12,7 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { VerifyEmailService } from '../../../app-services/verify-email/verify-email.service';
 import { VerifyEmail } from '../../../app-services/verify-email/verify-email.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
 
 declare var $: any;
 
@@ -23,7 +24,7 @@ declare var $: any;
 })
 export class BookCartCusInfoComponent implements OnInit {
 
-  constructor(private _router: Router, private _customerService: CustomerService ,  private mapsAPILoader: MapsAPILoader,private modalService: NgbModal,
+  constructor(private _router: Router, private _customerService: CustomerService ,private authService: AuthenticateService,  private mapsAPILoader: MapsAPILoader,private modalService: NgbModal,
     private ngZone: NgZone, private _locationService: LocationService, private verifyEmailService: VerifyEmailService) {
   }
   latitude: number;
@@ -44,7 +45,6 @@ export class BookCartCusInfoComponent implements OnInit {
   TongCount = 0;
   //thông tin login
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
-  statusLogin = localStorage.getItem('statusLogin');
   //change info payment
   customer_id="";     //dùng khi update
   city = "";
@@ -83,13 +83,21 @@ export class BookCartCusInfoComponent implements OnInit {
   origin: any;
   destination: any;
   addressgg="";
+  isLoggedIn = false
+	role: string = ''
+  isCustomer = false
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
     this.showAddressStore();
-
+    this.authService.authInfo.subscribe(val => {
+			this.isLoggedIn = val.isLoggedIn;
+			this.role = val.role;
+			this.isCustomer = this.authService.isCustomer()
+			this.accountSocial = JSON.parse(this.authService.getAccount())
+      
+		  });
  //load Places Autocomplete
  this.mapsAPILoader.load().then(() => {
-  console.log("---------------->mapsAPILoader")
   this.setCurrentLocation();
   this.geoCoder = new google.maps.Geocoder;
   console.log(this);
@@ -269,11 +277,6 @@ calculateDistance(latTo, longTo) {
         $("html, body").animate({ scrollTop: 0 }, 1000);
       });
 
-      if(localStorage.getItem('statusLogin') == 'true'){
-          $("#checkLogin").addClass("active");
-          $("#customer").addClass("active");
-        }
-        
         $('#btnHuyBo').click(function(){
           $('html,body').animate({
             scrollTop: $("#infoAddress").offset().top},

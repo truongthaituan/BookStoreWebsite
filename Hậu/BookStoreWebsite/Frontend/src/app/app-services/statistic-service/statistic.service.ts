@@ -39,5 +39,7 @@ export class StatisticService {
   BestUserOnMonth(body: any){
     return this._http.post(this.baseURL+'/BestUserOnMonth', body);
   }
-
+  TotalPriceOnEachMonth(body: any){
+    return this._http.post(this.baseURL+'/TotalPriceOnEachMonth',body);
+  }
 }

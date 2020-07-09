@@ -35,4 +35,7 @@ export class SocialaccountService {
   getSocialAccountByGoogleID(googleID: String){
     return this._http.get(this.baseURL + "/findByGoogleId" + `/${googleID}`);
   }
+  getSocialAccountByfacebookID(facebookID: String){
+    return this._http.get(this.baseURL + "/findByFacebookId" + `/${facebookID}`);
+  }
 }

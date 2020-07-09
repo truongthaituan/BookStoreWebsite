@@ -191,13 +191,52 @@ router.post('/TotalPriceOnMonth', function(req, res) {
             // today = today.toString().substring(0, 24);
         const orderArray = await getAllOrder(req, res);
         for (var index in orderArray) {
-            if (orderArray[index].status == 'Done') {
+            if (orderArray[index].status == 'Done' || (orderArray[index].status == 'New' && orderArray[index].paymentOption == 'Online')) {
                 if (await checkMonth(yearCheck, monthCheck, orderArray[index].orderDate) == true) {
                     totalPriceOnMonth += orderArray[index].totalPrice;
                 }
             }
         }
         res.json(totalPriceOnMonth);
+    }
+    run();
+})
+async function CustomPriceByMonth(Data, month, price, arrayOrderDetails) {
+        let sum = 0
+        for (var key of arrayOrderDetails) {
+               sum += key.count 
+        }
+        for (var key in Data) {
+            if (Data[key].month == month) {
+                Data[key].totalPrice += price;
+                Data[key].count += sum
+                return Data;
+            }
+        }
+        var dataReturn = {}
+        dataReturn = {"month": month, "totalPrice": price, "count": sum}
+        Data.push(dataReturn);
+        return Data;  
+}
+
+router.post('/TotalPriceOnEachMonth', function(req, res) {
+    async function run() {
+        var totalPriceOnMonth = 0.0
+        var yearCheck = req.body.yearCheck
+        const orderArray = await getAllOrder(req, res);
+        let months = ["Jan","Feb","Mar","Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"]
+        let TotalPriceByEachMonth = []
+        for(let i in months){
+            for (var index in orderArray) {
+                const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
+                if (orderArray[index].status == 'Done') {
+                    if (await checkMonth(yearCheck, months[i], orderArray[index].orderDate) == true) {
+                        TotalPriceByEachMonth = await CustomPriceByMonth(TotalPriceByEachMonth,months[i],orderArray[index].totalPrice, orderDetailArray)
+                    }
+                }
+            }
+        }
+        res.json(TotalPriceByEachMonth);
     }
     run();
 })
