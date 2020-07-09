@@ -111,8 +111,8 @@
                                     <div class="card-icon">
                                         <i class="material-icons">face</i>
                                     </div>
-                                    <p *ngIf = "bestUserName != ''" class="card-category">{{ bestUserName }}</p>
-                                    <h3 class="card-title">{{ totalYearOfCustomer | currency:'VND' }}      
+                                    <p *ngIf="bestUserName != ''" class="card-category">{{ bestUserName }}</p>
+                                    <h3 class="card-title">{{ totalYearOfCustomer | currency:'VND' }}
                                     </h3>
                                 </div>
                                 <div class="card-footer">
@@ -136,7 +136,7 @@
                                     <div class="stats">
                                         <i class="material-icons text-danger">store</i>
                                         <a href="javascript:;">Doanh Thu Cửa Hàng</a>
-                                    
+
                                     </div>
 
                                 </div>
@@ -180,7 +180,7 @@
                         <div class="col-md-6">
                             <div class="card card-chart">
                                 <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" id="canvas_chart1"></canvas>
-                               
+
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">pie_chart</i> Biểu đồ doughnut biểu thị 4 tựa sách được mua nhiều nhất
@@ -199,7 +199,7 @@
                             </div>
                         </div>
                     </div>
-                
+
                 </div>
             </div>
             <app-footer></app-footer>
