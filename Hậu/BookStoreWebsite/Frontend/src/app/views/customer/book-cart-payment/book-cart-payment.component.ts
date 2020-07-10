@@ -152,6 +152,7 @@ export class BookCartPaymentComponent implements OnInit {
   payCheckOut() {
     //lưu order
     //set time
+    console.log("123")
     this.now = new Date();
     this.orders.orderDate = this.now.toUTCString();
     //set user
@@ -205,7 +206,7 @@ export class BookCartPaymentComponent implements OnInit {
 
   // sendmail
   sendMailCartBook(sendMail: SendMail) {
-
+    this.postOrder(this.orders);
     if (this.discountCode._id != null) {
       //update discount code
       // this.discountCode.status=1;
@@ -226,7 +227,7 @@ export class BookCartPaymentComponent implements OnInit {
           this.alertSucess = true;
           setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
           //thực hiện lưu db (order - orderDetail - customer )
-          this.postOrder(this.orders);
+          
 
 
         },
@@ -240,7 +241,7 @@ export class BookCartPaymentComponent implements OnInit {
 
 
           //thực hiện lưu db (order - orderDetail - customer )
-          this.postOrder(this.orders);
+        
 
 
         },
@@ -259,7 +260,7 @@ export class BookCartPaymentComponent implements OnInit {
     orders.feeShip = this.customer.feeShip;
     this._orderService.postOrder(orders).subscribe(
       orderdata => {
-
+          console.log("Post Order")
         //lưu order detail
         for (var i = 0; i < this.lengthCartBook; i++) {
 
@@ -375,10 +376,11 @@ export class BookCartPaymentComponent implements OnInit {
     onAuthorize: (data, actions) => {
       //xử lý thanh toán
       //thanh toán thành công
+ 
       return actions.payment.execute().then((payment) => {
         this.IsPaypal = true;
         this.orders.paymentOption = "Online";
-
+        this.CheckBillBeforePay()
       });
     }
   };
@@ -453,6 +455,8 @@ export class BookCartPaymentComponent implements OnInit {
             title: "Đã Đặt Thành Công Đơn Hàng!",
             text: "Cám Ơn Bạn Đã Ủng Hộ Cửa Hàng",
             icon: 'success'
+          }).then((willDelete) => {
+            this.ngOnInit();
           });
         }
         if (this.orders.paymentOption == "Online") {
@@ -461,6 +465,8 @@ export class BookCartPaymentComponent implements OnInit {
             title: "Đã Thanh Toán Thành Công Đơn Hàng!",
             text: "Cám Ơn Bạn Đã Ủng Hộ Cửa Hàng",
             icon: 'success'
+          }).then((willDelete) => {
+            this._router.navigate(["/homePage"])
           });
         }
       } else {
