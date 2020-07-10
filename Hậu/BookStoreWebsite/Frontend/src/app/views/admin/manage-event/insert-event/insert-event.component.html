@@ -174,7 +174,9 @@
                                             <div class="row" style="padding-bottom: 10px;">
                                                 <div class="input-field col s12" style="padding: 0px;">
 
-                                                    <textarea class="form-control" rows="4" id="inputList" name="listBookIn" #name="ngModel" [(ngModel)]="promotion.listBookIn" placeholder="ID1,ID2,ID3...." (input)="checkListID($event)" required></textarea>
+                                                    <textarea class="form-control" rows="4" id="inputList" name="listBookIn"
+                                                     #name="ngModel" [(ngModel)]="promotion.listBookIn" 
+                                                     placeholder="ID1,ID2,ID3...." (input)="checkListID($event)" required></textarea>
 
                                                 </div>
                                             </div>
@@ -235,8 +237,8 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                 </div>
-                <div class="modal-body " style="max-height: 400px; overflow: auto ">
-                    <div class="row " *ngFor="let index of arrayListBook">
+                <div class="modal-body " style="max-height: 400px; overflow: auto " *ngIf="IscheckListID==2">
+                    <div class="row" *ngFor="let index of arrayListBook">
                         <div class="col-sm-4 ">
                             <h3>{{index._id}}</h3>
                         </div>

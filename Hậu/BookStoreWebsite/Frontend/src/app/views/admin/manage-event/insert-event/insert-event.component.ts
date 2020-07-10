@@ -261,6 +261,27 @@ export class InsertEventComponent implements OnInit {
       return true
     })
   }
+  checkListIDAfterDelete(ListTrue){
+    if(ListTrue.trim()==""){
+      this.checkTrueFalseBookID=null
+      this.IscheckListID=0
+      return false
+    }
+    const listID= ListTrue.split(",")
+    this.bookService.CheckExistListBookID(listID).subscribe(data=>{
+      this.checkTrueFalseBookID = data 
+      this.dataTrue=this.checkTrueFalseBookID["trueData"]
+      this.dataFalse=this.checkTrueFalseBookID["falseData"]
+      this.arrayListBook=this.checkTrueFalseBookID["array"]
+      if(this.checkTrueFalseBookID["falseData"].length!=0){
+        this.IscheckListID=1
+          return false
+      }
+      this.IscheckListID=2
+      return true
+    })
+  }
+
   DeleteFalseBookID(){
     var ListTrue=""
     if(this.dataTrue!=null){
@@ -268,7 +289,10 @@ export class InsertEventComponent implements OnInit {
       ListTrue=ListTrue.concat(index+",")
     }
   }
-  $('#inputList').html(ListTrue);
-
+  $(function(){
+    $('#inputList').val(ListTrue.slice(0, -1));
+    console.log( $('#inputList').val())
+  })
+  this.checkListIDAfterDelete(ListTrue.slice(0, -1))
   }
 }
