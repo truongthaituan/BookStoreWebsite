@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const book = require('../../models/A_store/book');
 const user = require('../../routes/C_permission/userController')
+const promotion = require('../../models/F_event/promotion')
 const { checkRole } = require("../utils/Auth")
 
 
@@ -247,19 +248,37 @@ router.get('/getBookSale/get', function(req, res) {
 
 
 
-//Update by bookID and sale
+//#region //Update by bookID and sale
 //update
+
 router.get('/UpdateByBookIDAndSale/Update', function(req, res) {
     async function run() {
+        //get all promotion phù hợp với ngày hiện tại
         const listUpdate = []
 
-        for (let index of req.body.listBookIn) {
-
-            const update = await UpdateByBookIDAndSale(index, req, res)
-            console.log(update)
+        const listPromotion = await getAllPromotionExistToDay()
+        //xóa sale
+        for (let promotion of listPromotion[1]) {
+                if(promotion.StatusUpdateBookSale=="used"){
+                for(let id of promotion.listBookIn){
+                    const update = await UpdateByBookIDAndSaleNOTTRUE(id, promotion, res)
+                    // thay đổi trạng thái của promotion
+                }
+                const UpdatePromotion= await UpdatePromotionOut(promotion._id,"NotUse",res)
+            }
         }
-
-        res.json(listUpdate)
+        //tạo sale
+            for (let promotion of listPromotion[0]) {
+                    if(promotion.StatusUpdateBookSale=="NotUse"){
+                    for(let id of promotion.listBookIn){
+                        const update = await UpdateByBookIDAndSale(id, promotion, res)
+                        // thay đổi trạng thái của promotion
+                    }
+        
+                    const UpdatePromotion= await UpdatePromotionOut(promotion._id,"used",res)
+                }
+            }
+        res.json(listPromotion)
     }
     run()
 
@@ -267,47 +286,111 @@ router.get('/UpdateByBookIDAndSale/Update', function(req, res) {
 async function UpdateByBookIDAndSale(id, req, res) {
     const Updatebook = await book.findByIdAndUpdate(id, {
         $set: {
-            sale: req.body.discount,
+            sale: req.discount,
         }
     }, {
         new: true
     })
     return Updatebook
 }
-
-
-
-//kiểm tra sách tồn tại trong list  --->trả về 2 phần đúng và sai
-
-router.post('/CheckExistListBookID', function(req, res) {
-    async function run() {
-        const trueData = []
-        const falseData = []
-        const array = []
-            //lọc trùng nhau
-
-        for (let index of req.body) {
-            const check = await CheckBookID(index, res)
-            array.push(check)
-            if (check == null) {
-                falseData.push(index)
-            } else {
-                trueData.push(index)
-            }
+async function UpdateByBookIDAndSaleNOTTRUE(id, req, res) {
+    const Updatebook = await book.findByIdAndUpdate(id, {
+        $set: {
+            sale: 0,
         }
-        console.log({ trueData, falseData, array })
-        res.json({ trueData, falseData, array })
-    }
-    run()
-})
-async function CheckBookID(req, res) {
-    try {
-        const abook = await book.findById(req)
-
-        return abook
-    } catch (error) {
-        return null
-    }
+    }, {
+        new: true
+    })
+    return Updatebook
+}
+async function UpdatePromotionOut(id,status,res){
+    const update = await promotion.findByIdAndUpdate(id, {
+        $set: {
+            StatusUpdateBookSale: status,
+        }
+    }, {
+        new: true
+    })
+    return update
 }
 
-module.exports = router;
+//get all promotion check by date now
+async function getAllPromotionExistToDay() {
+    try {
+        //get time now
+        var Listmonth = { "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12" }
+        var now = new Date();
+        var nowSplit = now.toString().split(" ") //hiện tại  
+        var nowDate=""
+        nowDate = nowSplit[3] + "-" + Listmonth[nowSplit[1]] + "-" + nowSplit[2] + " " + nowSplit[4].split(":")[0] + ":" + nowSplit[4].split(":")[1] //year,month,day: //year,month,day
+        const AllPromotion = await getAllPromotion()
+ 
+        const ListPromotionTrue = []
+        const ListPromotionFalse = []
+        for (let APromotion of AllPromotion) {
+   
+              if(APromotion.listBookIn[0]=="")continue
+       
+            var IsExist = await CheckExistTime(APromotion["startDate"],APromotion["endDate"],nowDate)
+            if(IsExist) ListPromotionTrue.push(APromotion)
+            else ListPromotionFalse.push(APromotion)
+        }
+        return [ListPromotionTrue,ListPromotionFalse]
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    async function getAllPromotion() {
+        const ArrayPromotion = await promotion.find({})
+        return ArrayPromotion
+    }
+    async function CheckExistTime(Start, End, nowCheckDate) {
+        if(Date.parse(Start) <= Date.parse(nowCheckDate))
+        {
+            if(Date.parse(End) >= Date.parse(nowCheckDate))
+            {
+                return true
+            }
+        }
+        return false
+    }
+
+    //#endregion
+
+
+
+    //#region //kiểm tra sách tồn tại trong list  --->trả về 2 phần đúng và sai
+
+    router.post('/CheckExistListBookID', function(req, res) {
+        async function run() {
+            const trueData = []
+            const falseData = []
+            const array = []
+                //lọc trùng nhau
+
+            for (let index of req.body) {
+                const check = await CheckBookID(index, res)
+                array.push(check)
+                if (check == null) {
+                    falseData.push(index)
+                } else {
+                    trueData.push(index)
+                }
+            }
+            console.log({ trueData, falseData, array })
+            res.json({ trueData, falseData, array })
+        }
+        run()
+    })
+    async function CheckBookID(req, res) {
+        try {
+            const abook = await book.findById(req)
+
+            return abook
+        } catch (error) {
+            return null
+        }
+    }
+    //#endregion
+    module.exports = router;

@@ -54,6 +54,8 @@ export class HomeComponent implements OnInit {
 	listFavorite :any	
 	IsNeedLoadRecommend=false;		//recommend chỉ chạy 1 lần thôi (để đỡ load nhiều)
 	ngOnInit() {
+		this.bookService.updateSalePromotion().subscribe(data2 => {
+			  })
 		this.getAllFavoriteByUserId();
 		$('.searchHeader').attr('style', 'font-size: 1.6rem !important');
 		this.script_Frontend();
