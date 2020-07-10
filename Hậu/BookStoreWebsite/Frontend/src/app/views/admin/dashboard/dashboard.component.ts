@@ -126,58 +126,15 @@ export class DashboardComponent implements OnInit {
   checkValue(event: any){
     if(event == true){
       this.clickMonth=true
-      if(this.selectedMonth==null)this.selectedMonth=1
-      // this.onMonth = true  
-      // this.statisticService.TotalPriceOnMonth(this.totalMonth).subscribe(total => {
-      //   console.log(total)
-      //   this.totalYear = total
-      // }) 
-      // this.statisticService.BestUserOnMonth(this.totalMonth).subscribe(total => {
-      //   console.log(total)
-      //   this.bestUser = total
-      //   this.totalYearOfCustomer =  this.bestUser.totalPrice
-      //   if(this.bestUser.userID == 'not found'){
-      //     this.bestUserName = ""
-      //   }else{
-      //     this.userService.getUserById(this.bestUser.userID).subscribe(res => {
-      //       console.log(res)
-      //       this.bestUserShow = res
-      //       this.bestUserName = this.bestUserShow.username
-      //     })
-      //      this.accountSocialService.getUserByID(this.bestUser.userID).subscribe(res => {
-      //           console.log(res)
-      //           this.bestUserShow = res
-      //           this.bestUserName = this.bestUserShow.username
-      //         })
-      //   }
-      // })
+      if(this.selectedMonth==null)
+      {
+        this.selectedMonth="Jan"
+      }
     }else{
       this.clickMonth=false
-      // this.onMonth = false
-      // this.statisticService.TotalPriceOnYear(this.selectedYear).subscribe(total => {
-      //   console.log(total)
-      //   this.totalYear = total
-      // })
-      // this.statisticService.BestUserOnYear(this.selectedYear).subscribe(total => {
-      //   console.log(total)
-      //   this.bestUser = total
-      //    this.totalYearOfCustomer =  this.bestUser.totalPrice
-      //    if(this.bestUser.userID == 'not found'){
-      //     this.bestUserName = ""
-      //   }else{
-      //     this.userService.getUserById(this.bestUser.userID).subscribe(res => {
-      //       console.log(res)
-      //       this.bestUserShow = res
-      //       this.bestUserName = this.bestUserShow.username
-      //     })
-      //      this.accountSocialService.getUserByID(this.bestUser.userID).subscribe(res => {
-      //           console.log(res)
-      //           this.bestUserShow = res
-      //           this.bestUserName = this.bestUserShow.username
-      //         })
-      //   }
-      // })
+
     }
+    console.log(this.selectedMonth)
     this.customCheckMonthAndYear()
  }
  
@@ -225,6 +182,7 @@ if(this.selectedMonth!=null && this.clickMonth==true){
   
   this.totalMonth.yearCheck = this.selectedYear
     this.totalMonth.monthCheck = this.selectedMonth
+    console.log(this.totalMonth)
     //TotalMonth include yearCheck and monthCheck
     this.statisticService.TotalPriceOnMonth(this.totalMonth).subscribe(total => {
   

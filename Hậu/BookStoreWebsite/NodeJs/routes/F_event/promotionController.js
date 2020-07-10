@@ -27,7 +27,6 @@ router.get('/:promotionID', function(req, res) {
 //post
 router.post('/', function(req, res) {
     var newpromotion = new promotion();
-
     newpromotion.headerPromotion = req.body.headerPromotion;
     newpromotion.imgPromotion = req.body.imgPromotion;
     newpromotion.detailPromotion = req.body.detailPromotion;
@@ -37,6 +36,7 @@ router.post('/', function(req, res) {
     newpromotion.endDate = req.body.endDate;
     newpromotion.listBookIn = req.body.listBookIn;
     newpromotion.isShow = req.body.isShow;
+    newpromotion.StatusUpdateBookSale = "NotUse"
     newpromotion.save(function(err, insertedpromotion) {
         if (err) {
             console.log('Err Saving promotion');
@@ -60,6 +60,8 @@ router.put('/:id', function(req, res) {
                     endDate: req.body.endDate,
                     listBookIn: req.body.listBookIn,
                     isShow: req.body.isShow,
+                    StatusUpdateBookSale: req.body.StatusUpdateBookSale,
+
                 }
             }, {
                 new: true
@@ -94,8 +96,6 @@ router.get('/Top3/3PromotionShow', function(req, res) {
         var nowSplit = now.toString().split(" ") //hiện tại  
             //min date
         var nowCheck = [nowSplit[3], Listmonth[nowSplit[1]], nowSplit[2]] //year,month,day
-        console.log(nowCheck)
-        console.log(123)
         const AllPromotion = await getAll()
         ThreePromotion = []
         for (let index of AllPromotion) {

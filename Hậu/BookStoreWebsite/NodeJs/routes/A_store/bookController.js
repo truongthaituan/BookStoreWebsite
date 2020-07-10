@@ -249,7 +249,7 @@ router.get('/getBookSale/get', function(req, res) {
 
 //Update by bookID and sale
 //update
-router.post('/UpdateByBookIDAndSale', function(req, res) {
+router.get('/UpdateByBookIDAndSale/Update', function(req, res) {
     async function run() {
         const listUpdate = []
 

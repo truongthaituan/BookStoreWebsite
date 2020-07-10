@@ -49,7 +49,7 @@ export class BookService {
 
   updateSalePromotion(body:any){
 
-    return this._http.post(this.baseURL+"/UpdateByBookIDAndSale",body)
+    return this._http.get(this.baseURL+"/UpdateByBookIDAndSale/Update")
   }
 
 

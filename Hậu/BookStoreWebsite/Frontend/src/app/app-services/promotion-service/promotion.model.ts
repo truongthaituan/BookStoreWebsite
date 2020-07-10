@@ -9,4 +9,5 @@ export class Promotion {
     endDate: string;
     listBookIn: Object;
     isShow: string;
+    StatusUpdateBookSale:string;
 }

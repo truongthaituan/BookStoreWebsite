@@ -9,6 +9,8 @@ const promotionSchema = mongoose.Schema({
     endDate: String,
     listBookIn: Object,
     isShow: String,
+    StatusUpdateBookSale: String,
+
 });
 
 module.exports = mongoose.model('promotions', promotionSchema);
