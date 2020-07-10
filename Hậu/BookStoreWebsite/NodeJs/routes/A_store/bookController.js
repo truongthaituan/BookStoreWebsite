@@ -273,7 +273,41 @@ async function UpdateByBookIDAndSale(id, req, res) {
         new: true
     })
     return Updatebook
-
-
 }
+
+
+
+//kiểm tra sách tồn tại trong list  --->trả về 2 phần đúng và sai
+
+router.post('/CheckExistListBookID', function(req, res) {
+    async function run() {
+        const trueData = []
+        const falseData = []
+        const array = []
+            //lọc trùng nhau
+
+        for (let index of req.body) {
+            const check = await CheckBookID(index, res)
+            array.push(check)
+            if (check == null) {
+                falseData.push(index)
+            } else {
+                trueData.push(index)
+            }
+        }
+        console.log({ trueData, falseData, array })
+        res.json({ trueData, falseData, array })
+    }
+    run()
+})
+async function CheckBookID(req, res) {
+    try {
+        const abook = await book.findById(req)
+
+        return abook
+    } catch (error) {
+        return null
+    }
+}
+
 module.exports = router;

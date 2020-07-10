@@ -75,16 +75,17 @@ export class InsertEventComponent implements OnInit {
   cancel() {
     this._router.navigate(['/managerEvent']);
   }
+
   onSubmit(form: NgForm) {
     form.value.startDate = this.DateStart + " " + this.TimeStart
     form.value.endDate = this.DateEnd + " " + this.TimeEnd
     if(form.value.listBookIn!=null){  form.value.listBookIn = form.value.listBookIn.split(",")}
+  
     if (!this.validate()) {
       this.alertFalse = true;
       setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
     } else {
-    
-      this.promotionService.postPromotion(form.value).subscribe(
+        this.promotionService.postPromotion(form.value).subscribe(
         data => {
           this.promotion = data as Promotion
           //update sale on list book
@@ -155,6 +156,10 @@ export class InsertEventComponent implements OnInit {
     }
     if(this.promotion.ifDiscount=null && this.promotion.listBookIn){
       this.alertMessage = "Điều Kiện Giảm Hoặc Danh Sách Sách Trong Sự Kiện Không Được Để Trống";
+      return false
+    }
+    if(this.IscheckListID!=2&& this.promotion.addList){
+      this.alertMessage = "Danh Sách ID Sách Được Áp Dụng Trong Sự Kiện Bị Sai, Nhấn Kiểm Tra Để Xem Lại";
       return false
     }
     return true
@@ -228,12 +233,42 @@ export class InsertEventComponent implements OnInit {
     this.DateEnd = event.target.value
   }
 
-  //xử lý các box
-  //   addList=false
-  //   IsCreateList(event)
-  //   {
-  // this.addList=event.target.value
-  // console.log(this.addList)
-  //   }
 
+
+  //kiểm tra các id sách có đúng ko 
+  checkTrueFalseBookID:any
+  IscheckListID=0
+  dataTrue:any
+  dataFalse:any
+  arrayListBook:any
+  checkListID(event){
+    if( event.target.value.trim()==""){
+      this.checkTrueFalseBookID=null
+      this.IscheckListID=0
+      return false
+    }
+    const listID= event.target.value.split(",")
+    this.bookService.CheckExistListBookID(listID).subscribe(data=>{
+      this.checkTrueFalseBookID = data 
+      this.dataTrue=this.checkTrueFalseBookID["trueData"]
+      this.dataFalse=this.checkTrueFalseBookID["falseData"]
+      this.arrayListBook=this.checkTrueFalseBookID["array"]
+      if(this.checkTrueFalseBookID["falseData"].length!=0){
+        this.IscheckListID=1
+          return false
+      }
+      this.IscheckListID=2
+      return true
+    })
+  }
+  DeleteFalseBookID(){
+    var ListTrue=""
+    if(this.dataTrue!=null){
+    for(let index of this.dataTrue){
+      ListTrue=ListTrue.concat(index+",")
+    }
+  }
+  $('#inputList').html(ListTrue);
+
+  }
 }

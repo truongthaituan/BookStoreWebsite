@@ -570,6 +570,7 @@ ListPromotion:any
 get3Promotion(){
 	this._promotion.getTop3Promotion().subscribe(list=>{
 		this.ListPromotion = list as Promotion
+		console.log(this.ListPromotion)
 	})
 }
 }

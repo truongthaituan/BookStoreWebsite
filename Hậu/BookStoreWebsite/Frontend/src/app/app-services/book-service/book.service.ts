@@ -48,7 +48,13 @@ export class BookService {
   }
 
   updateSalePromotion(body:any){
-    console.log(body)
+
     return this._http.post(this.baseURL+"/UpdateByBookIDAndSale",body)
+  }
+
+
+  //chec list book exist
+  CheckExistListBookID(body:any){
+    return this._http.post(this.baseURL+"/CheckExistListBookID",body)
   }
 }
