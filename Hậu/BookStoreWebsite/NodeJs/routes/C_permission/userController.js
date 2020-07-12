@@ -127,7 +127,7 @@ router.post('/login', function(req, res, next) {
       })(req, res, next);
 });
 //get all
-router.get('/', checkRole(["ADMIN"]), function(req, res) {
+router.get('/',  function(req, res) {
     console.log('get request for all users');
     user.find({})
         .exec(function(err, users) {
@@ -160,7 +160,7 @@ router.get('/email/:email', function(req, res) {
 })
 
 //update
-router.put('/:id', checkRole(["ADMIN"]), function(req, res) {
+router.put('/:id',  function(req, res) {
     user.findByIdAndUpdate(req.params.id, {
             $set: {
                 email: req.body.email,
@@ -217,7 +217,7 @@ router.put('/changePassword/:email', function(req, res) {
 
 
 //delete
-router.delete('/:id', checkRole(["ADMIN"]), function(req, res) {
+router.delete('/:id',  function(req, res) {
     user.findByIdAndRemove(req.params.id, function(err, deleteuser) {
         if (err) {
             res.send('err Delete');

@@ -26,7 +26,7 @@ router.get('/:categoryID', function(req, res) {
 })
 
 //post
-router.post('/',checkRole(["ADMIN"]),function(req, res) {
+router.post('/',function(req, res) {
     var newcategory = new category();
     newcategory.nameCategory = req.body.nameCategory;
     newcategory.imgCategory = req.body.imgCategory;
@@ -43,7 +43,7 @@ router.post('/',checkRole(["ADMIN"]),function(req, res) {
 
 
 //update
-router.put('/:id',checkRole(["ADMIN"]),function(req, res) {
+router.put('/:id',function(req, res) {
         category.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameCategory: req.body.nameCategory,
@@ -63,7 +63,7 @@ router.put('/:id',checkRole(["ADMIN"]),function(req, res) {
             })
     })
     //delete
-router.delete('/:id', checkRole(["ADMIN"]), function(req, res) {
+router.delete('/:id',  function(req, res) {
     category.findByIdAndRemove(req.params.id, function(err, deletecategory) {
         if (err) {
             res.send('err Delete');
