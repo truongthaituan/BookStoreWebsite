@@ -70,7 +70,7 @@ export class ManageOrderComponent implements OnInit {
       $('#done-orders').hide();
       $('#future-orders').fadeIn('fast');
     });
-
+  
     $('.oh').click(function () {
       $('#order-history').fadeIn('fast');
       $('#future-orders').hide();
@@ -215,7 +215,6 @@ export class ManageOrderComponent implements OnInit {
     this._customer.getUserIDByCustomerID(orders.customerID).subscribe(
       UserID => {
 
-
         this._order.putOrder(orders).subscribe(
           order => {
             
@@ -230,9 +229,13 @@ export class ManageOrderComponent implements OnInit {
             );
 
             }
-            this.ngOnInit();  
-            
-
+            this.getAllOrder();
+            this.getAllCustomer();
+            this.getAllOrderDetail();
+            this.getAllBook();
+        
+            //set value giỏ hàng trên thanh head 
+            this.getTotalCountAndPrice();
           });
       }
     )

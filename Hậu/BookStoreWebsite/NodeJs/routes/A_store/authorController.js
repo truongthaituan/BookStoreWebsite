@@ -26,7 +26,7 @@ router.get('/:authorID', function(req, res) {
 })
 
 //post
-router.post('/' ,function(req, res) {
+router.post('/' , function(req, res) {
     var newauthor = new author();
     newauthor.nameAuthor = req.body.nameAuthor;
     newauthor.imgAuthor = req.body.imgAuthor;

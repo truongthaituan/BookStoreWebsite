@@ -73,12 +73,22 @@ export class InsertEventComponent implements OnInit {
     };
   }
   cancel() {
-    this._router.navigate(['/managerEvent']);
+    this._router.navigate(['/manageEvent']);
   }
 
   onSubmit(form: NgForm) {
     form.value.startDate = this.DateStart + " " + this.TimeStart
     form.value.endDate = this.DateEnd + " " + this.TimeEnd
+    if(!form.value.ifDiscount){
+    form.value.ifDiscount =""
+    }
+    if(!form.value.listBookIn){
+      form.value.listBookIn =""
+      }
+      if(!form.value.isShow){
+        form.value.isShow ="false"
+        }
+     
     if(form.value.listBookIn!=null){  form.value.listBookIn = form.value.listBookIn.split(",")}
   
     if (!this.validate()) {
@@ -89,12 +99,12 @@ export class InsertEventComponent implements OnInit {
         data => {
           this.promotion = data as Promotion
           //update sale on list book
-          if (data["listBookIn"] != null) {
-            this.bookService.updateSalePromotion(this.promotion).subscribe(data2 => {
-            })
-          }
+          // if (data["listBookIn"] != null) {
+          //   this.bookService.updateSalePromotion().subscribe(data2 => {
+          //   })
+          // } 
           this.resetForm()
-          // this._router.navigate(['/managerEvent']);
+          // this._router.navigate(['/manageEvent']);
 
           this.statusInsert = true;
         },

@@ -40,8 +40,8 @@ export class BookDetailComponent implements OnInit {
   pageOfItems: Array<any>;
   books: Array<Book>;
   id_category: String = ""
-  loginBy: String = ""
-  statusLogin: String = ""
+  // loginBy: String = ""
+  // statusLogin: String = ""
   accountSocial = JSON.parse(localStorage.getItem('accountSocial'));
   cartBookDB: CartBook = new CartBook;
   datasetRecommend : datasetRecommend = new datasetRecommend;
@@ -156,9 +156,9 @@ export class BookDetailComponent implements OnInit {
     this.DataSetRecommend(this.idBook,0,0,1);  
     this.getListRatingAccount(this.idBook)
     this.getBookById(this.idBook);
-    this.getAllAccount();
+    // this.getAllAccount();
     this.getRatingsByBookID(this.idBook);
-    this.getAllUsers();
+    // this.getAllUsers();
     // this.getRatinngAverage(this.idBook);  
   
 
@@ -173,12 +173,12 @@ export class BookDetailComponent implements OnInit {
       this.lengthCartBook = CartBook.length;
     }
   }
-  getAllUsers() {
-    this.userService.getAllUsers().subscribe(res => {
-      this.userService.users = res as User[];
-      console.log(this.userService.users);
-    })
-  }
+  // getAllUsers() {
+  //   this.userService.getAllUsers().subscribe(res => {
+  //     this.userService.users = res as User[];
+  //     console.log(this.userService.users);
+  //   })
+  // }
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
     this.pageOfItems = pageOfItems;
@@ -246,6 +246,7 @@ export class BookDetailComponent implements OnInit {
 
       this.ratingService.getRatingByUserIDBookID(this.userID_bookID).subscribe(
         data => {
+          console.log("hello")
           console.log(data)
  
           this.ratingService.rating = Object.values(data)[0];
@@ -281,18 +282,19 @@ export class BookDetailComponent implements OnInit {
       //console.log(res)
     });
   }
-  getAllAccount() {
-    this.accountSocialService.getAllAccountSocial().subscribe(res => {
-      this.accountSocialService.socialAccounts = res as SocialAccount[];
-    })
-  }
+  // getAllAccount() {
+  //   this.accountSocialService.getAllAccountSocial().subscribe(res => {
+  //     this.accountSocialService.socialAccounts = res as SocialAccount[];
+  //   })
+  // }
   statusRating: boolean = false;
 
   onSubmit(form: NgForm) {
 
-    this.statusLogin = localStorage.getItem('statusLogin');
-    this.loginBy = localStorage.getItem('loginBy')
-    if (this.statusLogin != null) {
+    // this.statusLogin = localStorage.getItem('statusLogin');
+    // this.loginBy = localStorage.getItem('loginBy')
+    
+    if (this.accountSocial != null) {
       let book_id = this.route.snapshot.paramMap.get('id');
       form.value.bookID = book_id;
       let id_user = JSON.parse(localStorage.getItem('accountSocial'))._id;
@@ -317,6 +319,7 @@ export class BookDetailComponent implements OnInit {
     }
   }
   UpdateRating(form) {
+    console.log("update rate")
     this.ratingService.UpdateRating(form.value).subscribe(
       dataUpdate => {
         console.log(dataUpdate)
@@ -333,6 +336,7 @@ export class BookDetailComponent implements OnInit {
     );
   }
   PostRating(form) {
+    console.log("post rate")
     this.ratingService.postRating(form.value).subscribe(
       dataPost => {
         // console.log(data);
@@ -519,13 +523,13 @@ export class BookDetailComponent implements OnInit {
     this.getTotalCountAndPrice();
   }
   clickGoToBookDetail(id) {
-    this.cartBookLength(this.CartBook);
+    // this.cartBookLength(this.CartBook);
     //set value giỏ hàng trên thanh head 
-    this.getTotalCountAndPrice();
-    this.getBookById(id);
-    this.getAllAccount();
-    this.getRatingsByBookID(id);
-    this.getAllUsers();
+    // this.getTotalCountAndPrice();
+    // this.getBookById(id);
+    // this.getAllAccount();
+    // this.getRatingsByBookID(id);
+    // this.getAllUsers();
     // this.getRatinng(id);
     // this.DataSetRecommend(id,0,0,1);
     this.idBook= id
