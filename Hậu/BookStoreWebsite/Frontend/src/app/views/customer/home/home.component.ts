@@ -258,6 +258,18 @@ export class HomeComponent implements OnInit {
 		var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
 		return n2.split('').reverse().join('') + 'VNĐ';
 	}
+
+	goToCategory(id) {
+		return this._router.navigate(['/rountlv2/category/' + `/${id}`])
+	  }
+	  goToAuthor(id) {
+		return this._router.navigate(['/rountlv2/author/' + `/${id}`])
+	  }
+	  goToSale() {
+		return this._router.navigate(['/rountlv2/sale/listSale'])
+	  }
+
+	  
 	moveToShop() {
 		return this._router.navigate(['/booksCategory']);
 	}

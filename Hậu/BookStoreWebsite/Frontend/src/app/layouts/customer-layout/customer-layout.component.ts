@@ -103,6 +103,7 @@ export class CustomerLayoutComponent implements OnInit {
     let duration = 5; //Thời gian kết thúc vòng quay
     let spins = 15; //Quay nhanh hay chậm 3, 8, 15
     let theWheel;
+    
     if (this.changespinner == "gold") {
       theWheel = new Winwheel({
         'numSegments': 12,     // Chia 8 phần bằng nhau

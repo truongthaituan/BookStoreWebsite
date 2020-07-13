@@ -10,6 +10,9 @@ import { BookService } from 'src/app/app-services/book-service/book.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert';
 import { truncateSync } from 'fs';
+//promotion
+import { Promotion } from 'src/app/app-services/promotion-service/promotion.model';
+import { PromotionService } from 'src/app/app-services/promotion-service/promotion.service';
 declare var $: any;
 @Component({
   selector: 'app-book-cart',
@@ -21,14 +24,14 @@ export class BookCartComponent implements OnInit {
   helper = new JwtHelperService();
   token: any = this.helper.decodeToken(localStorage.getItem('token'));
   constructor(private _router: Router, private _cartBookDB: CartBookService,
-     private _discountCode: DiscountCodeService,private _book:BookService,
-     private _cartBookDBService:CartBookService) {
+    private _discountCode: DiscountCodeService, private _book: BookService,
+    private _cartBookDBService: CartBookService, private _promotion: PromotionService) {
 
   }
   //#region Buộc phải có trên các component
   //chứa thông tin giỏ hàng
   CartBook = [];
-  ListBookSameCartBook=[]
+  ListBookSameCartBook = []
   // Lưu tổng tiền và tổng số lượng chung
   TongTien = 0;
   TongCount = 0;
@@ -46,15 +49,23 @@ export class BookCartComponent implements OnInit {
   alertFalse = false;
   cartBookDB: CartBook = new CartBook;
   discountCode: DiscountCode = new DiscountCode;
+
   ngOnInit() {
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
+
     if (localStorage.getItem('DiscountCode') != null) {
       this.discountCode = JSON.parse(localStorage.getItem('DiscountCode'));
     } else {
       this.discountCode.discountCode = 0;
     }
-    console.log("12333")
-    console.log(this.discountCode.discountCode)
+
+    // if (localStorage.getItem('Promotion') != null) {
+    //   this.promotion = JSON.parse(localStorage.getItem('Promotion'));
+    // } else {
+    //   this.promotion.discount = 0;
+    // }
+
+
     $(function () {
       $("#scrollToTopButton").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 1000);
@@ -75,9 +86,9 @@ export class BookCartComponent implements OnInit {
     // Hiện ra label khi giỏ hàng rỗng
     this.CheckViewCart();
     //valid quantity và rate trong cartBook
-
+    this.get3Promotion()
   }
-  unUseDiscountCode(){
+  unUseDiscountCode() {
     localStorage.removeItem('DiscountCode');
     this.ngOnInit();
   }
@@ -91,23 +102,23 @@ export class BookCartComponent implements OnInit {
           this.CartBook[j].count++;
           this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
         }
-         else {
-        this.alertMessage = "Bạn chỉ được nhập tối đa 10 quốn sách";
-        this.alertFalse = true;
-        setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+        else {
+          this.alertMessage = "Bạn chỉ được nhập tối đa 10 quốn sách";
+          this.alertFalse = true;
+          setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
+        }
       }
-      }
-     
+
     }
   }
   minus(id) {
     for (let j = 0; j < JSON.parse(localStorage.getItem("CartBook")).length; j++) {
-        if (this.CartBook[j]._id == id) {
-          if (this.CartBook[j].count > 1) {
+      if (this.CartBook[j]._id == id) {
+        if (this.CartBook[j].count > 1) {
           this.CartBook[j].count--;
           this.updateCartBook(this.CartBook[j]._id, this.CartBook[j].count);
         }
-        else{
+        else {
           this.deleteCartBook(id)
         }
       }
@@ -130,7 +141,7 @@ export class BookCartComponent implements OnInit {
     this.cartBookLength(this.CartBook);
     if (this.CartBook != null) {
       for (var i = 0; i < this.lengthCartBook; i++) {
-        this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count)*(100-this.CartBook[i].sale)/100).toFixed(0));  
+        this.TongTien += parseInt((parseInt(this.CartBook[i].priceBook) * parseInt(this.CartBook[i].count) * (100 - this.CartBook[i].sale) / 100).toFixed(0));
         this.TongCount += parseInt(this.CartBook[i].count);
       }
     }
@@ -140,11 +151,11 @@ export class BookCartComponent implements OnInit {
     localStorage.setItem("TongCount", this.TongCount.toString());
   }
   //#endregion
-   formatCurrency(number){
+  formatCurrency(number) {
     var n = number.split('').reverse().join("");
-    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
-    return  n2.split('').reverse().join('') + 'VNĐ';
-}
+    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+    return n2.split('').reverse().join('') + 'VNĐ';
+  }
   //check header giỏ hàng
   CheckViewCart() {
     if (this.CartBook == null || this.lengthCartBook == 0) {
@@ -192,9 +203,9 @@ export class BookCartComponent implements OnInit {
           }
           else {
             this._book.getBookById(id).subscribe(
-              abook=>{
+              abook => {
                 this.resany = abook as Book
-                this.CartBook[i].quantity= this.resany.quantity;
+                this.CartBook[i].quantity = this.resany.quantity;
                 this.CartBook[i].count = count;
                 this.CartBook[i].rate = this.resany.rate;
                 //update cartbook DB
@@ -213,16 +224,16 @@ export class BookCartComponent implements OnInit {
     Swal({
       text: "Bạn có chắc muốn xóa sản phẩm này trong giỏ hàng ?",
       icon: 'warning',
-      buttons:  {
+      buttons: {
         cancel: true,
         confirm: {
-         value:"OK",
-         closeModal: true
+          value: "OK",
+          closeModal: true
         }
       }
     })
-    .then((willDelete) => {
-        if(willDelete){
+      .then((willDelete) => {
+        if (willDelete) {
           for (var i = 0; i < this.lengthCartBook; i++) {
             if (this.CartBook[i]._id == id) {
               this.deleteOneCartBookDB(this.CartBook[i]);
@@ -238,8 +249,8 @@ export class BookCartComponent implements OnInit {
           localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
         }
         this.ngOnInit();
-    });
-  
+      });
+
   }
   //click vào hình chuyển về detail
   ViewBookDetail(idBook) {
@@ -256,25 +267,23 @@ export class BookCartComponent implements OnInit {
     this._router.navigate(['/homePage']);
   }
 
-  CheckQuantiTy(){
-    for(let index in this.CartBook){
-      if(this.CartBook[index].quantity < this.CartBook[index].count)
-      {
+  CheckQuantiTy() {
+    for (let index in this.CartBook) {
+      if (this.CartBook[index].quantity < this.CartBook[index].count) {
         return false
       }
     }
     return true
   }
   goToShipping() {
- 
+
     if (this.token == null) {
       this._router.navigate(['/account']);
-    } else if(this.CheckQuantiTy() == false){
+    } else if (this.CheckQuantiTy() == false) {
       this.alertMessage = "Hiện Không Đáp Ứng Được Đơn Hàng Của Bạn ! \nVui Lòng Kiểm Tra Lại Số Lượng Giỏ Hàng";
       this.alertFalse = true;
       setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
-    }else
-    {
+    } else {
       let token_exp = this.token.exp;
       let time_now = new Date().getTime() / 1000;
       if (time_now < token_exp) {
@@ -319,16 +328,92 @@ export class BookCartComponent implements OnInit {
       );
     }
   }
-  goToDiscountCode(){
+  goToDiscountCode() {
     this._router.navigate(['/discountCode']);
   }
   //dùng dể verify số lượng và sao 
-  verifyCartBook(){
+  verifyCartBook() {
     if (JSON.parse(localStorage.getItem('accountSocial')) != null) {
-			this._cartBookDBService.getAllCartBookDBByUserID(this.accountSocial._id).subscribe(
-				cartBookDB => {
+      this._cartBookDBService.getAllCartBookDBByUserID(this.accountSocial._id).subscribe(
+        cartBookDB => {
           this.CartBook = cartBookDB as Book[]
           localStorage.setItem("CartBook", JSON.stringify(this.CartBook));
         })
+    }
   }
-}}
+
+  //get 3 promotion
+  ListPromotion: any
+  get3Promotion() {
+    this._promotion.getTop3Promotion().subscribe(list => {
+      this.ListPromotion = list as Promotion
+      this.ListPromotion = this.sortPromotion(this.ListPromotion)
+      this.CheckBarPromotion()
+    })
+  }
+  sortPromotion(Promotion) {
+    return Promotion.sort(function (a, b) {
+      return a.ifDiscount - b.ifDiscount;
+    });
+  }
+  promotionDiscount = []
+  CheckBarPromotion() {
+    if (this.ListPromotion.length > 0) {
+      var index=0;
+      for (var item of this.ListPromotion) {
+        if(this.ListPromotion.length ==1){  //voi1 1 1phan tu
+          if( this.TongTien < this.ListPromotion[index].ifDiscount)
+          {
+            this.promotionDiscount[0] = 0;  //% giảm giá
+            this.promotionDiscount[1] = this.ListPromotion[index].ifDiscount;  
+          }
+          else{
+            this.promotionDiscount[0] = this.ListPromotion[index].discount;  //% giảm giá
+            this.promotionDiscount[1] = this.ListPromotion[index].ifDiscount;   
+          }
+          this.promotionDiscount[2] = this.ListPromotion[index].discount;   //% now
+          this.promotionDiscount[3] = this.ListPromotion[index].ifDiscount;   //% now
+          console.log("mang 1 phan tu")
+          break;
+        }
+        //dung dau mang
+        if (index == 0 && this.TongTien < this.ListPromotion[index].ifDiscount) { 
+          this.promotionDiscount[0] = 0;  //% giảm giá
+          this.promotionDiscount[1] = this.ListPromotion[index].ifDiscount;  
+          this.promotionDiscount[2] = this.ListPromotion[index].discount;   //% now
+          this.promotionDiscount[3] = this.ListPromotion[index].ifDiscount;   //% now
+   
+          break;
+        }
+        //phan giua
+        if (index != 0 && this.TongTien >= this.ListPromotion[index - 1].ifDiscount && this.TongTien < this.ListPromotion[index].ifDiscount) {
+          this.promotionDiscount[0] = this.ListPromotion[index - 1].discount;  //% giảm giá
+          this.promotionDiscount[1] = this.ListPromotion[index - 1].ifDiscount; 
+          this.promotionDiscount[2] = this.ListPromotion[index].discount; //% now
+          this.promotionDiscount[3] = this.ListPromotion[index].ifDiscount;   //% now
+         
+          break;
+        }
+        //phan cuoi
+        if (index!=0 && index == this.ListPromotion.length - 1 && this.TongTien > this.ListPromotion[index].ifDiscount) {
+          this.promotionDiscount[0] = this.ListPromotion[index].discount;  //% giảm giá
+          this.promotionDiscount[1] = this.ListPromotion[index].ifDiscount;   
+            this.promotionDiscount[2] = this.ListPromotion[index].discount;    //% now
+            this.promotionDiscount[3] = this.ListPromotion[index].ifDiscount;   //% now
+          break;
+        }
+        
+        index++;
+      }
+      console.log((this.TongTien/this.promotionDiscount[3]*100 ))
+      $("#processBar").css("width",  this.TongTien/this.promotionDiscount[3]*100  +"%");
+    }else{
+      this.promotionDiscount[0] = 0;  //% giảm giá
+      this.promotionDiscount[1] =0;   
+      this.promotionDiscount[2] =0;   //If discount 
+      this.promotionDiscount[3] = 0 ;
+    }
+
+  }
+
+}

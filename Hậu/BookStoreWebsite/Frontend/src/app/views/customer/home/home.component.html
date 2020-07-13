@@ -464,7 +464,7 @@
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
                                             <h2 style='color:#27ae61'>{{bestCategoryList[0]?.nameCategory}}</h2>
-                                            <a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>Vào Xem
+                                            <a type="button" (click)="goToCategory(bestCategoryList[0]?._id);" style='color:#323232;cursor: pointer;' class='btn-link'>Vào Xem
                                                          <em class='fa fa-long-arrow-right'></em>
                                              </a></div>
                                     </div>
@@ -484,7 +484,7 @@
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
                                             <h2 style='color:#27ae61'>{{bestCategoryList[1].nameCategory}}</h2>
-                                            <a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>
+                                            <a type="button" (click)="goToCategory(bestCategoryList[1]?._id);" style='color:#323232;cursor: pointer;' class='btn-link'>
                                                        Vào Xem<em class='fa fa-long-arrow-right'></em></a></div>
                                     </div>
                                 </div>
@@ -502,7 +502,8 @@
                                     <div class='dis-bottom-left-content'>
                                         <div class='dis-bottom-left-text'>
                                             <h6 style='color:#323232'>LOẠI SÁCH</h6>
-                                            <h2 style='color:#27ae61'>{{bestCategoryList[2].nameCategory}}</h2><a type="button" (click)="moveToShop();" style='color:#323232' class='btn-link'>Vào Xem 
+                                            <h2 style='color:#27ae61'>{{bestCategoryList[2].nameCategory}}</h2>
+                                            <a type="button"(click)="goToCategory(bestCategoryList[2]?._id);" style='color:#323232;cursor: pointer;' class='btn-link'>Vào Xem 
                                                     <em class='fa fa-long-arrow-right'></em></a></div>
                                     </div>
                                 </div>
@@ -1344,14 +1345,16 @@
 
                                             <div class="post-thumb">
                                                 <a class="post-image">
-                                                    <img width="350" height="140" src="{{promotion.imgPromotion}}" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="497109-1280x720" /> </a>
+                                                    <img width="350" height="140" src="{{promotion.imgPromotion}}" class="attachment-bks_post_slider_thumb size-bks_post_slider_thumb wp-post-image" alt="497109-1280x720" /> 
+                                                </a>
                                             </div>
                                             <div class="post-content">
                                                 <div class="post-date">
                                                     Sự kiện diễn ra đến hết {{promotion.endDate.split(' ')[0]}}</div>
                                                 <div class="post-title">
                                                     <a>
-                                                        {{promotion.headerPromotion}}        </a>
+                                                        {{promotion.headerPromotion}}<br><span style="color:gold">Giảm {{promotion.discount}}% Với Đơn Hàng {{promotion.ifDiscount|currency:"VND"}}</span>
+                                                    </a>
                                                 </div>
                                                 <p>{{promotion.detailPromotion}}</p>
                                                 <a class="read-more btn-link" href="an-audio-post/index.html">Đọc Thêm <em class="fa fa-long-arrow-right"></em></a>

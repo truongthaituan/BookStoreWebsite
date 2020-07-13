@@ -25,15 +25,18 @@ import { datasetRecommend } from '../../../app-services/recommendSys-service/dat
 import { DatasetRecommendService } from 'src/app/app-services/recommendSys-service/dataRecommend-service/dataRecommend.service';
 import swal from 'sweetalert';
 import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
+//promotion
+import { Promotion } from 'src/app/app-services/promotion-service/promotion.model';
+import { PromotionService } from 'src/app/app-services/promotion-service/promotion.service';
 @Component({
   selector: 'app-book-cart-payment',
   templateUrl: './book-cart-payment.component.html',
   styleUrls: ['./book-cart-payment.component.css']
 })
 export class BookCartPaymentComponent implements OnInit {
-  constructor(private _router: Router, private route: ActivatedRoute,private authService: AuthenticateService, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
+  constructor(private _router: Router, private route: ActivatedRoute, private authService: AuthenticateService, private _orderService: OrderService, private _orderDetailService: OrderDetailService,
     private _customerService: CustomerService, private _sendMail: SendMailService, private _bookService: BookService, private _cartBookDB: CartBookService
-    , private _pointService: PointService, private _discountCode: DiscountCodeService, private _datasetRecommend: DatasetRecommendService) {
+    , private _pointService: PointService, private _discountCode: DiscountCodeService, private _datasetRecommend: DatasetRecommendService, private _promotion: PromotionService) {
 
   }
   //chứa thông tin giỏ hàng
@@ -58,9 +61,9 @@ export class BookCartPaymentComponent implements OnInit {
   alertFalse = false;
 
   isLoggedIn = false
-	role: string = ''
+  role: string = ''
   isCustomer = false
-  
+
   //paypal
   cartBookDB: CartBook = new CartBook;
   public loading: boolean = true;
@@ -68,19 +71,16 @@ export class BookCartPaymentComponent implements OnInit {
   paymentLoading = false;
   datasetRecommend: datasetRecommend = new datasetRecommend;
   ngOnInit() {
+    this.get3Promotion()
     $('.searchHeader').attr('style', 'font-size: 1.6rem !important');
-    if (localStorage.getItem('DiscountCode') != null) {
-      this.discountCode = JSON.parse(localStorage.getItem('DiscountCode'));
-    } else {
-      this.discountCode.discountCode = 0;
-    }
+
     this.authService.authInfo.subscribe(val => {
-			this.isLoggedIn = val.isLoggedIn;
-			this.role = val.role;
-			this.isCustomer = this.authService.isCustomer()
-			this.accountSocial = JSON.parse(this.authService.getAccount())
-      
-		  });
+      this.isLoggedIn = val.isLoggedIn;
+      this.role = val.role;
+      this.isCustomer = this.authService.isCustomer()
+      this.accountSocial = JSON.parse(this.authService.getAccount())
+
+    });
     //paypal
     if (!this.didPaypalScriptLoad) {
       this.loadPaypalScript().then(() => {
@@ -227,7 +227,7 @@ export class BookCartPaymentComponent implements OnInit {
           this.alertSucess = true;
           setTimeout(() => { this.alertMessage = ""; this.alertSucess = false }, 4000);
           //thực hiện lưu db (order - orderDetail - customer )
-          
+
 
 
         },
@@ -241,7 +241,7 @@ export class BookCartPaymentComponent implements OnInit {
 
 
           //thực hiện lưu db (order - orderDetail - customer )
-        
+
 
 
         },
@@ -260,7 +260,7 @@ export class BookCartPaymentComponent implements OnInit {
     orders.feeShip = this.customer.feeShip;
     this._orderService.postOrder(orders).subscribe(
       orderdata => {
-          console.log("Post Order")
+        console.log("Post Order")
         //lưu order detail
         for (var i = 0; i < this.lengthCartBook; i++) {
 
@@ -375,7 +375,7 @@ export class BookCartPaymentComponent implements OnInit {
     onAuthorize: (data, actions) => {
       //xử lý thanh toán
       //thanh toán thành công
- 
+
       return actions.payment.execute().then((payment) => {
         this.IsPaypal = true;
         this.orders.paymentOption = "Online";
@@ -472,12 +472,73 @@ export class BookCartPaymentComponent implements OnInit {
         swal({
           title: "Đơn Hàng Bạn Đặt Mua Hiện Đã Hết Hàng!",
           text: "Vui Lòng Quay Lại Sau ",
-          icon: 'warning'          
+          icon: 'warning'
         }).then((willDelete) => {
-            this.ngOnInit();
-          })
-  
-        }
+          this.ngOnInit();
+        })
+
+      }
     })
   }
+
+
+
+  //promotion
+  //get 3 promotion
+  ListPromotion: any
+  get3Promotion() {
+    this._promotion.getTop3Promotion().subscribe(list => {
+      this.ListPromotion = list as Promotion
+      this.ListPromotion = this.sortPromotion(this.ListPromotion)
+      this.CheckBarPromotion()
+    })
+  }
+  sortPromotion(Promotion) {
+    return Promotion.sort(function (a, b) {
+      return a.ifDiscount - b.ifDiscount;
+    });
+  }
+  promotionDiscount = []
+  CheckBarPromotion() {
+    if (this.ListPromotion.length > 0) {
+      var index = 0;
+      for (var item of this.ListPromotion) {
+        if (this.ListPromotion.length == 1) {  //voi1 1 1phan tu
+          if (this.TongTien < this.ListPromotion[index].ifDiscount) {
+            this.promotionDiscount[0] = 0;  //% giảm giá
+          }
+          else {
+            this.promotionDiscount[0] = this.ListPromotion[index].discount;  //% giảm giá
+          }
+          break;
+        }
+        //dung dau mang
+        if (index == 0 && this.TongTien < this.ListPromotion[index].ifDiscount) {
+          this.promotionDiscount[0] = 0;  //% giảm giá
+          break;
+        }
+        //phan giua
+        if (index != 0 && this.TongTien >= this.ListPromotion[index - 1].ifDiscount && this.TongTien < this.ListPromotion[index].ifDiscount) {
+          this.promotionDiscount[0] = this.ListPromotion[index - 1].discount;  //% giảm giá
+          break;
+        }
+        //phan cuoi
+        if (index != 0 && index == this.ListPromotion.length - 1 && this.TongTien > this.ListPromotion[index].ifDiscount) {
+          this.promotionDiscount[0] = this.ListPromotion[index].discount;  //% giảm giá
+          break;
+        }
+        index++;
+      }
+    } else {
+      this.promotionDiscount[0] = 0;  //% giảm giá
+    }
+    if (localStorage.getItem('DiscountCode') != null) {
+      this.discountCode = JSON.parse(localStorage.getItem('DiscountCode'));
+      this.discountCode.discountCode = this.discountCode.discountCode +this.promotionDiscount[0];
+ 
+    } else {
+      this.discountCode.discountCode = 0+this.promotionDiscount[0];
+    }
+  }
+
 }
