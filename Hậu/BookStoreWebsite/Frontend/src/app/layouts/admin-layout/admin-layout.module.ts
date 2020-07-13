@@ -80,6 +80,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
 @NgModule({
   imports: [
     FileUploadModule,
@@ -128,6 +129,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     })  ],
   declarations: [
     DashboardComponent,
+    ManagePageComponent,
     AdminProfileComponent,
     AdminProfileEditComponent,
     AdminChangePasswordComponent,

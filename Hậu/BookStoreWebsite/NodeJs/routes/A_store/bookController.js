@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const book = require('../../models/A_store/book');
 const user = require('../../routes/C_permission/userController')
-const { checkRole } = require("../utils/Auth")
 
 
 //book
@@ -31,7 +30,7 @@ router.get('/:bookID', function(req, res) {
 
 
 //post
-router.post('/', checkRole(["ADMIN"]), function(req, res) {
+router.post('/', function(req, res) {
     if (req.body.sale == null || req.body.sale == "") req.body.sale = 0
     var newbook = new book();
     newbook.nameBook = req.body.nameBook;
@@ -56,7 +55,7 @@ router.post('/', checkRole(["ADMIN"]), function(req, res) {
 
 
 //update
-router.put('/:id', checkRole(["ADMIN"]), function(req, res) {
+router.put('/:id', function(req, res) {
         if (req.body.sale == null || req.body.sale == "") req.body.sale = 0
         book.findByIdAndUpdate(req.params.id, {
 
@@ -85,7 +84,7 @@ router.put('/:id', checkRole(["ADMIN"]), function(req, res) {
             })
     })
     //delete
-router.delete('/:id', checkRole(["ADMIN"]), function(req, res) {
+router.delete('/:id',  function(req, res) {
     book.findByIdAndRemove(req.params.id, function(err, deletebook) {
         if (err) {
             res.send('err Delete');

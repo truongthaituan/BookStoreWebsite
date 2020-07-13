@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const seri = require('../../models/A_store/seri');
-const {checkRole} = require("../utils/Auth")
 //seri
 //get all
 router.get('/', function(req, res) {
@@ -26,7 +25,7 @@ router.get('/:seriID', function(req, res) {
 })
 
 //post
-router.post('/', checkRole(["ADMIN"]), function(req, res) {
+router.post('/',  function(req, res) {
     var newseri = new seri();
     newseri.seriName = req.body.seriName;
     newseri.seriDetail = req.body.seriDetail;
@@ -42,7 +41,7 @@ router.post('/', checkRole(["ADMIN"]), function(req, res) {
 
 
 //update
-router.put('/:id',checkRole(["ADMIN"]), function(req, res) {
+router.put('/:id', function(req, res) {
         seri.findByIdAndUpdate(req.params.id, {
                 $set: {
 
@@ -62,7 +61,7 @@ router.put('/:id',checkRole(["ADMIN"]), function(req, res) {
             })
     })
     //delete
-router.delete('/:id', checkRole(["ADMIN"]), function(req, res) {
+router.delete('/:id',  function(req, res) {
     seri.findByIdAndRemove(req.params.id, function(err, deleteseri) {
         if (err) {
             res.send('err Delete');

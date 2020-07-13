@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const author = require('../../models/A_store/author');
-const {checkRole} = require("../utils/Auth")
 
 //author
 //get all
@@ -27,7 +26,7 @@ router.get('/:authorID', function(req, res) {
 })
 
 //post
-router.post('/' ,checkRole(["ADMIN"]), function(req, res) {
+router.post('/' ,function(req, res) {
     var newauthor = new author();
     newauthor.nameAuthor = req.body.nameAuthor;
     newauthor.imgAuthor = req.body.imgAuthor;
@@ -43,7 +42,7 @@ router.post('/' ,checkRole(["ADMIN"]), function(req, res) {
 
 
 //update
-router.put('/:id',checkRole(["ADMIN"]),function(req, res) {
+router.put('/:id',function(req, res) {
         author.findByIdAndUpdate(req.params.id, {
                 $set: {
                     nameAuthor: req.body.nameAuthor,
@@ -63,7 +62,7 @@ router.put('/:id',checkRole(["ADMIN"]),function(req, res) {
             })
     })
     //delete
-router.delete('/:id',checkRole(["ADMIN"]),function(req, res) {
+router.delete('/:id',function(req, res) {
     author.findByIdAndRemove(req.params.id, function(err, deleteauthor) {
         if (err) {
             res.send('err Delete');

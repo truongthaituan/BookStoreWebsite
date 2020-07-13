@@ -183,37 +183,21 @@ export class AdminLayoutComponent implements OnInit {
       });
     });
   }
+  moveToUserDetail(userId){
+    return this._router.navigate(["/userDetail" + `/${userId}`]);
+  }
   moveToAdminProfile(){
     this._router.navigate(['/adminProfile']);
   }
   moveToDashboard(){
     this._router.navigate(['/dashboard']);
   }
-  moveToManageBook(){
-    this._router.navigate(['/manageBook']);
-  }
+
     moveToMap(){
     this._router.navigate(['/maps']);
   }
-  moveToManageUser(){
-    this._router.navigate(['/manageUser']);
-  }
-  moveToUserDetail(userId){
-    return this._router.navigate(["/userDetail" + `/${userId}`]);
-  }
-  moveToManageOrder(){
-    this._router.navigate(['/manageOrder']);
-  }
-  moveToManageAuthor(){
-    this._router.navigate(['/manageAuthor']);
-  }
-  moveToManageCategory(){
-    this._router.navigate(['/manageCategory']);
-  }
-  moveToManageSeri(){
-    this._router.navigate(['/manageSeri']);
-  }
-  moveToManageEvent(){
-    this._router.navigate(['/manageEvent']);
+  
+  moveToManagePage(){
+    this._router.navigate(['/managePage']);
   }
 }

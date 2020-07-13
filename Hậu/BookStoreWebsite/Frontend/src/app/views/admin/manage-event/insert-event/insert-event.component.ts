@@ -158,7 +158,7 @@ export class InsertEventComponent implements OnInit {
       this.alertMessage = "Điều Kiện Giảm Hoặc Danh Sách Sách Trong Sự Kiện Không Được Để Trống";
       return false
     }
-    if(this.IscheckListID!=2&& this.promotion.addList){
+    if(this.IscheckListID!=2 && this.promotion.addList){
       this.alertMessage = "Danh Sách ID Sách Được Áp Dụng Trong Sự Kiện Bị Sai, Nhấn Kiểm Tra Để Xem Lại";
       return false
     }

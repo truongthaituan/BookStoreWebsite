@@ -319,7 +319,7 @@ export class BookCartPaymentComponent implements OnInit {
     for (var i = 0; i < this.lengthCartBook; i++) {
       var infoCart = {
         name: CartBook[i].nameBook, price: parseFloat((CartBook[i].priceBook / 23632 * (100 - CartBook[i].sale) / 100).toFixed(2)),
-        currency: "USD", quantity: CartBook[i].count
+        currency: "USD", quantity: CartBook[i].count, "tax": "0.02"
       };
 
       this.CartBook2.push(infoCart);
@@ -350,7 +350,6 @@ export class BookCartPaymentComponent implements OnInit {
                   "line1": this.customer.address,
                   "line2": "",
                   "city": ".",
-
                   "phone": this.customer.phone,
                   "postal_code": ".",
                   "country_code": "VN"

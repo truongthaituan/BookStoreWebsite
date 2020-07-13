@@ -36,11 +36,13 @@ import { AdminEventDetailComponent } from 'src/app/views/admin/manage-event/admi
 import { AdminManageEventComponent } from 'src/app/views/admin/manage-event/admin-manage-event/admin-manage-event.component';
 import { InsertEventComponent } from 'src/app/views/admin/manage-event/insert-event/insert-event.component';
 import { UpdateEventComponent } from 'src/app/views/admin/manage-event/update-event/update-event.component';
+import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
 
     { path: 'adminProfile', component: AdminProfileComponent },
+    { path: 'managePage', component: ManagePageComponent },
     { path: 'adminProfileEdit/:id', component: AdminProfileEditComponent },
     { path: 'adminChangePassword/:id', component: AdminChangePasswordComponent },
     { path: 'maps', component: MapsComponent },
