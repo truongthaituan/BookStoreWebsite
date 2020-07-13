@@ -154,7 +154,7 @@ js-comp-ver-4.9.2 vc_responsive ">
                     <ul class="product-categories" *ngFor="let category of bookCategoryService.categories
                      | slice: startPageCategories:paginationLimitCategories;">
                         <li *ngIf="category._id==bookFilter.category_id" class="cat-item cat-item-11">
-                            <a style="background-color: red;" (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
+                            <a style="background-color:limegreen;" (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
                         </li>
                         <li *ngIf="category._id!=bookFilter.category_id" class="cat-item cat-item-11">
                             <a (click)="gettypeCategory(category._id);">{{category.nameCategory}}</a>
