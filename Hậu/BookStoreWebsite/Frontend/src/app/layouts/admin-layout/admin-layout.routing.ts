@@ -37,6 +37,8 @@ import { AdminManageEventComponent } from 'src/app/views/admin/manage-event/admi
 import { InsertEventComponent } from 'src/app/views/admin/manage-event/insert-event/insert-event.component';
 import { UpdateEventComponent } from 'src/app/views/admin/manage-event/update-event/update-event.component';
 import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
+import { ManageWheelComponent } from 'src/app/views/admin/manage-wheel/manage-wheel.component';
+import { WheelDetailsComponent } from 'src/app/views/admin/wheel-details/wheel-details.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -46,7 +48,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'adminProfileEdit/:id', component: AdminProfileEditComponent },
     { path: 'adminChangePassword/:id', component: AdminChangePasswordComponent },
     { path: 'maps', component: MapsComponent },
-
+    { path: 'manageWheel',component: ManageWheelComponent},
+    { path: 'wheelDetails/:id',component: WheelDetailsComponent},
     { path: 'manageUser', component: AdminManageUserComponent },
     { path: 'userDetail/:id', component: UserDetailsComponent },
     { path: 'userDetailEdit/:id', component: UserDetailsEditComponent },

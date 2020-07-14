@@ -33,4 +33,7 @@ export class ManagePageComponent implements OnInit {
   moveToManageEvent(){
     this._router.navigate(['/manageEvent']);
   }
+  moveToManageWheel(){
+    this._router.navigate(['/manageWheel']);
+  }
 }

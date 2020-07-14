@@ -81,6 +81,8 @@ import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
+import { ManageWheelComponent } from 'src/app/views/admin/manage-wheel/manage-wheel.component';
+import { WheelDetailsComponent } from 'src/app/views/admin/wheel-details/wheel-details.component';
 @NgModule({
   imports: [
     FileUploadModule,
@@ -158,7 +160,7 @@ import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page
     AdminManageEventComponent,
     InsertEventComponent,
     UpdateEventComponent,
-
+    ManageWheelComponent,
     MapsComponent,
     AdminManageUserComponent,
     UserDetailsComponent,
@@ -166,7 +168,8 @@ import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page
     InsertUserComponent,
     ManageOrderComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    WheelDetailsComponent
   ]
 })
 
