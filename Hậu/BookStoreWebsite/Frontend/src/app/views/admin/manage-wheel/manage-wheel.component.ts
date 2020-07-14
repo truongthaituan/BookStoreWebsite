@@ -34,4 +34,7 @@ export class ManageWheelComponent implements OnInit {
   getSegmentByID(id: String) {
     return this._router.navigate(["/wheelDetails" + `/${id}`]);
   }
+  insertWheel(){
+    this._router.navigate(['/insertWheel'])
+  }
 }
