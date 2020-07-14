@@ -18,19 +18,16 @@ export class WheelDetailsComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.getWheelByID(id)
-    this.segmentService.getSegmentsByID(id).subscribe(res => {
-      this.designWheel();
-    })
   }
   designWheel() {
     //Thông số vòng quay
-   console.log(this.segmentsList)
+
     let theWheel = new Winwheel({
         'numSegments': 12,     // Chia 12 phần bằng nhau
         'outerRadius': 152,   // Đặt bán kính vòng quay
         'textFontSize': 14,    // Đặt kích thước chữ
         'rotationAngle': 0,     // Đặt góc vòng quay từ 0 đến 360 độ.
-        'segments': this.segmentsList,    // Các thành phần bao gồm màu sắc và văn bản.
+        'segments': this.itemWheel,    // Các thành phần bao gồm màu sắc và văn bản.
         'pins':
         {
           'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
@@ -40,16 +37,22 @@ export class WheelDetailsComponent implements OnInit {
   }
   segmentsList = []
   segmentItem = {}
+  //wheel
+  itemWheel=[]
+  arrayWheel=[0,1,2,3,1,0,4,1,0,2,1,5]
   getWheelByID(id) {
     this.segmentService.getSegmentsByID(id).subscribe(res => {
       this.segmentService.segment = res as Segment
-      // this.segmentService.segment.segments.forEach(element => {
         for(let element of this.segmentService.segment["segments"]){
         this.segmentItem = { "fillStyle": element["fillStyle"], "text": element["text"] }
         this.segmentsList.push(this.segmentItem)
-        console.log(this.segmentsList)
         }
-      // });
+        for(let index of this.arrayWheel)
+        {
+          this.itemWheel.push(this.segmentsList[index])
+        }
+        console.log(this.itemWheel)
+        this.designWheel();
     })
   }
   cancel(){
