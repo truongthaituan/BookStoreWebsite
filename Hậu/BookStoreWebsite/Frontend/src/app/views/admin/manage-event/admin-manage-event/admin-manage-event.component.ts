@@ -16,6 +16,7 @@ import { Seri } from 'src/app/app-services/seri-service/seri.model';
 import { Promotion } from '../../../../app-services/promotion-service/promotion.model';
 
 import { PromotionService } from 'src/app/app-services/promotion-service/promotion.service';
+import { identity } from 'rxjs';
 @Component({
   selector: 'app-admin-manage-event',
   templateUrl: './admin-manage-event.component.html',
@@ -46,11 +47,11 @@ export class AdminManageEventComponent implements OnInit {
     }
   }
 
-  getCategoryById(categoryId) {
-    return this._router.navigate(["/categoryDetails" + `/${categoryId}`]);
+  getCategoryById(eventID) {
+    return this._router.navigate(["/eventDetails" + `/${eventID}`]);
   }
-  updateCategoryById(categoryId) {
-    return this._router.navigate(["/updateCategory" + `/${categoryId}`]);
+  updateCategoryById(eventID) {
+    return this._router.navigate(["/updateEvent" + `/${eventID}`]);
   }
 
   promotions: any

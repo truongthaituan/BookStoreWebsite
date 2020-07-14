@@ -95,6 +95,7 @@ export class InsertEventComponent implements OnInit {
       this.alertFalse = true;
       setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);
     } else {
+      if(form.value.listBookIn!=null){  form.value.listBookIn = form.value.listBookIn.split(",")}
         this.promotionService.postPromotion(form.value).subscribe(
         data => {
           this.promotion = data as Promotion
@@ -104,7 +105,7 @@ export class InsertEventComponent implements OnInit {
           //   })
           // } 
           this.resetForm()
-          // this._router.navigate(['/manageEvent']);
+          this._router.navigate(['/manageEvent']);
 
           this.statusInsert = true;
         },
@@ -170,6 +171,11 @@ export class InsertEventComponent implements OnInit {
     }
     if(this.IscheckListID!=2 && this.promotion.addList){
       this.alertMessage = "Danh Sách ID Sách Được Áp Dụng Trong Sự Kiện Bị Sai, Nhấn Kiểm Tra Để Xem Lại";
+      return false
+    }
+    if(Date.parse(this.DateStart + " " + this.TimeStart)>=Date.parse(this.DateEnd + " " + this.TimeEnd))
+    {
+      this.alertMessage = "Thời Gian Bắt Đầu Sự Kiện Phải Nhỏ Hơn Thời Gian Kết Thúc";
       return false
     }
     return true
