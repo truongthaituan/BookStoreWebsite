@@ -38,10 +38,10 @@ export class AdminEventDetailComponent implements OnInit {
       });
     });
   }
-
+  id = this.route.snapshot.paramMap.get('id');
   ngOnInit() {
     this.resetForm();
-    let id = this.route.snapshot.paramMap.get('id');
+  
 
     $(function () {
       $("#scrollToTopButton").click(function () {
@@ -49,7 +49,7 @@ export class AdminEventDetailComponent implements OnInit {
       });
 
     });
-    this.getPromotionByID(id)
+    this.getPromotionByID(this.id)
 
 
 
@@ -172,6 +172,6 @@ export class AdminEventDetailComponent implements OnInit {
 
 
   gotoUpdate(){
-    return this._router.navigate(["/updateEvent" + `/${eventID}`]);
+    return this._router.navigate(["/updateEvent" + `/${this.id}`]);
   }
 }

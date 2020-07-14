@@ -88,9 +88,6 @@ export class InsertEventComponent implements OnInit {
       if(!form.value.isShow){
         form.value.isShow ="false"
         }
-     
-    if(form.value.listBookIn!=null){  form.value.listBookIn = form.value.listBookIn.split(",")}
-  
     if (!this.validate()) {
       this.alertFalse = true;
       setTimeout(() => { this.alertMessage = ""; this.alertFalse = false }, 4000);

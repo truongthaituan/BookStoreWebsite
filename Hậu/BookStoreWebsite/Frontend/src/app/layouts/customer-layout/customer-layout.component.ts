@@ -11,6 +11,7 @@ import swal from 'sweetalert';
 import { UserService } from 'src/app/app-services/user-service/user.service';
 import { AuthenticateService } from 'src/app/app-services/auth-service/authenticate.service';
 import { BestService } from 'src/app/app-services/best-service/best.service';
+import { SegmentService } from 'src/app/app-services/segment-service/segment.service';
 declare var $: any;
 declare let Winwheel: any
 
@@ -40,14 +41,18 @@ export class CustomerLayoutComponent implements OnInit {
   topCategory = []
   topAuthor = []
   constructor(private _router: Router, private userService: UserService, private authService: AuthenticateService,
+    private segmentService: SegmentService,
     private _pointService: PointService, private _discountCode: DiscountCodeService, private _best: BestService) {
 
   }
   changespinner = "chocolate";
+  segments: any
+  segmentsList = [] 
+  segmentIndex: {}
   ngOnInit() {
     $("#changewhell").css({'float':'right','width':'90px','background-color':this.changespinner});
     $("#color").css({'color':this.changespinner});
-    this.designWheel();
+
     this.getTotalCountAndPrice();
     this.authService.authInfo.subscribe(val => { 
       this.isLoggedIn = val.isLoggedIn;
@@ -56,6 +61,19 @@ export class CustomerLayoutComponent implements OnInit {
       this.accountSocial = JSON.parse(this.authService.getAccount())
     });
     this.getTop10CategoryAndAuthor()
+    this.segmentService.getSegments().subscribe(res =>{
+      this.segments = res as []
+      this.segments.forEach(element => {
+        if(element.isActive) {
+          element.segments.forEach(element => { 
+            this.segmentIndex = { 'fillStyle': element.fillStyle, 'text':  element.text }
+            this.segmentsList.push(this.segmentIndex)
+           
+          });
+        }
+      });
+      this.designWheel();
+    })
   }
 
   getTop10CategoryAndAuthor() {
@@ -102,34 +120,13 @@ export class CustomerLayoutComponent implements OnInit {
     //Thông số vòng quay
     let duration = 5; //Thời gian kết thúc vòng quay
     let spins = 15; //Quay nhanh hay chậm 3, 8, 15
-    let theWheel;
-    
-    if (this.changespinner == "gold") {
-      theWheel = new Winwheel({
-        'numSegments': 12,     // Chia 8 phần bằng nhau
+   console.log(this.segmentsList)
+    let theWheel = new Winwheel({
+        'numSegments': 12,     // Chia 12 phần bằng nhau
         'outerRadius': 212,   // Đặt bán kính vòng quay
         'textFontSize': 18,    // Đặt kích thước chữ
         'rotationAngle': 0,     // Đặt góc vòng quay từ 0 đến 360 độ.
-        'segments':        // Các thành phần bao gồm màu sắc và văn bản.
-          [
-            { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-            { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-            { 'fillStyle': '#55E652', 'text': '+100 điểm' },
-
-            { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-            { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-            { 'fillStyle': '#55E652', 'text': '+100 điểm' },
-
-
-            { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-            { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-            { 'fillStyle': '#FE2EF7', 'text': '+200 điểm' },
-
-            { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-            { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-            { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
-
-          ],
+        'segments': this.segmentsList,    // Các thành phần bao gồm màu sắc và văn bản.
         'animation': {
           'type': 'spinToStop',
           'duration': duration,
@@ -143,85 +140,7 @@ export class CustomerLayoutComponent implements OnInit {
           'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
         }
       });
-    } else
-      if (this.changespinner == "silver") {
-        theWheel = new Winwheel({
-          'numSegments': 12,     // Chia 8 phần bằng nhau
-          'outerRadius': 212,   // Đặt bán kính vòng quay
-          'textFontSize': 18,    // Đặt kích thước chữ
-          'rotationAngle': 0,     // Đặt góc vòng quay từ 0 đến 360 độ.
-          'segments':        // Các thành phần bao gồm màu sắc và văn bản.
-            [
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-              { 'fillStyle': '#55E652', 'text': '+100 điểm' },
-
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-              { 'fillStyle': '#55E652', 'text': '+100 điểm' },
-
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-              { 'fillStyle': '#FE2EF7', 'text': '+200 điểm' },
-
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-              { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
-
-            ],
-          'animation': {
-            'type': 'spinToStop',
-            'duration': duration,
-            'spins': spins,
-            'callbackSound': playSound,     //Hàm gọi âm thanh khi quay
-            'soundTrigger': 'pin',         //Chỉ định chân là để kích hoạt âm thanh
-            'callbackFinished': alertPrize,    //Hàm hiển thị kết quả trúng giải thưởng
-          },
-          'pins':
-          {
-            'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
-          }
-        })
-      } else {
-        theWheel = new Winwheel({
-          'numSegments': 12,     // Chia 8 phần bằng nhau
-          'outerRadius': 212,   // Đặt bán kính vòng quay
-          'textFontSize': 18,    // Đặt kích thước chữ
-          'rotationAngle': 0,     // Đặt góc vòng quay từ 0 đến 360 độ.
-          'segments':        // Các thành phần bao gồm màu sắc và văn bản.
-            [
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-              { 'fillStyle': '#55E652', 'text': '+100 điểm' },
-
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-              { 'fillStyle': '#55E652', 'text': '+100 điểm' },
-
-
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' },
-              { 'fillStyle': '#FE2EF7', 'text': '+200 điểm' },
-
-              { 'fillStyle': '#eae56f', 'text': 'Không có quà' },
-              { 'fillStyle': '#e7706f', 'text': 'Mã giảm giá 10%' },
-              { 'fillStyle': '#89f26e', 'text': 'Mã giảm giá 5%' }
-
-            ],
-          'animation': {
-            'type': 'spinToStop',
-            'duration': duration,
-            'spins': spins,
-            'callbackSound': playSound,     //Hàm gọi âm thanh khi quay
-            'soundTrigger': 'pin',         //Chỉ định chân là để kích hoạt âm thanh
-            'callbackFinished': alertPrize,    //Hàm hiển thị kết quả trúng giải thưởng
-          },
-          'pins':
-          {
-            'number': 32   //Số lượng chân. Chia đều xung quanh vòng quay.
-          }
-        });
-      }
+    
     var addPoint: any
 
     //Kiểm tra vòng quay
@@ -313,15 +232,14 @@ export class CustomerLayoutComponent implements OnInit {
           });
         } else {
           swal("Chúc Mừng Bạn Đã Trúng " + indicatedSegment.text + " Cho Toàn Bộ Đơn Hàng");
-          var res = indicatedSegment.text.split("Mã giảm giá ");
-          var str = res[1].split("%");
-          console.log("Here--->>" + str[0]);
+          var res = indicatedSegment.text.split(" ");
+          var str = res[indicatedSegment.text.split(" ").length - 1];
           $.ajax({
             type: "post",
             url: 'http://localhost:3000/discountCodes',
             data: {
               userID: (JSON.parse(localStorage.getItem('accountSocial')))._id,
-              discountCode: str[0],
+              discountCode: str.slice(0, -1),
               discountDetail: indicatedSegment.text,
               status: 0,
             }
