@@ -30,5 +30,13 @@ export class PromotionService {
   }
  getTop3Promotion(){
    return this._http.get(this.baseURL+"/Top3/3PromotionShow");
- }
+ 
+  }
+  UpdateIsShow(id){
+    console.log(id)
+    return this._http.get(this.baseURL+ "/updateIsShow" +`/${id}`)
+  }
+  getManagerPromotion(){
+    return this._http.get(this.baseURL+"/managerPromotionGet/GetAll");
+  }
 }

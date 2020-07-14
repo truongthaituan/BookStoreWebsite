@@ -23,13 +23,12 @@ import { PromotionService } from 'src/app/app-services/promotion-service/promoti
 })
 export class AdminManageEventComponent implements OnInit {
   statusCRUD: String = ""
-  displayedColumns: string[] = ['imgCategory', 'empty1','nameCategory', 'empty2', 'Details', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['status','empty0','imgPromotion','empty1','headerPromotion','empty2','discount','empty3', 'ifDiscount','empty4','startDate','empty5', 'endDate','empty6', 'isShow','empty7', 'Details', 'Edit', 'Delete'];
   // dataSource: MatTableDataSource<Book>;
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(private _router: Router, private bookService: BookService, private authorService: AuthorService,
-    private seriService: SeriService, private userService: UserService, private categoryService: CategoryService, private promotionService: PromotionService) {
+  constructor(private _router: Router, private promotionService: PromotionService) {
 
   }
   accountSocial = JSON.parse(localStorage.getItem("accountSocial"));
@@ -37,7 +36,7 @@ export class AdminManageEventComponent implements OnInit {
     this.refreshBooksList();
 
     // this.getNameCategory();
-  }
+  } 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -54,13 +53,12 @@ export class AdminManageEventComponent implements OnInit {
     return this._router.navigate(["/updateCategory" + `/${categoryId}`]);
   }
 
-  categories: any
-  listCategory = [];
+  promotions: any
+  listPromotion = [];
   refreshBooksList() {
-    this.categoryService.getCategoryList().subscribe((res) => {
-      this.categories = res;
-      console.log(this.categories)
-      this.dataSource.data = this.categories;
+    this.promotionService.getManagerPromotion().subscribe((res) => {
+      this.promotions = res;
+      this.dataSource.data = this.promotions;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -73,7 +71,7 @@ export class AdminManageEventComponent implements OnInit {
   alertMessage: string = "";
   deleteCategoryById(_id: string) {
     if (confirm('Bạn có muốn xóa thể loại này không ?') == true) {
-      this.categoryService.deleteCategory(_id).subscribe(
+      this.promotionService.deletePromotion(_id).subscribe(
         data => {
           
           this.ngOnInit();
@@ -96,6 +94,12 @@ export class AdminManageEventComponent implements OnInit {
   logout() {
     localStorage.clear();
     window.location.href = "/homePage";
+  }
+
+  ClickUsePromotion(id){
+    this.promotionService.UpdateIsShow(id).subscribe(update=>{
+        this.ngOnInit()
+    })
   }
 
 }

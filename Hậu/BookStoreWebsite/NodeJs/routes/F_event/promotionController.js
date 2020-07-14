@@ -107,7 +107,7 @@ router.get('/Top3/3PromotionShow', function(req, res) {
                     ThreePromotion.push(index)
                 }
             }
-            if (ThreePromotion.length == 3) break
+          
         }
         res.json(ThreePromotion)
     }
@@ -119,4 +119,104 @@ async function getAll() {
     const listPromotion = await promotion.find({})
     return listPromotion
 }
+router.get('/updateIsShow/:id', function(req, res) {
+    async function run()
+    {
+        const promo =await getByID(req.params.id)
+
+        const update = await UpdateIsShow(req.params.id,promo)
+        res.json(update)
+    }
+    run()
+})
+ async function getByID(id)
+ {
+    const promo =  await promotion.findById(id)
+    console.log(promo)
+    if(promo.isShow=="true"){
+        console.log("false")
+            return "false"
+    }
+    console.log("true")
+    return "true"
+ }
+ async function UpdateIsShow(id,check)
+ {
+    const Update = await promotion.findByIdAndUpdate(id, {
+        $set: {
+            isShow: check,
+        }
+    }, {
+        new: true
+    })
+    return Update
+ }
+
+
+
+ //get All manager promotion (check theo day trước sau và hiện tại)
+ router.get('/managerPromotionGet/GetAll', function(req, res) {
+    async function run()
+    {
+        const AllPromot= await getAllPromotionExistToDay()
+        res.json(AllPromot)
+    }
+    run()
+})
+ //get all promotion check by date now
+async function getAllPromotionExistToDay() {
+    try {
+        //get time now
+        var Listmonth = { "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12" }
+        var now = new Date();
+        var nowSplit = now.toString().split(" ") //hiện tại  
+        var nowDate=""
+        nowDate = nowSplit[3] + "-" + Listmonth[nowSplit[1]] + "-" + nowSplit[2] + " " + nowSplit[4].split(":")[0] + ":" + nowSplit[4].split(":")[1] //year,month,day: //year,month,day
+        const AllPromotion = await getAllPromotion()
+ 
+        const ListPromotion=[]
+        for (let APromotion of AllPromotion) {       
+            var IsExist = await CheckExistTime(APromotion["startDate"],APromotion["endDate"],nowDate)
+            if(IsExist==0) {
+                const status = "0"
+                APromotion= {APromotion,status}
+                ListPromotion.push(APromotion)
+            }
+            if(IsExist==1) {
+                const status = "1"
+                APromotion= {APromotion,status}
+                ListPromotion.push(APromotion)
+            }
+            if(IsExist==2) {
+                const status = "2"
+                APromotion= {APromotion,status}
+                ListPromotion.push(APromotion)
+            }
+        }
+        //sort []
+        ListPromotion.sort(function(a, b) {
+            return a.status - b.status;
+        });
+        return (ListPromotion)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    async function getAllPromotion() {
+        const ArrayPromotion = await promotion.find({})
+        return ArrayPromotion
+    }
+    async function CheckExistTime(Start, End, nowCheckDate) {
+        //now = 1 
+        if(Date.parse(Start) <= Date.parse(nowCheckDate)&& Date.parse(End) >= Date.parse(nowCheckDate)) {
+            return 1
+        }
+        //before = 0
+        if(Date.parse(Start) > Date.parse(nowCheckDate)) {
+            return 0
+        }
+        //after = 2
+        return 2
+    }
 module.exports = router;
