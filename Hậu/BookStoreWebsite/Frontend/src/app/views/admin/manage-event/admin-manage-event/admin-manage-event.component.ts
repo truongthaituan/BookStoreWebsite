@@ -13,7 +13,9 @@ import { AuthorService } from 'src/app/app-services/author-service/author.servic
 import { Author } from 'src/app/app-services/author-service/author.model';
 import { SeriService } from 'src/app/app-services/seri-service/seri.service';
 import { Seri } from 'src/app/app-services/seri-service/seri.model';
+import { Promotion } from '../../../../app-services/promotion-service/promotion.model';
 
+import { PromotionService } from 'src/app/app-services/promotion-service/promotion.service';
 @Component({
   selector: 'app-admin-manage-event',
   templateUrl: './admin-manage-event.component.html',
@@ -27,7 +29,7 @@ export class AdminManageEventComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(private _router: Router, private bookService: BookService, private authorService: AuthorService,
-    private seriService: SeriService, private userService: UserService, private categoryService: CategoryService) {
+    private seriService: SeriService, private userService: UserService, private categoryService: CategoryService, private promotionService: PromotionService) {
 
   }
   accountSocial = JSON.parse(localStorage.getItem("accountSocial"));
