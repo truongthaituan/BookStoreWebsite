@@ -30,6 +30,7 @@ export class ManageWheelComponent implements OnInit {
     })
   }
   deleteSegmentById(_id: string) {
+   
     Swal({
       text: "Bạn có chắc muốn xóa vòng quay này không?",
       icon: 'warning',
@@ -74,5 +75,8 @@ export class ManageWheelComponent implements OnInit {
   }
   insertWheel(){
     this._router.navigate(['/insertWheel'])
+  }
+  updateSegmentById(id: String){
+    return this._router.navigate(["/updateWheel" + `/${id}`]);
   }
 }
