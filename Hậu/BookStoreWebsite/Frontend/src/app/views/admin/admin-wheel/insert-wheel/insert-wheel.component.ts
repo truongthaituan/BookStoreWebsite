@@ -243,14 +243,17 @@ export class InsertWheelComponent implements OnInit {
               if (willChange) {
                 //Cập nhật status
                 this.segmentService.updateAllActiveToFalse().subscribe(res=>{
-                  this.Insert(seg)
+                    this.Insert(seg)
                 })
+            
               }
             })
+          }else{
+            this.Insert(seg)
           }
         })
       } else {
-      
+        console.log("123")
         this.Insert(seg)
       }
     } else {

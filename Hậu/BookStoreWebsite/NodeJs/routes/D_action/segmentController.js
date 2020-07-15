@@ -237,8 +237,13 @@ router.get('/getAll/UpdateALL/ActiveFalse',function(req,res){
 })
 //get all
 async function getAll(){
-    const all = await segment.find()
-    return all
+    try {
+        const all = await segment.find()
+        return all
+    } catch (error) {
+        console.log(error)
+    }
+   
 }
 async function updateSeg(id){
     const seg = await segment.findByIdAndUpdate(id, {
