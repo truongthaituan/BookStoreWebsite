@@ -16,10 +16,17 @@ export class SegmentService {
     getSegmentsByID(id: String) {
       return this._http.get(this.baseURL+ '/'+id);
     }
-    postSegment(segment: Segment) {
-        return this._http.post(this.baseURL, segment);
+    postSegment(array:any) {
+        return this._http.post(this.baseURL, array);
     }
     deleteSegment(id: String) {
       return this._http.delete(this.baseURL + '/' +id);
+  }
+  checkActiveExistTrue(){
+    return this._http.get(this.baseURL+"/getAll/FindActive");
+  }
+  //đưa toàn bộ active về false
+  updateAllActiveToFalse(){
+    return this._http.get(this.baseURL+"/getAll/UpdateALL/ActiveFalse");
   }
 }

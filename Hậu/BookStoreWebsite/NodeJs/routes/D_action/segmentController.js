@@ -202,13 +202,53 @@ router.put('/:id', function(req, res) {
         return seg
     }
     //delete
-// router.delete('/:id', function(req, res) {
-//     rating.findByIdAndRemove(req.params.id, function(err, deleterating) {
-//         if (err) {
-//             res.send('err Delete');
-//         } else {
-//             res.json({ message: 'Successfully deleted' });
-//         }
-//     });
-// });
+
+router.get('/getAll/FindActive',function(req,res){
+    segment.find({})
+    .exec(function(err, segments) {
+        if (err) {
+            console.log("err req segments");
+        } else {
+            var check =false
+            for(let index of segments)
+            {
+                if(index["isActive"]==true){
+                    check=true
+                    break
+                }
+            }
+            res.json(check);
+        }
+    });
+})
+
+//update toàn bộ active về false
+router.get('/getAll/UpdateALL/ActiveFalse',function(req,res){
+    async function run()
+    {
+        const AllSeg = await getAll()
+        for(let index of AllSeg)
+        {
+            const update = await updateSeg(index._id)
+        }
+        res.json("UpdateSuccess")
+    }
+    run()
+})
+//get all
+async function getAll(){
+    const all = await segment.find()
+    return all
+}
+async function updateSeg(id){
+    const seg = await segment.findByIdAndUpdate(id, {
+        $set: {
+            isActive: false
+        }
+    }, {
+        new: true
+    })
+    console.log(seg)
+    return seg
+}
 module.exports = router

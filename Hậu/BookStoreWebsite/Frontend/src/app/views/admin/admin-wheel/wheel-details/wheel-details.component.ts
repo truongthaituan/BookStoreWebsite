@@ -40,7 +40,7 @@ export class WheelDetailsComponent implements OnInit {
   segmentItem = {}
   //wheel
   itemWheel=[]
-  arrayWheel=[0,1,2,3,1,0,4,1,0,2,1,5]
+  arrayWheel=[0,1,3,2,1,0,4,1,0,2,1,5]
   getWheelByID(id) {
     this.segmentService.getSegmentsByID(id).subscribe(res => {
       this.segmentService.segment = res as Segment

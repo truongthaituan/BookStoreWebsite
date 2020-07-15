@@ -81,10 +81,10 @@ import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
-import { WheelDetailsComponent } from 'src/app/views/admin/wheel-details/wheel-details.component';
+import { WheelDetailsComponent } from 'src/app/views/admin/admin-wheel/wheel-details/wheel-details.component';
 import { InsertWheelComponent } from 'src/app/views/admin/admin-wheel/insert-wheel/insert-wheel.component';
 import { ManageWheelComponent } from 'src/app/views/admin/admin-wheel/manage-wheel/manage-wheel.component';
-import { UpdateWheelComponent } from 'src/app/views/admin/update-wheel/update-wheel.component';
+import { UpdateWheelComponent } from 'src/app/views/admin/admin-wheel/update-wheel/update-wheel.component';
 @NgModule({
   imports: [
     FileUploadModule,

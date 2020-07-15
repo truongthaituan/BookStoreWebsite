@@ -37,10 +37,10 @@ import { AdminManageEventComponent } from 'src/app/views/admin/manage-event/admi
 import { InsertEventComponent } from 'src/app/views/admin/manage-event/insert-event/insert-event.component';
 import { UpdateEventComponent } from 'src/app/views/admin/manage-event/update-event/update-event.component';
 import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
-import { WheelDetailsComponent } from 'src/app/views/admin/wheel-details/wheel-details.component';
+import { WheelDetailsComponent } from 'src/app/views/admin/admin-wheel/wheel-details/wheel-details.component';
 import { InsertWheelComponent } from 'src/app/views/admin/admin-wheel/insert-wheel/insert-wheel.component';
 import { ManageWheelComponent } from 'src/app/views/admin/admin-wheel/manage-wheel/manage-wheel.component';
-import { UpdateWheelComponent } from 'src/app/views/admin/update-wheel/update-wheel.component';
+import { UpdateWheelComponent } from 'src/app/views/admin/admin-wheel/update-wheel/update-wheel.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
 
