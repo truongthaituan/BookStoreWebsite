@@ -4,6 +4,8 @@ const order = require('../../models/E_payment/order');
 const orderDetail = require('../../models/E_payment/orderDetail');
 const book = require('../../models/A_store/book');
 const customer = require('../../models/B_profile/customer')
+const userAccount = require('../../models/C_permission/user');
+const accountsocials = require('../../models/C_permission/accountsocials');
     //thống kê Danh sách sách mua nhiều
 async function getAllOrder(req, res) {
     try {
@@ -156,7 +158,7 @@ router.post('/TotalPriceOnMonth', function(req, res) {
         // today = today.toString().substring(0, 24);
         const orderArray = await getAllOrder(req, res);
         for (var index in orderArray) {
-            if (orderArray[index].status == 'Done' || (orderArray[index].status == 'New' && orderArray[index].paymentOption == 'Online')) {
+            if (orderArray[index].status == 'Done' || orderArray[index].paymentOption == 'Online') {
                 if (await checkMonth(yearCheck, monthCheck, orderArray[index].orderDate) == true) {
                     totalPriceOnMonth += orderArray[index].totalPrice;
                     const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id)
@@ -168,7 +170,8 @@ router.post('/TotalPriceOnMonth', function(req, res) {
                
             }
         }
-        res.json({totalPriceOnMonth,CountBoodBuy});
+        const CountUser = await getSosialAccountByOrUserAccountID()
+        res.json({totalPriceOnMonth,CountBoodBuy,CountUser});
     }
     run();
 })
@@ -179,7 +182,7 @@ router.get('/TotalPriceOnYear/:year', function(req, res) {
         var CountBoodBuy = 0
         const orderArray = await getAllOrder(req, res);
         for (var index in orderArray) {
-            if (orderArray[index].status == 'Done' || (orderArray[index].status == 'New' && orderArray[index].paymentOption == 'Online')) {
+            if (orderArray[index].status == 'Done' || orderArray[index].paymentOption == 'Online') {
                 if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
                     totalPriceOnYear += orderArray[index].totalPrice
                     const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id)
@@ -190,8 +193,9 @@ router.get('/TotalPriceOnYear/:year', function(req, res) {
                 }
             }
         }
- 
-        res.json({totalPriceOnYear,CountBoodBuy});
+        const CountUser = await getSosialAccountByOrUserAccountID()
+
+        res.json({totalPriceOnYear,CountBoodBuy,CountUser});
     }
     run();
 })
@@ -223,7 +227,7 @@ router.post('/TotalPriceOnEachMonth', function(req, res) {
         for (let i in months) {
             for (var index in orderArray) {
                 const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id, res);
-                if (orderArray[index].status == 'Done') {
+                if (orderArray[index].status == 'Done' ||orderArray[index].paymentOption == 'Online') {
                     if (await checkMonth(yearCheck, months[i], orderArray[index].orderDate) == true) {
                         TotalPriceByEachMonth = await CustomPriceByMonth(TotalPriceByEachMonth, months[i], orderArray[index].totalPrice, orderDetailArray)
                     }
@@ -438,7 +442,7 @@ router.get('/BestUser/:year', function(req, res) {
         var yearCheck = req.params.year
         for (var index in orderArray) {
             if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
-                if (orderArray[index].status == 'Done') {
+                if (orderArray[index].status == 'Done'||orderArray[index].paymentOption == 'Online') {
                     const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
                     arrayUserBuyBest = await BestUser(arrayUserBuyBest, orderArray[index], userInOrder)
                 }
@@ -467,7 +471,7 @@ router.post('/BestUserOnMonth', function(req, res) {
         const orderArray = await getAllOrder(req, res);
         for (var index in orderArray) {
             if (await checkMonth(yearCheck, monthCheck, orderArray[index].orderDate) == true) {
-                if (orderArray[index].status == 'Done') {
+                if (orderArray[index].status == 'Done'||orderArray[index].paymentOption == 'Online') {
                     const userInOrder = await getUserIDByCusID(orderArray[index].customerID, res);
                     arrayUserBuyBest = await BestUser(arrayUserBuyBest, orderArray[index], userInOrder)
                 }
@@ -486,4 +490,19 @@ router.post('/BestUserOnMonth', function(req, res) {
     }
     run();
 })
+
+
+//layas all usser
+async function getSosialAccountByOrUserAccountID() {
+    try {
+
+        const accountUser = await userAccount.find()
+        const accountSosial = await accountsocials.find()
+        const total = parseInt(accountUser.length) + parseInt(accountSosial.length)
+        console.log( total)
+        return total
+    } catch (error) {
+
+    }
+}
 module.exports = router;
