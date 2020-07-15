@@ -207,8 +207,8 @@
 
                         <div class="container" id="ratingList">
                             <h2 class="text-center">KHÁCH HÀNG NHẬN XÉT</h2>
-                            <div class="inner">
-                                <div class="col-sm-3">
+                            <!-- <div class="inner"> -->
+                                <!-- <div class="col-sm-3">
                                     <div class="rating">
                                         <span class="rating-num">4.0/5</span>
                                         <div class="rating-stars">
@@ -222,8 +222,8 @@
                                             ({{countRating}} nhận xét)
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6">
+                                </div> -->
+                                <!-- <div class="col-sm-6">
                                     <div class="histo">
                                         <div class="five histo-rate">
                                             <span class="histo-star">
@@ -275,15 +275,15 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-3" style="margin: 0 auto;">
+                                </div> -->
+                                <!-- <div class="col-sm-3" style="margin: 0 auto;">
                                     <p>Nhận xét về sản phẩm</p>
                                     <button type="submit" class="single_add_to_cart_button button alt" style="border-radius: 10px;">Viết nhận xét của bạn</button>
-                                </div>
-                            </div>
+                                </div> -->
+                            <!-- </div> -->
 
                             <div class="card">
-                                <div class="card-body" *ngFor="let rating of ListRatingAccount">
+                                <div class="card-body" *ngFor="let rating of ListRatingAccount | slice: startPageRatings:paginationLimitRatings;">
                                         <div class="row" >       
                                             <div class="col-md-2">
                                                 <img src="{{rating.imageUrl}}" style="width:96px" class="img img-rounded img-fluid" />
@@ -314,6 +314,14 @@
                                         </div>
                                     
                                 </div>
+                                <h3 style="text-align: center;"><a  *ngIf="paginationLimitRatings <  ListRatingAccount.length" (click)="showMoreRatings()" 
+                                    style="cursor: pointer;font-size: 20px;">
+                                        Xem Thêm...
+                                    </a></h3>
+                                    <h3 style="text-align: center;"><a *ngIf="paginationLimitRatings ==  ListRatingAccount.length" (click)="showLessRatings()" 
+                                style="cursor: pointer;font-size: 20px;">
+                                    Thu Gọn
+                                   </a></h3>
                             </div>
                         </div>
                         <div class="related products">

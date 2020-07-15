@@ -279,7 +279,8 @@ export class BookDetailComponent implements OnInit {
   getListRatingAccount(id:string){
     this.ratingService.getListRatingAccount(id).subscribe((res) => {
       this.ListRatingAccount = res
-      //console.log(res)
+      this.startPageRatings = 0;
+      this.paginationLimitRatings = 3;
     });
   }
   // getAllAccount() {
@@ -399,6 +400,24 @@ export class BookDetailComponent implements OnInit {
     }
     console.log(this.checkedAddBook);
   }
+  
+  paginationLimit: Number;
+
+  startPageRatings: Number;
+  paginationLimitRatings: Number;
+  showMoreItems() {
+    this.paginationLimit = this.ListRatingAccount.length;
+  }
+  showLessItems() {
+    this.paginationLimit = 5;
+  }
+  showMoreRatings() {
+    this.paginationLimitRatings = this.ListRatingAccount.length;
+  }
+  showLessRatings() {
+    this.paginationLimitRatings = 3;
+  }
+
   // số lượng add tối đa chỉ được 10 mỗi quốn sách , tính luôn đã có trong giỏ
   //##2 khi số lượng đã 10 , ko nhấn change input , nhấn add to cart-->fail
   checkGetCountBookDetailEqual10(id) {
