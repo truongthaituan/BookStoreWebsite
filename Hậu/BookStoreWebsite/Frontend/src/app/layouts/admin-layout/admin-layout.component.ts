@@ -186,13 +186,10 @@ export class AdminLayoutComponent implements OnInit {
   moveToUserDetail(userId){
     return this._router.navigate(["/userDetail" + `/${userId}`]);
   }
-  moveToAdminProfile(){
-    this._router.navigate(['/adminProfile']);
-  }
+ 
   moveToDashboard(){
     this._router.navigate(['/dashboard']);
   }
-
     moveToMap(){
     this._router.navigate(['/maps']);
   }

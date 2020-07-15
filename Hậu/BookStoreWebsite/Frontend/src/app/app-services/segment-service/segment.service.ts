@@ -19,4 +19,7 @@ export class SegmentService {
     postSegment(segment: Segment) {
         return this._http.post(this.baseURL, segment);
     }
+    deleteSegment(id: String) {
+      return this._http.delete(this.baseURL + '/' +id);
+  }
 }

@@ -5,18 +5,8 @@ import { UserService } from 'src/app/app-services/user-service/user.service';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Book } from 'src/app/app-services/book-service/book.model';
-import { BookService } from 'src/app/app-services/book-service/book.service';
-import { CategoryService } from 'src/app/app-services/category-service/category.service';
-import { Category } from 'src/app/app-services/category-service/category.model';
-import { AuthorService } from 'src/app/app-services/author-service/author.service';
-import { Author } from 'src/app/app-services/author-service/author.model';
-import { SeriService } from 'src/app/app-services/seri-service/seri.service';
-import { Seri } from 'src/app/app-services/seri-service/seri.model';
-import { Promotion } from '../../../../app-services/promotion-service/promotion.model';
-
+import Swal from 'sweetalert'
 import { PromotionService } from 'src/app/app-services/promotion-service/promotion.service';
-import { identity } from 'rxjs';
 @Component({
   selector: 'app-admin-manage-event',
   templateUrl: './admin-manage-event.component.html',
@@ -39,8 +29,7 @@ export class AdminManageEventComponent implements OnInit {
     // this.getNameCategory();
   } 
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: String) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -71,21 +60,39 @@ export class AdminManageEventComponent implements OnInit {
   alertSuccess: boolean = false;
   alertMessage: string = "";
   deleteCategoryById(_id: string) {
-    if (confirm('Bạn có muốn xóa thể loại này không ?') == true) {
-      this.promotionService.deletePromotion(_id).subscribe(
-        data => {
-          
-          this.ngOnInit();
-          this.alertSuccess = true;
-          this.alertMessage = "Xóa Thông Tin Thể Loại Thành Công!";
-          setTimeout(() => {
-          this.alertSuccess = false;
-            this.alertMessage = "";
-          }, 2000);
-        },
-        error => console.log(error)
-      )
-    }
+    Swal({
+      text: "Bạn có chắc muốn xóa sự kiện này không?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.promotionService.deletePromotion(_id).subscribe(
+            data => {
+              
+              this.ngOnInit();
+              this.alertSuccess = true;
+              this.alertMessage = "Xóa Thông Tin Thể Loại Thành Công!";
+              setTimeout(() => {
+              this.alertSuccess = false;
+                this.alertMessage = "";
+              }, 2000);
+            },
+            error => console.log(error)
+          )
+          Swal({
+            title: "Đã xóa xong!",
+            text: "Sự kiện này đã được xóa.",
+            icon: 'success'
+          });
+        }
+      });
   }
 
   addEvent() {

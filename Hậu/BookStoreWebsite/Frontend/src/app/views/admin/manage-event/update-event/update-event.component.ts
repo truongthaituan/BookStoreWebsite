@@ -11,6 +11,7 @@
   import { SeriService } from '../../../../app-services/seri-service/seri.service';
   import { PromotionService } from 'src/app/app-services/promotion-service/promotion.service';
   declare var $: any;
+  import Swal from 'sweetalert'
   @Component({
     selector: 'app-update-event',
     templateUrl: './update-event.component.html',
@@ -113,7 +114,20 @@
     }
   
     onSubmit(form: NgForm) {
-      form.value._id=this.id
+      Swal({
+        text: "Bạn có chắc muốn cập nhật thông tin sự kiện này không ?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          confirm: {
+            value: "OK",
+            closeModal: true
+          }
+        }
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            form.value._id=this.id
       form.value.startDate = this.DateStart + " " + this.TimeStart
       form.value.endDate = this.DateEnd + " " + this.TimeEnd
       if(!form.value.ifDiscount){
@@ -134,19 +148,20 @@
           this.promotionService.putPromotion(form.value).subscribe(
           data => {
             this.promotion = data as Promotion
-            //update sale on list book
-            // if (data["listBookIn"] != null) {
-            //   this.bookService.updateSalePromotion().subscribe(data2 => {
-            //   })
-            // } 
             this.resetForm()
             this._router.navigate(['/manageEvent']);
-  
-            this.statusInsert = true;
           },
           error => console.log(error)
         );
       }
+            Swal({
+              title: "Đã cập nhật thành công!",
+              text: "Thông tin sự kiện đã được cập nhật.",
+              icon: 'success'
+            });
+          }
+        });
+     
     }
     getLinkImgCategory = "";
     getLinkImg(event: any) {

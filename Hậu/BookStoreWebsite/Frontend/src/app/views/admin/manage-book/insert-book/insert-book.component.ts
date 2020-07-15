@@ -8,6 +8,7 @@ import { Category } from '../../../../app-services/category-service/category.mod
 import { Author } from '../../../../app-services/author-service/author.model';
 import { Seri} from '../../../../app-services/seri-service/seri.model';
 import { SeriService } from '../../../../app-services/seri-service/seri.service';
+import Swal from 'sweetalert'
 declare var $:any;
 @Component({
   selector: 'app-insert-book',
@@ -90,10 +91,20 @@ export class InsertBookComponent implements OnInit {
       this._router.navigate(['/manageBook']);
     }
     onSubmit(form: NgForm) {
-      console.log(form.value)
+      if(form.value.categoryID=="") form.value.categoryID= this.categoryService.categories[0]._id
           this.bookService.postBook(form.value).subscribe(
-            data => {console.log(data);this._router.navigate(['/manageBook']);
-          this.statusInsert = true;
+            data => {
+              Swal({
+                text: "Thêm thông tin sách thành công",
+                icon: 'success',
+                buttons: {
+                  confirm: {
+                    value: "OK",
+                    closeModal: true
+                  }
+                }
+              })  
+              this._router.navigate(['/manageBook']);
         },
             error => console.log(error)
            );

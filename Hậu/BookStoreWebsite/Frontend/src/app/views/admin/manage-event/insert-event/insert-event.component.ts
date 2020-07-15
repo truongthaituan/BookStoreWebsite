@@ -4,12 +4,10 @@ import { Router } from '@angular/router';
 import { BookService } from '../../../../app-services/book-service/book.service';
 import { CategoryService } from '../../../../app-services/category-service/category.service';
 import { AuthorService } from '../../../../app-services/author-service/author.service';
-import { Category } from '../../../../app-services/category-service/category.model';
-import { Author } from '../../../../app-services/author-service/author.model';
-import { Seri } from '../../../../app-services/seri-service/seri.model';
 import { Promotion } from '../../../../app-services/promotion-service/promotion.model';
 import { SeriService } from '../../../../app-services/seri-service/seri.service';
 import { PromotionService } from 'src/app/app-services/promotion-service/promotion.service';
+import Swal from 'sweetalert'
 declare var $: any;
 @Component({
   selector: 'app-insert-event',
@@ -95,16 +93,19 @@ export class InsertEventComponent implements OnInit {
       if(form.value.listBookIn!=null){  form.value.listBookIn = form.value.listBookIn.split(",")}
         this.promotionService.postPromotion(form.value).subscribe(
         data => {
+          Swal({
+            text: "Thêm thông tin sự kiện thành công",
+            icon: 'success',
+            buttons: {
+              confirm: {
+                value: "OK",
+                closeModal: true
+              }
+            }
+          }) 
           this.promotion = data as Promotion
-          //update sale on list book
-          // if (data["listBookIn"] != null) {
-          //   this.bookService.updateSalePromotion().subscribe(data2 => {
-          //   })
-          // } 
           this.resetForm()
-          this._router.navigate(['/manageEvent']);
-
-          this.statusInsert = true;
+          this._router.navigate(['/manageEvent']); 
         },
         error => console.log(error)
       );
@@ -124,11 +125,6 @@ export class InsertEventComponent implements OnInit {
 
   //check validate
   validate() {
-    // ifDiscount: null,
-    // listBookIn: null,
-    // isShow: "",
-    // addList:"",
-
     if (this.promotion.headerPromotion == "") {
       this.alertMessage = "Tiêu Đề Không Được Để Trống";
       return false

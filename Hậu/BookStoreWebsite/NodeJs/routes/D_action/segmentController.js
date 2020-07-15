@@ -122,7 +122,16 @@ async function addSegment(req) {
     return newSegment;
 }
 
-
+ //delete
+ router.delete('/:wheelID', function(req, res) {
+    segment.findByIdAndRemove(req.params.wheelID, function(err, deleterating) {
+        if (err) {
+            res.send('err Delete');
+        } else {
+            res.json('Successfully deleted');
+        }
+    });
+});
 // //update
 // router.put('/:id', function(req, res) {
 //         async function run() {
@@ -132,14 +141,5 @@ async function addSegment(req) {
 //         }
 //         run();
 //     })
-//     //delete
-// router.delete('/:id', function(req, res) {
-//     rating.findByIdAndRemove(req.params.id, function(err, deleterating) {
-//         if (err) {
-//             res.send('err Delete');
-//         } else {
-//             res.json({ message: 'Successfully deleted' });
-//         }
-//     });
-// });
+   
 module.exports = router

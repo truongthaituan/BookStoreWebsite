@@ -13,6 +13,7 @@ import { Author } from '../../../../app-services/author-service/author.model';
 import { SeriService } from 'src/app/app-services/seri-service/seri.service';
 import { Seri } from 'src/app/app-services/seri-service/seri.model';
 import { Location } from '@angular/common';
+import Swal from 'sweetalert'
 declare var $:any;
 @Component({
   selector: 'app-update-category',
@@ -72,22 +73,36 @@ export class UpdateCategoryComponent implements OnInit {
         }
     alertMessage: string = ""
     onSubmit(form: NgForm) {
-        if (confirm('Bạn có muốn cập nhật thể loại này không ?') == true) {
-          // form.value.imgMonAn =  $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
-          let id = this.route.snapshot.paramMap.get('id');
-        form.value._id = id;
-        form.value.quantity=100;
-        this.categoryService.putCategory(form.value).subscribe(
-         data => {console.log(data);
-          this.alertSucess = true;
-          this.alertMessage = "Cập Nhật Thông Tin Thể Loại Thành Công!";
-          setTimeout(() => {  this.alertSucess = false;
-            this.alertMessage = "";this._router.navigate(['/manageCategory']); },2000);
-        },
-         error => console.log(error)
-        );
-      console.log('Your form data: '+  form.value._id)
-    }
+      Swal({
+        text: "Bạn có chắc muốn cập nhật thông tin thể loại này không ?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          confirm: {
+            value: "OK",
+            closeModal: true
+          }
+        }
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            let id = this.route.snapshot.paramMap.get('id');
+            form.value._id = id;
+            form.value.quantity=100;
+            this.categoryService.putCategory(form.value).subscribe(
+             data => {
+              setTimeout(() => {  this.alertSucess = false;
+                this.alertMessage = "";this._router.navigate(['/manageCategory']); },2000);
+            },
+             error => console.log(error)
+            );
+            Swal({
+              title: "Đã cập nhật thành công!",
+              text: "Thông tin thể loại sách đã được cập nhật.",
+              icon: 'success'
+            });
+          }
+        });
     }
     getLinkImgBook="";
     getLinkImg(event : any)

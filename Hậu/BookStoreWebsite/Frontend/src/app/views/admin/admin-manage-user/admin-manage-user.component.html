@@ -26,6 +26,9 @@
                 </div>
                   <div class="card-body" style="font-size: 14px;">
                     <div class="table-responsive">
+                      <mat-form-field style="float: right;width: 100%;">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Tìm kiếm">
+                        </mat-form-field>
                         <div class="mat-elevation-z8">
                             <table mat-table [dataSource]="dataSource" matSort style="width: 100%;" id = "mytable">
 
@@ -33,11 +36,6 @@
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header  style="text-align: center;"> Avatar </th>
                                     <td mat-cell *matCellDef="let row" ><img src="{{ row.imageUrl }}" width="60px"/></td>
                                   </ng-container>
-    
-                              <!-- <ng-container matColumnDef="_id">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> _id </th>
-                                <td mat-cell *matCellDef="let row"> {{row._id}} </td>
-                              </ng-container> -->
 
                               <ng-container matColumnDef="empty1">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>

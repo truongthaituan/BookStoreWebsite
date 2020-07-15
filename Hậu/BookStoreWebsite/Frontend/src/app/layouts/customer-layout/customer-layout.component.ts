@@ -68,7 +68,6 @@ export class CustomerLayoutComponent implements OnInit {
           element.segments.forEach(element => { 
             this.segmentIndex = { 'fillStyle': element.fillStyle, 'text':  element.text }
             this.segmentsList.push(this.segmentIndex)
-           
           });
         }
       });

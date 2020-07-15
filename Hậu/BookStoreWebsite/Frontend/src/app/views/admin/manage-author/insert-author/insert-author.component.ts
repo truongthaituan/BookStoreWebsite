@@ -9,6 +9,7 @@ import { Category } from '../../../../app-services/category-service/category.mod
 import { Author } from '../../../../app-services/author-service/author.model';
 import { Seri} from '../../../../app-services/seri-service/seri.model';
 import { SeriService } from '../../../../app-services/seri-service/seri.service';
+import Swal from 'sweetalert'
 declare var $:any;
 @Component({
   selector: 'app-insert-author',
@@ -66,8 +67,18 @@ export class InsertAuthorComponent implements OnInit {
     onSubmit(form: NgForm) {
       console.log(form.value)
           this.authorService.postAuthor(form.value).subscribe(
-            data => {console.log(data);this._router.navigate(['/manageAuthor']);
-          this.statusInsert = true;
+            data => {
+              Swal({
+                text: "Thêm tác giả thành công",
+                icon: 'success',
+                buttons: {
+                  confirm: {
+                    value: "OK",
+                    closeModal: true
+                  }
+                }
+              })
+              this._router.navigate(['/manageAuthor']);
         },
             error => console.log(error)
            );

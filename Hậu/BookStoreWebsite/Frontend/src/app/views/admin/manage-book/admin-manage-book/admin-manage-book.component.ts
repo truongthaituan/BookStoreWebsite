@@ -14,6 +14,8 @@ import { Author } from 'src/app/app-services/author-service/author.model';
 import { SeriService } from 'src/app/app-services/seri-service/seri.service';
 import { Seri } from 'src/app/app-services/seri-service/seri.model';
 
+import Swal from 'sweetalert';
+
 @Component({
   selector: 'app-admin-manage-book',
   templateUrl: './admin-manage-book.component.html',
@@ -42,8 +44,7 @@ export class AdminManageBookComponent implements OnInit {
 
     });
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: String) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -67,46 +68,44 @@ export class AdminManageBookComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
   }
-  // for (let i = 0; i < this.books.length; i++) {
-  //   this.categoryService.getCategoryById(this.books[i].categoryID).subscribe(category => {
-  //     this.authorService.getAuthorById(this.books[i].authorID).subscribe(author => {
-  //       this.seriService.getSeriById(this.books[i].seriID).subscribe(series => {
-  //         var info = {
-  //           _id: this.books[i]._id, nameBook: this.books[i].nameBook,
-  //           nameCategory: (category as Category).nameCategory, nameAuthor: (author as Author).nameAuthor,
-  //           priceBook: this.books[i].priceBook,
-  //           imgBook: this.books[i].imgBook, nameSeries: (series as Seri).nameSeri, sale: this.books[i].sale
-  //         };
-  //         this.listBook.push(info);
-  //         console.log(this.listBook)
-  //         this.dataSource.data = this.listBook;
-  //         this.dataSource.paginator = this.paginator;
-  //         this.dataSource.sort = this.sort;
-  //       })
-  //     })
-  //   })
-  // }
+
   alertId(data) {
     console.log(data);
   }
   alertSuccess: boolean = false;
   alertMessage: string = "";
   deleteBookById(_id: string) {
-    if (confirm('Bạn có muốn xóa cuốn sách này không ?') == true) {
-      this.bookService.deleteBook(_id).subscribe(
-        data => {
-          console.log(data);
-          this.ngOnInit();
-          this.alertSuccess = true;
-          this.alertMessage = "Xóa Thông Tin Tựa Sách Thành Công!";
-          setTimeout(() => {
-          this.alertSuccess = false;
-            this.alertMessage = "";
-          }, 2000);
-        },
-        error => console.log(error)
-      )
-    }
+    Swal({
+      text: "Bạn có chắc muốn xóa sách này không?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.bookService.deleteBook(_id).subscribe(
+            data => {
+              console.log(data);
+              this.ngOnInit();
+              setTimeout(() => {
+              this.alertSuccess = false;
+                this.alertMessage = "";
+              }, 2000);
+            },
+            error => console.log(error)
+          )
+          Swal({
+            title: "Đã xóa xong!",
+            text: "Sách này đã được xóa.",
+            icon: 'success'
+          });
+        }
+      });
   }
   insertUser() {
     this._router.navigate(['/insertUser']);
