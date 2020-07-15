@@ -41,8 +41,11 @@
                                                 </ng-container>
                                        
                                                 <ng-container matColumnDef="isActive">
-                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Tình Trạng </th>
-                                                    <td mat-cell *matCellDef="let row"> {{row.isActive ? "Đang kích hoạt" : "Chưa kích hoạt"}}</td>
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Kích Hoạt</th>
+                                                    <td mat-cell *matCellDef="let row">
+                                                        <input type="checkbox" *ngIf="row.isActive" checked (click)="checkIsActiveToFalse(row._id)">
+                                                        <input type="checkbox" *ngIf="!row.isActive" (click)="checkIsActiveToTrue(row._id)">
+                                                    </td>
                                                 </ng-container>
                                            
                                                 <ng-container matColumnDef="Details">
@@ -61,7 +64,7 @@
                                                 <ng-container matColumnDef="Delete">
                                                     <th mat-header-cell *matHeaderCellDef> Xóa Vòng Quay </th>
                                                     <td mat-cell *matCellDef="let element" style="text-align: center;">
-                                                         <a mat-raised-button style="color: red;" (click)="deleteSegmentById(element._id)">
+                                                         <a mat-raised-button style="color: red;" (click)="deleteSegmentById(element)">
                                                             <i class="material-icons">delete</i></a> </td>
                                                 </ng-container>
 

@@ -29,8 +29,20 @@ export class ManageWheelComponent implements OnInit {
       this.dataSource.sort = this.sort;
     })
   }
-  deleteSegmentById(_id: string) {
-   
+  deleteSegmentById(seg) {
+   if(seg.isActive){
+    Swal({
+      text: "Phải Có Một Vòng Quay Được Hoạt Động,Nên Hiện Tại Chưa Thể Xóa",
+      icon: 'warning',
+      buttons: {
+      
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+   }else{
     Swal({
       text: "Bạn có chắc muốn xóa vòng quay này không?",
       icon: 'warning',
@@ -44,7 +56,7 @@ export class ManageWheelComponent implements OnInit {
     })
       .then((willDelete) => {
         if (willDelete) {
-          this.segmentService.deleteSegment(_id).subscribe(
+          this.segmentService.deleteSegment(seg._id).subscribe(
             data => {
               if(data == 'Successfully deleted'){
                 Swal({
@@ -64,6 +76,7 @@ export class ManageWheelComponent implements OnInit {
         }
       });
   }
+}
   applyFilter(filterValue: String) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
@@ -78,5 +91,27 @@ export class ManageWheelComponent implements OnInit {
   }
   updateSegmentById(id: String){
     return this._router.navigate(["/updateWheel" + `/${id}`]);
+  }
+  checkIsActiveToFalse(id){
+    Swal({
+      text: "Phải Có Một Vòng Quay Được Hoạt Động",
+      icon: 'warning',
+      buttons: {
+      
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+    this.ngOnInit()
+  }
+// })
+  // }
+  checkIsActiveToTrue(id){
+    console.log(id)
+  this.segmentService.updateAToTrue(id).subscribe(res2=>{
+    this.ngOnInit()
+})
   }
 }

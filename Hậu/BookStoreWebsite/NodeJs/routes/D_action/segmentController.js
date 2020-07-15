@@ -229,7 +229,7 @@ router.get('/getAll/UpdateALL/ActiveFalse',function(req,res){
         const AllSeg = await getAll()
         for(let index of AllSeg)
         {
-            const update = await updateSeg(index._id)
+            const update = await updateSegFalse(index._id)
         }
         res.json("UpdateSuccess")
     }
@@ -245,7 +245,7 @@ async function getAll(){
     }
    
 }
-async function updateSeg(id){
+async function updateSegFalse(id){
     const seg = await segment.findByIdAndUpdate(id, {
         $set: {
             isActive: false
@@ -256,4 +256,39 @@ async function updateSeg(id){
     console.log(seg)
     return seg
 }
+async function updateSegTrue(id){
+    const seg = await segment.findByIdAndUpdate(id, {
+        $set: {
+            isActive: true
+        }
+    }, {
+        new: true
+    })
+    console.log(seg)
+    return seg
+}
+router.get('/getAll/UpdateFalse/:id',function(req,res){
+    async function run()
+    {
+     
+            const update = await updateSegFalse(id)
+
+        res.json("UpdateSuccess")
+    }
+    run()
+})
+router.get('/getAll/UpdateTrue/:id',function(req,res){
+    async function run()
+    {
+        const AllSeg = await getAll()
+        for(let index of AllSeg)
+        {
+            const update = await updateSegFalse(index._id)
+        }
+        const update2 = await updateSegTrue(req.params.id)
+        console.log(update2)
+        res.json("UpdateSuccess2")
+    }
+    run()
+})
 module.exports = router

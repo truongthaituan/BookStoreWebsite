@@ -29,4 +29,10 @@ export class SegmentService {
   updateAllActiveToFalse(){
     return this._http.get(this.baseURL+"/getAll/UpdateALL/ActiveFalse");
   }
+  updateAToTrue(id){
+    return this._http.get(this.baseURL + '/getAll/UpdateTrue/' +id);
+  }
+  updateAToFalse(id){
+    return this._http.get(this.baseURL + '/getAll/UpdateFalse/' +id);
+  }
 }

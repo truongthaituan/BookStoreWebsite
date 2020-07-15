@@ -58,6 +58,7 @@ export class WheelDetailsComponent implements OnInit {
   itemWheel = []
   arrayWheel = [0, 1, 3, 2, 1, 0, 4, 1, 0, 2, 1, 5]
   arrayFillStyle = ["#eae56f", "#809fff", "#4dff4d", "#99ddff", "#ff80ff", "#ffc299"]
+  arrayFillStyle2 = ["#eae56f", "#809fff", "#4dff4d", "#99ddff", "#ff80ff", "#ffc299"]
   segmentsList = []
   segmentItem = {}
   getWheel() {
