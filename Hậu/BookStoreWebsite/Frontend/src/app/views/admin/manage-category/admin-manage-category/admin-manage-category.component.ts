@@ -14,7 +14,7 @@ import { AuthorService } from 'src/app/app-services/author-service/author.servic
 import { Author } from 'src/app/app-services/author-service/author.model';
 import { SeriService } from 'src/app/app-services/seri-service/seri.service';
 import { Seri } from 'src/app/app-services/seri-service/seri.model';
-
+import Swal from 'sweetalert'
 @Component({
   selector: 'app-admin-manage-category',
   templateUrl: './admin-manage-category.component.html',
@@ -38,8 +38,8 @@ export class AdminManageCategoryComponent implements OnInit {
     // this.getNameCategory();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+ 
+  applyFilter(filterValue: String) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -71,21 +71,38 @@ export class AdminManageCategoryComponent implements OnInit {
   alertSuccess: boolean = false;
   alertMessage: string = "";
   deleteCategoryById(_id: string) {
-    if (confirm('Bạn có muốn xóa thể loại này không ?') == true) {
-      this.categoryService.deleteCategory(_id).subscribe(
-        data => {
-          
-          this.ngOnInit();
-          this.alertSuccess = true;
-          this.alertMessage = "Xóa Thông Tin Thể Loại Thành Công!";
-          setTimeout(() => {
-          this.alertSuccess = false;
-            this.alertMessage = "";
-          }, 2000);
-        },
-        error => console.log(error)
-      )
-    }
+    Swal({
+      text: "Bạn có chắc muốn xóa thể loại này không?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.categoryService.deleteCategory(_id).subscribe(
+            data => {
+              
+              this.ngOnInit();
+              setTimeout(() => {
+              this.alertSuccess = false;
+                this.alertMessage = "";
+              }, 2000);
+            },
+            error => console.log(error)
+          )
+          Swal({
+            title: "Đã xóa xong!",
+            text: "Thể loại này đã được xóa.",
+            icon: 'success'
+          });
+        }
+      });
+  
   }
 
   addCategory() {

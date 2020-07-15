@@ -6,10 +6,8 @@ import { Router } from '@angular/router';
 import { BookService } from '../../../../app-services/book-service/book.service';
 import { CategoryService } from '../../../../app-services/category-service/category.service';
 import { AuthorService } from '../../../../app-services/author-service/author.service';
-import { Category } from '../../../../app-services/category-service/category.model';
-import { Author } from '../../../../app-services/author-service/author.model';
-import { Seri} from '../../../../app-services/seri-service/seri.model';
 import { SeriService } from '../../../../app-services/seri-service/seri.service';
+import Swal from 'sweetalert'
 declare var $:any;
 @Component({
   selector: 'app-insert-category',
@@ -65,10 +63,19 @@ export class InsertCategoryComponent implements OnInit {
       this._router.navigate(['/manageCategory']);
     }
     onSubmit(form: NgForm) {
-      console.log(form.value)
           this.categoryService.postCategory(form.value).subscribe(
-            data => {console.log(data);this._router.navigate(['/manageCategory']);
-          this.statusInsert = true;
+            data => {
+              Swal({
+                text: "Thêm thông tin thể loại thành công",
+                icon: 'success',
+                buttons: {
+                  confirm: {
+                    value: "OK",
+                    closeModal: true
+                  }
+                }
+              }) 
+             this._router.navigate(['/manageCategory']);
         },
             error => console.log(error)
            );

@@ -4,6 +4,7 @@ import { UserService } from 'src/app/app-services/user-service/user.service';
 import { User } from 'src/app/app-services/user-service/user.model';
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
+import Swal from 'sweetalert'
 @Component({
   selector: 'app-user-details-edit',
   templateUrl: './user-details-edit.component.html',
@@ -18,8 +19,8 @@ export class UserDetailsEditComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.getUserById(id);
-    }
-  getUserById(id){
+  }
+  getUserById(id) {
     this.userService.getUserById(id).subscribe(res => {
       console.log(res)
       this.userService.selectedUser = res as User;
@@ -43,34 +44,50 @@ export class UserDetailsEditComponent implements OnInit {
   alertSucess: boolean = false
   onSubmit(form: NgForm) {
     let id = this.route.snapshot.paramMap.get('id');
-    if (confirm('Do you want to update your profile ?') == true) {
-      this.userService.getUserById(id).subscribe(res => {
-        this.userService.selectedUser = res as User;
-        this.userService.selectedUser.email = form.value.email;
-        this.userService.selectedUser.username = form.value.username;
-        this.userService.selectedUser.role = form.value.role;
-        this.userService.selectedUser.imageUrl = form.value.imageUrl;
-        this.userService.updateUser(this.userService.selectedUser).subscribe(
-          data => {
-            console.log(data);
-            this.userService.selectedUser = data as User;
-            this.alertSucess = true;
-            // this.alertMessage = "Update Profile Successfully!";
-            setTimeout(() => {  this.location.back(); }, 1000);
-         },
-          error => console.log(error)
-         );
-      })
-   
-     console.log('Your form data: '+  form.value)
+    Swal({
+      text: "Bạn có chắc muốn cập nhật thông tin user này không?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
       }
-    }
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.userService.getUserById(id).subscribe(res => {
+            this.userService.selectedUser = res as User;
+            this.userService.selectedUser.email = form.value.email;
+            this.userService.selectedUser.username = form.value.username;
+            this.userService.selectedUser.role = form.value.role;
+            this.userService.selectedUser.imageUrl = form.value.imageUrl;
+            this.userService.updateUser(this.userService.selectedUser).subscribe(
+              data => {
+                console.log(data);
+                this.userService.selectedUser = data as User;
+                setTimeout(() => { this.location.back(); }, 1000);
+              },
+              error => console.log(error)
+            );
+            Swal({
+              title: "Đã cập nhật thành công!",
+              text: "User này đã được cập nhật thông tin.",
+              icon: 'success'
+            });
 
-    cancel(){
-      this.location.back();    
-    }
-    logout(){
-      localStorage.clear();
-      document.location.href = "/homePage";
-    }
+          });
+        }
+      });
+
+  }
+
+  cancel() {
+    this.location.back();
+  }
+  logout() {
+    localStorage.clear();
+    document.location.href = "/homePage";
+  }
 }

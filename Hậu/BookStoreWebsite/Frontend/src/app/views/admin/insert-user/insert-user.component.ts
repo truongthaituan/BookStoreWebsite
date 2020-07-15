@@ -5,7 +5,7 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/app-services/user-service/user.model';
 import { Location } from '@angular/common';
 import { Response } from 'src/app/app-services/response/response.model';
-
+import Swal from 'sweetalert'
 @Component({
   selector: 'app-insert-user',
   templateUrl: './insert-user.component.html',
@@ -50,10 +50,17 @@ export class InsertUserComponent implements OnInit {
               return;
             }
             else {
-              // console.log(data);
-              this.alertSucess = true;
+              Swal({
+                text: "Thêm người dùng thành công",
+                icon: 'success',
+                buttons: {
+                  confirm: {
+                    value: "OK",
+                    closeModal: true
+                  }
+                }
+              })
               this._router.navigate(['/manageUser']);
-              console.log("Add User Successfully!");
               }
             });
           }

@@ -30,4 +30,7 @@ export class HeaderComponent implements OnInit {
       this.authService.logout();    
       this._router.navigate(['homePage']);
   }
+  moveToAdminProfile(){
+    this._router.navigate(['/adminProfile']);
+  }
 }

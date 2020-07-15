@@ -22,11 +22,14 @@
                                     <h3 class="card-title ">Quản lý sách</h3>
                                     <button type="button" class="btn btn-success" style="float: right;font-size: 13px;" (click)="addBook();">Thêm Sách&nbsp;&nbsp;&nbsp;<span  style="float: right;"><i class="fa fa-plus"></i></span></button>
                                     <!-- <a ><span><i class="fa fa-plus"></i></span></a>  -->
-                                    <p *ngIf="alertSuccess" style="color: yellow;font-size: 18px;text-align: center;">{{alertMessage}}</p>
+                                    <!-- <p *ngIf="alertSuccess" style="color: yellow;font-size: 18px;text-align: center;">{{alertMessage}}</p> -->
 
                                 </div>
                                 <div class="card-body" style="font-size: 14px;">
                                     <div class="table-responsive">
+                                        <mat-form-field style="float: right;width: 100%;">
+                                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Tìm kiếm">
+                                        </mat-form-field>
                                         <div class="mat-elevation-z8">
                                             <table mat-table [dataSource]="dataSource" matSort style="width: 100%;" id="mytable">
                                                 <ng-container matColumnDef="empty0">
@@ -86,16 +89,8 @@
 
                                             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]">
                                             </mat-paginator>
-
                                         </div>
-
-
                                     </div>
-                                    <!-- <button mat-mini-fab style=" border: 2px solid #4CAF50;">5</button>
-                    <button mat-mini-fab style=" border: 2px solid #4CAF50;">10</button>
-                    <button mat-mini-fab style=" border: 2px solid #4CAF50;">25</button>
-                    <button mat-mini-fab style=" border: 2px solid #4CAF50;">100</button> -->
-
                                 </div>
                             </div>
                         </div>

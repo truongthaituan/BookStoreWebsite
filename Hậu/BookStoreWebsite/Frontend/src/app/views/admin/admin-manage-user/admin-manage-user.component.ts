@@ -5,14 +5,7 @@ import { UserService } from 'src/app/app-services/user-service/user.service';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Book } from 'src/app/app-services/book-service/book.model';
-import { BookService } from 'src/app/app-services/book-service/book.service';
-import { CategoryService } from 'src/app/app-services/category-service/category.service';
-import { Category } from 'src/app/app-services/category-service/category.model';
-import { AuthorService } from 'src/app/app-services/author-service/author.service';
-import { Author } from 'src/app/app-services/author-service/author.model';
-import { SeriService } from 'src/app/app-services/seri-service/seri.service';
-import { Seri } from 'src/app/app-services/seri-service/seri.model';
+import Swal from 'sweetalert';
 
 @Component({
   selector: 'app-admin-manage-user',
@@ -32,12 +25,9 @@ export class AdminManageUserComponent implements OnInit {
   accountSocial = JSON.parse(localStorage.getItem("accountSocial"));
   ngOnInit() {
     this.refreshUserList();
-
-    // this.getNameCategory();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: String) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -67,21 +57,32 @@ export class AdminManageUserComponent implements OnInit {
   alertSuccess: boolean = false;
   alertMessage: string = "";
   deleteUserById(_id: string) {
-    if (confirm('Bạn có muốn xóa khách hàng này không ?') == true) {
-      this.userService.deleteUser(_id).subscribe(
-        data => {
-          console.log(data);
-          this.ngOnInit();
-          this.alertSuccess = true;
-          this.alertMessage = "Xóa Thông Tin Người Dùng Thành Công!";
-          setTimeout(() => {
-          this.alertSuccess = false;
-            this.alertMessage = "";
-          }, 2000);
-        },
-        error => console.log(error)
-      )
-    }
+    Swal({
+      text: "Bạn có chắc muốn xóa người dùng này không?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.userService.deleteUser(_id).subscribe(
+            data => {
+              this.ngOnInit();
+            },
+            error => console.log(error)
+          )
+          Swal({
+            title: "Đã xóa xong!",
+            text: "Người dùng này đã được xóa.",
+            icon: 'success'
+          });
+        }
+      });
   }
   insertUser() {
     this._router.navigate(['/insertUser']);

@@ -14,7 +14,7 @@ import { AuthorService } from 'src/app/app-services/author-service/author.servic
 import { Author } from 'src/app/app-services/author-service/author.model';
 import { SeriService } from 'src/app/app-services/seri-service/seri.service';
 import { Seri } from 'src/app/app-services/seri-service/seri.model';
-
+import Swal from 'sweetalert'
 @Component({
   selector: 'app-admin-manage-author',
   templateUrl: './admin-manage-author.component.html',
@@ -38,8 +38,7 @@ export class AdminManageAuthorComponent implements OnInit {
     // this.getNameCategory();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: String) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -71,21 +70,38 @@ export class AdminManageAuthorComponent implements OnInit {
   alertSuccess: boolean = false;
   alertMessage: string = "";
   deleteAuthorById(_id: string) {
-    if (confirm('Bạn có muốn xóa tác giả này không ?') == true) {
-      this.authorService.deleteAuthor(_id).subscribe(
-        data => {
-          
-          this.ngOnInit();
-          this.alertSuccess = true;
-          this.alertMessage = "Xóa Thông Tin Tác Giả Thành Công!";
-          setTimeout(() => {
-          this.alertSuccess = false;
-            this.alertMessage = "";
-          }, 2000);
-        },
-        error => console.log(error)
-      )
-    }
+    Swal({
+      text: "Bạn có chắc muốn xóa tác giả này không?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.authorService.deleteAuthor(_id).subscribe(
+            data => {
+              
+              this.ngOnInit();
+              setTimeout(() => {
+              this.alertSuccess = false;
+                this.alertMessage = "";
+              }, 2000);
+            },
+            error => console.log(error)
+          )
+          Swal({
+            title: "Đã xóa xong!",
+            text: "Tác giả này đã được xóa.",
+            icon: 'success'
+          });
+        }
+      });
+   
   }
 
   addAuthor() {

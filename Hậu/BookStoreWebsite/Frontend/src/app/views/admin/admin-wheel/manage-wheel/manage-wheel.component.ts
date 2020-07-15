@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SegmentService } from 'src/app/app-services/segment-service/segment.service';
-import { User } from 'src/app/app-services/user-service/user.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from 'src/app/app-services/user-service/user.service';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-
+import Swal from 'sweetalert'
 @Component({
   selector: 'app-manage-wheel',
   templateUrl: './manage-wheel.component.html',
@@ -31,7 +29,50 @@ export class ManageWheelComponent implements OnInit {
       this.dataSource.sort = this.sort;
     })
   }
+  deleteSegmentById(_id: string) {
+    Swal({
+      text: "Bạn có chắc muốn xóa vòng quay này không?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          value: "OK",
+          closeModal: true
+        }
+      }
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.segmentService.deleteSegment(_id).subscribe(
+            data => {
+              if(data == 'Successfully deleted'){
+                Swal({
+                  title: "Đã xóa xong!",
+                  text: "Vòng quay này đã được xóa.",
+                  icon: 'success'
+                });
+                this.ngOnInit();
+              }else{
+                Swal({
+                  title: "Có lỗi",
+                  text: "Vòng quay này không thể xóa.",
+                  icon: 'error'
+                });
+              }
+            })
+        }
+      });
+  }
+  applyFilter(filterValue: String) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   getSegmentByID(id: String) {
     return this._router.navigate(["/wheelDetails" + `/${id}`]);
+  }
+  insertWheel(){
+    this._router.navigate(['/insertWheel'])
   }
 }
