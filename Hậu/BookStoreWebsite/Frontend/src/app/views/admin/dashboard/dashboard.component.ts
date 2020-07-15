@@ -73,7 +73,8 @@ export class DashboardComponent implements OnInit {
  
   
     this.statisticService.TotalPriceOnYear(2016).subscribe(total => {
-      this.totalYear = total
+      this.totalYear = total["totalPriceOnYear"]
+      this.countBookBuy = total["CountBoodBuy"]
     }) 
     this.statisticService.BestUserOnYear(2016).subscribe(total => {
       this.bestUser = total
@@ -113,6 +114,7 @@ export class DashboardComponent implements OnInit {
   }
 
   totalYear: any = 0.0
+  countBookBuy : any =0
   bestUser: any
   bestUserShow: any
   bestUserName : any
@@ -157,7 +159,9 @@ export class DashboardComponent implements OnInit {
   if(this.selectedMonth==null||this.clickMonth==false){
     console.log("vào chỉ có năm")
     this.statisticService.TotalPriceOnYear(this.selectedYear).subscribe(total => {
-      this.totalYear = total
+      console.log(total)
+      this.totalYear = total["totalPriceOnYear"]
+      this.countBookBuy = total["CountBoodBuy"]
     })
     this.statisticService.BestUserOnYear(this.selectedYear).subscribe(total => {
       this.bestUser = total
@@ -186,7 +190,8 @@ if(this.selectedMonth!=null && this.clickMonth==true){
     //TotalMonth include yearCheck and monthCheck
     this.statisticService.TotalPriceOnMonth(this.totalMonth).subscribe(total => {
   
-      this.totalYear = total
+      this.totalYear = total["totalPriceOnMonth"]
+      this.countBookBuy = total["CountBoodBuy"]
     })
     this.statisticService.BestUserOnMonth(this.totalMonth).subscribe(total => {
       this.bestUser = total

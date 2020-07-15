@@ -124,15 +124,75 @@ async function addSegment(req) {
 
 
 // //update
-// router.put('/:id', function(req, res) {
-//         async function run() {
-//             const update = await putRate(req.params.id, req, res)
+router.put('/:id', function(req, res) {
+        async function run() {
+            const update = await UpdateByID(req.params.id)
 
-//             res.json(update);
-//         }
-//         run();
-//     })
-//     //delete
+            res.json(update);
+        }
+        run();
+    })
+    async function UpdateByID(id){
+        const seg = await segment.findByIdAndUpdate(id, {
+            $set: {
+                segments:  [
+                    {
+                        "fillStyle": "#99ddff",
+                        "text": req.body.option3
+                    },
+                    {
+                        "fillStyle": "#eae56f",
+                        "text": req.body.option0
+                    },
+                    {
+                        "fillStyle": "#4dff4d",
+                        "text": req.body.option2
+                    },
+                    {
+                        "fillStyle": "#ff80ff",
+                        "text": req.body.option4
+                    },
+                    {
+                        "fillStyle": "#eae56f",
+                        "text": req.body.option0
+                    },
+                    {
+                        "fillStyle": "#99ddff",
+                        "text": req.body.option3
+                    },
+                    {
+                        "fillStyle": "#809fff",
+                        "text": req.body.option1
+                    },
+                    {
+                        "fillStyle": "#eae56f",
+                        "text": req.body.option0
+                    },
+                    {
+                        "fillStyle": "#99ddff",
+                        "text": req.body.option3
+                    },
+                    {
+                        "fillStyle": "#4dff4d",
+                        "text": req.body.option2
+                    },
+                    {
+                        "fillStyle": "#eae56f",
+                        "text": req.body.option0
+                    },
+                    {
+                        "fillStyle": "#ffc299",
+                        "text": req.body.option5
+                    },
+                ]
+            }
+        }, {
+            new: true
+        })
+        
+        return seg
+    }
+    //delete
 // router.delete('/:id', function(req, res) {
 //     rating.findByIdAndRemove(req.params.id, function(err, deleterating) {
 //         if (err) {

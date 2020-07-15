@@ -32,7 +32,7 @@
                             <div class="input-field col s12"style="padding: 0px;">
                                 <label>Tên Vòng Quay</label>
                                 <input class="form-control" type="text" name="nameBook" 
-                                value="{{segmentService.segment.nameWheel}}" disabled>
+                                value="{{segmentService.segment.nameWheel}}" >
 
                             </div>
                         </div>
@@ -42,14 +42,14 @@
                                 <label>FillStyle</label>&nbsp;
                                 <div class="id_100">
                                     <input class="form-control" type="text" 
-                                     value="{{segment.fillStyle}}" disabled>
+                                     value="{{segment.fillStyle}}" >
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <label>Text</label>&nbsp;
                                 <div class="id_100" id="scrollable">
-                                    <input class="form-control" type="text" value="{{segment.text}}" disabled>
+                                    <input class="form-control" type="text" value="{{segment.text}}" >
 
                                 </div>
                             </div>
@@ -59,14 +59,14 @@
                             <div class="input-field col s12"style="padding: 0px;">
                                 <label>Kích Hoạt</label>
                                 <input class="form-control" type="text" name="nameBook" 
-                                value="{{segmentService.segment.isActive ? 'Đang Kích Hoạt' : 'Chưa Kích Hoạt' }}" disabled>
+                                value="{{segmentService.segment.isActive ? 'Đang Kích Hoạt' : 'Chưa Kích Hoạt' }}" >
 
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="col-sm-6">
-                                <button class="btn btn-primary" (click) = "updateWheel();"
+                                <button class="btn btn-primary" (click) = "updateBookById(bookService.selectedBook._id);"
                                 style="border-radius: 30px ; width: 100%;height: 50px;font-size: 13px;">Cập Nhật Thông Tin Sách</button>
                                
                             </div>

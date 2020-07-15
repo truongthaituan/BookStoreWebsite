@@ -56,16 +56,16 @@
       this.promotionService.getPromotionById(id).subscribe(promo =>{
         this.promotion = promo as Promotion
         //map show time
-        this.mindateStart= this.promotion['startDate'].split(" ")[0]
-        this.mindateEnd=this.promotion['endDate'].split(" ")[0]
+        this.valueStart= this.promotion['startDate'].split(" ")[0]
+        this.valueEnd=this.promotion['endDate'].split(" ")[0]
         this.minTimeStart= this.promotion['startDate'].split(" ")[1]
         this.minTimeEnd=this.promotion['endDate'].split(" ")[1]
         this.getLinkImgCategory= this.promotion['imgPromotion']
         //map check time
         this.TimeStart = this.minTimeStart
         this.TimeEnd = this.minTimeEnd
-        this.DateStart = this.mindateStart
-        this.DateEnd = this.mindateEnd
+        this.DateStart = this.valueStart
+        this.DateEnd = this.valueEnd
         if(   this.promotion.isShow=="false"){
           this.promotion.isShow=false
         }else{
@@ -246,6 +246,8 @@
     mindateEnd: any
     minTimeStart: any
     minTimeEnd: any
+    valueStart:any
+    valueEnd:any
     Listmonth = { "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12" }
     getMinDateTime() {
       var now = new Date();

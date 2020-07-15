@@ -5,11 +5,11 @@ import { Segment } from 'src/app/app-services/segment-service/segment.model';
 declare var $: any;
 declare let Winwheel: any
 @Component({
-  selector: 'app-wheel-details',
-  templateUrl: './wheel-details.component.html',
-  styleUrls: ['./wheel-details.component.css']
+  selector: 'app-update-wheel',
+  templateUrl: './update-wheel.component.html',
+  styleUrls: ['./update-wheel.component.css']
 })
-export class WheelDetailsComponent implements OnInit {
+export class UpdateWheelComponent implements OnInit {
 
   constructor(private _router: Router, private route: ActivatedRoute, private segmentService: SegmentService) { }
   segments: any
@@ -17,7 +17,7 @@ export class WheelDetailsComponent implements OnInit {
   segmentIndex: {}
   id = this.route.snapshot.paramMap.get('id');
   ngOnInit() {
-  
+   
     this.getWheelByID(this.id)
   }
   designWheel() {

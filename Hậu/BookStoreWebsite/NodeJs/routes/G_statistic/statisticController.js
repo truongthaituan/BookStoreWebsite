@@ -152,17 +152,46 @@ router.post('/TotalPriceOnMonth', function(req, res) {
         var totalPriceOnMonth = 0.0
         var yearCheck = req.body.yearCheck
         var monthCheck = req.body.monthCheck
-
+        var CountBoodBuy = 0
         // today = today.toString().substring(0, 24);
         const orderArray = await getAllOrder(req, res);
         for (var index in orderArray) {
             if (orderArray[index].status == 'Done' || (orderArray[index].status == 'New' && orderArray[index].paymentOption == 'Online')) {
                 if (await checkMonth(yearCheck, monthCheck, orderArray[index].orderDate) == true) {
                     totalPriceOnMonth += orderArray[index].totalPrice;
+                    const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id)
+                    for(let aOrderArray of orderDetailArray)
+                    {
+                        CountBoodBuy += aOrderArray["count"]
+                    }
+                }
+               
+            }
+        }
+        res.json({totalPriceOnMonth,CountBoodBuy});
+    }
+    run();
+})
+router.get('/TotalPriceOnYear/:year', function(req, res) {
+    async function run() {
+        var totalPriceOnYear = 0.0
+        var yearCheck = req.params.year
+        var CountBoodBuy = 0
+        const orderArray = await getAllOrder(req, res);
+        for (var index in orderArray) {
+            if (orderArray[index].status == 'Done' || (orderArray[index].status == 'New' && orderArray[index].paymentOption == 'Online')) {
+                if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
+                    totalPriceOnYear += orderArray[index].totalPrice
+                    const orderDetailArray = await getOrderDetailByOrderID(orderArray[index]._id)
+                    for(let aOrderArray of orderDetailArray)
+                    {
+                        CountBoodBuy += aOrderArray["count"]
+                    }
                 }
             }
         }
-        res.json(totalPriceOnMonth);
+ 
+        res.json({totalPriceOnYear,CountBoodBuy});
     }
     run();
 })
@@ -207,22 +236,7 @@ router.post('/TotalPriceOnEachMonth', function(req, res) {
 })
 
 
-router.get('/TotalPriceOnYear/:year', function(req, res) {
-    async function run() {
-        var totalPriceOnYear = 0.0
-        var yearCheck = req.params.year
-        const orderArray = await getAllOrder(req, res);
-        for (var index in orderArray) {
-            if (orderArray[index].status == 'Done') {
-                if (await checkYear(yearCheck, orderArray[index].orderDate) == true) {
-                    totalPriceOnYear += orderArray[index].totalPrice
-                }
-            }
-        }
-        res.json(totalPriceOnYear);
-    }
-    run();
-})
+
 
 router.get('/BuyTheMost', function(req, res) {
     async function run() {

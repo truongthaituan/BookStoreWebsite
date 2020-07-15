@@ -39,7 +39,7 @@ import { UpdateEventComponent } from 'src/app/views/admin/manage-event/update-ev
 import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
 import { ManageWheelComponent } from 'src/app/views/admin/manage-wheel/manage-wheel.component';
 import { WheelDetailsComponent } from 'src/app/views/admin/wheel-details/wheel-details.component';
-
+import { UpdateWheelComponent } from 'src/app/views/admin/update-wheel/update-wheel.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
 
@@ -50,6 +50,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps', component: MapsComponent },
     { path: 'manageWheel',component: ManageWheelComponent},
     { path: 'wheelDetails/:id',component: WheelDetailsComponent},
+    { path: 'updateWheel/:id',component: UpdateWheelComponent},
     { path: 'manageUser', component: AdminManageUserComponent },
     { path: 'userDetail/:id', component: UserDetailsComponent },
     { path: 'userDetailEdit/:id', component: UserDetailsEditComponent },

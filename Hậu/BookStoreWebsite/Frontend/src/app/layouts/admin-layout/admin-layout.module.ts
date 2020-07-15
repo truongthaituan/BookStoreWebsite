@@ -83,6 +83,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ManagePageComponent } from 'src/app/views/admin/manage-page/manage-page.component';
 import { ManageWheelComponent } from 'src/app/views/admin/manage-wheel/manage-wheel.component';
 import { WheelDetailsComponent } from 'src/app/views/admin/wheel-details/wheel-details.component';
+import { UpdateWheelComponent } from 'src/app/views/admin/update-wheel/update-wheel.component';
 @NgModule({
   imports: [
     FileUploadModule,
@@ -169,7 +170,8 @@ import { WheelDetailsComponent } from 'src/app/views/admin/wheel-details/wheel-d
     ManageOrderComponent,
     FooterComponent,
     HeaderComponent,
-    WheelDetailsComponent
+    WheelDetailsComponent,
+    UpdateWheelComponent
   ]
 })
 

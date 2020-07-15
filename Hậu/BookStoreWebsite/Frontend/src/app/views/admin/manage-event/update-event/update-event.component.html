@@ -127,7 +127,7 @@
                                             </div>
                                             <div class="col-sm-7">
 
-                                                <input class="form-control" type="date" id="dateStart" name="trip-start" value="{{mindateStart}}" min="{{mindateStart}}" (input)="dateStart($event)">
+                                                <input class="form-control" type="date" id="dateStart" name="trip-start" value="{{valueStart}}" min="{{mindateStart}}" (input)="dateStart($event)">
                                             </div>
 
                                             <div class="col-sm-12">
@@ -139,7 +139,7 @@
                                             </div>
                                             <div class="col-sm-7">
 
-                                                <input class="form-control" type="date" id="dateEnd" name="trip-start" min="{{mindateEnd}}" value="{{mindateEnd}}" (input)="dateEnd($event)">
+                                                <input class="form-control" type="date" id="dateEnd" name="trip-start" min="{{mindateEnd}}" value="{{valueEnd}}" (input)="dateEnd($event)">
                                             </div>
                                             <div class="col-sm-12" style="margin-top:10px">
                                                 <input *ngIf="!promotion.addList" style="padding:10px;" type="checkbox" class="form-check-input" id="exampleCheck1" name="isShow" #name="ngModel" [(ngModel)]="promotion.isShow">
